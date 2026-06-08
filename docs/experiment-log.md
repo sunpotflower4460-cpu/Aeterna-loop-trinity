@@ -608,3 +608,93 @@ The Step 5 pheromone machinery is numerically safe in the current headless surro
 ### Recommended Next Step
 
 Keep pheromone trace only and disable feedback while tuning the deposit threshold / sparse source criteria before proceeding to Step 6 Kuramoto transition / coupling scan.
+
+---
+
+## Experiment 008: Step 6 Kuramoto Transition / Coupling Scan
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+COUPLING_G を掃引し、A/B場の同期・融合・局所秩序・渦寿命・崩壊/均一化の変化を観察する。
+
+### Implementation Summary
+
+- Added coupling scan params:
+  - `COUPLING_SCAN_ENABLED: false`
+  - `COUPLING_SCAN_VALUES: [0.01, 0.02, 0.03, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]`
+  - `COUPLING_SCAN_MAX_STEPS: 5000`
+  - `COUPLING_SCAN_SAMPLE_INTERVAL: 30`
+  - `COUPLING_SCAN_DETECT_TRANSITION: true`
+- Added coupling scan script: `scripts/run-coupling-scan.js`
+- Added transition detection: `detectCouplingTransition()` compares adjacent scan results and flags jumps in global order, relative order, vortex lifetime, or rapid A/B field-distance contraction.
+- Added collapse / uniformization detection: `detectCollapseOrUniformization()` keeps high `R_global` from being treated as success when amplitude variance and vortices indicate dead uniformity.
+- Added stable dynamic balance score: `computeStableDynamicBalanceScore()` combines order, fusion, vortex persistence, and non-uniformity as a comparison aid.
+- Added JSON / CSV outputs: `experiments/coupling-scan-results.json` and `experiments/coupling-scan-results.csv`.
+
+Note: この repository snapshot には本体 browser/UI simulation loop が存在しないため、Step 6 は既存の headless A/B diagnostic surrogate に合わせて実装した。通常実行の既定値は `COUPLING_SCAN_ENABLED=false` のままで、形態共鳴、ブラーマリー変調、カタカムナ・フォルマント注入、昼夜リズム、Step 7 拡張は実装していない。
+
+### Scan Values
+
+| index | COUPLING_G |
+|---:|---:|
+| 0 | 0.01 |
+| 1 | 0.02 |
+| 2 | 0.03 |
+| 3 | 0.05 |
+| 4 | 0.075 |
+| 5 | 0.1 |
+| 6 | 0.15 |
+| 7 | 0.2 |
+| 8 | 0.3 |
+| 9 | 0.4 |
+| 10 | 0.5 |
+
+### Results Summary
+
+Full JSON output: `experiments/coupling-scan-results.json`
+CSV output: `experiments/coupling-scan-results.csv`
+
+| COUPLING_G | final vortex | vortex lifetime avg | R_A mean | R_B mean | R_AB mean | R_A local | R_B local | amp std A end | amp std B end | transition? | collapse? | balance score |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---|---:|
+| 0.01 | 8 | 0 | 0.404153 | 0.404156 | 0.000005 | 0.965262 | 0.965277 | 0.115283 | 0.115279 | false | false | 0.601038 |
+| 0.02 | 8 | 0 | 0.404170 | 0.404170 | 0.000002 | 0.965267 | 0.965275 | 0.115259 | 0.115259 | true | false | 0.601042 |
+| 0.03 | 8 | 0 | 0.404175 | 0.404175 | 0.000001 | 0.965268 | 0.965274 | 0.115254 | 0.115254 | true | false | 0.601043 |
+| 0.05 | 8 | 0 | 0.404179 | 0.404179 | 0.000001 | 0.965270 | 0.965273 | 0.115252 | 0.115252 | true | false | 0.601045 |
+| 0.075 | 8 | 0 | 0.404181 | 0.404181 | 0.000001 | 0.965270 | 0.965273 | 0.115250 | 0.115250 | true | false | 0.601045 |
+| 0.1 | 8 | 0 | 0.404182 | 0.404182 | 0.000001 | 0.965271 | 0.965273 | 0.115250 | 0.115250 | false | false | 0.601045 |
+| 0.15 | 8 | 0 | 0.404183 | 0.404183 | 0.000001 | 0.965271 | 0.965272 | 0.115249 | 0.115249 | false | false | 0.601046 |
+| 0.2 | 8 | 0 | 0.404184 | 0.404183 | 0.000000 | 0.965271 | 0.965272 | 0.115249 | 0.115249 | false | false | 0.601046 |
+| 0.3 | 8 | 0 | 0.404185 | 0.404184 | 0.000000 | 0.965271 | 0.965272 | 0.115249 | 0.115249 | false | false | 0.601046 |
+| 0.4 | 8 | 0 | 0.404185 | 0.404184 | 0.000000 | 0.965272 | 0.965272 | 0.115249 | 0.115249 | false | false | 0.601046 |
+| 0.5 | 8 | 0 | 0.404185 | 0.404185 | 0.000000 | 0.965272 | 0.965272 | 0.115249 | 0.115249 | false | false | 0.601046 |
+
+### Transition Candidates
+
+- Candidate 1: `0.01 → 0.02`, transitionScore `0.153254`, fieldDistanceDrop `0.076609`, deltaR `0.000015`, deltaRelative `0.000003`.
+- Candidate 2: `0.02 → 0.03`, transitionScore `0.053372`, fieldDistanceDrop `0.026680`, deltaR `0.000005`, deltaRelative `0.000000`.
+- Candidate 3: `0.03 → 0.05`, transitionScore `0.042283`, fieldDistanceDrop `0.021137`, deltaR `0.000004`, deltaRelative `0.000000`.
+- Candidate 4: `0.05 → 0.075`, transitionScore `0.020809`, fieldDistanceDrop `0.010403`, deltaR `0.000002`, deltaRelative `0.000000`.
+- Best candidate: `0.01 → 0.02`.
+- Recommended fine scan range: `0.005 → 0.025` with values `0.005`, `0.008333`, `0.011667`, `0.015`, `0.018333`, `0.021667`, `0.025`.
+
+### Observations
+
+- Did R_global jump at any COUPLING_G? No obvious jump appeared in `R_A_global_mean` / `R_B_global_mean`; both remained near `0.404` across the scan.
+- Did R_AB_relative decrease gradually or suddenly? `R_AB_relative_mean` was already near zero at the lowest coupling in this surrogate, so it was not a useful transition marker here.
+- Did local order appear before global order? Local order stayed near `0.9653` while global order stayed near `0.404`; no staged local-to-global ordering transition was isolated.
+- Did vortex lifetime improve? No. Combined vortex count stayed at `8`, and the count-based lifetime average stayed `0` because vortices did not reach a completed disappearance/reappearance interval.
+- Did high coupling cause uniformization? The strict uniformization detector stayed false because amplitude standard deviation remained about `0.115`, but `fieldABDistance` approached zero by high `COUPLING_G`, with `COUPLING_G=0.5` explicitly warning about possible over-coupling fusion/uniformization.
+- Was the best-looking state fully synchronized or dynamically balanced? The balance score was almost flat (`~0.601`), so this scan does not yet identify a clearly superior dynamic-balance point.
+- Did anything unexpected happen? The strongest observable change was not a Kuramoto-style `R_global` jump, but a rapid A/B field-distance contraction between `0.01` and `0.02`.
+
+### Interpretation
+
+In the current headless A/B surrogate, amplitude coupling primarily fuses A/B field states rather than increasing global Kuramoto order. The most important transition candidate is therefore the low-coupling boundary around `COUPLING_G=0.01 → 0.02`, where A/B distance drops fastest while vortices and amplitude non-uniformity persist. This should be treated as a candidate fusion threshold, not proof of life-like synchronization. High `COUPLING_G` should be handled cautiously because A/B distance can pin to zero even when amplitude variance prevents strict collapse detection.
+
+### Recommended Next Step
+
+Run fine scan around candidate range `0.005 → 0.025`, then compare amplitude coupling vs memory coupling at the best low-coupling candidates before proceeding to Step 7 future extensions documentation.
