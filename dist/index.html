@@ -1,4 +1,59 @@
-# Aeterna-loop-trinity
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aeterna-loop-trinity</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #07111f;
+      color: #e6f4ff;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #104b5f 0, transparent 36rem), #07111f;
+    }
+
+    main {
+      box-sizing: border-box;
+      margin: 0 auto;
+      max-width: 72rem;
+      padding: 4rem 1.5rem;
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1;
+    }
+
+    p {
+      color: #b9d6e8;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    pre {
+      overflow: auto;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(185, 214, 232, 0.2);
+      border-radius: 1rem;
+      background: rgba(3, 10, 20, 0.72);
+      color: #d4ecff;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Aeterna-loop-trinity</h1>
+    <p>A static Cloudflare deploy artifact generated from this repository's README.</p>
+    <pre># Aeterna-loop-trinity
 
 ---
 
@@ -31,7 +86,7 @@ v2.0 から v2.1、そして v2.1.1 への進化：
 
 新規追加（v2.1.1）：
 
-- Sarkar (2025) "Memory Engine" の理論的枠組みを設計原理として明示的に統合
+- Sarkar (2025) &quot;Memory Engine&quot; の理論的枠組みを設計原理として明示的に統合
 - エネルギー飽和（memory energy saturation）
 - 転送エントロピーのピーク（peak transfer entropy）
 - 横方向安定性の分岐（transverse stability bifurcation）
@@ -130,7 +185,7 @@ v2.0 から v2.1、そして v2.1.1 への進化：
 | OMEGA_A | 0.01 | 基本角速度、据え置き |
 | OMEGA_B | 0.011（初期値） | 掃引候補へ（0.012, 0.015, 0.01618, 0.018） |
 | COUPLING_G | 0.05 | 弱結合から出発 |
-| COUPLING_TYPE | 'amplitude' | MVP は基準系から。Step 4 で memory へ |
+| COUPLING_TYPE | &#39;amplitude&#39; | MVP は基準系から。Step 4 で memory へ |
 | MEMORY_WEIGHT | 0.12（動的調整あり） | 弱めから開始 |
 | HISTORY_ALPHA | 0.04 | EWMA の更新レート。長めの記憶 |
 | PULSE_INTERVAL | 100 | Mithun 論文 T=15 側（長め）が構造保持に有利 |
@@ -146,7 +201,7 @@ v2.0 から v2.1、そして v2.1.1 への進化：
 | --- | --- | --- | --- |
 | GAMMA | （掃引で決定） | 0.001, 0.002, 0.003, 0.005, 0.007, 0.010 | Step 0 |
 | OMEGA_B | 0.011 | 0.012, 0.015, 0.01618, 0.018 | Step 3 |
-| COUPLING_TYPE | 'amplitude' | 'phase', 'memory', 'cross' | Step 4 |
+| COUPLING_TYPE | &#39;amplitude&#39; | &#39;phase&#39;, &#39;memory&#39;, &#39;cross&#39; | Step 4 |
 | MEMORY_WEIGHT | 0.12 | 0.08, 0.15, 0.25, 0.35 | Step 1 |
 | NOISE_AMP | 0.001 | 0.0005, 0.0002 | Step 3 以降（★分離後） |
 | PULSE_STRENGTH | 0.005 | 0.01, 0.02, 0.03 | Step 2 |
@@ -157,20 +212,20 @@ v2.0 から v2.1、そして v2.1.1 への進化：
 ```js
 // ======== MEMORY_WEIGHT の動的調整（モード切替可能）========
 // params.js
-MEMORY_WEIGHT_MODE: 'inverse',  // 'inverse' | 'direct' | 'fixed'
+MEMORY_WEIGHT_MODE: &#39;inverse&#39;,  // &#39;inverse&#39; | &#39;direct&#39; | &#39;fixed&#39;
 
 // metrics.js
 function computeMemoryWeight(R) {
   switch (MEMORY_WEIGHT_MODE) {
-    case 'inverse':
+    case &#39;inverse&#39;:
       // 無秩序時（R 小）→ 重み大 → 記憶を強く使う
       return 0.1 + 0.4 * (1 - R);
-    case 'direct':
+    case &#39;direct&#39;:
       // 秩序時（R 大）→ 重み大 → 構造を記憶で補強
       // ★ v2.1.1: Sarkar 論文の知見——コヒーレンス点では
       //   記憶場の勾配が運動を導く（= 秩序時に記憶が強く働く）
       return 0.1 + 0.4 * R;
-    case 'fixed':
+    case &#39;fixed&#39;:
       return PARAMS.MEMORY_WEIGHT;
   }
 }
@@ -230,9 +285,9 @@ if (GAMMA === 0 でも全エネルギーが減少する):
 // 1. グローバル秩序パラメータ（A, B それぞれ）
 function computeOrderParameter(field) {
   let sumRe = 0, sumIm = 0, count = 0;
-  for (let i = 0; i < field.phiRe.length; i++) {
+  for (let i = 0; i &lt; field.phiRe.length; i++) {
     const amp = Math.sqrt(field.phiRe[i]**2 + field.phiIm[i]**2);
-    if (amp > 0.01) {
+    if (amp &gt; 0.01) {
       const theta = Math.atan2(field.phiIm[i], field.phiRe[i]);
       sumRe += Math.cos(theta);
       sumIm += Math.sin(theta);
@@ -254,12 +309,12 @@ function computeABRelativeOrder(R_A, R_B) {
 function computeLocalOrderParameter(field, centerIdx) {
   const [cx, cy, cz] = indexTo3D(centerIdx, GRID_SIZE);
   let sumRe = 0, sumIm = 0, count = 0;
-  for (let dz = -1; dz <= 1; dz++) {
-    for (let dy = -1; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
+  for (let dz = -1; dz &lt;= 1; dz++) {
+    for (let dy = -1; dy &lt;= 1; dy++) {
+      for (let dx = -1; dx &lt;= 1; dx++) {
         const i = index(cx + dx, cy + dy, cz + dz);
         const amp = Math.sqrt(field.phiRe[i]**2 + field.phiIm[i]**2);
-        if (amp > 0.01) {
+        if (amp &gt; 0.01) {
           const theta = Math.atan2(field.phiIm[i], field.phiRe[i]);
           sumRe += Math.cos(theta);
           sumIm += Math.sin(theta);
@@ -275,7 +330,7 @@ function computeLocalOrderParameter(field, centerIdx) {
 // 4. 平均振幅と標準偏差
 function computeAmplitudeStats(field) {
   let sum = 0, sumSq = 0, count = 0;
-  for (let i = 0; i < field.phiRe.length; i++) {
+  for (let i = 0; i &lt; field.phiRe.length; i++) {
     const amp = Math.sqrt(field.phiRe[i]**2 + field.phiIm[i]**2);
     sum += amp;
     sumSq += amp * amp;
@@ -341,10 +396,10 @@ export const fieldA = {
 const alpha = PARAMS.HISTORY_ALPHA;
 const memWeight = PARAMS.MEMORY_WEIGHT; // 動的調整後の値
 
-for (let i = 0; i < SIZE; i++) {
+for (let i = 0; i &lt; SIZE; i++) {
   // --- fieldA ---
   const ampA = Math.sqrt(fieldA.phiRe[i]**2 + fieldA.phiIm[i]**2);
-  if (ampA > 0.01) {
+  if (ampA &gt; 0.01) {
     // EWMA 更新（指数移動平均）
     fieldA.memoryRe[i] = (1 - alpha) * fieldA.memoryRe[i]
                        + alpha * fieldA.phiRe[i];
@@ -365,7 +420,7 @@ for (let i = 0; i < SIZE; i++) {
 
   // --- fieldB: 同様 ---
   const ampB = Math.sqrt(fieldB.phiRe[i]**2 + fieldB.phiIm[i]**2);
-  if (ampB > 0.01) {
+  if (ampB &gt; 0.01) {
     fieldB.memoryRe[i] = (1 - alpha) * fieldB.memoryRe[i]
                        + alpha * fieldB.phiRe[i];
     fieldB.memoryIm[i] = (1 - alpha) * fieldB.memoryIm[i]
@@ -408,11 +463,11 @@ for (let i = 0; i < SIZE; i++) {
 // loop() 内、stepField() 呼び出し後に追加
 
 if (stepCount % PULSE_INTERVAL === 0) {
-  for (let i = 0; i < SIZE; i++) {
+  for (let i = 0; i &lt; SIZE; i++) {
     // --- fieldA ---
     const ampA = Math.sqrt(fieldA.phiRe[i]**2 + fieldA.phiIm[i]**2);
     // ★ v2.1.1: 振幅が VEV より小さいセルだけに注入（不足分のみ補う）
-    if (ampA > 0.01 && ampA < VEV * 0.95) {
+    if (ampA &gt; 0.01 &amp;&amp; ampA &lt; VEV * 0.95) {
       // scale = VEV / ampA（振幅を VEV に戻す方向）
       const scaleA = VEV / Math.max(ampA, 1e-8);
       // 弱い補正：PULSE_STRENGTH の割合だけ VEV 方向に引き戻す
@@ -426,7 +481,7 @@ if (stepCount % PULSE_INTERVAL === 0) {
 
     // --- fieldB: 同様 ---
     const ampB = Math.sqrt(fieldB.phiRe[i]**2 + fieldB.phiIm[i]**2);
-    if (ampB > 0.01 && ampB < VEV * 0.95) {
+    if (ampB &gt; 0.01 &amp;&amp; ampB &lt; VEV * 0.95) {
       const scaleB = VEV / Math.max(ampB, 1e-8);
       fieldB.phiRe[i] = (1 - PULSE_STRENGTH) * fieldB.phiRe[i]
                       + PULSE_STRENGTH * fieldB.phiRe[i] * scaleB;
@@ -455,7 +510,7 @@ const sinA = Math.sin(OMEGA_A * DT);
 const cosB = Math.cos(OMEGA_B * DT);
 const sinB = Math.sin(OMEGA_B * DT);
 
-for (let i = 0; i < SIZE; i++) {
+for (let i = 0; i &lt; SIZE; i++) {
   // --- fieldA ---
   const reA = fieldA.phiRe[i];
   const imA = fieldA.phiIm[i];
@@ -498,9 +553,9 @@ OMEGA_B の掃引順序：
 
 ```js
 if (stepCount % 100 === 0) {
-  for (let i = 0; i < SIZE; i++) {
+  for (let i = 0; i &lt; SIZE; i++) {
     const amp = Math.sqrt(fieldA.phiRe[i]**2 + fieldA.phiIm[i]**2);
-    if (amp > VEV * 1.5) {
+    if (amp &gt; VEV * 1.5) {
       const scale = VEV / amp;
       fieldA.phiRe[i] *= scale;
       fieldA.phiIm[i] *= scale;
@@ -524,7 +579,7 @@ if (stepCount % 100 === 0) {
 
 memory coupling は「相手場の過去の平均」と結合するため、相手の急激な位相変化に引きずられない。これにより、両場はゆっくりと「お互いの習慣」を学び合い、穏やかなシンクロが起きる。
 
-実装：physics.js の coupling 計算部分に 'memory' ケースを追加する。既存の fieldB.phiRe[i] の代わりに fieldB.memoryRe[i] を使うだけなので、コード変更は局所的。
+実装：physics.js の coupling 計算部分に &#39;memory&#39; ケースを追加する。既存の fieldB.phiRe[i] の代わりに fieldB.memoryRe[i] を使うだけなので、コード変更は局所的。
 
 ### Step 5：フェロモン場（2 時間）★ v2.1.1：更新頻度低下方式
 
@@ -546,16 +601,16 @@ function updatePheromone(fieldA, fieldB, stepCount) {
 
   // 1. 減衰（忘却）
   const retention = PHEROMONE_RETENTION ** PHEROMONE_UPDATE_INTERVAL;
-  for (let i = 0; i < SIZE; i++) {
+  for (let i = 0; i &lt; SIZE; i++) {
     pheromoneField[i] *= retention;
   }
 
   // 2. 分泌（高振幅セルがフェロモンを残す）
-  for (let i = 0; i < SIZE; i++) {
+  for (let i = 0; i &lt; SIZE; i++) {
     const ampA = Math.sqrt(fieldA.phiRe[i]**2 + fieldA.phiIm[i]**2);
     const ampB = Math.sqrt(fieldB.phiRe[i]**2 + fieldB.phiIm[i]**2);
     const avgAmp = (ampA + ampB) / 2;
-    if (avgAmp > VEV * 0.7) {
+    if (avgAmp &gt; VEV * 0.7) {
       pheromoneField[i] += PHEROMONE_DEPOSIT * (avgAmp / VEV);
     }
   }
@@ -565,9 +620,9 @@ function updatePheromone(fieldA, fieldB, stepCount) {
   //    ゆっくり滲む痕跡として働く
   const DIFFUSION = 0.001;
   const tempPheromone = new Float32Array(SIZE);
-  for (let z = 0; z < N; z++) {
-    for (let y = 0; y < N; y++) {
-      for (let x = 0; x < N; x++) {
+  for (let z = 0; z &lt; N; z++) {
+    for (let y = 0; y &lt; N; y++) {
+      for (let x = 0; x &lt; N; x++) {
         const i = index(x, y, z);
         const lap = laplacian3D(pheromoneField, x, y, z);
         tempPheromone[i] = pheromoneField[i] + DIFFUSION * lap;
@@ -635,7 +690,7 @@ Sarkar (2025) の CMGP モデルが示した「コヒーレンスポイント」
 
 - h = 0（完全秩序・閉じすぎ）→ Mexican-hat のみ、循環なし → 創発なし
 - h = h_max（完全ランダム・開きすぎ）→ ノイズのみ → 構造が即座に壊れる
-- AeternaLoop の狙う中間状態 → Mexican-hat + ノイズ × 0.001 + 位相循環 + 恒常性鼓動 + EWMA 記憶 + フェロモン場 → 0 < h < h_max
+- AeternaLoop の狙う中間状態 → Mexican-hat + ノイズ × 0.001 + 位相循環 + 恒常性鼓動 + EWMA 記憶 + フェロモン場 → 0 &lt; h &lt; h_max
 
 ### 4-4. 情報理論的指標
 
@@ -686,7 +741,7 @@ Sarkar (2025) の CMGP モデルが示した「コヒーレンスポイント」
 線が貫く                 →   時間遅延 + フェロモン場   →  pheromoneField
 魔法陣の円               →   周期境界（トーラス）      →  index() の % N
 ここからここに線を引く   →   位相循環 + memory coupl.  →  rotatePhase() + blend
-青と緑の融合             →   A/B memory coupling       →  COUPLING_TYPE='memory'
+青と緑の融合             →   A/B memory coupling       →  COUPLING_TYPE=&#39;memory&#39;
 トーラス構造             →   3D period boundary        →  field.js
 心臓がいちばん最後       →   PULSE（恒常性型鼓動）     →  PULSE_INTERVAL=100
 記憶が運動を導く         →   Memory Engine             →  Sarkar 3 軸の同時達成 ★
@@ -704,14 +759,14 @@ Step 0.5  : 観測指標の先行整備（30 分）
 Step 1    : EWMA 記憶層（記憶のみ、鼓動なし、30 分）
             └─ 純粋な「線」の効果を観察
 
-Step 2    : 恒常性型鼓動（amp < VEV のときのみ補正、30 分）
+Step 2    : 恒常性型鼓動（amp &lt; VEV のときのみ補正、30 分）
             └─ Mithun レジーム(i) 弱駆動から開始、必要に応じて掃引
 
 Step 3    : 位相循環（operator splitting + memory 同時回転、1 時間）
             └─ OMEGA_B を掃引。memory 回転あり/なし 両方をテスト ★
 
 Step 4    : Memory coupling（1 時間）
-            └─ COUPLING_TYPE='memory' へ切り替え
+            └─ COUPLING_TYPE=&#39;memory&#39; へ切り替え
 
 Step 5    : フェロモン場（64³ 更新頻度低下方式、2 時間）
             └─ 拡散係数 0.001 でゆっくり滲む痕跡
@@ -745,3 +800,7 @@ For Workers + Wrangler deploys, use:
 - Deploy command: `npx wrangler deploy`
 
 The build command writes `dist/index.html`, and `wrangler.toml` points Cloudflare Workers static assets to `./dist`.
+</pre>
+  </main>
+</body>
+</html>
