@@ -465,3 +465,73 @@ The operator-split phase rotation is numerically safe in the current headless A/
 ### Recommended Next Step
 
 Compare `field-only` vs `field-and-memory`, or proceed cautiously to Step 4 Memory Coupling after confirming the same operator-splitting order in the real browser/UI simulation loop when that loop is present.
+
+---
+
+## Experiment 006: Step 4 Memory Coupling
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+A場とB場を現在値ではなく、相手の EWMA memory を介して結合し、穏やかな同期・遅延的相互作用・構造安定化が起きるか観察する。
+
+### Implementation Summary
+
+- Added params:
+  - `COUPLING_TYPE: amplitude | phase | cross | memory`
+  - `COUPLING_G: 0.05`
+  - `MEMORY_COUPLING_ENABLED: false`
+  - `MEMORY_COUPLING_WEIGHT: 1.0`
+  - `MEMORY_COUPLING_USE_BIDIRECTIONAL: true`
+  - `MEMORY_COUPLING_MIN_AMP: 0.01`
+  - `MEMORY_COUPLING_MODE: toward-other-memory`
+- Added `applyMemoryCoupling()` in `src/physics/memory-coupling.js`.
+- Added coupling metrics to `collectAeternaMetrics()`.
+- Added `fieldABDistance`.
+- Added `memoryABDistance`.
+- Coupling location in simulation loop: in the headless A/B diagnostic surrogate, field dynamics run first, Memory Coupling references the previous EWMA memory second, EWMA memory updates third, optional phase rotation remains disabled for primary Step 4 conditions, then vortex detection and metrics sampling run.
+
+Note: この repository snapshot には本体 browser/UI simulation loop が存在しないため、Step 4 は既存の headless A/B diagnostic pattern に合わせて実装した。既存の amplitude coupling operation はこの snapshot に存在しないため、`COUPLING_TYPE='amplitude'` は baseline no-op として既存挙動を維持する。フェロモン場、形態共鳴、ブラーマリー変調、カタカムナ・フォルマント注入は実装していない。
+
+### Conditions
+
+| condition | coupling type | coupling G | memory weight | effective | phase rotation | notes |
+|---|---|---:|---:|---:|---:|---|
+| Baseline amplitude | amplitude | 0.05 | - | - | false | existing surrogate behavior / no extra coupling |
+| Memory 0.5 | memory | 0.05 | 0.5 | 0.025 | false | gentle |
+| Memory 1.0 | memory | 0.05 | 1.0 | 0.05 | false | primary |
+| Memory 1.5 | memory | 0.05 | 1.5 | 0.075 | false | exploratory |
+| Memory 2.0 | memory | 0.05 | 2.0 | 0.10 | false | strong / caution |
+
+### Results Summary
+
+Full JSON output: `experiments/memory-coupling-results.json`
+
+| condition | final vortex | zero step | vortex lifetime avg | R_AB_relative end | fieldABDistance end | memoryABDistance end | amp std A end | amp std B end | total energy end | notes |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Baseline amplitude | 8 | null | 0 | 0.000001971 | 0.577493255 | 0.577488195 | 0.115238128 | 0.115237789 | 24506.912016 | Baseline amplitude coupling selected; this repository snapshot has no pre-existing amplitude coupling operation, so no additional coupling was applied. |
+| Memory 0.5 | 8 | null | 0 | 0.000000000346 | 0.000096814 | 0.000100433 | 0.115281097 | 0.115281037 | 24502.583870 | Completed without sampled non-finite values or memory coupling warning thresholds. |
+| Memory 1.0 | 8 | null | 0 | 0.000000000002 | 0.000000028 | 0.000000030 | 0.115273827 | 0.115273827 | 24500.910577 | Completed without sampled non-finite values or memory coupling warning thresholds. |
+| Memory 1.5 | 8 | null | 0 | 0.000000000000 | 0.000000000013 | 0.000000000015 | 0.115281774 | 0.115281774 | 24498.626399 | Completed without sampled non-finite values or memory coupling warning thresholds. |
+| Memory 2.0 | 8 | null | 0 | 0.000000000000 | 0.000000000000 | 0.000000000000 | 0.115257222 | 0.115257222 | 24496.084440 | Completed without sampled non-finite values or memory coupling warning thresholds. |
+
+### Observations
+
+- Did memory coupling extend vortex lifetime? The A/B surrogate kept combined `vortexCount` at 8 for all conditions through 5000 steps, so lifetime extension is not distinguishable in this run.
+- Did A/B become too similar too quickly? Yes, `MEMORY_COUPLING_WEIGHT >= 1.0` drove `fieldABDistance` and `memoryABDistance` effectively to zero by the final sample. This is a caution sign for real simulations even though no NaN or amplitude collapse was sampled.
+- Did `R_AB_relative` decrease gradually or collapse? It collapsed toward zero under memory coupling. Weight `0.5` was gentler but still reduced A/B distance by several orders of magnitude.
+- Did `fieldABDistance` and `memoryABDistance` behave differently? They tracked closely; memory distance stayed slightly above field distance at weight `0.5`, then both approached zero for stronger weights.
+- Did local order increase? Local order remained high and stable in the surrogate; no decisive local-order improvement was isolated.
+- Did memory coupling create more stable fusion-like behavior? It created very strong A/B convergence without sampled numerical instability. This may be useful for fusion-like behavior but risks over-synchronization.
+- Did anything unexpected happen? The small average coupling delta did not trigger the `0.1` warning threshold, yet the cumulative effect still nearly merged A/B for weight `1.0+`.
+
+### Interpretation
+
+Memory Coupling is numerically safe in this headless A/B surrogate and correctly exposes a delayed, memory-mediated coupling path. However, `COUPLING_G = 0.05` with `MEMORY_COUPLING_WEIGHT = 1.0` is already strong enough over 5000 steps to erase almost all measured A/B distance. For future visual or browser-loop experiments, `MEMORY_COUPLING_WEIGHT = 0.5` or a lower `COUPLING_G` should be treated as the cautious starting point if preserving separation matters.
+
+### Recommended Next Step
+
+Reduce `MEMORY_COUPLING_WEIGHT` or retune `COUPLING_G` before adding Step 5 pheromone field, unless the next experiment explicitly wants near-fusion behavior.

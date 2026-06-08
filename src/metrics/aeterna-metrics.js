@@ -248,6 +248,52 @@ function computeMemoryStats(field) {
   };
 }
 
+function computeFieldDistance(fieldA, fieldB) {
+  if (!hasFieldData(fieldA) || !hasFieldData(fieldB)) return null;
+
+  const count = Math.min(fieldA.phiRe.length, fieldB.phiRe.length);
+  let sum = 0;
+
+  for (let i = 0; i < count; i += 1) {
+    const dRe = fieldA.phiRe[i] - fieldB.phiRe[i];
+    const dIm = fieldA.phiIm[i] - fieldB.phiIm[i];
+    sum += Math.hypot(dRe, dIm);
+  }
+
+  return sum / Math.max(count, 1);
+}
+
+function computeMemoryDistance(fieldA, fieldB) {
+  if (!fieldA || !fieldB || !fieldA.memoryRe || !fieldA.memoryIm || !fieldB.memoryRe || !fieldB.memoryIm) return null;
+
+  const count = Math.min(fieldA.memoryRe.length, fieldB.memoryRe.length);
+  let sum = 0;
+
+  for (let i = 0; i < count; i += 1) {
+    const dRe = fieldA.memoryRe[i] - fieldB.memoryRe[i];
+    const dIm = fieldA.memoryIm[i] - fieldB.memoryIm[i];
+    sum += Math.hypot(dRe, dIm);
+  }
+
+  return sum / Math.max(count, 1);
+}
+
+function normalizeMemoryCouplingMetrics(metrics) {
+  const appliedCells = metrics?.memoryCouplingAppliedCells ?? 0;
+  const deltaA = metrics?.memoryCouplingDeltaA ?? 0;
+  const deltaB = metrics?.memoryCouplingDeltaB ?? 0;
+
+  return {
+    memoryCouplingApplied: metrics?.memoryCouplingApplied ?? false,
+    memoryCouplingAppliedCells: appliedCells,
+    memoryCouplingDeltaA: deltaA,
+    memoryCouplingDeltaB: deltaB,
+    memoryCouplingAverageDeltaA: metrics?.memoryCouplingAverageDeltaA ?? (appliedCells > 0 ? deltaA / appliedCells : 0),
+    memoryCouplingAverageDeltaB: metrics?.memoryCouplingAverageDeltaB ?? (appliedCells > 0 ? deltaB / appliedCells : 0),
+    effectiveMemoryCoupling: metrics?.effectiveMemoryCoupling ?? 0,
+  };
+}
+
 function computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics) {
   if (!previousMetrics || previousMetrics.totalEnergyCombined === null || previousMetrics.totalEnergyCombined === undefined) return null;
   if (totalEnergyCombined === null || totalEnergyCombined === undefined) return null;
@@ -343,6 +389,8 @@ function collectAeternaMetrics({
   pulseMetricsB,
   lastPulseStep = null,
   phaseRotationMetrics,
+  couplingMetrics,
+  couplingParams,
 } = {}) {
   const R_A_global = computeOrderParameter(fieldA, ampThreshold);
   const R_B_global = computeOrderParameter(fieldB, ampThreshold);
@@ -359,6 +407,9 @@ function collectAeternaMetrics({
   const pulseA = normalizePulseMetrics(pulseMetricsA);
   const pulseB = normalizePulseMetrics(pulseMetricsB);
   const phaseMetrics = phaseRotationMetrics || {};
+  const memoryCoupling = normalizeMemoryCouplingMetrics(couplingMetrics);
+  const fieldABDistance = computeFieldDistance(fieldA, fieldB);
+  const memoryABDistance = computeMemoryDistance(fieldA, fieldB);
   const normalizedVortexCount = vortexCount ?? normalizeVortexCount(vortices);
   let vortexLifetime = null;
 
@@ -393,6 +444,8 @@ function collectAeternaMetrics({
     totalEnergyA: energyA.totalEnergy,
     totalEnergyB: energyB.totalEnergy,
     totalEnergyCombined,
+    fieldABDistance,
+    memoryABDistance,
     memoryEnergyA: memoryA.memoryEnergy,
     memoryEnergyB: memoryB.memoryEnergy,
     memoryFieldDifferenceA: memoryA.memoryFieldDifference,
@@ -404,6 +457,17 @@ function collectAeternaMetrics({
     pulseAverageDeltaA: pulseA.pulseAverageDelta,
     pulseAverageDeltaB: pulseB.pulseAverageDelta,
     lastPulseStep,
+    COUPLING_TYPE: couplingParams?.COUPLING_TYPE ?? null,
+    COUPLING_G: couplingParams?.COUPLING_G ?? null,
+    MEMORY_COUPLING_ENABLED: couplingParams?.MEMORY_COUPLING_ENABLED ?? false,
+    MEMORY_COUPLING_WEIGHT: couplingParams?.MEMORY_COUPLING_WEIGHT ?? null,
+    effectiveMemoryCoupling: memoryCoupling.effectiveMemoryCoupling,
+    memoryCouplingApplied: memoryCoupling.memoryCouplingApplied,
+    memoryCouplingAppliedCells: memoryCoupling.memoryCouplingAppliedCells,
+    memoryCouplingDeltaA: memoryCoupling.memoryCouplingDeltaA,
+    memoryCouplingDeltaB: memoryCoupling.memoryCouplingDeltaB,
+    memoryCouplingAverageDeltaA: memoryCoupling.memoryCouplingAverageDeltaA,
+    memoryCouplingAverageDeltaB: memoryCoupling.memoryCouplingAverageDeltaB,
     PHASE_ROTATION_ENABLED: phaseMetrics.PHASE_ROTATION_ENABLED ?? false,
     OMEGA_A: phaseMetrics.OMEGA_A ?? null,
     OMEGA_B: phaseMetrics.OMEGA_B ?? null,
@@ -436,9 +500,12 @@ module.exports = {
   computeAmplitudeEnergy,
   computeAmplitudeStats,
   computeEnergyDeltaFromPreviousSample,
+  computeFieldDistance,
   computeLocalOrderAt,
   computeLocalOrderStats,
+  computeMemoryDistance,
   computeMemoryStats,
+  normalizeMemoryCouplingMetrics,
   normalizePulseMetrics,
   computeOrderParameter,
   computeTotalEnergy,

@@ -182,6 +182,31 @@ A場とB場が、現在ではなく過去の平均状態を介して結合する
 - 既存の amplitude / phase / cross と切替可能にする
 - `R_AB_relative` の変化を見る
 
+### Step 4: Memory Coupling
+
+Status: Partial / Implemented in headless A/B surrogate
+
+Implemented:
+- [x] `COUPLING_TYPE` includes `'memory'`
+- [x] `MEMORY_COUPLING_ENABLED` flag
+- [x] `MEMORY_COUPLING_WEIGHT`
+- [x] `MEMORY_COUPLING_USE_BIDIRECTIONAL`
+- [x] `applyMemoryCoupling()`
+- [x] coupling metrics
+- [x] `fieldABDistance`
+- [x] `memoryABDistance`
+- [x] ON/OFF comparison via `npm run experiment:memory-coupling`
+- [x] experiment log entry
+
+Notes:
+- `src/params/aeterna-params.js` keeps `COUPLING_TYPE: 'amplitude'` and `MEMORY_COUPLING_ENABLED: false` by default to preserve baseline behavior.
+- `src/physics/memory-coupling.js` applies bidirectional memory coupling only when `COUPLING_TYPE` is `'memory'` and `MEMORY_COUPLING_ENABLED` is true.
+- `scripts/run-memory-coupling.js` applies field dynamics, then Memory Coupling against the previous EWMA memory, then EWMA memory updates, then metrics sampling.
+- The current repository snapshot has no browser/UI simulation loop and no pre-existing amplitude coupling implementation, so the amplitude baseline remains a no-op in the diagnostic surrogate.
+- Latest results are stored in `experiments/memory-coupling-results.json`.
+- Memory weights `1.0+` nearly erase A/B field and memory distance over 5000 steps in this surrogate; lower coupling should be considered before Step 5.
+- Pheromone fields, morphology resonance, Bhramari modulation, Katakamuna formant injection, and large UI changes remain unimplemented.
+
 ## Step 5: フェロモン場
 
 ### 目的
