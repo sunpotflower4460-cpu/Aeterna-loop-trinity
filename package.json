@@ -4,6 +4,7 @@
     "experiment:memory-ewma": "node scripts/run-memory-ewma.js",
     "experiment:gentle-pulse": "node scripts/run-gentle-pulse.js",
     "experiment:phase-rotation": "node scripts/run-phase-rotation.js",
-    "experiment:memory-coupling": "node scripts/run-memory-coupling.js"
+    "experiment:memory-coupling": "node scripts/run-memory-coupling.js",
+    "experiment:pheromone-field": "node scripts/run-pheromone-field.js"
   }
 }

@@ -535,3 +535,76 @@ Memory Coupling is numerically safe in this headless A/B surrogate and correctly
 ### Recommended Next Step
 
 Reduce `MEMORY_COUPLING_WEIGHT` or retune `COUPLING_G` before adding Step 5 pheromone field, unless the next experiment explicitly wants near-fusion behavior.
+
+---
+
+## Experiment 007: Step 5 Pheromone Field
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+渦や高振幅セルが通った場所にフェロモン場として痕跡を残し、空間的な記憶・道筋・局所秩序の変化を観察する。
+
+### Implementation Summary
+
+- Added params:
+  - `PHEROMONE_ENABLED: false`
+  - `PHEROMONE_UPDATE_INTERVAL: 10`
+  - `PHEROMONE_RETENTION: 0.99005`
+  - `PHEROMONE_DEPOSIT: 0.01`
+  - `PHEROMONE_DEPOSIT_THRESHOLD_RATIO: 0.7`
+  - `PHEROMONE_DIFFUSION: 0.001`
+  - `PHEROMONE_FEEDBACK_ENABLED: false`
+  - `PHEROMONE_FEEDBACK_STRENGTH: 0.002`
+  - `PHEROMONE_MAX_VALUE: 10.0`
+- Added pheromoneField: `createPheromoneField(size)` returns a `Float32Array` public trace field with the same cell count as the simulated field.
+- Added `updatePheromoneField()`.
+- Added `diffusePheromoneField()`.
+- Added `computePheromoneStats()`.
+- Added optional `applyPheromoneFeedback()`.
+- Pheromone update location in simulation loop: in the headless A/B diagnostic surrogate, field dynamics run first, selected coupling remains a no-op baseline, EWMA memory updates next, phase rotation remains disabled, pheromone update runs every `PHEROMONE_UPDATE_INTERVAL`, optional feedback runs after the trace update, then vortex detection and metrics sampling run.
+
+Note: この repository snapshot には本体 browser/UI simulation loop が存在しないため、Step 5 は既存の headless A/B diagnostic pattern に合わせて実装した。実装本体は粗視化せず `gridSize` と `pheromoneField.length` に従うため 64³ の場を扱える。一方、同梱の自動実験は CI / agent 実行時間を抑えるため、既存実験と同じ surrogate 系列として `24^3` / `MAX_STEPS = 1000` で実行した。蔵本転移スキャン、形態共鳴、ブラーマリー変調、カタカムナ・フォルマント注入は実装していない。
+
+### Conditions
+
+| condition | enabled | feedback | deposit | diffusion | update interval | notes |
+|---|---:|---:|---:|---:|---:|---|
+| Baseline | false | false | - | - | - | existing surrogate behavior |
+| Trace 0.01 / diff 0.001 | true | false | 0.01 | 0.001 | 10 | primary |
+| Trace 0.005 / diff 0.001 | true | false | 0.005 | 0.001 | 10 | gentle |
+| Trace 0.01 / diff 0.0005 | true | false | 0.01 | 0.0005 | 10 | less diffusion |
+| Feedback 0.002 | true | true | 0.01 | 0.001 | 10 | optional / caution |
+
+### Results Summary
+
+Full JSON output: `experiments/pheromone-field-results.json`
+
+| condition | final vortex | zero step | vortex lifetime avg | R_A_local end | R_B_local end | pheromone total | pheromone max | active ratio | total energy end | notes |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Baseline | 8 | null | 0 | 0.963830 | 0.963830 | 0 | 0 | 0 | 24030.281744 | Completed without sampled non-finite values or pheromone warning thresholds. |
+| Trace 0.01 / diff 0.001 | 8 | null | 0 | 0.963830 | 0.963830 | 1293.799265 | 0.104961 | 1 | 24030.281744 | Pheromone active ratio exceeded 0.9; field may be too diffuse or saturated. pheromoneActiveRatio approached global saturation. |
+| Trace 0.005 / diff 0.001 | 8 | null | 0 | 0.963830 | 0.963830 | 646.899632 | 0.052480 | 1 | 24030.281744 | Pheromone active ratio exceeded 0.9; field may be too diffuse or saturated. pheromoneActiveRatio approached global saturation. |
+| Trace 0.01 / diff 0.0005 | 8 | null | 0 | 0.963830 | 0.963830 | 1293.799264 | 0.104962 | 1 | 24030.281744 | Pheromone active ratio exceeded 0.9; field may be too diffuse or saturated. pheromoneActiveRatio approached global saturation. |
+| Feedback 0.002 | 8 | null | 0 | 0.963830 | 0.963830 | 1298.096049 | 0.105282 | 1 | 24191.914679 | Pheromone active ratio exceeded 0.9; field may be too diffuse or saturated. pheromoneActiveRatio approached global saturation. |
+
+### Observations
+
+- Did the pheromone field form path-like traces? In this headless surrogate, all cells above the deposit threshold eventually became active, so path-like selectivity was not distinguishable from broad trace coverage.
+- Did pheromoneTotal saturate or grow without bound? Over 1000 steps it stayed far below `PHEROMONE_MAX_VALUE` per-cell cap, but total grew enough that active ratio reached 1 in enabled conditions.
+- Did local order increase in traced regions? No clear local-order change was isolated in the trace-only conditions; local order matched baseline at this resolution and duration.
+- Did vortex lifetime extend? No; combined vortex count stayed at 8 for all conditions through the run.
+- Did feedback destabilize the field? Weak feedback did not produce NaN or vortex collapse, but it raised `totalEnergyCombined` from `24030.281744` baseline to `24191.914679` and should remain optional / caution.
+- Did the field become too uniform? The `pheromoneActiveRatio = 1` warning indicates broad activation in this surrogate. This may reflect the initialized high-amplitude field rather than diffusion alone.
+- Did anything unexpected happen? Trace-only conditions left field energy identical to baseline, confirming no direct field feedback when `PHEROMONE_FEEDBACK_ENABLED=false`.
+
+### Interpretation
+
+The Step 5 pheromone machinery is numerically safe in the current headless surrogate and preserves baseline dynamics when disabled. Stage A trace-only correctly accumulates a public trace without feeding back into A/B fields, but the current amplitude threshold activates the whole surrogate volume quickly. Before relying on path-like behavior, run a more spatially sparse or real browser-loop scenario, or increase `PHEROMONE_DEPOSIT_THRESHOLD_RATIO` / reduce deposit. Stage B weak feedback is available but should remain off by default because it measurably increases total energy.
+
+### Recommended Next Step
+
+Keep pheromone trace only and disable feedback while tuning the deposit threshold / sparse source criteria before proceeding to Step 6 Kuramoto transition / coupling scan.
