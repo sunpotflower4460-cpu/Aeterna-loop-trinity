@@ -146,6 +146,30 @@ Notes:
   - `0.01618`
   - `0.018`
 
+
+### Step 3: Phase Rotation / Operator Splitting
+
+Status: Partial / Implemented in headless A/B surrogate
+
+Implemented:
+- [x] `PHASE_ROTATION_ENABLED` flag
+- [x] `OMEGA_A`
+- [x] `OMEGA_B`
+- [x] `rotateComplexField()`
+- [x] `applyPhaseRotation()`
+- [x] `field-and-memory` rotation
+- [x] optional renormalization
+- [x] `OMEGA_B` scan via `npm run experiment:phase-rotation`
+- [x] experiment log entry
+
+Notes:
+- `src/physics/phase-rotation.js` applies a unitary complex rotation to `phiRe` / `phiIm`, and rotates `memoryRe` / `memoryIm` when `PHASE_ROTATION_TARGET` is `field-and-memory`.
+- `src/params/aeterna-params.js` keeps `PHASE_ROTATION_ENABLED: false` and `PHASE_ROTATION_RENORMALIZE: false` by default to preserve baseline behavior.
+- `scripts/run-phase-rotation.js` applies the operator split after field dynamics and EWMA memory blend, then samples vortices and metrics.
+- The current repository snapshot has no browser/UI simulation loop, so the implementation is connected to a headless A/B diagnostic surrogate and exposes `globalThis.__AETERNA_PHASE_METRICS__` during the Node run.
+- Latest results are stored in `experiments/phase-rotation-results.json`.
+- Memory Coupling, pheromone fields, morphology resonance, and large UI changes remain unimplemented.
+
 ## Step 4: Memory Coupling
 
 ### 目的

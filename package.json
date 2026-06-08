@@ -2,6 +2,7 @@
   "scripts": {
     "experiment:gamma-scan": "node scripts/run-gamma-scan.js",
     "experiment:memory-ewma": "node scripts/run-memory-ewma.js",
-    "experiment:gentle-pulse": "node scripts/run-gentle-pulse.js"
+    "experiment:gentle-pulse": "node scripts/run-gentle-pulse.js",
+    "experiment:phase-rotation": "node scripts/run-phase-rotation.js"
   }
 }
