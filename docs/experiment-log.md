@@ -225,3 +225,84 @@ From `npm run experiment:gamma-scan`, GAMMA=0.003 final sample:
 ### Next Action
 
 Proceed to Step 1 EWMA memory only after these metrics are stable in the real A/B simulation loop.
+
+---
+
+## Experiment 003: Step 1 EWMA Memory Only
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+Gentle Pulse・位相循環・Memory Coupling・フェロモン場を追加する前に、EWMA memory のみで「線」の効果を観察する。
+
+### Implementation Summary
+
+- Added `memoryRe` / `memoryIm` to the headless surrogate field object used by `scripts/run-memory-ewma.js`.
+- Added params:
+  - `MEMORY_ENABLED: false`
+  - `HISTORY_ALPHA: 0.04`
+  - `MEMORY_WEIGHT: 0.12`
+  - `MEMORY_WEIGHT_MODE: fixed`
+  - `MEMORY_BLEND_VELOCITY: true`
+  - `MEMORY_VELOCITY_WEIGHT_RATIO: 0.3`
+  - `MEMORY_INIT_MODE: zero`
+- Added `applyEWMAMemory()` in `src/physics/ewma-memory.js`.
+- Added memory metrics in `src/metrics/aeterna-metrics.js`:
+  - `memoryEnergyA`
+  - `memoryEnergyB`
+  - `memoryFieldDifferenceA`
+  - `memoryFieldDifferenceB`
+
+Note: この repository snapshot には本体 A/B simulation loop が存在しないため、Step 1 は Step 0/0.5 と同じく分離型 headless diagnostic surrogate で実装した。現行 harness は A場のみを接続し、B場 metrics は `null` のまま schema を保持する。
+
+### Conditions
+
+| condition | MEMORY_ENABLED | MEMORY_WEIGHT | HISTORY_ALPHA | MEMORY_WEIGHT_MODE | velocity blend |
+|---|---:|---:|---:|---|---|
+| Baseline | false | - | - | - | - |
+| EWMA 0.12 | true | 0.12 | 0.04 | fixed | true |
+| EWMA 0.08 | true | 0.08 | 0.04 | fixed | true |
+| EWMA 0.15 | true | 0.15 | 0.04 | fixed | true |
+| EWMA 0.25 | true | 0.25 | 0.04 | fixed | true |
+
+### Results Summary
+
+Full JSON output: `experiments/memory-ewma-results.json`
+
+| condition | final vortex | zero step | vortex lifetime avg | R_AB_relative end | amp mean A end | amp mean B end | total energy end | memory diff A | memory diff B | notes |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Baseline | 0 | 425 | 420 | null | 0.993811 | null | 13694.057631 | 0.993811 | null | Baseline memory disabled; memory arrays remain initialized but are not blended. |
+| EWMA 0.12 | 4 | null | 0 | null | 0.845922 | null | 10170.654708 | 0.002433 | null | Completed without sampled non-finite values. |
+| EWMA 0.08 | 4 | null | 0 | null | 0.933407 | null | 12227.908248 | 0.000304 | null | Completed without sampled non-finite values. |
+| EWMA 0.15 | 4 | null | 0 | null | 0.625205 | null | 5688.645790 | 0.004333 | null | Completed without sampled non-finite values. |
+| EWMA 0.25 | 4 | null | 0 | null | 0.177585 | null | 462.952235 | 0.001105 | null | Completed without sampled non-finite values. |
+
+### Memory Energy Snapshot
+
+| condition | memoryEnergyA end | non-finite detected |
+|---|---:|---:|
+| Baseline | 0 | false |
+| EWMA 0.12 | 10115.614212 | false |
+| EWMA 0.08 | 12225.009149 | false |
+| EWMA 0.15 | 5612.392227 | false |
+| EWMA 0.25 | 457.172919 | false |
+
+### Observations
+
+- Did EWMA extend vortex lifetime? In this headless surrogate, all EWMA conditions retained `finalVortexCount = 4` through 5000 steps, while baseline reached zero at sampled step 425.
+- Did memory make the field too rigid? `MEMORY_WEIGHT = 0.25` strongly suppressed amplitude and total energy (`amplitudeMeanA_end = 0.177585`), so it looks too strong for this surrogate despite preserving vortex count.
+- Did memory reduce sudden amplitude collapse? EWMA 0.08 and 0.12 preserved nonzero vortex count while ending with less severe amplitude reduction than 0.15/0.25.
+- Did velocity blend help or destabilize? With velocity blend enabled for all EWMA conditions, sampled checks did not detect non-finite `phi`, `vel`, or `memory` values.
+- Did memoryFieldDifference converge or stay large? EWMA conditions ended with small memory-field differences (`0.000304` to `0.004333`), indicating the memory field closely tracked the current field in this surrogate.
+- Did anything unexpected happen? Baseline reports `memoryFieldDifferenceA = 0.993811` because memory arrays are present but disabled and remain zero; interpret this only as a disabled-memory diagnostic, not an active memory lag.
+
+### Interpretation
+
+EWMA alone is enough to prevent the surrogate's sampled vortex count from reaching zero by 5000 steps, but stronger memory weights noticeably damp the field. The least aggressive condition (`MEMORY_WEIGHT = 0.08`) appears to preserve vortex count while keeping final amplitude closest to the baseline VEV-adjacent range. Because this is still a single-field surrogate and not the real A/B loop, the result should be treated as a tuning clue rather than proof of the final system behavior.
+
+### Recommended Next Step
+
+Tune `MEMORY_WEIGHT` / `HISTORY_ALPHA` further, especially around `MEMORY_WEIGHT = 0.08` to `0.12`, before proceeding to Step 2 Gentle Pulse in the real A/B simulation loop.

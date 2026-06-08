@@ -1,0 +1,15 @@
+'use strict';
+
+const DEFAULT_MEMORY_PARAMS = Object.freeze({
+  MEMORY_ENABLED: false,
+  HISTORY_ALPHA: 0.04,
+  MEMORY_WEIGHT: 0.12,
+  MEMORY_WEIGHT_MODE: 'fixed',
+  MEMORY_BLEND_VELOCITY: true,
+  MEMORY_VELOCITY_WEIGHT_RATIO: 0.3,
+  MEMORY_INIT_MODE: 'zero',
+});
+
+module.exports = {
+  DEFAULT_MEMORY_PARAMS,
+};

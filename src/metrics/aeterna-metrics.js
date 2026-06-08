@@ -207,6 +207,39 @@ function computeTotalEnergy(field, options = {}) {
   };
 }
 
+
+function computeMemoryStats(field) {
+  if (!field || !field.phiRe || !field.phiIm || !field.memoryRe || !field.memoryIm) {
+    return {
+      memoryEnergy: 0,
+      memoryFieldDifference: null,
+    };
+  }
+
+  let memoryEnergy = 0;
+  let diffSum = 0;
+  let count = 0;
+
+  for (let i = 0; i < field.phiRe.length; i += 1) {
+    const mr = field.memoryRe[i];
+    const mi = field.memoryIm[i];
+    const re = field.phiRe[i];
+    const im = field.phiIm[i];
+
+    memoryEnergy += mr * mr + mi * mi;
+
+    const dr = re - mr;
+    const di = im - mi;
+    diffSum += Math.hypot(dr, di);
+    count += 1;
+  }
+
+  return {
+    memoryEnergy,
+    memoryFieldDifference: diffSum / Math.max(count, 1),
+  };
+}
+
 function computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics) {
   if (!previousMetrics || previousMetrics.totalEnergyCombined === null || previousMetrics.totalEnergyCombined === undefined) return null;
   if (totalEnergyCombined === null || totalEnergyCombined === undefined) return null;
@@ -309,6 +342,8 @@ function collectAeternaMetrics({
   const ampB = computeAmplitudeStats(fieldB, ampThreshold);
   const energyA = computeTotalEnergy(fieldA, { computeGradientEnergy });
   const energyB = computeTotalEnergy(fieldB, { computeGradientEnergy });
+  const memoryA = computeMemoryStats(fieldA);
+  const memoryB = computeMemoryStats(fieldB);
   const normalizedVortexCount = vortexCount ?? normalizeVortexCount(vortices);
   let vortexLifetime = null;
 
@@ -343,6 +378,10 @@ function collectAeternaMetrics({
     totalEnergyA: energyA.totalEnergy,
     totalEnergyB: energyB.totalEnergy,
     totalEnergyCombined,
+    memoryEnergyA: memoryA.memoryEnergy,
+    memoryEnergyB: memoryB.memoryEnergy,
+    memoryFieldDifferenceA: memoryA.memoryFieldDifference,
+    memoryFieldDifferenceB: memoryB.memoryFieldDifference,
     energyDeltaFromPreviousSample: computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics),
     amplitudeBreathingScore: computeAmplitudeBreathingScore(combinedAmplitudeMean, amplitudeMeanHistory),
     vortexCount: normalizedVortexCount,
@@ -366,6 +405,7 @@ module.exports = {
   computeEnergyDeltaFromPreviousSample,
   computeLocalOrderAt,
   computeLocalOrderStats,
+  computeMemoryStats,
   computeOrderParameter,
   computeTotalEnergy,
   defaultIndex3D,
