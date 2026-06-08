@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "experiment:gamma-scan": "node scripts/run-gamma-scan.js"
+    "experiment:gamma-scan": "node scripts/run-gamma-scan.js",
+    "experiment:memory-ewma": "node scripts/run-memory-ewma.js"
   }
 }

@@ -66,6 +66,32 @@ Notes:
 - velocity blend を弱く追加
 - Gentle Pulse はまだ入れない
 
+### Step 1: EWMA Memory Layer
+
+Status: Partial / Implemented in headless surrogate
+
+Implemented:
+- [x] `fieldA.memoryRe` / `memoryIm` equivalent in the headless surrogate field object
+- [ ] `fieldB.memoryRe` / `memoryIm` in a real A/B simulation loop（現行 repository snapshot には本体 B 場がない）
+- [x] `MEMORY_ENABLED` flag
+- [x] `HISTORY_ALPHA`
+- [x] `MEMORY_WEIGHT`
+- [x] `MEMORY_WEIGHT_MODE`
+- [x] `MEMORY_INIT_MODE`
+- [x] `applyEWMAMemory()`
+- [x] velocity blend option
+- [x] memory metrics
+- [x] ON/OFF comparison via `npm run experiment:memory-ewma`
+- [x] experiment log entry
+
+Notes:
+- Step 1 is intentionally limited to EWMA memory. Gentle Pulse, phase circulation, Memory Coupling, pheromone fields, and visual life-like effects remain unimplemented.
+- `src/physics/ewma-memory.js` contains `applyEWMAMemory()`, `computeMemoryWeight()`, and memory initialization helpers.
+- `src/params/aeterna-params.js` contains the default EWMA parameter set with `MEMORY_ENABLED: false` to preserve baseline behavior.
+- `scripts/run-memory-ewma.js` applies EWMA after field dynamics and before vortex / metrics sampling.
+- The current repository snapshot has no real A/B simulation loop, so the comparison script uses the existing single-field headless diagnostic pattern and leaves B metrics as `null`.
+- Latest results are stored in `experiments/memory-ewma-results.json`.
+
 ## Step 2: 恒常性型 Gentle Pulse
 
 ### 目的
