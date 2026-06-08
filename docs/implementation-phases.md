@@ -307,3 +307,26 @@ Implemented:
 Notes:
 - No runtime implementation should be added in this step.
 - These symbolic, biological, acoustic, morphic, and practice-layer ideas remain future extensions until Step 0–6 behavior is observable, comparable, stable, and replayable.
+
+### Final Audit: v2.1.1 Calculation and Consistency Check
+
+Status: Completed
+
+Checked:
+- [x] GAMMA scan logic
+- [x] totalEnergy meaning
+- [x] order parameter formulas
+- [x] EWMA memory formulas
+- [x] Gentle Pulse formula
+- [x] Phase Rotation formula
+- [x] Memory Coupling formula
+- [x] Pheromone retention / diffusion
+- [x] Coupling scan transition logic
+- [x] default feature flags
+- [x] NaN / Infinity safety
+- [x] metric labels
+- [x] experiment logs
+- [x] future extension boundaries
+
+Report:
+- docs/audit-v2.1.1.md
