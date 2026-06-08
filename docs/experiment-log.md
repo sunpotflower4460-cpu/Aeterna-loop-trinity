@@ -698,3 +698,42 @@ In the current headless A/B surrogate, amplitude coupling primarily fuses A/B fi
 ### Recommended Next Step
 
 Run fine scan around candidate range `0.005 → 0.025`, then compare amplitude coupling vs memory coupling at the best low-coupling candidates before proceeding to Step 7 future extensions documentation.
+
+---
+
+## Experiment 009: Step 7 Future Extensions Documentation
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+AeternaLoop v2.1.1 の将来拡張案を、現行MVP実装から分離し、原因分離を守るために docs へ整理する。
+
+### Added Documents
+
+- docs/future-extensions.md: separates Step 7 future extensions from the current MVP and records implementation boundaries.
+- docs/research-questions.md: lists core and future-extension research questions for later experiment design.
+- docs/v2.1.2-candidate-notes.md: ranks candidate v2.1.2 directions without authorizing implementation.
+
+### Future Extensions Documented
+
+- Bhramari dual-period modulation
+- Katakamuna formant / seed injection
+- Day-night rhythm
+- Cell-division-like memory propagation
+- Morphic resonance bias
+- External sound / microphone input
+- Ritual / practice mode
+- Pattern archive and replay
+
+### Implementation Boundary
+
+No runtime behavior was added.
+
+### Notes
+
+- Future symbolic / acoustic / morphic extensions should not be added until Step 0–6 behavior is stable and replayable.
+- Pattern archive and replay may be the safest next structural extension.
+- Seed format should come before Katakamuna or symbolic input experiments.
