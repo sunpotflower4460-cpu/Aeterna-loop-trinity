@@ -208,6 +208,14 @@ function computeTotalEnergy(field, options = {}) {
 }
 
 
+function normalizePulseMetrics(metrics) {
+  return {
+    pulseAppliedCells: metrics?.pulseAppliedCells ?? 0,
+    pulseTotalDelta: metrics?.pulseTotalDelta ?? 0,
+    pulseAverageDelta: metrics?.pulseAverageDelta ?? 0,
+  };
+}
+
 function computeMemoryStats(field) {
   if (!field || !field.phiRe || !field.phiIm || !field.memoryRe || !field.memoryIm) {
     return {
@@ -331,6 +339,9 @@ function collectAeternaMetrics({
   localSampleCount = DEFAULT_LOCAL_SAMPLE_COUNT,
   ampThreshold = DEFAULT_AMP_THRESHOLD,
   computeGradientEnergy,
+  pulseMetricsA,
+  pulseMetricsB,
+  lastPulseStep = null,
 } = {}) {
   const R_A_global = computeOrderParameter(fieldA, ampThreshold);
   const R_B_global = computeOrderParameter(fieldB, ampThreshold);
@@ -344,6 +355,8 @@ function collectAeternaMetrics({
   const energyB = computeTotalEnergy(fieldB, { computeGradientEnergy });
   const memoryA = computeMemoryStats(fieldA);
   const memoryB = computeMemoryStats(fieldB);
+  const pulseA = normalizePulseMetrics(pulseMetricsA);
+  const pulseB = normalizePulseMetrics(pulseMetricsB);
   const normalizedVortexCount = vortexCount ?? normalizeVortexCount(vortices);
   let vortexLifetime = null;
 
@@ -382,6 +395,13 @@ function collectAeternaMetrics({
     memoryEnergyB: memoryB.memoryEnergy,
     memoryFieldDifferenceA: memoryA.memoryFieldDifference,
     memoryFieldDifferenceB: memoryB.memoryFieldDifference,
+    pulseAppliedCellsA: pulseA.pulseAppliedCells,
+    pulseAppliedCellsB: pulseB.pulseAppliedCells,
+    pulseTotalDeltaA: pulseA.pulseTotalDelta,
+    pulseTotalDeltaB: pulseB.pulseTotalDelta,
+    pulseAverageDeltaA: pulseA.pulseAverageDelta,
+    pulseAverageDeltaB: pulseB.pulseAverageDelta,
+    lastPulseStep,
     energyDeltaFromPreviousSample: computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics),
     amplitudeBreathingScore: computeAmplitudeBreathingScore(combinedAmplitudeMean, amplitudeMeanHistory),
     vortexCount: normalizedVortexCount,
@@ -406,6 +426,7 @@ module.exports = {
   computeLocalOrderAt,
   computeLocalOrderStats,
   computeMemoryStats,
+  normalizePulseMetrics,
   computeOrderParameter,
   computeTotalEnergy,
   defaultIndex3D,

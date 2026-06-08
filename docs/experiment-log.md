@@ -306,3 +306,90 @@ EWMA alone is enough to prevent the surrogate's sampled vortex count from reachi
 ### Recommended Next Step
 
 Tune `MEMORY_WEIGHT` / `HISTORY_ALPHA` further, especially around `MEMORY_WEIGHT = 0.08` to `0.12`, before proceeding to Step 2 Gentle Pulse in the real A/B simulation loop.
+
+---
+
+## Experiment 004: Step 2 Homeostatic Gentle Pulse
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+散逸に抗うため、振幅が弱ったセルだけにごく弱い恒常性型 Gentle Pulse を追加し、その効果を観察する。
+
+### Implementation Summary
+
+- Added params:
+  - `PULSE_ENABLED: false`
+  - `PULSE_INTERVAL: 100`
+  - `PULSE_STRENGTH: 0.005`
+  - `PULSE_THRESHOLD_RATIO: 0.95`
+  - `PULSE_MIN_AMP: 0.01`
+  - `PULSE_MODE: homeostatic`
+- Added `applyGentlePulse()` in `src/physics/gentle-pulse.js`.
+- Added pulse metrics:
+  - `pulseAppliedCellsA`
+  - `pulseAppliedCellsB`
+  - `pulseTotalDeltaA`
+  - `pulseTotalDeltaB`
+  - `pulseAverageDeltaA`
+  - `pulseAverageDeltaB`
+  - `lastPulseStep`
+- Pulse location in simulation loop: after field dynamics and before vortex / metrics sampling in the headless diagnostic surrogate.
+
+Note: この repository snapshot には本体 A/B simulation loop が存在しないため、Step 2 は Step 0/0.5/1 と同じく分離型 headless diagnostic surrogate で実装した。現行 harness は A場のみを接続し、B場 metrics は `null` または未介入値の `0` のまま schema を保持する。EWMA memory には依存していない。
+
+### Conditions
+
+| condition | PULSE_ENABLED | PULSE_STRENGTH | PULSE_INTERVAL | threshold | notes |
+|---|---:|---:|---:|---:|---|
+| Baseline | false | - | - | - | |
+| Pulse 0.005 / 100 | true | 0.005 | 100 | 0.95 | primary |
+| Pulse 0.01 / 100 | true | 0.01 | 100 | 0.95 | exploratory |
+| Pulse 0.02 / 100 | true | 0.02 | 100 | 0.95 | strong / caution |
+| Pulse 0.005 / 80 | true | 0.005 | 80 | 0.95 | interval scan |
+| Pulse 0.005 / 120 | true | 0.005 | 120 | 0.95 | interval scan |
+
+### Results Summary
+
+Full JSON output: `experiments/gentle-pulse-results.json`
+
+| condition | final vortex | zero step | vortex lifetime avg | amp mean A end | amp mean B end | amp std A end | amp std B end | total energy end | pulse cells total | notes |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Baseline | 0 | 425 | 420 | 0.993811 | null | 0.054218 | null | 13694.057631 | 0 | Baseline pulse disabled; existing headless dynamics run without pulse intervention. |
+| Pulse 0.005 / 100 | 0 | 425 | 420 | 0.992439 | null | 0.053535 | null | 13655.359509 | 164981 | Completed without sampled non-finite values or pulse warning thresholds. |
+| Pulse 0.01 / 100 | 0 | 425 | 420 | 0.991262 | null | 0.052919 | null | 13622.171673 | 163217 | Completed without sampled non-finite values or pulse warning thresholds. |
+| Pulse 0.02 / 100 | 0 | 425 | 420 | 0.989430 | null | 0.051816 | null | 13570.430724 | 159674 | Completed without sampled non-finite values or pulse warning thresholds. |
+| Pulse 0.005 / 80 | 0 | 425 | 420 | 0.992186 | null | 0.053448 | null | 13648.299769 | 203196 | Completed without sampled non-finite values or pulse warning thresholds. |
+| Pulse 0.005 / 120 | 0 | 425 | 420 | 0.992446 | null | 0.053763 | null | 13655.881468 | 133501 | Completed without sampled non-finite values or pulse warning thresholds. |
+
+### Pulse Delta Snapshot
+
+| condition | pulseTotalDeltaA total | pulseTotalDeltaB total | last pulse step | non-finite detected |
+|---|---:|---:|---:|---|
+| Baseline | 0 | 0 | null | false |
+| Pulse 0.005 / 100 | 83.534844 | 0 | 5000 | false |
+| Pulse 0.01 / 100 | 164.617102 | 0 | 5000 | false |
+| Pulse 0.02 / 100 | 319.774473 | 0 | 5000 | false |
+| Pulse 0.005 / 80 | 102.207246 | 0 | 4960 | false |
+| Pulse 0.005 / 120 | 67.088146 | 0 | 4920 | false |
+
+### Observations
+
+- Did Gentle Pulse extend vortex lifetime? No. In this single-field headless surrogate, all pulse conditions still reached `vortexCount = 0` at sampled step 425, the same as baseline.
+- Did average amplitude stay closer to VEV? No clear improvement. The primary pulse condition ended slightly below the baseline amplitude mean (`0.992439` vs `0.993811`).
+- Did the field become too uniform? No warning thresholds were triggered, and `amplitudeStdA` decreased only modestly across stronger pulse conditions.
+- Did R_global unnaturally stick near 1? No additional warning was triggered in the experiment run; the surrogate already trends toward high order after vortex disappearance.
+- Did pulseAppliedCells become too large? The cumulative pulse-applied cell count is large because it accumulates over repeated interval pulses, but per-pulse warning checks did not exceed the conservative 90% cell coverage threshold.
+- Did pulse create breathing-like rhythm or destroy natural rhythm? No breathing-like improvement was established in this surrogate.
+- Did anything unexpected happen? Gentle Pulse did not rescue vortex lifetime even at stronger exploratory settings; it mainly produced small amplitude-direction corrections.
+
+### Interpretation
+
+In this headless surrogate, Gentle Pulse behaves as the intended weak amplitude-only homeostatic correction and does not introduce sampled NaN or obvious overdrive. However, it does not address the vortex-loss mechanism observed here: `zeroStep` and count-based vortex lifetime remain unchanged across all pulse conditions. This is consistent with Step 0/1 notes that the surrogate's vortex loss is not solved by a small amplitude top-up alone. Keep the default disabled for baseline preservation and use `PULSE_STRENGTH = 0.005`, `PULSE_INTERVAL = 100` only as the primary comparison condition.
+
+### Recommended Next Step
+
+Proceed to Step 3 Phase Circulation, while keeping Gentle Pulse disabled by default and treating `PULSE_STRENGTH = 0.005` / `PULSE_INTERVAL = 100` as a cautious opt-in diagnostic.

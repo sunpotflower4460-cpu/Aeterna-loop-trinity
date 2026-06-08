@@ -106,6 +106,29 @@ Notes:
 - 強すぎる場合は弱める
 - Case D が出た場合は省略も検討する
 
+### Step 2: Homeostatic Gentle Pulse
+
+Status: Partial / Implemented in headless surrogate
+
+Implemented:
+- [x] `PULSE_ENABLED` flag
+- [x] `PULSE_INTERVAL`
+- [x] `PULSE_STRENGTH`
+- [x] `PULSE_THRESHOLD_RATIO`
+- [x] `PULSE_MIN_AMP`
+- [x] `applyGentlePulse()`
+- [x] pulse metrics
+- [x] ON/OFF comparison via `npm run experiment:gentle-pulse`
+- [x] experiment log entry
+
+Notes:
+- `src/physics/gentle-pulse.js` contains the amplitude-only homeostatic correction and returns pulse intervention metrics.
+- The pulse corrects only cells with `amp > PULSE_MIN_AMP` and `amp < VEV * PULSE_THRESHOLD_RATIO`; it does not rotate phase, add sinusoidal modulation, add random noise, or inject velocity.
+- `src/params/aeterna-params.js` keeps `PULSE_ENABLED: false` by default to preserve baseline behavior and allow ON/OFF comparison.
+- `scripts/run-gentle-pulse.js` applies Gentle Pulse after field dynamics and before vortex / metrics sampling.
+- The current repository snapshot has no real A/B simulation loop, so the comparison script uses the existing single-field headless diagnostic pattern and leaves B metrics as `null` or zero pulse totals.
+- Latest results are stored in `experiments/gentle-pulse-results.json`.
+
 ## Step 3: 位相循環
 
 ### 目的
