@@ -287,13 +287,23 @@ Notes:
 - Strict collapse / uniformization stayed false in the first run, but high coupling drove `fieldABDistance` toward zero, so high `COUPLING_G` remains a caution zone rather than an automatic success.
 - Morphology resonance, Bhramari modulation, Katakamuna formant injection, day/night rhythm, cell-division memory propagation, and other Step 7 extensions remain unimplemented.
 
-## Step 7: 将来拡張
+## Step 7: Future Extensions / Morphic + Practice Layer
 
-今回は実装しない。
-以下は future extensions として分離する。
+Status: Documented / Partial / Pending
 
-- ブラーマリー二重周期変調
-- カタカムナ・フォルマント注入
-- 昼夜リズム
-- 細胞分裂的メモリ伝播
-- 形態共鳴
+Implemented:
+- [x] docs/future-extensions.md
+- [x] docs/research-questions.md
+- [x] docs/v2.1.2-candidate-notes.md
+- [x] Bhramari modulation documented
+- [x] Katakamuna seed injection documented
+- [x] Day-night rhythm documented
+- [x] Cell-division-like memory propagation documented
+- [x] Morphic resonance bias documented
+- [x] Sound input documented
+- [x] Practice mode documented
+- [x] Pattern archive / replay documented
+
+Notes:
+- No runtime implementation should be added in this step.
+- These symbolic, biological, acoustic, morphic, and practice-layer ideas remain future extensions until Step 0–6 behavior is observable, comparable, stable, and replayable.
