@@ -1,5 +1,14 @@
 'use strict';
 
+const DEFAULT_PULSE_PARAMS = Object.freeze({
+  PULSE_ENABLED: false,
+  PULSE_INTERVAL: 100,
+  PULSE_STRENGTH: 0.005,
+  PULSE_THRESHOLD_RATIO: 0.95,
+  PULSE_MIN_AMP: 0.01,
+  PULSE_MODE: 'homeostatic',
+});
+
 const DEFAULT_MEMORY_PARAMS = Object.freeze({
   MEMORY_ENABLED: false,
   HISTORY_ALPHA: 0.04,
@@ -12,4 +21,5 @@ const DEFAULT_MEMORY_PARAMS = Object.freeze({
 
 module.exports = {
   DEFAULT_MEMORY_PARAMS,
+  DEFAULT_PULSE_PARAMS,
 };
