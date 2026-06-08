@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "experiment:gamma-scan": "node scripts/run-gamma-scan.js"
+  }
+}
