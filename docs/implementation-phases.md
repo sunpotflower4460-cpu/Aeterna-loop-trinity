@@ -264,6 +264,29 @@ Notes:
 - `R_AB_relative` の低下を見る
 - 連続的変化か不連続ジャンプか記録する
 
+### Step 6: Kuramoto Transition / Coupling Scan
+
+Status: Partial / Implemented in headless A/B surrogate
+
+Implemented:
+- [x] `COUPLING_SCAN_ENABLED`
+- [x] `COUPLING_SCAN_VALUES`
+- [x] coupling scan script
+- [x] transition detection
+- [x] collapse / uniformization detection
+- [x] stable dynamic balance score
+- [x] JSON/CSV output
+- [x] experiment log entry
+- [x] recommended fine scan range
+
+Notes:
+- `src/params/aeterna-params.js` keeps `COUPLING_SCAN_ENABLED: false` by default so normal execution does not enter scan mode.
+- `scripts/run-coupling-scan.js` runs Condition A (`COUPLING_TYPE='amplitude'`) over `COUPLING_G = 0.01` through `0.5` in the existing headless A/B diagnostic surrogate.
+- The script writes `experiments/coupling-scan-results.json` and `experiments/coupling-scan-results.csv`.
+- Transition detection considers adjacent jumps in global order, relative order, vortex lifetime, and rapid A/B field-distance contraction. The first run found the strongest candidate at `0.01 → 0.02` and recommends a fine scan across `0.005 → 0.025`.
+- Strict collapse / uniformization stayed false in the first run, but high coupling drove `fieldABDistance` toward zero, so high `COUPLING_G` remains a caution zone rather than an automatic success.
+- Morphology resonance, Bhramari modulation, Katakamuna formant injection, day/night rhythm, cell-division memory propagation, and other Step 7 extensions remain unimplemented.
+
 ## Step 7: 将来拡張
 
 今回は実装しない。
