@@ -393,3 +393,75 @@ In this headless surrogate, Gentle Pulse behaves as the intended weak amplitude-
 ### Recommended Next Step
 
 Proceed to Step 3 Phase Circulation, while keeping Gentle Pulse disabled by default and treating `PULSE_STRENGTH = 0.005` / `PULSE_INTERVAL = 100` as a cautious opt-in diagnostic.
+
+---
+
+## Experiment 005: Step 3 Phase Rotation / Operator Splitting
+
+Date: 2026-06-08
+Commit: this PR commit
+Branch: work
+
+### Purpose
+
+場の更新後に位相循環を独立に適用し、渦の持続、A/B の相互作用、局所秩序の変化を観察する。
+
+### Implementation Summary
+
+- Added params:
+  - `PHASE_ROTATION_ENABLED: false`
+  - `OMEGA_A: 0.01`
+  - `OMEGA_B: 0.011`
+  - `PHASE_ROTATION_TARGET: field-and-memory`
+  - `PHASE_ROTATION_RENORMALIZE: false`
+  - `PHASE_ROTATION_RENORMALIZE_INTERVAL: 100`
+  - `PHASE_ROTATION_RENORMALIZE_MAX_AMP_RATIO: 1.5`
+- Added `rotateComplexField()` in `src/physics/phase-rotation.js`.
+- Added `applyPhaseRotation()` in `src/physics/phase-rotation.js`.
+- Added optional `softRenormalizeField()` in `src/physics/phase-rotation.js`.
+- Added phase rotation metrics to `collectAeternaMetrics()`.
+- Phase rotation location in simulation loop: after field dynamics and EWMA memory blend, before vortex detection and metrics sampling in the headless A/B diagnostic surrogate.
+
+Note: この repository snapshot には本体 browser/UI simulation loop が存在しないため、Step 3 は既存の headless diagnostic pattern に合わせて実装した。今回の script は A/B 2場を生成し、EWMA memory arrays を有効化したうえで、`field-and-memory` operator splitting を検証する。Memory Coupling、フェロモン場、形態共鳴は実装していない。
+
+### Conditions
+
+| condition | enabled | OMEGA_A | OMEGA_B | ratio | target | renorm | notes |
+|---|---:|---:|---:|---:|---|---|---|
+| Baseline | false | - | - | - | - | false | EWMA memory enabled in surrogate; phase rotation disabled |
+| 1.1 ratio | true | 0.01 | 0.011 | 1.1 | field-and-memory | false | primary |
+| 1.2 ratio | true | 0.01 | 0.012 | 1.2 | field-and-memory | false | |
+| 1.5 ratio | true | 0.01 | 0.015 | 1.5 | field-and-memory | false | |
+| 1.618 ratio | true | 0.01 | 0.01618 | 1.618 | field-and-memory | false | |
+| 1.8 ratio | true | 0.01 | 0.018 | 1.8 | field-and-memory | false | |
+
+### Results Summary
+
+Full JSON output: `experiments/phase-rotation-results.json`
+
+| condition | final vortex | zero step | vortex lifetime avg | vortex lifetime max | R_AB_relative end | R_A_local end | R_B_local end | amp mean A end | amp mean B end | total energy end | notes |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Baseline | 8 | null | 0 | 5000 | 0.000002 | 0.967685 | 0.967687 | 0.934404 | 0.934404 | 24506.912016 | Baseline phase rotation disabled; EWMA memory remained enabled for the diagnostic surrogate. |
+| 1.1 ratio | 8 | null | 0 | 5000 | 0.000003 | 0.967699 | 0.967702 | 0.934404 | 0.934404 | 24506.910907 | Completed without sampled non-finite values or amplitude warning thresholds. |
+| 1.2 ratio | 8 | null | 0 | 5000 | 0.000004 | 0.967699 | 0.967703 | 0.934404 | 0.934404 | 24506.910851 | Completed without sampled non-finite values or amplitude warning thresholds. |
+| 1.5 ratio | 8 | null | 0 | 5000 | 0.000007 | 0.967699 | 0.967707 | 0.934404 | 0.934404 | 24506.910682 | Completed without sampled non-finite values or amplitude warning thresholds. |
+| 1.618 ratio | 8 | null | 0 | 5000 | 0.000008 | 0.967699 | 0.967708 | 0.934404 | 0.934404 | 24506.910607 | Completed without sampled non-finite values or amplitude warning thresholds. |
+| 1.8 ratio | 8 | null | 0 | 5000 | 0.000010 | 0.967699 | 0.967710 | 0.934404 | 0.934404 | 24506.910505 | Completed without sampled non-finite values or amplitude warning thresholds. |
+
+### Observations
+
+- Did phase rotation extend vortex lifetime? The A/B diagnostic surrogate kept the combined `vortexCount` at 8 through all 5000 steps even without phase rotation, so extension cannot be distinguished in this run. `vortexLifetimeMax` remains 5000 for all conditions.
+- Did some omega ratios create more stable circulation? No ratio produced sampled non-finite values or amplitude warning thresholds. Higher ratios slightly increased the final `R_AB_relative`, but the absolute values stayed very small.
+- Did `R_AB_relative` decrease or oscillate? The final value increased monotonically with `OMEGA_B` in this small sweep, from approximately `0.000003` at ratio 1.1 to `0.000010` at ratio 1.8.
+- Did local order appear before global order? Local order stayed high and similar across A/B at the final sample; this surrogate does not yet expose a decisive local-before-global transition.
+- Did any ratio destabilize amplitude? No. `amplitudeMeanA` and `amplitudeMeanB` stayed at approximately `0.934404`, and no non-finite values were sampled.
+- Did rotating memory together help stability? The standard `field-and-memory` mode completed without sampled memory NaN / Infinity in all enabled conditions.
+- Did anything unexpected happen? Unlike the older single-field diagnostics, this A/B surrogate retained vortices for the full run even in the baseline condition; this makes Step 3 safe numerically but less conclusive for lifetime extension.
+
+### Interpretation
+
+The operator-split phase rotation is numerically safe in the current headless A/B surrogate: it preserves amplitude statistics, does not trigger sampled non-finite values, and exposes tunable A/B phase drift through `OMEGA_B`. Because the surrogate baseline already preserves vortices for the full 5000-step window, this run should be interpreted primarily as an implementation and stability check rather than proof that phase circulation extends vortex lifetime. The smallest ratio (`OMEGA_B = 0.011`) is the least disruptive among the enabled conditions by final `R_AB_relative`.
+
+### Recommended Next Step
+
+Compare `field-only` vs `field-and-memory`, or proceed cautiously to Step 4 Memory Coupling after confirming the same operator-splitting order in the real browser/UI simulation loop when that loop is present.

@@ -342,6 +342,7 @@ function collectAeternaMetrics({
   pulseMetricsA,
   pulseMetricsB,
   lastPulseStep = null,
+  phaseRotationMetrics,
 } = {}) {
   const R_A_global = computeOrderParameter(fieldA, ampThreshold);
   const R_B_global = computeOrderParameter(fieldB, ampThreshold);
@@ -357,6 +358,7 @@ function collectAeternaMetrics({
   const memoryB = computeMemoryStats(fieldB);
   const pulseA = normalizePulseMetrics(pulseMetricsA);
   const pulseB = normalizePulseMetrics(pulseMetricsB);
+  const phaseMetrics = phaseRotationMetrics || {};
   const normalizedVortexCount = vortexCount ?? normalizeVortexCount(vortices);
   let vortexLifetime = null;
 
@@ -402,6 +404,17 @@ function collectAeternaMetrics({
     pulseAverageDeltaA: pulseA.pulseAverageDelta,
     pulseAverageDeltaB: pulseB.pulseAverageDelta,
     lastPulseStep,
+    PHASE_ROTATION_ENABLED: phaseMetrics.PHASE_ROTATION_ENABLED ?? false,
+    OMEGA_A: phaseMetrics.OMEGA_A ?? null,
+    OMEGA_B: phaseMetrics.OMEGA_B ?? null,
+    PHASE_ROTATION_TARGET: phaseMetrics.PHASE_ROTATION_TARGET ?? null,
+    phaseRotationApplied: phaseMetrics.phaseRotationApplied ?? false,
+    omegaRatio: phaseMetrics.omegaRatio ?? null,
+    phaseRotationModeLabel: phaseMetrics.phaseRotationModeLabel ?? null,
+    PHASE_ROTATION_RENORMALIZE: phaseMetrics.PHASE_ROTATION_RENORMALIZE ?? false,
+    renormalizationAppliedCountA: phaseMetrics.renormalizationAppliedCountA ?? 0,
+    renormalizationAppliedCountB: phaseMetrics.renormalizationAppliedCountB ?? 0,
+    renormalizationAppliedCount: phaseMetrics.renormalizationAppliedCount ?? 0,
     energyDeltaFromPreviousSample: computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics),
     amplitudeBreathingScore: computeAmplitudeBreathingScore(combinedAmplitudeMean, amplitudeMeanHistory),
     vortexCount: normalizedVortexCount,
