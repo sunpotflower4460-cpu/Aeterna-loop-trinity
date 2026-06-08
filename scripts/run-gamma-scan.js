@@ -3,6 +3,10 @@
 
 const fs = require('fs');
 const path = require('path');
+const {
+  CountBasedVortexLifetimeTracker,
+  collectAeternaMetrics,
+} = require('../src/metrics/aeterna-metrics');
 
 const GAMMA_VALUES = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01];
 
@@ -16,6 +20,7 @@ const CONFIG = Object.freeze({
   vev: 1.0,
   noiseAmp: 0.001,
   sampleInterval: 25,
+  metricsSampleInterval: 30,
 });
 
 const OUTPUT_PATH = path.join(__dirname, '..', 'experiments', 'gamma-scan-results.json');
@@ -241,20 +246,42 @@ function formatNumber(value) {
   return Number(value.toFixed(6));
 }
 
+function collectGammaMetrics(field, vortexCount, step, config, vortexTracker, previousMetrics, amplitudeMeanHistory) {
+  return collectAeternaMetrics({
+    fieldA: field,
+    fieldB: null,
+    vortexCount,
+    stepCount: step,
+    gridSize: config.gridSize,
+    index3D: index,
+    vortexTracker,
+    previousMetrics,
+    amplitudeMeanHistory,
+    localSampleCount: 512,
+  });
+}
+
 function runGamma(gamma, config) {
   const field = initializeField(config);
   const scratchRe = new Float64Array(field.phiRe.length);
   const scratchIm = new Float64Array(field.phiIm.length);
+  const vortexTracker = new CountBasedVortexLifetimeTracker();
   const initialAmplitude = computeAmplitudeStats(field);
   const initialEnergy = computeTotalEnergy(field);
   const initialVortexCount = computeVortexCount(field, config);
   const vortexCounts = [initialVortexCount];
   const amplitudeMeans = [initialAmplitude.mean];
   const energies = [initialEnergy];
+  const metricsSamples = [];
+  let previousMetrics = null;
   let stepWhenVortexCountReachedZero = initialVortexCount === 0 ? 0 : null;
   let finalVortexCount = initialVortexCount;
   let finalAmplitude = initialAmplitude;
   let finalEnergy = initialEnergy;
+
+  const initialMetrics = collectGammaMetrics(field, initialVortexCount, 0, config, vortexTracker, previousMetrics, amplitudeMeans);
+  metricsSamples.push(initialMetrics);
+  previousMetrics = initialMetrics;
 
   for (let step = 1; step <= config.maxSteps; step += 1) {
     stepField(field, gamma, config, scratchRe, scratchIm);
@@ -271,7 +298,19 @@ function runGamma(gamma, config) {
         stepWhenVortexCountReachedZero = step;
       }
     }
+
+    if (step % config.metricsSampleInterval === 0 || step === config.maxSteps) {
+      const sampledVortexCount = step % config.sampleInterval === 0 || step === config.maxSteps
+        ? finalVortexCount
+        : computeVortexCount(field, config);
+      const metrics = collectGammaMetrics(field, sampledVortexCount, step, config, vortexTracker, previousMetrics, amplitudeMeans);
+      metricsSamples.push(metrics);
+      previousMetrics = metrics;
+    }
   }
+
+  const finalMetrics = metricsSamples[metricsSamples.length - 1];
+  globalThis.__AETERNA_METRICS__ = finalMetrics;
 
   const vortexSum = vortexCounts.reduce((sum, value) => sum + value, 0);
   const energyDelta = finalEnergy - initialEnergy;
@@ -284,6 +323,7 @@ function runGamma(gamma, config) {
     gridSize: config.gridSize,
     maxSteps: config.maxSteps,
     sampleInterval: config.sampleInterval,
+    metricsSampleInterval: config.metricsSampleInterval,
     initialVortexCount,
     finalVortexCount,
     stepWhenVortexCountReachedZero,
@@ -297,6 +337,22 @@ function runGamma(gamma, config) {
     totalEnergyEnd: finalEnergy,
     totalEnergyDelta: energyDelta,
     totalEnergyDeltaPercent,
+    R_A_global_start: initialMetrics.R_A_global,
+    R_A_global_end: finalMetrics.R_A_global,
+    R_B_global_start: initialMetrics.R_B_global,
+    R_B_global_end: finalMetrics.R_B_global,
+    R_AB_relative_start: initialMetrics.R_AB_relative,
+    R_AB_relative_end: finalMetrics.R_AB_relative,
+    R_A_local_average_start: initialMetrics.R_A_local_average,
+    R_A_local_average_end: finalMetrics.R_A_local_average,
+    R_B_local_average_start: initialMetrics.R_B_local_average,
+    R_B_local_average_end: finalMetrics.R_B_local_average,
+    totalEnergyCombined_start: initialMetrics.totalEnergyCombined,
+    totalEnergyCombined_end: finalMetrics.totalEnergyCombined,
+    vortexLifetimeAverage: finalMetrics.vortexLifetimeAverage,
+    vortexLifetimeMax: finalMetrics.vortexLifetimeMax,
+    vortexLifetimeTrackingMode: finalMetrics.vortexLifetimeTrackingMode,
+    latestMetrics: finalMetrics,
     averageAmplitudeMean: amplitudeMeans.reduce((sum, value) => sum + value, 0) / amplitudeMeans.length,
     minAmplitudeMean: Math.min(...amplitudeMeans),
     maxAmplitudeMean: Math.max(...amplitudeMeans),

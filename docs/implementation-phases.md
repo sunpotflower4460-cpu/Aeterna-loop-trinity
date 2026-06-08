@@ -28,16 +28,29 @@
 
 実装前に「目」を作る。
 
-### 追加予定の指標
+### Step 0.5: Observability Metrics
 
-- `R_A_global`
-- `R_B_global`
-- `R_AB_relative`
-- `R_local`
-- amplitude mean / std
-- `vortexLifetime`
-- `totalEnergy`
-- pheromone total、Step 5以降
+Status: Implemented / Partial
+
+Implemented:
+- [x] `R_A_global`
+- [x] `R_B_global`（B場が渡された場合に計算。現行 headless GAMMA scan は単一場のため `null`）
+- [x] `R_AB_relative`（A/B 両方が渡された場合に計算）
+- [x] `R_A_local_average`
+- [x] `R_B_local_average`（B場が渡された場合に計算）
+- [x] amplitude stats
+- [x] totalEnergy
+- [x] vortexLifetime tracking
+- [x] metrics sampling interval
+- [x] debug display or global metrics object
+
+Notes:
+- Metrics functions were added in `src/metrics/aeterna-metrics.js` and are pure observational helpers.
+- Local order uses sampled 3×3×3 neighborhoods rather than all cells. The GAMMA scan currently samples 512 cells per metrics sample.
+- `totalEnergy` is currently the simple amplitude-energy proxy (`re² + im²`) unless a caller supplies `computeGradientEnergy`.
+- The current repository snapshot has no main A/B simulation loop, so `scripts/run-gamma-scan.js` connects the metrics to the existing single-field headless diagnostic and leaves B metrics as `null`.
+- Vortex lifetime is count-based because the existing detector returns only `vortexCount`, not vortex positions.
+- The latest sampled metrics are available as `latestMetrics` in `experiments/gamma-scan-results.json`; during the Node run they are also assigned to `globalThis.__AETERNA_METRICS__`.
 
 ## Step 1: EWMA 記憶層
 
