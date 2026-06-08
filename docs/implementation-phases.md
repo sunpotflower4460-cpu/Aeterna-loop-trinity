@@ -222,6 +222,35 @@ Notes:
 - ゆっくり拡散する
 - 後半で pheromone gradient を場へフィードバックする
 
+### Step 5: Pheromone Field
+
+Status: Partial / Implemented in headless A/B surrogate
+
+Implemented:
+- [x] `PHEROMONE_ENABLED` flag
+- [x] `PHEROMONE_UPDATE_INTERVAL`
+- [x] `PHEROMONE_RETENTION`
+- [x] `PHEROMONE_DEPOSIT`
+- [x] `PHEROMONE_DIFFUSION`
+- [x] `pheromoneField`
+- [x] `updatePheromoneField()`
+- [x] `diffusePheromoneField()`
+- [x] pheromone metrics
+- [x] optional feedback
+- [x] ON/OFF comparison via `npm run experiment:pheromone-field`
+- [x] experiment log entry
+
+Notes:
+- `src/params/aeterna-params.js` keeps `PHEROMONE_ENABLED: false` and `PHEROMONE_FEEDBACK_ENABLED: false` by default to preserve baseline behavior.
+- `src/physics/pheromone.js` defines `createPheromoneField(size)`, `updatePheromoneField()`, `diffusePheromoneField()`, `computePheromoneStats()`, and optional `applyPheromoneFeedback()`.
+- The pheromone field is a separate public trace and is not attached to `fieldA` or `fieldB`.
+- The update path applies retention, high-amplitude deposition, and light diffusion only every `PHEROMONE_UPDATE_INTERVAL` steps.
+- The implementation accepts the caller's full `gridSize` and `pheromoneField.length`, so it does not create a coarse-grained pheromone grid. The included headless experiment remains `24^3` / 1000 steps for runtime, while the module supports 64³ grids.
+- `collectAeternaMetrics()` includes pheromone params, total / mean / std / max / active ratio, update metrics, and optional feedback metrics.
+- Latest results are stored in `experiments/pheromone-field-results.json`.
+- The first surrogate run shows `pheromoneActiveRatio = 1` for enabled conditions, so trace-only should remain enabled cautiously and feedback should remain disabled by default.
+- Kuramoto transition scans, morphology resonance, Bhramari modulation, Katakamuna formant injection, and large UI changes remain unimplemented.
+
 ## Step 6: 蔵本転移観察 + 結合スキャン
 
 ### 目的

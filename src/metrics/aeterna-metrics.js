@@ -1,5 +1,7 @@
 'use strict';
 
+const { computePheromoneStats } = require('../physics/pheromone');
+
 const DEFAULT_AMP_THRESHOLD = 0.01;
 const DEFAULT_LOCAL_SAMPLE_COUNT = 1024;
 const DEFAULT_LOCAL_SAMPLE_INTERVAL = 30;
@@ -278,6 +280,14 @@ function computeMemoryDistance(fieldA, fieldB) {
   return sum / Math.max(count, 1);
 }
 
+function normalizePheromoneFeedbackMetrics(metrics) {
+  return {
+    pheromoneFeedbackApplied: metrics?.pheromoneFeedbackApplied ?? false,
+    pheromoneFeedbackDelta: metrics?.pheromoneFeedbackDelta ?? 0,
+    pheromoneFeedbackAppliedCells: metrics?.pheromoneFeedbackAppliedCells ?? 0,
+  };
+}
+
 function normalizeMemoryCouplingMetrics(metrics) {
   const appliedCells = metrics?.memoryCouplingAppliedCells ?? 0;
   const deltaA = metrics?.memoryCouplingDeltaA ?? 0;
@@ -391,6 +401,10 @@ function collectAeternaMetrics({
   phaseRotationMetrics,
   couplingMetrics,
   couplingParams,
+  pheromoneField,
+  pheromoneMetrics,
+  pheromoneFeedbackMetricsA,
+  pheromoneFeedbackMetricsB,
 } = {}) {
   const R_A_global = computeOrderParameter(fieldA, ampThreshold);
   const R_B_global = computeOrderParameter(fieldB, ampThreshold);
@@ -408,6 +422,10 @@ function collectAeternaMetrics({
   const pulseB = normalizePulseMetrics(pulseMetricsB);
   const phaseMetrics = phaseRotationMetrics || {};
   const memoryCoupling = normalizeMemoryCouplingMetrics(couplingMetrics);
+  const pheromoneStats = computePheromoneStats(pheromoneField);
+  const pheromoneInfo = pheromoneMetrics || {};
+  const pheromoneFeedbackA = normalizePheromoneFeedbackMetrics(pheromoneFeedbackMetricsA);
+  const pheromoneFeedbackB = normalizePheromoneFeedbackMetrics(pheromoneFeedbackMetricsB);
   const fieldABDistance = computeFieldDistance(fieldA, fieldB);
   const memoryABDistance = computeMemoryDistance(fieldA, fieldB);
   const normalizedVortexCount = vortexCount ?? normalizeVortexCount(vortices);
@@ -461,6 +479,25 @@ function collectAeternaMetrics({
     COUPLING_G: couplingParams?.COUPLING_G ?? null,
     MEMORY_COUPLING_ENABLED: couplingParams?.MEMORY_COUPLING_ENABLED ?? false,
     MEMORY_COUPLING_WEIGHT: couplingParams?.MEMORY_COUPLING_WEIGHT ?? null,
+    PHEROMONE_ENABLED: couplingParams?.PHEROMONE_ENABLED ?? false,
+    PHEROMONE_UPDATE_INTERVAL: couplingParams?.PHEROMONE_UPDATE_INTERVAL ?? null,
+    PHEROMONE_RETENTION: couplingParams?.PHEROMONE_RETENTION ?? null,
+    PHEROMONE_DEPOSIT: couplingParams?.PHEROMONE_DEPOSIT ?? null,
+    PHEROMONE_DIFFUSION: couplingParams?.PHEROMONE_DIFFUSION ?? null,
+    PHEROMONE_FEEDBACK_ENABLED: couplingParams?.PHEROMONE_FEEDBACK_ENABLED ?? false,
+    PHEROMONE_FEEDBACK_STRENGTH: couplingParams?.PHEROMONE_FEEDBACK_STRENGTH ?? null,
+    pheromoneTotal: pheromoneStats.pheromoneTotal,
+    pheromoneMean: pheromoneStats.pheromoneMean,
+    pheromoneStd: pheromoneStats.pheromoneStd,
+    pheromoneMax: pheromoneStats.pheromoneMax,
+    pheromoneActiveRatio: pheromoneStats.pheromoneActiveRatio,
+    pheromoneUpdated: pheromoneInfo.pheromoneUpdated ?? false,
+    pheromoneDepositedCells: pheromoneInfo.pheromoneDepositedCells ?? 0,
+    pheromoneTotalDeposit: pheromoneInfo.pheromoneTotalDeposit ?? 0,
+    pheromoneFeedbackAppliedCellsA: pheromoneFeedbackA.pheromoneFeedbackAppliedCells,
+    pheromoneFeedbackAppliedCellsB: pheromoneFeedbackB.pheromoneFeedbackAppliedCells,
+    pheromoneFeedbackDeltaA: pheromoneFeedbackA.pheromoneFeedbackDelta,
+    pheromoneFeedbackDeltaB: pheromoneFeedbackB.pheromoneFeedbackDelta,
     effectiveMemoryCoupling: memoryCoupling.effectiveMemoryCoupling,
     memoryCouplingApplied: memoryCoupling.memoryCouplingApplied,
     memoryCouplingAppliedCells: memoryCoupling.memoryCouplingAppliedCells,
@@ -506,6 +543,7 @@ module.exports = {
   computeMemoryDistance,
   computeMemoryStats,
   normalizeMemoryCouplingMetrics,
+  normalizePheromoneFeedbackMetrics,
   normalizePulseMetrics,
   computeOrderParameter,
   computeTotalEnergy,
