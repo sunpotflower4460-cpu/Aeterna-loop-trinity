@@ -10,6 +10,9 @@
     "experiment:coupling-scan": "node scripts/run-coupling-scan.js",
     "experiment:history-alpha-scan": "node scripts/run-history-alpha-scan.js",
     "experiment:memory-coupling-micro-scan": "node scripts/run-memory-coupling-micro-scan.js",
-    "experiment:pheromone-localization-scan": "node scripts/run-pheromone-localization-scan.js"
+    "experiment:pheromone-localization-scan": "node scripts/run-pheromone-localization-scan.js",
+    "experiment:history-alpha-narrow-scan": "node scripts/run-history-alpha-narrow-scan.js",
+    "experiment:memory-coupling-narrow-scan": "node scripts/run-memory-coupling-narrow-scan.js",
+    "experiment:v212-combined-validation": "node scripts/run-v212-combined-validation.js"
   }
 }

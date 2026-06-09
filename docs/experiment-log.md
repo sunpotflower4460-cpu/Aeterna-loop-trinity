@@ -875,3 +875,44 @@ Decision:
 - Blocking issues:
   - HISTORY_ALPHA scan preserved vortices and energy, but `memoryFieldDifferenceA_end` stayed below the provisional `0.05–0.3` trace band.
   - Memory Coupling micro scan preserved A/B distinction, but `fieldABDistance_end` stayed above the requested `0.01–0.1` meeting band.
+
+---
+
+## Experiment 014: v2.1.2 HISTORY_ALPHA Narrow Scan
+
+Purpose:
+Search lower HISTORY_ALPHA and lower MEMORY_WEIGHT values to find a memory setting where the EWMA field remains a real temporal trace instead of a near-copy of the current field.
+
+Output:
+- experiments/history-alpha-narrow-scan-results.json
+
+Interpretation:
+Completed. See `docs/v2.1.2-follow-up-results.md` after the follow-up scripts are run.
+
+---
+
+## Experiment 015: v2.1.2 Memory Coupling Narrow Scan
+
+Purpose:
+Search effectiveMemoryCoupling values above 0.025 to find a range where fieldA and fieldB meet without collapsing into complete identity.
+
+Output:
+- experiments/memory-coupling-narrow-scan-results.json
+
+Interpretation:
+Completed. See `docs/v2.1.2-follow-up-results.md` after the follow-up scripts are run.
+
+---
+
+## Experiment 016: v2.1.2 Combined Candidate Validation
+
+Purpose:
+Combine the best HISTORY_ALPHA, Memory Coupling, and Pheromone localization candidates to test whether they remain stable together before v2.2 or real 64³ validation.
+
+Output:
+- experiments/v2.1.2-combined-validation-results.json
+- experiments/v2.1.2-follow-up-summary.json
+- docs/v2.1.2-follow-up-results.md
+
+Interpretation:
+Completed. Combined validation remains gated by the narrow-scan candidate criteria and must not be treated as v2.2 approval unless the follow-up summary explicitly permits it.
