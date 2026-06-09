@@ -779,3 +779,74 @@ The next step is not to add more life-like features, but to tune memory, fusion,
 - Localize Pheromone Field
 - Clarify energy and A/B relation metrics
 - Prepare real 64³ validation
+
+---
+
+## Experiment 010: v2.1.2 HISTORY_ALPHA Scan
+
+Purpose:
+Find EWMA settings where memory remains a real temporal trace instead of becoming a near-copy of the current field.
+
+Output:
+- experiments/history-alpha-scan-results.json
+
+Run metadata:
+- `runType`: `surrogate-headless`
+- `dynamicsType`: `diagnostic-surrogate`
+- `gridSize`: recorded in `runMeta.gridSize`
+- `seed`: fixed at `12345` unless overridden by `AETERNA_SCAN_SEED`
+
+Scan values:
+- `HISTORY_ALPHA`: `0.04`, `0.02`, `0.01`, `0.004`, `0.002`
+- `MEMORY_WEIGHT`: `0.04`, `0.08`, `0.12`, `0.16`
+
+Interpretation:
+Pending.
+
+---
+
+## Experiment 011: v2.1.2 Memory Coupling Micro Scan
+
+Purpose:
+Find a coupling range where fieldA and fieldB meet without collapsing into complete identity.
+
+Output:
+- experiments/memory-coupling-micro-scan-results.json
+
+Run metadata:
+- `runType`: `surrogate-headless`
+- `dynamicsType`: `diagnostic-surrogate`
+- `gridSize`: recorded in `runMeta.gridSize`
+- `seed`: fixed at `12345` for the run family, with A/B initialized from fixed seeds `12345` and `67890`
+
+Scan values:
+- `MEMORY_COUPLING_WEIGHT`: `0.05`, `0.1`, `0.15`, `0.2`, `0.25`, `0.35`, `0.5`
+- `COUPLING_G`: `0.01`, `0.02`, `0.03`, `0.05`
+
+Interpretation:
+Pending.
+
+---
+
+## Experiment 012: v2.1.2 Pheromone Localization Scan
+
+Purpose:
+Retune pheromone parameters so the pheromone field remains a local trace rather than becoming a uniform background.
+
+Output:
+- experiments/pheromone-localization-scan-results.json
+
+Run metadata:
+- `runType`: `surrogate-headless`
+- `dynamicsType`: `diagnostic-surrogate`
+- `gridSize`: recorded in `runMeta.gridSize`
+- `seed`: fixed at `12345` for the run family, with A/B initialized from fixed seeds `12345` and `67890`
+
+Scan values:
+- `PHEROMONE_DIFFUSION`: `0`, `0.00005`, `0.0001`, `0.0002`, `0.0005`
+- `PHEROMONE_DEPOSIT_THRESHOLD_RATIO`: `0.85`, `0.9`, `0.95`
+- `PHEROMONE_DEPOSIT`: `0.005`, `0.01`, `0.02`
+- `pheromoneDepositMode`: `all-above-threshold`, `top-10-percent-amplitude`, `top-5-percent-amplitude`
+
+Interpretation:
+Pending.
