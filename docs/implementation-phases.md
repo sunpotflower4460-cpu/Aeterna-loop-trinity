@@ -356,6 +356,14 @@ Experiments:
 - [x] runType metadata
 - [x] candidate criteria documented
 
+Result Interpretation:
+- [x] history-alpha results interpreted
+- [x] memory-coupling micro results interpreted
+- [x] pheromone-localization results interpreted
+- [x] candidate summary JSON created
+- [x] final candidate params documented
+- [x] proceed / rescan decision recorded
+
 Docs:
 - [x] docs/experiment-log.md
 - [x] docs/v2.1.2-candidate-notes.md
