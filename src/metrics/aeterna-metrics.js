@@ -516,6 +516,7 @@ function collectAeternaMetrics({
     pheromoneStd: pheromoneStats.pheromoneStd,
     pheromoneMax: pheromoneStats.pheromoneMax,
     pheromoneActiveRatio: pheromoneStats.pheromoneActiveRatio,
+    pheromoneSpatialEntropy: pheromoneStats.pheromoneSpatialEntropy,
     pheromoneUpdated: pheromoneInfo.pheromoneUpdated ?? false,
     pheromoneDepositedCells: pheromoneInfo.pheromoneDepositedCells ?? 0,
     pheromoneTotalDeposit: pheromoneInfo.pheromoneTotalDeposit ?? 0,

@@ -349,6 +349,13 @@ Goals:
 - [x] prepare Pheromone localization retune
 - [x] mark surrogate vs real 64³ experiments
 
+Experiments:
+- [x] HISTORY_ALPHA scan script
+- [x] Memory Coupling micro scan script
+- [x] Pheromone localization scan script
+- [x] runType metadata
+- [x] candidate criteria documented
+
 Docs:
 - [x] docs/experiment-log.md
 - [x] docs/v2.1.2-candidate-notes.md

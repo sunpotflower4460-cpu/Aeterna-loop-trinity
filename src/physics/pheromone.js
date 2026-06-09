@@ -49,6 +49,30 @@ function computePheromoneTotal(pheromoneField) {
   return sum;
 }
 
+
+function computePheromoneSpatialEntropy(pheromoneField) {
+  if (!pheromoneField || pheromoneField.length === 0) return 0;
+
+  let sum = 0;
+
+  for (let i = 0; i < pheromoneField.length; i += 1) {
+    const value = pheromoneField[i];
+    if (Number.isFinite(value)) sum += Math.max(0, value);
+  }
+
+  if (sum <= 1e-12) return 0;
+
+  let entropy = 0;
+
+  for (let i = 0; i < pheromoneField.length; i += 1) {
+    const value = pheromoneField[i];
+    const p = (Number.isFinite(value) ? Math.max(0, value) : 0) / sum;
+    if (p > 1e-12) entropy -= p * Math.log(p);
+  }
+
+  return entropy / Math.log(pheromoneField.length);
+}
+
 function computePheromoneStats(pheromoneField) {
   if (!pheromoneField) {
     return {
@@ -59,6 +83,7 @@ function computePheromoneStats(pheromoneField) {
       pheromoneActiveRatio: 0,
       pheromoneMass: 0,
       pheromoneEnergyL2: 0,
+      pheromoneSpatialEntropy: 0,
     };
   }
 
@@ -89,6 +114,7 @@ function computePheromoneStats(pheromoneField) {
     pheromoneStd: Math.sqrt(Math.max(variance, 0)),
     pheromoneMax: max,
     pheromoneActiveRatio: activeCount / count,
+    pheromoneSpatialEntropy: computePheromoneSpatialEntropy(pheromoneField),
   };
 }
 
@@ -283,6 +309,7 @@ module.exports = {
   EMPTY_PHEROMONE_UPDATE_METRICS,
   applyPheromoneFeedback,
   computePheromoneEnergyL2,
+  computePheromoneSpatialEntropy,
   computePheromoneStats,
   computePheromoneTotal,
   createPheromoneField,
