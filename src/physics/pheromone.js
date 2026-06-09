@@ -21,6 +21,20 @@ function createPheromoneField(size) {
   return new Float32Array(size);
 }
 
+function computePheromoneEnergyL2(pheromoneField) {
+  if (!pheromoneField) return 0;
+
+  let sumSq = 0;
+
+  for (let i = 0; i < pheromoneField.length; i += 1) {
+    const value = pheromoneField[i];
+    const v = Number.isFinite(value) ? value : 0;
+    sumSq += v * v;
+  }
+
+  return 0.5 * sumSq;
+}
+
 function computePheromoneTotal(pheromoneField) {
   if (!pheromoneField) return 0;
 
@@ -43,6 +57,8 @@ function computePheromoneStats(pheromoneField) {
       pheromoneStd: 0,
       pheromoneMax: 0,
       pheromoneActiveRatio: 0,
+      pheromoneMass: 0,
+      pheromoneEnergyL2: 0,
     };
   }
 
@@ -67,6 +83,8 @@ function computePheromoneStats(pheromoneField) {
 
   return {
     pheromoneTotal: sum,
+    pheromoneMass: sum,
+    pheromoneEnergyL2: 0.5 * sumSq,
     pheromoneMean: mean,
     pheromoneStd: Math.sqrt(Math.max(variance, 0)),
     pheromoneMax: max,
@@ -264,6 +282,7 @@ module.exports = {
   EMPTY_PHEROMONE_FEEDBACK_METRICS,
   EMPTY_PHEROMONE_UPDATE_METRICS,
   applyPheromoneFeedback,
+  computePheromoneEnergyL2,
   computePheromoneStats,
   computePheromoneTotal,
   createPheromoneField,

@@ -7,6 +7,9 @@
     "experiment:phase-rotation": "node scripts/run-phase-rotation.js",
     "experiment:memory-coupling": "node scripts/run-memory-coupling.js",
     "experiment:pheromone-field": "node scripts/run-pheromone-field.js",
-    "experiment:coupling-scan": "node scripts/run-coupling-scan.js"
+    "experiment:coupling-scan": "node scripts/run-coupling-scan.js",
+    "experiment:history-alpha-scan": "node scripts/run-history-alpha-scan.js",
+    "experiment:memory-coupling-micro-scan": "node scripts/run-memory-coupling-micro-scan.js",
+    "experiment:pheromone-localization-scan": "node scripts/run-pheromone-localization-scan.js"
   }
 }
