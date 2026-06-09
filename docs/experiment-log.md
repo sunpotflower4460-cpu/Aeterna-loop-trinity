@@ -850,3 +850,28 @@ Scan values:
 
 Interpretation:
 Pending.
+
+## Experiment 013: v2.1.2 Result Interpretation and Candidate Selection
+
+Purpose:
+Read v2.1.2 scan results and select final candidate params for the tuning phase.
+
+Inputs:
+- experiments/history-alpha-scan-results.json
+- experiments/memory-coupling-micro-scan-results.json
+- experiments/pheromone-localization-scan-results.json
+
+Outputs:
+- experiments/v2.1.2-candidate-summary.json
+- docs/v2.1.2-results-interpretation.md
+- docs/v2.1.2-final-candidate-params.md
+
+Summary:
+Completed. Pheromone localization produced usable local-trace candidates, but HISTORY_ALPHA and Memory Coupling did not reach their requested acceptance bands. The resulting params are therefore provisional candidates for one more v2.1.2 rescan, not new defaults.
+
+Decision:
+- Proceed to v2.2: No
+- Additional v2.1.2 scan needed: Yes
+- Blocking issues:
+  - HISTORY_ALPHA scan preserved vortices and energy, but `memoryFieldDifferenceA_end` stayed below the provisional `0.05–0.3` trace band.
+  - Memory Coupling micro scan preserved A/B distinction, but `fieldABDistance_end` stayed above the requested `0.01–0.1` meeting band.

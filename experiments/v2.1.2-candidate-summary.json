@@ -1,0 +1,377 @@
+{
+  "runMeta": {
+    "version": "v2.1.2",
+    "createdAt": "2026-06-09T10:13:13Z",
+    "sourceExperiments": [
+      "experiments/history-alpha-scan-results.json",
+      "experiments/memory-coupling-micro-scan-results.json",
+      "experiments/pheromone-localization-scan-results.json"
+    ],
+    "interpretationRunType": "surrogate-headless-result-reading",
+    "scoringNote": "Scores are lightweight ranking aids, not physical validation metrics."
+  },
+  "historyAlpha": {
+    "status": "B: closest candidates exist, but additional scan is needed",
+    "topCandidates": [
+      {
+        "rank": 1,
+        "score": 0.861759,
+        "conditionName": "HISTORY_ALPHA=0.002 MEMORY_WEIGHT=0.04",
+        "HISTORY_ALPHA": 0.002,
+        "MEMORY_WEIGHT": 0.04,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "finalVortexCount": 4,
+        "memoryFieldDifferenceA_end": 0.041552,
+        "memoryFieldDifferenceB_end": null,
+        "amplitudeMeanA_end": 0.388404,
+        "amplitudeStdA_end": 0.228168,
+        "fieldEnergyProxy_start": 102.182859,
+        "fieldEnergyProxy_end": 103.894235,
+        "R_A_local_average_end": 0.763177,
+        "decision": "closest provisional; below trace target"
+      },
+      {
+        "rank": 2,
+        "score": 0.858712,
+        "conditionName": "HISTORY_ALPHA=0.004 MEMORY_WEIGHT=0.04",
+        "HISTORY_ALPHA": 0.004,
+        "MEMORY_WEIGHT": 0.04,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "finalVortexCount": 4,
+        "memoryFieldDifferenceA_end": 0.040998,
+        "memoryFieldDifferenceB_end": null,
+        "amplitudeMeanA_end": 0.38845,
+        "amplitudeStdA_end": 0.228129,
+        "fieldEnergyProxy_start": 102.182859,
+        "fieldEnergyProxy_end": 103.90352,
+        "R_A_local_average_end": 0.763195,
+        "decision": "closest provisional; below trace target"
+      },
+      {
+        "rank": 3,
+        "score": 0.84988,
+        "conditionName": "HISTORY_ALPHA=0.01 MEMORY_WEIGHT=0.04",
+        "HISTORY_ALPHA": 0.01,
+        "MEMORY_WEIGHT": 0.04,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "finalVortexCount": 4,
+        "memoryFieldDifferenceA_end": 0.039392,
+        "memoryFieldDifferenceB_end": null,
+        "amplitudeMeanA_end": 0.388585,
+        "amplitudeStdA_end": 0.228017,
+        "fieldEnergyProxy_start": 102.182859,
+        "fieldEnergyProxy_end": 103.930811,
+        "R_A_local_average_end": 0.763247,
+        "decision": "closest provisional; below trace target"
+      },
+      {
+        "rank": 4,
+        "score": 0.836128,
+        "conditionName": "HISTORY_ALPHA=0.02 MEMORY_WEIGHT=0.04",
+        "HISTORY_ALPHA": 0.02,
+        "MEMORY_WEIGHT": 0.04,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "finalVortexCount": 4,
+        "memoryFieldDifferenceA_end": 0.036896,
+        "memoryFieldDifferenceB_end": null,
+        "amplitudeMeanA_end": 0.388797,
+        "amplitudeStdA_end": 0.227842,
+        "fieldEnergyProxy_start": 102.182859,
+        "fieldEnergyProxy_end": 103.974469,
+        "R_A_local_average_end": 0.763329,
+        "decision": "closest provisional; below trace target"
+      },
+      {
+        "rank": 5,
+        "score": 0.819514,
+        "conditionName": "HISTORY_ALPHA=0.002 MEMORY_WEIGHT=0.08",
+        "HISTORY_ALPHA": 0.002,
+        "MEMORY_WEIGHT": 0.08,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "finalVortexCount": 4,
+        "memoryFieldDifferenceA_end": 0.029677,
+        "memoryFieldDifferenceB_end": null,
+        "amplitudeMeanA_end": 0.384461,
+        "amplitudeStdA_end": 0.23157,
+        "fieldEnergyProxy_start": 102.182859,
+        "fieldEnergyProxy_end": 103.134512,
+        "R_A_local_average_end": 0.761604,
+        "decision": "closest provisional; below trace target"
+      }
+    ],
+    "rejectedPatterns": [
+      {
+        "pattern": "MEMORY_WEIGHT >= 0.08",
+        "reason": "memoryFieldDifferenceA_end falls farther below the provisional 0.05 lower bound."
+      },
+      {
+        "pattern": "HISTORY_ALPHA=0.04 at any scanned weight",
+        "reason": "largest alpha does not improve trace separation enough; low weight still reaches only 0.032504."
+      },
+      {
+        "pattern": "all scanned HISTORY_ALPHA/MEMORY_WEIGHT pairs as final",
+        "reason": "vortices and energy are stable, but memory-field difference remains 0.013362-0.041552, below the requested trace range."
+      }
+    ],
+    "recommendedParams": {
+      "HISTORY_ALPHA": 0.002,
+      "MEMORY_WEIGHT": 0.04,
+      "MEMORY_WEIGHT_MODE": "fixed",
+      "MEMORY_VELOCITY_SCALE": 0.1,
+      "confidence": "low-provisional"
+    },
+    "needsRescan": true,
+    "notes": "No scan row reached memoryFieldDifferenceA_end >= 0.05. The least-copy-like row is HISTORY_ALPHA=0.002 / MEMORY_WEIGHT=0.04, with stable vortices and energy but insufficient trace separation."
+  },
+  "memoryCoupling": {
+    "status": "B: scanned coupling remains too weak for the target meeting band",
+    "topCandidates": [
+      {
+        "rank": 1,
+        "score": 0.778719,
+        "conditionName": "MEMORY_COUPLING_WEIGHT=0.5 COUPLING_G=0.05",
+        "MEMORY_COUPLING_WEIGHT": 0.5,
+        "COUPLING_G": 0.05,
+        "effectiveMemoryCoupling": 0.025,
+        "fieldABDistance_start": 0.231966,
+        "fieldABDistance_end": 0.142335,
+        "memoryABDistance_end": 0.197,
+        "R_AB_orderDifferenceRatio_end": 7.0786e-05,
+        "finalVortexCount": 8,
+        "amplitudeStdA_end": 0.226715,
+        "amplitudeStdB_end": 0.226741,
+        "fieldEnergyProxy_start": 204.338417,
+        "fieldEnergyProxy_end": 193.407776,
+        "decision": "closest provisional; still too separate"
+      },
+      {
+        "rank": 2,
+        "score": 0.71091,
+        "conditionName": "MEMORY_COUPLING_WEIGHT=0.35 COUPLING_G=0.05",
+        "MEMORY_COUPLING_WEIGHT": 0.35,
+        "COUPLING_G": 0.05,
+        "effectiveMemoryCoupling": 0.017499999999999998,
+        "fieldABDistance_start": 0.231966,
+        "fieldABDistance_end": 0.166773,
+        "memoryABDistance_end": 0.206927,
+        "R_AB_orderDifferenceRatio_end": 5.483e-05,
+        "finalVortexCount": 8,
+        "amplitudeStdA_end": 0.227968,
+        "amplitudeStdB_end": 0.227982,
+        "fieldEnergyProxy_start": 204.338417,
+        "fieldEnergyProxy_end": 196.02001,
+        "decision": "closest provisional; still too separate"
+      },
+      {
+        "rank": 3,
+        "score": 0.687105,
+        "conditionName": "MEMORY_COUPLING_WEIGHT=0.5 COUPLING_G=0.03",
+        "MEMORY_COUPLING_WEIGHT": 0.5,
+        "COUPLING_G": 0.03,
+        "effectiveMemoryCoupling": 0.015,
+        "fieldABDistance_start": 0.231966,
+        "fieldABDistance_end": 0.1756,
+        "memoryABDistance_end": 0.210414,
+        "R_AB_orderDifferenceRatio_end": 4.8403e-05,
+        "finalVortexCount": 8,
+        "amplitudeStdA_end": 0.228481,
+        "amplitudeStdB_end": 0.22849,
+        "fieldEnergyProxy_start": 204.338417,
+        "fieldEnergyProxy_end": 197.063441,
+        "decision": "closest provisional; still too separate"
+      },
+      {
+        "rank": 4,
+        "score": 0.662707,
+        "conditionName": "MEMORY_COUPLING_WEIGHT=0.25 COUPLING_G=0.05",
+        "MEMORY_COUPLING_WEIGHT": 0.25,
+        "COUPLING_G": 0.05,
+        "effectiveMemoryCoupling": 0.0125,
+        "fieldABDistance_start": 0.231966,
+        "fieldABDistance_end": 0.18479,
+        "memoryABDistance_end": 0.213995,
+        "R_AB_orderDifferenceRatio_end": 4.1375e-05,
+        "finalVortexCount": 8,
+        "amplitudeStdA_end": 0.229048,
+        "amplitudeStdB_end": 0.229052,
+        "fieldEnergyProxy_start": 204.338417,
+        "fieldEnergyProxy_end": 198.206305,
+        "decision": "closest provisional; still too separate"
+      },
+      {
+        "rank": 5,
+        "score": 0.649792,
+        "conditionName": "MEMORY_COUPLING_WEIGHT=0.1 COUPLING_G=0.02",
+        "MEMORY_COUPLING_WEIGHT": 0.1,
+        "COUPLING_G": 0.02,
+        "effectiveMemoryCoupling": 0.002,
+        "fieldABDistance_start": 0.231966,
+        "fieldABDistance_end": 0.227696,
+        "memoryABDistance_end": 0.230117,
+        "R_AB_orderDifferenceRatio_end": 4.747e-06,
+        "finalVortexCount": 8,
+        "amplitudeStdA_end": 0.232137,
+        "amplitudeStdB_end": 0.232113,
+        "fieldEnergyProxy_start": 204.338417,
+        "fieldEnergyProxy_end": 204.30656,
+        "decision": "closest provisional; still too separate"
+      }
+    ],
+    "rejectedPatterns": [
+      {
+        "pattern": "effectiveMemoryCoupling <= 0.0125",
+        "reason": "fieldABDistance_end remains around 0.184790-0.234439, above the 0.01-0.1 target band."
+      },
+      {
+        "pattern": "weak coupling rows such as 0.05 x 0.01",
+        "reason": "vortices persist, but fieldABDistance_end is slightly higher than the start, so A/B do not meet."
+      },
+      {
+        "pattern": "treating R_AB_orderDifferenceRatio alone as success",
+        "reason": "the ratio starts near zero and rises only to tiny values; distance metrics are more informative for A/B meeting here."
+      }
+    ],
+    "recommendedParams": {
+      "MEMORY_COUPLING_WEIGHT": 0.5,
+      "COUPLING_G": 0.05,
+      "effectiveMemoryCoupling": 0.025,
+      "confidence": "low-provisional"
+    },
+    "needsRescan": true,
+    "notes": "The closest row reaches fieldABDistance_end=0.142335, still above the target 0.01-0.1 range. A stronger narrow scan is needed before finalizing coupling."
+  },
+  "pheromoneLocalization": {
+    "status": "A: local trace candidates exist",
+    "topCandidates": [
+      {
+        "rank": 1,
+        "score": 0.95362,
+        "conditionName": "diff=0 threshold=0.85 deposit=0.02 mode=top-10-percent-amplitude",
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.85,
+        "PHEROMONE_DEPOSIT": 0.02,
+        "pheromoneDepositMode": "top-10-percent-amplitude",
+        "pheromoneMass_end": 1.556229,
+        "pheromoneEnergyL2_end": 0.02383,
+        "pheromoneMean_end": 0.00304,
+        "pheromoneStd_end": 0.009157,
+        "pheromoneMax_end": 0.033862,
+        "pheromoneActiveRatio_end": 0.099609,
+        "pheromoneSpatialEntropy_end": 0.629979,
+        "decision": "selected trace candidate"
+      },
+      {
+        "rank": 2,
+        "score": 0.95362,
+        "conditionName": "diff=0 threshold=0.9 deposit=0.02 mode=top-10-percent-amplitude",
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.9,
+        "PHEROMONE_DEPOSIT": 0.02,
+        "pheromoneDepositMode": "top-10-percent-amplitude",
+        "pheromoneMass_end": 1.556229,
+        "pheromoneEnergyL2_end": 0.02383,
+        "pheromoneMean_end": 0.00304,
+        "pheromoneStd_end": 0.009157,
+        "pheromoneMax_end": 0.033862,
+        "pheromoneActiveRatio_end": 0.099609,
+        "pheromoneSpatialEntropy_end": 0.629979,
+        "decision": "selected trace candidate"
+      },
+      {
+        "rank": 3,
+        "score": 0.95362,
+        "conditionName": "diff=0 threshold=0.95 deposit=0.02 mode=top-10-percent-amplitude",
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.95,
+        "PHEROMONE_DEPOSIT": 0.02,
+        "pheromoneDepositMode": "top-10-percent-amplitude",
+        "pheromoneMass_end": 1.556229,
+        "pheromoneEnergyL2_end": 0.02383,
+        "pheromoneMean_end": 0.00304,
+        "pheromoneStd_end": 0.009157,
+        "pheromoneMax_end": 0.033862,
+        "pheromoneActiveRatio_end": 0.099609,
+        "pheromoneSpatialEntropy_end": 0.629979,
+        "decision": "selected trace candidate"
+      },
+      {
+        "rank": 4,
+        "score": 0.921068,
+        "conditionName": "diff=0 threshold=0.85 deposit=0.01 mode=top-10-percent-amplitude",
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.85,
+        "PHEROMONE_DEPOSIT": 0.01,
+        "pheromoneDepositMode": "top-10-percent-amplitude",
+        "pheromoneMass_end": 0.778115,
+        "pheromoneEnergyL2_end": 0.005958,
+        "pheromoneMean_end": 0.00152,
+        "pheromoneStd_end": 0.004578,
+        "pheromoneMax_end": 0.016931,
+        "pheromoneActiveRatio_end": 0.099609,
+        "pheromoneSpatialEntropy_end": 0.629979,
+        "decision": "selected trace candidate"
+      },
+      {
+        "rank": 5,
+        "score": 0.921068,
+        "conditionName": "diff=0 threshold=0.9 deposit=0.01 mode=top-10-percent-amplitude",
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.9,
+        "PHEROMONE_DEPOSIT": 0.01,
+        "pheromoneDepositMode": "top-10-percent-amplitude",
+        "pheromoneMass_end": 0.778115,
+        "pheromoneEnergyL2_end": 0.005958,
+        "pheromoneMean_end": 0.00152,
+        "pheromoneStd_end": 0.004578,
+        "pheromoneMax_end": 0.016931,
+        "pheromoneActiveRatio_end": 0.099609,
+        "pheromoneSpatialEntropy_end": 0.629979,
+        "decision": "selected trace candidate"
+      }
+    ],
+    "rejectedPatterns": [
+      {
+        "pattern": "zero-deposit/no-trace rows",
+        "reason": "pheromoneEnergyL2_end, activeRatio, std, and mass are zero, so no residue remains."
+      },
+      {
+        "pattern": "all-above-threshold with activeRatio near 0.267578",
+        "reason": "it is still not global fog, but is broader than top-percent deposition and less clearly path-like."
+      },
+      {
+        "pattern": "using threshold ratio to distinguish top-percent modes",
+        "reason": "in the current scan utility, top-5/top-10 modes select by rank and therefore produce ties across threshold ratios."
+      }
+    ],
+    "recommendedParams": {
+      "PHEROMONE_DIFFUSION": 0,
+      "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.95,
+      "PHEROMONE_DEPOSIT": 0.02,
+      "PHEROMONE_DEPOSIT_MODE": "top-10-percent-amplitude",
+      "confidence": "medium-surrogate"
+    },
+    "needsRescan": false,
+    "notes": "Top-10-percent deposition with no diffusion keeps activeRatio near 0.099609 and leaves nonzero std/max/L2 without saturating max; it behaves like a local trace in this surrogate."
+  },
+  "finalCandidateParams": {
+    "GAMMA": 0.005,
+    "HISTORY_ALPHA": 0.002,
+    "MEMORY_WEIGHT": 0.04,
+    "MEMORY_WEIGHT_MODE": "fixed",
+    "MEMORY_COUPLING_WEIGHT": 0.5,
+    "COUPLING_G": 0.05,
+    "PHEROMONE_DIFFUSION": 0,
+    "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.95,
+    "PHEROMONE_DEPOSIT": 0.02,
+    "PHEROMONE_DEPOSIT_MODE": "top-10-percent-amplitude"
+  },
+  "decision": {
+    "canProceedToV22": false,
+    "needsAdditionalV212Scan": true,
+    "blockingIssues": [
+      "HISTORY_ALPHA scan did not reach the requested memoryFieldDifference 0.05-0.3 trace band.",
+      "Memory Coupling micro scan did not reach the requested fieldABDistance 0.01-0.1 meeting-with-distinction band."
+    ],
+    "recommendedNextStep": "Run an additional narrow v2.1.2 scan: lower MEMORY_WEIGHT/HISTORY_ALPHA combinations for trace separation, and stronger but bounded effectiveMemoryCoupling just above 0.025 for A/B meeting."
+  }
+}
