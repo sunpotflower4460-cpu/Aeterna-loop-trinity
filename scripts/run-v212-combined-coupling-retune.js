@@ -182,6 +182,7 @@ function buildResult(seed, conditionParams) {
     fieldEnergyProxy_start: initialMetrics.fieldEnergyProxyCombined,
     fieldEnergyProxy_end: finalMetrics.fieldEnergyProxyCombined,
     fieldEnergyProxyDeltaRatio: energyDeltaRatio(initialMetrics.fieldEnergyProxyCombined, finalMetrics.fieldEnergyProxyCombined),
+    score: 0,
     candidate: false,
     rejected: false,
     decision: 'pending',
@@ -190,7 +191,8 @@ function buildResult(seed, conditionParams) {
   const reasons = rejectReasons(result);
   result.candidate = isCandidate(result);
   result.rejected = !result.candidate && reasons.length > 0;
-  result.combinedCouplingScore = scoreResult(result);
+  result.score = scoreResult(result);
+  result.combinedCouplingScore = result.score;
   if (result.candidate) result.decision = 'candidate';
   else result.decision = `rejected: ${reasons.join('; ') || 'outside combined candidate band'}`;
   return result;
@@ -210,7 +212,7 @@ function summarizeByCoupling(results) {
       candidateSeeds: candidates.map((result) => result.seed),
       allSeedsCandidate: candidates.length === SEEDS.length,
       anySeedCandidate: candidates.length > 0,
-      meanCombinedCouplingScore: mean('combinedCouplingScore'),
+      meanCombinedCouplingScore: mean('score'),
       meanFieldABDistance_end: mean('fieldABDistance_end'),
       meanMemoryABDistance_end: mean('memoryABDistance_end'),
       meanMemoryTrace_end: rows.reduce((sum, result) => sum + averageMemoryTrace(result), 0) / Math.max(rows.length, 1),
@@ -355,7 +357,7 @@ function main() {
     }
   }
 
-  results.sort((a, b) => b.combinedCouplingScore - a.combinedCouplingScore);
+  results.sort((a, b) => b.score - a.score);
   const aggregates = summarizeByCoupling(results);
   const candidates = aggregates.filter((row) => row.allSeedsCandidate);
   const rejectedPatterns = aggregates.filter((row) => !row.allSeedsCandidate);
@@ -372,6 +374,7 @@ function main() {
     scanAxis: {
       name: 'effectiveMemoryCoupling',
       values: COUPLING_CONDITIONS.map((condition) => condition.MEMORY_COUPLING_WEIGHT * condition.COUPLING_G),
+      implementationMode: 'COUPLING_G sweep',
       implementation: 'MEMORY_COUPLING_WEIGHT fixed at 1.0; COUPLING_G varied to produce the requested effectiveMemoryCoupling values.',
       conditions: COUPLING_CONDITIONS,
     },
