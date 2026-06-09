@@ -916,3 +916,35 @@ Output:
 
 Interpretation:
 Completed. Combined validation remains gated by the narrow-scan candidate criteria and must not be treated as v2.2 approval unless the follow-up summary explicitly permits it.
+
+---
+
+## Experiment 017: v2.1.2 Combined Coupling Retune
+
+Purpose:
+Retune Memory Coupling under the combined v2.1.2 candidate state, with HISTORY_ALPHA, MEMORY_WEIGHT, and Pheromone localization fixed.
+
+Reason:
+The previous combined validation preserved vortices and memory trace, but fieldABDistance remained above the target band, so A/B were still too separate.
+
+Fixed Params:
+- HISTORY_ALPHA = 0.00025
+- MEMORY_WEIGHT = 0.04
+- MEMORY_WEIGHT_MODE = fixed
+- MEMORY_VELOCITY_SCALE = 0.1
+- PHEROMONE_DIFFUSION = 0
+- PHEROMONE_DEPOSIT_THRESHOLD_RATIO = 0.95
+- PHEROMONE_DEPOSIT = 0.02
+- PHEROMONE_DEPOSIT_MODE = top-10-percent-amplitude
+- PHEROMONE_FEEDBACK_ENABLED = false
+
+Scan:
+- effectiveMemoryCoupling = 0.12, 0.15, 0.18, 0.20, 0.25, 0.30, 0.40
+
+Output:
+- experiments/v2.1.2-combined-coupling-retune-results.json
+- experiments/v2.1.2-combined-coupling-retune-summary.json
+- docs/v2.1.2-combined-coupling-retune-results.md
+
+Interpretation:
+Completed. No effectiveMemoryCoupling value passed all combined surrogate guardrails across all three seeds; A/B remained too separate as coupling increased above 0.1.

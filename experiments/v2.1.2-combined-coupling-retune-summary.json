@@ -1,0 +1,289 @@
+{
+  "runMeta": {
+    "version": "v2.1.2",
+    "createdAt": "2026-06-09T11:32:36.561Z",
+    "sourceExperiment": "experiments/v2.1.2-combined-coupling-retune-results.json",
+    "interpretationRunType": "surrogate-headless-combined-coupling-retune"
+  },
+  "topCandidates": [
+    {
+      "effectiveMemoryCoupling": 0.12,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.12,
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4988875318809596,
+      "meanFieldABDistance_end": 0.212509822624122,
+      "meanMemoryABDistance_end": 0.3892566818562366,
+      "meanMemoryTrace_end": 0.3058382763560348,
+      "meanPheromoneActiveRatio_end": 0.11612955729166667,
+      "meanPheromoneSpatialEntropy_end": 0.7235925006816947,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.003701294446700186,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.15,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.15,
+      "seeds": [
+        23456,
+        12345,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4860211041096314,
+      "meanFieldABDistance_end": 0.24314440115647673,
+      "meanMemoryABDistance_end": 0.3841084275157045,
+      "meanMemoryTrace_end": 0.3171792231569778,
+      "meanPheromoneActiveRatio_end": 0.11637369791666667,
+      "meanPheromoneSpatialEntropy_end": 0.7244204458864961,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.011041860120421328,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.18,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.18,
+      "seeds": [
+        12345,
+        34567,
+        23456
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4771316148302475,
+      "meanFieldABDistance_end": 0.2646826713106492,
+      "meanMemoryABDistance_end": 0.3804266014806821,
+      "meanMemoryTrace_end": 0.3251879288230478,
+      "meanPheromoneActiveRatio_end": 0.11336263020833333,
+      "meanPheromoneSpatialEntropy_end": 0.7235180793140352,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.016518756327745118,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.2,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.2,
+      "seeds": [
+        12345,
+        34567,
+        23456
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.47242166500773836,
+      "meanFieldABDistance_end": 0.27579459296580977,
+      "meanMemoryABDistance_end": 0.3785050650906981,
+      "meanMemoryTrace_end": 0.3293359465645858,
+      "meanPheromoneActiveRatio_end": 0.113037109375,
+      "meanPheromoneSpatialEntropy_end": 0.7234353909614256,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.01944010447571438,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.25,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.25,
+      "seeds": [
+        23456,
+        12345,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4635890326979528,
+      "meanFieldABDistance_end": 0.29638012173626965,
+      "meanMemoryABDistance_end": 0.374902035260911,
+      "meanMemoryTrace_end": 0.3370616772124004,
+      "meanPheromoneActiveRatio_end": 0.11263020833333333,
+      "meanPheromoneSpatialEntropy_end": 0.7237983024797029,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.024991154433117484,
+      "decision": "rejected"
+    }
+  ],
+  "rejectedPatterns": [
+    {
+      "effectiveMemoryCoupling": 0.12,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.12,
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4988875318809596,
+      "meanFieldABDistance_end": 0.212509822624122,
+      "meanMemoryABDistance_end": 0.3892566818562366,
+      "meanMemoryTrace_end": 0.3058382763560348,
+      "meanPheromoneActiveRatio_end": 0.11612955729166667,
+      "meanPheromoneSpatialEntropy_end": 0.7235925006816947,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.003701294446700186,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.15,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.15,
+      "seeds": [
+        23456,
+        12345,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4860211041096314,
+      "meanFieldABDistance_end": 0.24314440115647673,
+      "meanMemoryABDistance_end": 0.3841084275157045,
+      "meanMemoryTrace_end": 0.3171792231569778,
+      "meanPheromoneActiveRatio_end": 0.11637369791666667,
+      "meanPheromoneSpatialEntropy_end": 0.7244204458864961,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.011041860120421328,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.18,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.18,
+      "seeds": [
+        12345,
+        34567,
+        23456
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4771316148302475,
+      "meanFieldABDistance_end": 0.2646826713106492,
+      "meanMemoryABDistance_end": 0.3804266014806821,
+      "meanMemoryTrace_end": 0.3251879288230478,
+      "meanPheromoneActiveRatio_end": 0.11336263020833333,
+      "meanPheromoneSpatialEntropy_end": 0.7235180793140352,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.016518756327745118,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.2,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.2,
+      "seeds": [
+        12345,
+        34567,
+        23456
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.47242166500773836,
+      "meanFieldABDistance_end": 0.27579459296580977,
+      "meanMemoryABDistance_end": 0.3785050650906981,
+      "meanMemoryTrace_end": 0.3293359465645858,
+      "meanPheromoneActiveRatio_end": 0.113037109375,
+      "meanPheromoneSpatialEntropy_end": 0.7234353909614256,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.01944010447571438,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.25,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.25,
+      "seeds": [
+        23456,
+        12345,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4635890326979528,
+      "meanFieldABDistance_end": 0.29638012173626965,
+      "meanMemoryABDistance_end": 0.374902035260911,
+      "meanMemoryTrace_end": 0.3370616772124004,
+      "meanPheromoneActiveRatio_end": 0.11263020833333333,
+      "meanPheromoneSpatialEntropy_end": 0.7237983024797029,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.024991154433117484,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.3,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.3,
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.45743144383498074,
+      "meanFieldABDistance_end": 0.3105252513470415,
+      "meanMemoryABDistance_end": 0.3723908811579681,
+      "meanMemoryTrace_end": 0.34241326858359683,
+      "meanPheromoneActiveRatio_end": 0.11319986979166667,
+      "meanPheromoneSpatialEntropy_end": 0.7237851059050596,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.028865644267676762,
+      "decision": "rejected"
+    },
+    {
+      "effectiveMemoryCoupling": 0.4,
+      "MEMORY_COUPLING_WEIGHT": 1,
+      "COUPLING_G": 0.4,
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "candidateSeeds": [],
+      "allSeedsCandidate": false,
+      "anySeedCandidate": false,
+      "meanCombinedCouplingScore": 0.4496418910811886,
+      "meanFieldABDistance_end": 0.32868829519611364,
+      "meanMemoryABDistance_end": 0.3691198076004623,
+      "meanMemoryTrace_end": 0.3493607763415499,
+      "meanPheromoneActiveRatio_end": 0.11075846354166667,
+      "meanPheromoneSpatialEntropy_end": 0.7236179345400476,
+      "minFinalVortexCount": 8,
+      "maxAbsFieldEnergyProxyDeltaRatio": 0.03379701653157344,
+      "decision": "rejected"
+    }
+  ],
+  "recommendedParams": {},
+  "decision": {
+    "candidateFound": false,
+    "recommendedParams": {},
+    "canProceedToReal64Validation": false,
+    "canProceedToV22Planning": false,
+    "needsAdditionalV212Scan": true,
+    "blockingIssues": [
+      "No effectiveMemoryCoupling value passed all combined surrogate guardrails across all three seeds.",
+      "Top-ranked coupling still leaves A/B above the target fieldABDistance band."
+    ],
+    "recommendedNextStep": "Run another v2.1.2 combined coupling scan or rework coupling metrics before real 64^3 validation or v2.2 planning."
+  }
+}
