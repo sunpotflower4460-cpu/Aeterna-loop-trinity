@@ -330,3 +330,31 @@ Checked:
 
 Report:
 - docs/audit-v2.1.1.md
+
+## v2.1.2 Tuning
+
+### v2.1.2: Tuning Phase
+
+Status: In Progress / Completed
+
+Goals:
+- [x] reinterpret v2.1.1 experiment results
+- [x] remove or soften /DT in EWMA velocity blend
+- [x] apply amplitude safety symmetrically to fieldA and fieldB
+- [x] rename or clarify R_AB_relative
+- [x] split fieldEnergyProxy and pheromoneEnergyL2
+- [x] ensure pheromone diffusion/laplacian functions are defined
+- [x] prepare HISTORY_ALPHA scan
+- [x] prepare Memory Coupling micro scan
+- [x] prepare Pheromone localization retune
+- [x] mark surrogate vs real 64³ experiments
+
+Docs:
+- [x] docs/experiment-log.md
+- [x] docs/v2.1.2-candidate-notes.md
+- [x] docs/audit-v2.1.2.md
+
+Notes:
+- `R_AB_relative` is retained as a backward-compatible alias of `R_AB_orderDifferenceRatio`.
+- `fieldEnergyProxy` replaces strict-sounding energy language while preserving `totalEnergy*` aliases for old scripts.
+- v2.2 features remain candidates only and are not implemented in this phase.

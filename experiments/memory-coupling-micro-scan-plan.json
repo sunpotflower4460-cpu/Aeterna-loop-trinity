@@ -1,0 +1,36 @@
+{
+  "experimentName": "experiment:memory-coupling-micro-scan",
+  "runType": "surrogate/headless",
+  "values": {
+    "MEMORY_COUPLING_WEIGHT": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.35,
+      0.5
+    ],
+    "COUPLING_G": [
+      0.01,
+      0.02,
+      0.03,
+      0.05
+    ]
+  },
+  "metrics": [
+    "MEMORY_COUPLING_WEIGHT",
+    "COUPLING_G",
+    "fieldABDistance",
+    "memoryABDistance",
+    "R_AB_orderDifferenceRatio",
+    "vortexLifetimeAverage",
+    "amplitudeStdA",
+    "amplitudeStdB",
+    "fieldEnergyProxy",
+    "runType"
+  ],
+  "successCandidate": "fieldABDistance remains around 0.01-0.1, A/B do not become identical, vortices remain, and fieldEnergyProxy stays bounded.",
+  "status": "planned",
+  "note": "v2.1.2 skeleton only; connect to the real 64^3 loop before treating results as physical validation."
+}

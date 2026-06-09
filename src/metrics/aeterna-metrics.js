@@ -48,9 +48,13 @@ function computeOrderParameter(field, ampThreshold = DEFAULT_AMP_THRESHOLD) {
   return Math.hypot(sumRe, sumIm) / count;
 }
 
-function computeABRelativeOrder(R_A, R_B) {
+function computeABOrderDifferenceRatio(R_A, R_B) {
   if (R_A === null || R_A === undefined || R_B === null || R_B === undefined) return null;
-  return Math.abs(R_A - R_B) / Math.max(R_A + R_B, 1e-8);
+  return Math.abs(R_A - R_B) / Math.max(R_A + R_B, 0.1);
+}
+
+function computeABRelativeOrder(R_A, R_B) {
+  return computeABOrderDifferenceRatio(R_A, R_B);
 }
 
 function computeLocalOrderAt(field, centerIndex, gridSize, indexTo3D = defaultIndexTo3D, index3D = defaultIndex3D, ampThreshold = DEFAULT_AMP_THRESHOLD) {
@@ -193,8 +197,11 @@ function computeTotalEnergy(field, options = {}) {
   if (amplitudeEnergy === null) {
     return {
       amplitudeEnergy: null,
+      fieldAmplitudeEnergy: null,
       gradientEnergy: null,
+      fieldGradientEnergy: null,
       totalEnergy: null,
+      fieldEnergyProxy: null,
     };
   }
 
@@ -202,10 +209,15 @@ function computeTotalEnergy(field, options = {}) {
     ? options.computeGradientEnergy(field, options)
     : 0;
 
+  const fieldEnergyProxy = amplitudeEnergy + gradientEnergy;
+
   return {
     amplitudeEnergy,
+    fieldAmplitudeEnergy: amplitudeEnergy,
     gradientEnergy,
-    totalEnergy: amplitudeEnergy + gradientEnergy,
+    fieldGradientEnergy: gradientEnergy,
+    totalEnergy: fieldEnergyProxy,
+    fieldEnergyProxy,
   };
 }
 
@@ -304,10 +316,11 @@ function normalizeMemoryCouplingMetrics(metrics) {
   };
 }
 
-function computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics) {
-  if (!previousMetrics || previousMetrics.totalEnergyCombined === null || previousMetrics.totalEnergyCombined === undefined) return null;
-  if (totalEnergyCombined === null || totalEnergyCombined === undefined) return null;
-  return totalEnergyCombined - previousMetrics.totalEnergyCombined;
+function computeEnergyDeltaFromPreviousSample(fieldEnergyProxyCombined, previousMetrics) {
+  const previousEnergy = previousMetrics?.fieldEnergyProxyCombined ?? previousMetrics?.totalEnergyCombined;
+  if (previousEnergy === null || previousEnergy === undefined) return null;
+  if (fieldEnergyProxyCombined === null || fieldEnergyProxyCombined === undefined) return null;
+  return fieldEnergyProxyCombined - previousEnergy;
 }
 
 function computeAmplitudeBreathingScore(amplitudeMean, history = [], windowSize = DEFAULT_BREATHING_WINDOW) {
@@ -408,7 +421,8 @@ function collectAeternaMetrics({
 } = {}) {
   const R_A_global = computeOrderParameter(fieldA, ampThreshold);
   const R_B_global = computeOrderParameter(fieldB, ampThreshold);
-  const R_AB_relative = computeABRelativeOrder(R_A_global, R_B_global);
+  const R_AB_orderDifferenceRatio = computeABOrderDifferenceRatio(R_A_global, R_B_global);
+  const R_AB_relative = R_AB_orderDifferenceRatio;
   const localOptions = { gridSize, indexTo3D, index3D, localSampleCount, ampThreshold };
   const localA = computeLocalOrderStats(fieldA, localOptions);
   const localB = computeLocalOrderStats(fieldB, localOptions);
@@ -436,8 +450,8 @@ function collectAeternaMetrics({
     vortexLifetime = vortexTracker.getSummary(stepCount);
   }
 
-  const totalEnergyCombined = combineMetricValues(
-    [energyA.totalEnergy, energyB.totalEnergy],
+  const fieldEnergyProxyCombined = combineMetricValues(
+    [energyA.fieldEnergyProxy, energyB.fieldEnergyProxy],
     (values) => values.reduce((sum, value) => sum + value, 0),
   );
   const combinedAmplitudeMean = ampB.mean === null ? ampA.mean : (ampA.mean + ampB.mean) / 2;
@@ -446,6 +460,7 @@ function collectAeternaMetrics({
     stepCount,
     R_A_global,
     R_B_global,
+    R_AB_orderDifferenceRatio,
     R_AB_relative,
     R_A_local_average: localA.average,
     R_B_local_average: localB.average,
@@ -459,9 +474,16 @@ function collectAeternaMetrics({
     amplitudeStdB: ampB.std,
     activeCellRatioA: ampA.activeCellRatio,
     activeCellRatioB: ampB.activeCellRatio,
+    fieldAmplitudeEnergyA: energyA.fieldAmplitudeEnergy,
+    fieldAmplitudeEnergyB: energyB.fieldAmplitudeEnergy,
+    fieldGradientEnergyA: energyA.fieldGradientEnergy,
+    fieldGradientEnergyB: energyB.fieldGradientEnergy,
+    fieldEnergyProxyA: energyA.fieldEnergyProxy,
+    fieldEnergyProxyB: energyB.fieldEnergyProxy,
+    fieldEnergyProxyCombined,
     totalEnergyA: energyA.totalEnergy,
     totalEnergyB: energyB.totalEnergy,
-    totalEnergyCombined,
+    totalEnergyCombined: fieldEnergyProxyCombined,
     fieldABDistance,
     memoryABDistance,
     memoryEnergyA: memoryA.memoryEnergy,
@@ -486,7 +508,10 @@ function collectAeternaMetrics({
     PHEROMONE_DIFFUSION: couplingParams?.PHEROMONE_DIFFUSION ?? null,
     PHEROMONE_FEEDBACK_ENABLED: couplingParams?.PHEROMONE_FEEDBACK_ENABLED ?? false,
     PHEROMONE_FEEDBACK_STRENGTH: couplingParams?.PHEROMONE_FEEDBACK_STRENGTH ?? null,
+    runType: couplingParams?.runType ?? couplingParams?.RUN_TYPE ?? null,
     pheromoneTotal: pheromoneStats.pheromoneTotal,
+    pheromoneMass: pheromoneStats.pheromoneMass,
+    pheromoneEnergyL2: pheromoneStats.pheromoneEnergyL2,
     pheromoneMean: pheromoneStats.pheromoneMean,
     pheromoneStd: pheromoneStats.pheromoneStd,
     pheromoneMax: pheromoneStats.pheromoneMax,
@@ -516,7 +541,7 @@ function collectAeternaMetrics({
     renormalizationAppliedCountA: phaseMetrics.renormalizationAppliedCountA ?? 0,
     renormalizationAppliedCountB: phaseMetrics.renormalizationAppliedCountB ?? 0,
     renormalizationAppliedCount: phaseMetrics.renormalizationAppliedCount ?? 0,
-    energyDeltaFromPreviousSample: computeEnergyDeltaFromPreviousSample(totalEnergyCombined, previousMetrics),
+    energyDeltaFromPreviousSample: computeEnergyDeltaFromPreviousSample(fieldEnergyProxyCombined, previousMetrics),
     amplitudeBreathingScore: computeAmplitudeBreathingScore(combinedAmplitudeMean, amplitudeMeanHistory),
     vortexCount: normalizedVortexCount,
     vortexLifetimeAverage: vortexLifetime?.vortexLifetimeAverage ?? null,
@@ -532,9 +557,11 @@ module.exports = {
   DEFAULT_LOCAL_SAMPLE_INTERVAL,
   CountBasedVortexLifetimeTracker,
   collectAeternaMetrics,
+  computeABOrderDifferenceRatio,
   computeABRelativeOrder,
   computeAmplitudeBreathingScore,
   computeAmplitudeEnergy,
+  computeTotalEnergy,
   computeAmplitudeStats,
   computeEnergyDeltaFromPreviousSample,
   computeFieldDistance,
@@ -546,7 +573,6 @@ module.exports = {
   normalizePheromoneFeedbackMetrics,
   normalizePulseMetrics,
   computeOrderParameter,
-  computeTotalEnergy,
   defaultIndex3D,
   defaultIndexTo3D,
 };

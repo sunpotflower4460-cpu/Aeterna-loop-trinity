@@ -1,0 +1,36 @@
+{
+  "experimentName": "experiment:pheromone-localization-scan",
+  "runType": "surrogate/headless",
+  "values": {
+    "PHEROMONE_DIFFUSION": [
+      0,
+      0.00005,
+      0.0001,
+      0.0002,
+      0.0005
+    ],
+    "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": [
+      0.85,
+      0.9,
+      0.95
+    ],
+    "PHEROMONE_DEPOSIT": [
+      0.005,
+      0.01,
+      0.02
+    ]
+  },
+  "metrics": [
+    "pheromoneActiveRatio",
+    "pheromoneMax",
+    "pheromoneMass",
+    "pheromoneEnergyL2",
+    "pheromoneSpatialEntropy",
+    "R_local_near_pheromone",
+    "vortexPathRevisitRate",
+    "runType"
+  ],
+  "successCandidate": "pheromoneActiveRatio does not reach 1, local high-density regions remain, pheromoneEnergyL2 saturates, and the field does not become a uniform background.",
+  "status": "planned",
+  "note": "v2.1.2 skeleton only; connect to the real 64^3 loop before treating results as physical validation."
+}

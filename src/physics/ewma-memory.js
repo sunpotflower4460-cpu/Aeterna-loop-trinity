@@ -56,7 +56,7 @@ function applyEWMAMemory(field, params = {}) {
   );
   const velocityEnabled = params.MEMORY_BLEND_VELOCITY ?? true;
   const velocityRatio = params.MEMORY_VELOCITY_WEIGHT_RATIO ?? 0.3;
-  const dt = params.DT ?? params.dt ?? 0.03;
+  const memoryVelocityScale = params.MEMORY_VELOCITY_SCALE ?? 0.1;
   const velocityMemoryWeight = memWeight * velocityRatio;
 
   for (let i = 0; i < field.phiRe.length; i += 1) {
@@ -90,11 +90,12 @@ function applyEWMAMemory(field, params = {}) {
     field.phiIm[i] = (1 - memWeight) * oldIm + memWeight * memoryIm;
 
     if (velocityEnabled && field.velRe && field.velIm) {
-      const safeDt = Math.max(dt, 1e-8);
+      const velocityPullRe = (memoryRe - oldRe) * memoryVelocityScale;
+      const velocityPullIm = (memoryIm - oldIm) * memoryVelocityScale;
       field.velRe[i] = (1 - velocityMemoryWeight) * field.velRe[i] +
-        velocityMemoryWeight * (memoryRe - oldRe) / safeDt;
+        velocityMemoryWeight * velocityPullRe;
       field.velIm[i] = (1 - velocityMemoryWeight) * field.velIm[i] +
-        velocityMemoryWeight * (memoryIm - oldIm) / safeDt;
+        velocityMemoryWeight * velocityPullIm;
 
       if (!Number.isFinite(field.velRe[i])) field.velRe[i] = 0;
       if (!Number.isFinite(field.velIm[i])) field.velIm[i] = 0;

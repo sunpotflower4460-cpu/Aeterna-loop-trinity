@@ -737,3 +737,45 @@ No runtime behavior was added.
 - Future symbolic / acoustic / morphic extensions should not be added until Step 0–6 behavior is stable and replayable.
 - Pattern archive and replay may be the safest next structural extension.
 - Seed format should come before Katakamuna or symbolic input experiments.
+
+---
+
+## v2.1.2 Interpretation: Reading the v2.1.1 Experiments
+
+### Summary
+
+v2.1.1 has moved from design implementation to experimental interpretation.
+The next step is not to add more life-like features, but to tune memory, fusion, and trace strength based on the data.
+
+### Key Findings
+
+1. GAMMA=0.005 appears to be the current baseline candidate.
+   It should be treated as the condition with relatively lower energy growth and amplitude near VEV, not as proof of ideal dissipation.
+
+2. Gentle Pulse did not extend vortex lifetime.
+   This suggests vortex disappearance is probably not caused mainly by amplitude loss.
+
+3. EWMA memory preserved vortices, but memory-field difference was too small.
+   This may indicate current-copying or freezing rather than long-range memory.
+
+4. Memory Coupling strongly fused fieldA and fieldB.
+   This is an important result, but weights >= 0.5 may be too strong if the goal is dynamic meeting rather than total identity.
+
+5. Pheromone Field saturated broadly.
+   pheromoneActiveRatio reaching 1 suggests that the trace became a background field rather than a path-like memory.
+
+6. Surrogate/headless experiments must be distinguished from real 64³ simulation runs.
+
+### Metrics Clarification
+
+`R_AB_relative` / `R_AB_orderDifferenceRatio` does not directly represent A/B phase agreement or complete fusion. It is the relative difference between the A/B global order parameters. A/B fusion should be evaluated with `fieldABDistance`, `memoryABDistance`, phase alignment, and related distance metrics.
+
+`fieldEnergyProxy` is not a strict Hamiltonian. It is a simple diagnostic for numerical amplification or damping trends. `pheromoneEnergyL2` is treated as a closer Sarkar-style memory energy saturation proxy than pheromone mean alone.
+
+### v2.1.2 Direction
+
+- Retune HISTORY_ALPHA
+- Micro-scan Memory Coupling
+- Localize Pheromone Field
+- Clarify energy and A/B relation metrics
+- Prepare real 64³ validation

@@ -51,11 +51,11 @@ function applyPhaseRotation(fieldA, fieldB, params = {}) {
   };
 }
 
-function softRenormalizeField(field, params = {}) {
+function clampHighAmplitude(field, params = {}) {
   if (!field || !field.phiRe || !field.phiIm) return 0;
 
   const VEV = params.VEV ?? params.vev ?? 1.0;
-  const maxAmpRatio = params.PHASE_ROTATION_RENORMALIZE_MAX_AMP_RATIO ?? 1.5;
+  const maxAmpRatio = params.MAX_AMP_RATIO ?? params.PHASE_ROTATION_RENORMALIZE_MAX_AMP_RATIO ?? 1.5;
   const maxAmp = VEV * maxAmpRatio;
   let appliedCount = 0;
 
@@ -74,6 +74,9 @@ function softRenormalizeField(field, params = {}) {
 
   return appliedCount;
 }
+
+
+const softRenormalizeField = clampHighAmplitude;
 
 function createPhaseRotationMetrics(params = {}, phaseRotationInfo = null, renormalizationAppliedCountA = 0, renormalizationAppliedCountB = 0) {
   const omegaA = params.OMEGA_A ?? phaseRotationInfo?.omegaA ?? 0.01;
@@ -98,6 +101,7 @@ function createPhaseRotationMetrics(params = {}, phaseRotationInfo = null, renor
 
 module.exports = {
   applyPhaseRotation,
+  clampHighAmplitude,
   createPhaseRotationMetrics,
   rotateComplexField,
   softRenormalizeField,
