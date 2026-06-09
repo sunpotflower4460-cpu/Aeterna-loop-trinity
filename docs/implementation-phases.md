@@ -372,6 +372,14 @@ Follow-up:
 - [x] Follow-up results doc
 - [x] Proceed / rescan / real64 / v2.2 decision
 
+Combined Coupling Retune:
+- [x] combined coupling retune script
+- [x] results JSON
+- [x] summary JSON
+- [x] results doc
+- [x] experiment log update
+- [x] proceed / rescan / real64 / v2.2 decision
+
 Docs:
 - [x] docs/experiment-log.md
 - [x] docs/v2.1.2-candidate-notes.md
