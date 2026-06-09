@@ -364,6 +364,14 @@ Result Interpretation:
 - [x] final candidate params documented
 - [x] proceed / rescan decision recorded
 
+Follow-up:
+- [x] HISTORY_ALPHA narrow scan script
+- [x] Memory Coupling narrow scan script
+- [x] Combined validation script
+- [x] Follow-up summary JSON
+- [x] Follow-up results doc
+- [x] Proceed / rescan / real64 / v2.2 decision
+
 Docs:
 - [x] docs/experiment-log.md
 - [x] docs/v2.1.2-candidate-notes.md
