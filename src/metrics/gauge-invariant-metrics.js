@@ -4,7 +4,7 @@ const DEFAULT_THRESHOLDS = Object.freeze({
   structuralDistinctnessThreshold: 0.02,
   structuralCollapseThreshold: 0.005,
   lockThetaStdMax: 0.02,
-  // null => require every sample in the active theta window to be finite
+  // null (default) => require every sample in the active theta window to be finite
   lockMinFiniteThetaSamples: null,
   driftMinTotalRadians: Math.PI,
 });
@@ -160,7 +160,7 @@ function countFinite(values) {
 }
 
 function resolveMinFiniteThetaSamples(configuredMinimum, windowSize) {
-  if (windowSize <= 0) return 1;
+  if (windowSize <= 0) return Number.POSITIVE_INFINITY;
   if (Number.isFinite(configuredMinimum) && configuredMinimum > 0) {
     return Math.min(windowSize, Math.max(1, Math.ceil(configuredMinimum)));
   }
