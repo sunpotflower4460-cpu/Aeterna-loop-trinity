@@ -1,0 +1,344 @@
+{
+  "generatedAt": "2026-06-10T12:38:29.601Z",
+  "purpose": "Randomized vortex controls using PR #27 gauge metrics.",
+  "sanityChecks": {
+    "sameSeedProducesSameLayout": true,
+    "differentSeedsProduceDifferentLayouts": true,
+    "netChargeZero": true,
+    "minSeparationRespected": true,
+    "randomizedDistinctAlignedFieldABDistance": 1.1371576709082631,
+    "randomizedDistinctObservation": "above structural distinctness threshold",
+    "legacyInitializerUnchanged": true
+  },
+  "runConfig": {
+    "gridSize": 32,
+    "maxSteps": 1000,
+    "sampleInterval": 50,
+    "pairCount": 2,
+    "minSeparationRatio": 0.18
+  },
+  "conditionSummaries": [
+    {
+      "conditionId": "legacy_same_layout_phase_offset",
+      "verdicts": [
+        {
+          "seedA": 12345,
+          "seedB": 67890,
+          "verdict": "near-identical-from-start",
+          "tags": [
+            "vortex_preserved_slice_based",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 23456,
+          "seedB": 78901,
+          "verdict": "near-identical-from-start",
+          "tags": [
+            "vortex_preserved_slice_based",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 34567,
+          "seedB": 89012,
+          "verdict": "near-identical-from-start",
+          "tags": [
+            "vortex_preserved_slice_based",
+            "local_pheromone_trace"
+          ]
+        }
+      ]
+    },
+    {
+      "conditionId": "randomized_same_layout_phase_offset",
+      "verdicts": [
+        {
+          "seedA": 12345,
+          "seedB": 12345,
+          "verdict": "near-identical-from-start",
+          "tags": [
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 23456,
+          "seedB": 23456,
+          "verdict": "near-identical-from-start",
+          "tags": [
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 34567,
+          "seedB": 34567,
+          "verdict": "near-identical-from-start",
+          "tags": [
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        }
+      ]
+    },
+    {
+      "conditionId": "randomized_distinct_layout_coupling_off",
+      "verdicts": [
+        {
+          "seedA": 12345,
+          "seedB": 67890,
+          "verdict": "indeterminate",
+          "tags": [
+            "structurally_distinct_from_start",
+            "vortex_preserved_slice_based",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 23456,
+          "seedB": 78901,
+          "verdict": "phase-locking",
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 34567,
+          "seedB": 89012,
+          "verdict": "indeterminate",
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        }
+      ]
+    },
+    {
+      "conditionId": "randomized_distinct_layout_coupling_on",
+      "verdicts": [
+        {
+          "seedA": 12345,
+          "seedB": 67890,
+          "verdict": "phase-locking",
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 23456,
+          "seedB": 78901,
+          "verdict": "phase-drift",
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_preserved_slice_based",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        },
+        {
+          "seedA": 34567,
+          "seedB": 89012,
+          "verdict": "phase-locking",
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_preserved_slice_based",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ]
+        }
+      ]
+    }
+  ],
+  "couplingComparisonNotes": [
+    "seed 12345/67890: vortex zero step OFF=null, ON=700; aligned end OFF=0.8446327661133596, ON=0.03622030332924897",
+    "seed 23456/78901: vortex zero step OFF=450, ON=null; aligned end OFF=0.02854836513244877, ON=0.39263856950592796",
+    "seed 34567/89012: vortex zero step OFF=900, ON=null; aligned end OFF=0.4704301301357562, ON=0.4908395938890951"
+  ],
+  "atlasCandidates": [
+    {
+      "templateId": "v212-legacy-global-phase-relaxation",
+      "sourceExperiment": "v2.1.2-randomized-vortex-controls",
+      "claimLevel": "measured",
+      "initialConditionType": "legacy_same_layout_phase_offset",
+      "parameters": {
+        "GAMMA": 0.005,
+        "MEMORY_ENABLED": true,
+        "MEMORY_BLEND_VELOCITY": true,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "MEMORY_VELOCITY_SCALE": 0.1,
+        "COUPLING_ENABLED": true,
+        "COUPLING_TYPE": "memory",
+        "COUPLING_G": 0.0075,
+        "MEMORY_WEIGHT": 0.0075,
+        "HISTORY_ALPHA": 0.002,
+        "MEMORY_COUPLING_ENABLED": true,
+        "MEMORY_COUPLING_FORMULA": "difference-attractor",
+        "MEMORY_COUPLING_ORDER": "after-memory-update",
+        "MEMORY_COUPLING_WEIGHT": 1,
+        "PHEROMONE_ENABLED": true,
+        "PHEROMONE_FEEDBACK_ENABLED": false,
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.95,
+        "PHEROMONE_DEPOSIT": 0.02,
+        "PHEROMONE_DEPOSIT_MODE": "top-10-percent-amplitude"
+      },
+      "runConfig": {
+        "gridSize": 32,
+        "maxSteps": 1000,
+        "sampleInterval": 50
+      },
+      "measuredEvidence": [
+        {
+          "seedA": 12345,
+          "seedB": 67890,
+          "alignedFieldABDistance_start": 0.0006654888060925622,
+          "thetaTravel": 0.5916904909686226,
+          "verdict": "near-identical-from-start"
+        },
+        {
+          "seedA": 23456,
+          "seedB": 78901,
+          "alignedFieldABDistance_start": 0.0006678619581961261,
+          "thetaTravel": 0.5916907161758079,
+          "verdict": "near-identical-from-start"
+        },
+        {
+          "seedA": 34567,
+          "seedB": 89012,
+          "alignedFieldABDistance_start": 0.0006700955844013472,
+          "thetaTravel": 0.5916903992532963,
+          "verdict": "near-identical-from-start"
+        }
+      ],
+      "observedPhenomena": [
+        "near-identical-from-start",
+        "phase-locking"
+      ],
+      "regimeVerdict": "near-identical-from-start",
+      "manualReviewNotes": "Legacy layout remains a phase-relaxation baseline, not structural-collapse evidence.",
+      "limitations": [
+        "central-slice vortex count only"
+      ],
+      "notScriptedNotes": "Randomized mode is opt-in and does not alter legacy initialization."
+    },
+    {
+      "templateId": "v212-randomized-structural-convergence-candidate",
+      "sourceExperiment": "v2.1.2-randomized-vortex-controls",
+      "claimLevel": "observed",
+      "initialConditionType": "randomized_distinct_layout",
+      "parameters": {
+        "GAMMA": 0.005,
+        "MEMORY_ENABLED": true,
+        "MEMORY_BLEND_VELOCITY": true,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "MEMORY_VELOCITY_SCALE": 0.1,
+        "COUPLING_ENABLED": true,
+        "COUPLING_TYPE": "memory",
+        "COUPLING_G": 0.0075,
+        "MEMORY_WEIGHT": 0.0075,
+        "HISTORY_ALPHA": 0.002,
+        "MEMORY_COUPLING_ENABLED": true,
+        "MEMORY_COUPLING_FORMULA": "difference-attractor",
+        "MEMORY_COUPLING_ORDER": "after-memory-update",
+        "MEMORY_COUPLING_WEIGHT": 1,
+        "PHEROMONE_ENABLED": true,
+        "PHEROMONE_FEEDBACK_ENABLED": false,
+        "PHEROMONE_DIFFUSION": 0,
+        "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.95,
+        "PHEROMONE_DEPOSIT": 0.02,
+        "PHEROMONE_DEPOSIT_MODE": "top-10-percent-amplitude"
+      },
+      "runConfig": {
+        "gridSize": 32,
+        "maxSteps": 1000,
+        "sampleInterval": 50
+      },
+      "measuredEvidence": [
+        {
+          "seedA": 12345,
+          "seedB": 67890,
+          "alignedStart": 1.1371576709082631,
+          "alignedEnd": 0.03622030332924897,
+          "vortexZeroStep": 700,
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_annihilation",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ],
+          "verdict": "phase-locking"
+        },
+        {
+          "seedA": 23456,
+          "seedB": 78901,
+          "alignedStart": 1.1184749423922382,
+          "alignedEnd": 0.39263856950592796,
+          "vortexZeroStep": null,
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_preserved_slice_based",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ],
+          "verdict": "phase-drift"
+        },
+        {
+          "seedA": 34567,
+          "seedB": 89012,
+          "alignedStart": 1.196013251593856,
+          "alignedEnd": 0.4908395938890951,
+          "vortexZeroStep": null,
+          "tags": [
+            "structurally_distinct_from_start",
+            "structural_convergence",
+            "vortex_preserved_slice_based",
+            "memory_trace_persistence",
+            "local_pheromone_trace"
+          ],
+          "verdict": "phase-locking"
+        }
+      ],
+      "observedPhenomena": [
+        "structurally_distinct_from_start",
+        "structural_convergence",
+        "vortex_annihilation",
+        "memory_trace_persistence",
+        "local_pheromone_trace",
+        "vortex_preserved_slice_based"
+      ],
+      "regimeVerdict": "phase-locking, phase-drift",
+      "manualReviewNotes": "Candidate only; do not call true meeting without aligned-distance evidence.",
+      "limitations": [
+        "32^3 lightweight run",
+        "vortexCount is central z-slice / x-y plaquette based"
+      ],
+      "notScriptedNotes": "No saturation, repulsion, resource fields, or v2.2 mechanisms were added."
+    }
+  ],
+  "optionalRunsSkipped": [
+    "32^3 / 2000 representative randomized extension",
+    "64^3 heavy scans"
+  ],
+  "optionalRunSkipReason": "Skipped to keep this PR lightweight; all required 32^3 controls were run.",
+  "defaultLegacyBehaviorUnchanged": true
+}
