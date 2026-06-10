@@ -1056,3 +1056,33 @@ Optional output if gate passes:
 
 Interpretation:
 Completed. v2.2 planning is not allowed because the real-runtime-v0 audit found no 32³ or 64³ smoke candidate and no executed 64³ three-seed full validation. v2.2 implementation remains blocked.
+
+## Experiment 022: v2.1.2 Real Runtime Stability Retune
+
+Purpose:
+Retune real-runtime-v0 to avoid identity collapse, energy instability, and memory instability observed in previous 32³ / 64³ smoke validation.
+
+Reason:
+The surrogate-64 candidate transferred into real-runtime-v0 as an overly strong interaction, producing collapse or instability. v2.2 planning remains blocked until real-runtime-v0 has a stable 64³ candidate.
+
+Scan:
+- COUPLING_G = 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.03
+- MEMORY_WEIGHT = 0.005, 0.01, 0.02, 0.03, 0.04
+- HISTORY_ALPHA = 0.00025, 0.0005, 0.001
+
+Executed Scan:
+- Priority 32³ subset because full real-runtime-v0 grid is heavy: COUPLING_G = 0.005, 0.01, 0.02, 0.03; MEMORY_WEIGHT = 0.01, 0.02, 0.04; HISTORY_ALPHA = 0.00025, 0.0005, 0.001.
+
+Stages:
+- 32³ broad stability scan: completed with 36 Condition D rows.
+- 32³ three-seed confirmation: completed for five direction-candidate rows.
+- 64³ smoke if 32³ candidate is found: skipped because no 32³ stability candidate was found.
+- 64³ three-seed validation if 64³ smoke passes: skipped because no 64³ smoke candidate exists.
+
+Output:
+- experiments/v2.1.2-real-runtime-stability-retune-results.json
+- experiments/v2.1.2-real-runtime-stability-retune-summary.json
+- docs/v2.1.2-real-runtime-stability-retune.md
+
+Interpretation:
+Completed. Lower coupling avoided identity collapse in the executed 32³ rows and produced direction candidates, but no full stability candidate was found because A/B remained too separate and memory traces were often too detached. v2.2 planning remains blocked.

@@ -22,6 +22,10 @@
     "experiment:v212-real-runtime-smoke32": "node scripts/run-v212-real-runtime-validation.js --grid=32 --steps=1000 --seeds=12345",
     "experiment:v212-real-runtime-smoke64": "node scripts/run-v212-real-runtime-validation.js --grid=64 --steps=1000 --seeds=12345",
     "experiment:v212-real-runtime-full64": "node scripts/run-v212-real-runtime-validation.js --grid=64 --steps=3000 --seeds=12345,23456,34567",
-    "experiment:v212-runtime-results-audit": "node scripts/run-v212-runtime-results-audit.js"
+    "experiment:v212-runtime-results-audit": "node scripts/run-v212-runtime-results-audit.js",
+    "experiment:v212-real-runtime-stability-retune": "node scripts/run-v212-real-runtime-stability-retune.js",
+    "experiment:v212-stability-retune-smoke32": "node scripts/run-v212-real-runtime-stability-retune.js --stage=smoke32",
+    "experiment:v212-stability-retune-smoke64": "node scripts/run-v212-real-runtime-stability-retune.js --stage=smoke64",
+    "experiment:v212-stability-retune-full64": "node scripts/run-v212-real-runtime-stability-retune.js --stage=full64"
   }
 }
