@@ -1086,3 +1086,35 @@ Output:
 
 Interpretation:
 Completed. Lower coupling avoided identity collapse in the executed 32³ rows and produced direction candidates, but no full stability candidate was found because A/B remained too separate and memory traces were often too detached. v2.2 planning remains blocked.
+
+## Experiment 023: v2.1.2 Real Runtime Stability Narrow Retune
+
+Purpose:
+Narrow-retune the best direction candidate from Experiment 022 to search for a full real-runtime-v0 stability candidate.
+
+Reason:
+Experiment 022 found a direction candidate around COUPLING_G=0.005, MEMORY_WEIGHT=0.01, HISTORY_ALPHA=0.001, but no full stability candidate. A narrower scan is needed before 64³ smoke.
+
+Center:
+- COUPLING_G = 0.005
+- MEMORY_WEIGHT = 0.01
+- HISTORY_ALPHA = 0.001
+
+Scan:
+- COUPLING_G = 0.003, 0.004, 0.005, 0.006, 0.0075
+- MEMORY_WEIGHT = 0.0075, 0.01, 0.0125, 0.015
+- HISTORY_ALPHA = 0.00075, 0.001, 0.0015, 0.002
+
+Stages:
+- 32³ narrow single-seed scan
+- 32³ three-seed confirmation if candidate-like rows appear
+- 64³ smoke only if 32³ full candidate is confirmed
+- 64³ full validation only if 64³ smoke passes
+
+Output:
+- experiments/v2.1.2-real-runtime-stability-narrow-retune-results.json
+- experiments/v2.1.2-real-runtime-stability-narrow-retune-summary.json
+- docs/v2.1.2-real-runtime-stability-narrow-retune.md
+
+Interpretation:
+Completed. A 32³ three-seed candidate and 64³ smoke candidate were found at COUPLING_G=0.0075, MEMORY_WEIGHT=0.0075, HISTORY_ALPHA=0.002, but 64³ full validation collapsed below the field identity guardrail. v2.2 planning remains blocked.
