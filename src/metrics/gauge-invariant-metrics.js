@@ -160,7 +160,7 @@ function countFinite(values) {
 }
 
 function resolveMinFiniteThetaSamples(configuredMinimum, windowSize) {
-  if (windowSize <= 0) return Number.POSITIVE_INFINITY;
+  if (windowSize <= 0) return 0;
   if (Number.isFinite(configuredMinimum) && configuredMinimum > 0) {
     return Math.min(windowSize, Math.max(1, Math.ceil(configuredMinimum)));
   }
@@ -181,7 +181,7 @@ function classifyPhaseStructureRegime(input = {}, thresholdOverrides = {}) {
     input.lockMinFiniteThetaSamples ?? thresholds.lockMinFiniteThetaSamples,
     endWindow.length,
   );
-  const hasSufficientFiniteTheta = countFinite(endWindow) >= minFiniteTheta;
+  const hasSufficientFiniteTheta = endWindow.length > 0 && countFinite(endWindow) >= minFiniteTheta;
   const thetaTotalTravel = input.thetaTotalTravel ?? totalTravel(unwrappedTheta);
 
   if (Number.isFinite(alignedStart) && alignedStart < thresholds.structuralDistinctnessThreshold) {
@@ -221,6 +221,7 @@ function findPhaseLockOnsetStep(samples = [], options = {}) {
   const lockedAt = samples.map((_sample, index) => {
     const start = Math.max(0, index - windowSize + 1);
     const window = unwrapped.slice(start, index + 1);
+    if (window.length === 0) return false;
     const minFiniteTheta = resolveMinFiniteThetaSamples(minFiniteThetaConfigured, window.length);
     if (countFinite(window) < minFiniteTheta) return false;
     const windowStd = std(window);
