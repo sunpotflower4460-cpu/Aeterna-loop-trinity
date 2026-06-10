@@ -389,3 +389,15 @@ Notes:
 - `R_AB_relative` is retained as a backward-compatible alias of `R_AB_orderDifferenceRatio`.
 - `fieldEnergyProxy` replaces strict-sounding energy language while preserving `totalEnergy*` aliases for old scripts.
 - v2.2 features remain candidates only and are not implemented in this phase.
+
+Coupling Mechanism Audit:
+- [x] current coupling formula audited
+- [x] current step order audited
+- [x] difference-attractor experimental formula added
+- [x] bidirectional snapshot update used
+- [x] before-memory-update experimental order tested
+- [x] coupling mechanism audit script
+- [x] results JSON
+- [x] summary JSON
+- [x] audit doc
+- [x] proceed / rescan / real64 / v2.2 / model-rework decision

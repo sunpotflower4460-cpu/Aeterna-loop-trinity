@@ -41,6 +41,7 @@ function applyMemoryCoupling(fieldA, fieldB, params = {}) {
 
   const g = params.COUPLING_G ?? 0.05;
   const weight = params.MEMORY_COUPLING_WEIGHT ?? 1.0;
+  const formula = params.MEMORY_COUPLING_FORMULA ?? 'difference-attractor';
   const coupling = g * weight;
   const minAmp = params.MEMORY_COUPLING_MIN_AMP ?? 0.01;
   const bidirectional = params.MEMORY_COUPLING_USE_BIDIRECTIONAL ?? true;
@@ -77,8 +78,16 @@ function applyMemoryCoupling(fieldA, fieldB, params = {}) {
 
     if (!Number.isFinite(targetARe) || !Number.isFinite(targetAIm)) continue;
 
-    const deltaARe = coupling * (targetARe - aRe);
-    const deltaAIm = coupling * (targetAIm - aIm);
+    let deltaARe;
+    let deltaAIm;
+
+    if (formula === 'absolute-memory') {
+      deltaARe = coupling * targetARe;
+      deltaAIm = coupling * targetAIm;
+    } else {
+      deltaARe = coupling * (targetARe - aRe);
+      deltaAIm = coupling * (targetAIm - aIm);
+    }
 
     fieldA.phiRe[i] = aRe + deltaARe;
     fieldA.phiIm[i] = aIm + deltaAIm;
@@ -91,8 +100,16 @@ function applyMemoryCoupling(fieldA, fieldB, params = {}) {
 
       if (!Number.isFinite(targetBRe) || !Number.isFinite(targetBIm)) continue;
 
-      const deltaBRe = coupling * (targetBRe - bRe);
-      const deltaBIm = coupling * (targetBIm - bIm);
+      let deltaBRe;
+      let deltaBIm;
+
+      if (formula === 'absolute-memory') {
+        deltaBRe = coupling * targetBRe;
+        deltaBIm = coupling * targetBIm;
+      } else {
+        deltaBRe = coupling * (targetBRe - bRe);
+        deltaBIm = coupling * (targetBIm - bIm);
+      }
 
       fieldB.phiRe[i] = bRe + deltaBRe;
       fieldB.phiIm[i] = bIm + deltaBIm;

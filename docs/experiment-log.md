@@ -948,3 +948,25 @@ Output:
 
 Interpretation:
 Completed. No effectiveMemoryCoupling value passed all combined surrogate guardrails across all three seeds; A/B remained too separate as coupling increased above 0.1.
+
+## Experiment 018: v2.1.2 Coupling Mechanism Audit
+
+Purpose:
+Audit why increasing Memory Coupling in the combined v2.1.2 surrogate moved fieldA and fieldB farther apart instead of closer together.
+
+Reason:
+Experiment 017 showed that effectiveMemoryCoupling 0.12–0.40 increased fieldABDistance, so the issue may be coupling formula or step order rather than coupling strength.
+
+Tested changes:
+- Add experimental `difference-attractor` coupling formula.
+- Use bidirectional snapshot updates to avoid update-order bias.
+- Test coupling before memory update / memory blend.
+- Compare against the existing absolute-memory formula when possible.
+
+Output:
+- experiments/v2.1.2-coupling-mechanism-audit-results.json
+- experiments/v2.1.2-coupling-mechanism-audit-summary.json
+- docs/v2.1.2-coupling-mechanism-audit.md
+
+Interpretation:
+Completed: difference-attractor rows reduced fieldABDistance and produced surrogate candidates; real 64^3 validation is the next gate, not v2.2 planning.

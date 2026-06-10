@@ -296,11 +296,16 @@ function runDualFieldCondition(condition, config, hooks = {}) {
   for (let step = 1; step <= config.maxSteps; step += 1) {
     stepField(fieldA, config.gamma, config, scratchARe, scratchAIm);
     stepField(fieldB, config.gamma, config, scratchBRe, scratchBIm);
+    if (params.MEMORY_COUPLING_ORDER === 'before-memory-update') {
+      couplingMetrics = applySelectedCoupling(fieldA, fieldB, params);
+    }
     if (params.MEMORY_ENABLED) {
       applyEWMAMemory(fieldA, params);
       applyEWMAMemory(fieldB, params);
     }
-    couplingMetrics = applySelectedCoupling(fieldA, fieldB, params);
+    if (params.MEMORY_COUPLING_ORDER !== 'before-memory-update') {
+      couplingMetrics = applySelectedCoupling(fieldA, fieldB, params);
+    }
 
     if (hooks.updatePheromoneField) {
       pheromoneMetrics = hooks.updatePheromoneField({ pheromoneField, fieldA, fieldB, params, stepCount: step, index3D, gridSize: config.gridSize });

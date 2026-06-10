@@ -27,6 +27,8 @@ const DEFAULT_COUPLING_PARAMS = Object.freeze({
   MEMORY_COUPLING_WEIGHT: 1.0,
   MEMORY_COUPLING_USE_BIDIRECTIONAL: true,
   MEMORY_COUPLING_MIN_AMP: 0.01,
+  MEMORY_COUPLING_FORMULA: 'difference-attractor',
+  MEMORY_COUPLING_ORDER: 'after-memory-update',
   MEMORY_COUPLING_MODE: 'toward-other-memory',
 });
 
