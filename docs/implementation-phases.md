@@ -410,3 +410,25 @@ Real 64³ Validation Gate:
 - [x] summary JSON
 - [x] validation doc
 - [x] proceed / blocked / v2.2 decision
+
+## v2.1.2 Real Runtime Validation
+
+Real Runtime Validation:
+- [x] real-runtime-v0 foundation
+- [x] A/B field arrays
+- [x] memory connection
+- [x] difference-attractor coupling connection
+- [x] pheromone trace-only connection
+- [x] metrics connection
+- [x] 32³ smoke
+- [x] 64³ smoke
+- [ ] 64³ full validation if feasible
+- [x] results JSON
+- [x] summary JSON
+- [x] validation doc
+- [x] proceed / blocked / v2.2 decision
+
+Notes:
+- The runtime foundation is intentionally headless and explicitly reports `runType = real-runtime-v0`.
+- It is not the diagnostic-surrogate runner.
+- The v2.1.2 candidate failed the smoke checks due to identity collapse under memory coupling, so v2.2 planning remains blocked.

@@ -17,6 +17,10 @@
     "experiment:v212-combined-coupling-retune": "node scripts/run-v212-combined-coupling-retune.js",
     "experiment:v212-coupling-mechanism-audit": "node scripts/run-v212-coupling-mechanism-audit.js",
     "experiment:v212-real64-validation": "node scripts/run-v212-real64-validation.js",
-    "experiment:v212-surrogate64-validation": "node scripts/run-v212-real64-validation.js"
+    "experiment:v212-surrogate64-validation": "node scripts/run-v212-real64-validation.js",
+    "experiment:v212-real-runtime-validation": "node scripts/run-v212-real-runtime-validation.js",
+    "experiment:v212-real-runtime-smoke32": "node scripts/run-v212-real-runtime-validation.js --grid=32 --steps=1000 --seeds=12345",
+    "experiment:v212-real-runtime-smoke64": "node scripts/run-v212-real-runtime-validation.js --grid=64 --steps=1000 --seeds=12345",
+    "experiment:v212-real-runtime-full64": "node scripts/run-v212-real-runtime-validation.js --grid=64 --steps=3000 --seeds=12345,23456,34567"
   }
 }

@@ -1,0 +1,97 @@
+{
+  "runMeta": {
+    "version": "v2.1.2",
+    "createdAt": "2026-06-10T04:20:24.641Z",
+    "sourceExperiment": "experiments/v2.1.2-real-runtime-validation-results.json",
+    "interpretationRunType": "real-runtime-v0-validation"
+  },
+  "runtimeFoundation": {
+    "created": true,
+    "files": [
+      "src/runtime/aeterna-runtime-v0.js",
+      "src/runtime/create-aeterna-fields.js",
+      "src/runtime/step-aeterna-runtime-v0.js",
+      "scripts/run-v212-real-runtime-validation.js"
+    ],
+    "usesDiagnosticSurrogate": false,
+    "hasFieldA": true,
+    "hasFieldB": true,
+    "hasMemory": true,
+    "hasCoupling": true,
+    "hasPheromone": true,
+    "hasMetrics": true,
+    "supportsGrid32": true,
+    "supportsGrid64": true,
+    "limitations": [
+      "real-runtime-v0 is a headless runtime foundation, not the full browser/UI production runtime.",
+      "Field dynamics use the repository scalar complex field pattern with periodic 3D Laplacian and simple potential force.",
+      "Pheromone remains trace-only because PHEROMONE_FEEDBACK_ENABLED is false.",
+      "Vortex counting samples the mid-z plane as a validation proxy."
+    ]
+  },
+  "topCandidates": [],
+  "blockedReasons": [],
+  "rejectedPatterns": [
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition A: baseline",
+      "seed": 12345,
+      "decision": "rejected: vortex disappeared; A/B moved apart; A/B remain too separate; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition B: memory only",
+      "seed": 12345,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band; energy unstable"
+    },
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition C: memory + coupling",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    },
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition D: memory + coupling + pheromone trace",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition A: baseline",
+      "seed": 12345,
+      "decision": "rejected: A/B moved apart; A/B remain too separate; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition B: memory only",
+      "seed": 12345,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band; energy unstable"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition C: memory + coupling",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition D: memory + coupling + pheromone trace",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    }
+  ],
+  "recommendedParams": {},
+  "decision": {
+    "runtime32CandidateFound": false,
+    "runtime64SmokeCandidateFound": false,
+    "runtime64FullCandidateFound": false,
+    "canProceedToV22Planning": false,
+    "needsAdditionalV212Scan": false,
+    "needsRuntimeRework": true,
+    "blockingIssues": [
+      "32³ Condition D real-runtime-v0 candidate not found"
+    ],
+    "recommendedNextStep": "Continue v2.1.2 real-runtime-v0 implementation/tuning before v2.2 planning."
+  }
+}
