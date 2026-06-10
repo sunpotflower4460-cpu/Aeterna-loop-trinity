@@ -1002,3 +1002,38 @@ Output:
 
 Interpretation:
 Completed. Real 64³ validation is blocked because no production-equivalent real A/B runtime exists in this repository snapshot. A clearly labeled surrogate-64 fallback was run, and it must not be treated as real-64 validation or v2.2 approval.
+
+## Experiment 020: v2.1.2 Real Runtime Validation
+
+Purpose:
+Create or connect a real-runtime-v0 A/B field loop and validate the v2.1.2 candidate params beyond diagnostic-surrogate.
+
+Reason:
+Experiment 019 showed that surrogate-64 produced a candidate, but real 64³ validation remained blocked because no production-equivalent real runtime was available.
+
+Candidate Params:
+- GAMMA = 0.005
+- HISTORY_ALPHA = 0.00025
+- MEMORY_WEIGHT = 0.04
+- MEMORY_COUPLING_FORMULA = difference-attractor
+- MEMORY_COUPLING_ORDER = after-memory-update
+- MEMORY_COUPLING_WEIGHT = 1.0
+- COUPLING_G = 0.05
+- PHEROMONE_DIFFUSION = 0
+- PHEROMONE_DEPOSIT_THRESHOLD_RATIO = 0.95
+- PHEROMONE_DEPOSIT = 0.02
+- PHEROMONE_DEPOSIT_MODE = top-10-percent-amplitude
+- PHEROMONE_FEEDBACK_ENABLED = false
+
+Stages:
+- 32³ smoke: completed, rejected because Condition D collapsed A/B identity and destabilized energy.
+- 64³ smoke: completed, rejected because Condition D collapsed A/B identity and destabilized energy.
+- 64³ three-seed validation: skipped in this run because the prerequisite 64³ smoke did not produce a candidate and the full run is significantly more expensive.
+
+Output:
+- experiments/v2.1.2-real-runtime-validation-results.json
+- experiments/v2.1.2-real-runtime-validation-summary.json
+- docs/v2.1.2-real-runtime-validation.md
+
+Interpretation:
+Completed. real-runtime-v0 now exists and is separate from diagnostic-surrogate, but the v2.1.2 candidate did not pass the real-runtime-v0 smoke stages. Do not proceed to v2.2 planning yet.
