@@ -428,6 +428,16 @@ Real Runtime Validation:
 - [x] validation doc
 - [x] proceed / blocked / v2.2 decision
 
+
+Runtime Results Audit:
+- [x] real-runtime-v0 validation results loaded
+- [x] 32³ smoke audited
+- [x] 64³ smoke audited
+- [x] 64³ full validation audited
+- [x] v2.2 planning gate decision
+- [ ] v2.2 planning docs only if gate passes
+- [x] no v2.2 implementation in this PR
+
 Notes:
 - The runtime foundation is intentionally headless and explicitly reports `runType = real-runtime-v0`.
 - It is not the diagnostic-surrogate runner.

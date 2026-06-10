@@ -1037,3 +1037,22 @@ Output:
 
 Interpretation:
 Completed. real-runtime-v0 now exists and is separate from diagnostic-surrogate, but the v2.1.2 candidate did not pass the real-runtime-v0 smoke stages. Do not proceed to v2.2 planning yet.
+
+## Experiment 021: v2.1.2 Runtime Results Audit + v2.2 Planning Gate
+
+Purpose:
+Audit the real-runtime-v0 validation results and decide whether v2.2 planning is allowed.
+
+Reason:
+v2.2 should not start from surrogate results alone. It requires evidence from real-runtime-v0, preferably 64³ three-seed validation.
+
+Output:
+- experiments/v2.1.2-runtime-results-audit.json
+- docs/v2.1.2-runtime-results-audit.md
+
+Optional output if gate passes:
+- docs/v2.2-planning-gate.md
+- experiments/v2.2-planning-gate-summary.json
+
+Interpretation:
+Completed. v2.2 planning is not allowed because the real-runtime-v0 audit found no 32³ or 64³ smoke candidate and no executed 64³ three-seed full validation. v2.2 implementation remains blocked.
