@@ -1,0 +1,140 @@
+{
+  "runMeta": {
+    "experimentName": "experiment:v212-runtime-results-audit",
+    "version": "v2.1.2",
+    "createdAt": "2026-06-10T04:36:05.270Z",
+    "commit": "40884222af0407dbf7091e8bf978e9a85e003fd1",
+    "branch": "work",
+    "sourceResults": [
+      "experiments/v2.1.2-real-runtime-validation-results.json",
+      "experiments/v2.1.2-real-runtime-validation-summary.json",
+      "experiments/v2.1.2-real64-validation-results.json",
+      "experiments/v2.1.2-real64-validation-summary.json"
+    ],
+    "notes": "Audit of v2.1.2 real-runtime-v0 validation results before v2.2 planning."
+  },
+  "inputAvailability": {
+    "resultsJsonFound": true,
+    "summaryJsonFound": true,
+    "docsFound": true
+  },
+  "runtimeFoundationAudit": {
+    "realRuntimeV0Found": true,
+    "usesDiagnosticSurrogate": false,
+    "hasFieldA": true,
+    "hasFieldB": true,
+    "hasMemory": true,
+    "hasCoupling": true,
+    "hasPheromone": true,
+    "hasMetrics": true,
+    "supportsGrid32": true,
+    "supportsGrid64": true,
+    "limitations": [
+      "real-runtime-v0 is a headless runtime foundation, not the full browser/UI production runtime.",
+      "Field dynamics use the repository scalar complex field pattern with periodic 3D Laplacian and simple potential force.",
+      "Pheromone remains trace-only because PHEROMONE_FEEDBACK_ENABLED is false.",
+      "Vortex counting samples the mid-z plane as a validation proxy."
+    ]
+  },
+  "stageAudit": {
+    "stage32Smoke": {
+      "executed": true,
+      "candidateFound": false,
+      "blockingIssues": [
+        "fieldABDistance_end outside 0.01-0.15 gate",
+        "memoryABDistance_end below 0.005",
+        "memoryFieldDifferenceA outside 0.05-0.35",
+        "memoryFieldDifferenceB outside 0.05-0.35",
+        "amplitudeStd too small",
+        "fieldEnergyProxyDeltaRatio outside ±0.25"
+      ]
+    },
+    "stage64Smoke": {
+      "executed": true,
+      "candidateFound": false,
+      "blockingIssues": [
+        "fieldABDistance_end outside 0.01-0.15 gate",
+        "memoryABDistance_end below 0.005",
+        "memoryFieldDifferenceA outside 0.05-0.35",
+        "memoryFieldDifferenceB outside 0.05-0.35",
+        "amplitudeStd too small",
+        "fieldEnergyProxyDeltaRatio outside ±0.25"
+      ]
+    },
+    "stage64Full": {
+      "executed": false,
+      "candidateFound": false,
+      "blockingIssues": [
+        "skipped: use npm run experiment:v212-real-runtime-full64 for the full run"
+      ]
+    }
+  },
+  "topCandidates": [],
+  "rejectedPatterns": [
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition A: baseline",
+      "seed": 12345,
+      "decision": "rejected: vortex disappeared; A/B moved apart; A/B remain too separate; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition B: memory only",
+      "seed": 12345,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band; energy unstable"
+    },
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition C: memory + coupling",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    },
+    {
+      "validationStage": "stage-1-32-smoke",
+      "conditionName": "Condition D: memory + coupling + pheromone trace",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition A: baseline",
+      "seed": 12345,
+      "decision": "rejected: A/B moved apart; A/B remain too separate; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition B: memory only",
+      "seed": 12345,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band; energy unstable"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition C: memory + coupling",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    },
+    {
+      "validationStage": "stage-2-64-smoke",
+      "conditionName": "Condition D: memory + coupling + pheromone trace",
+      "seed": 12345,
+      "decision": "rejected: identity collapse risk; memory identity collapse risk; memory trace A outside target band; memory trace B outside target band; field flattened; energy unstable"
+    }
+  ],
+  "blockingIssues": [
+    "32³ Condition D real-runtime-v0 candidate not found",
+    "32³ smoke executed but no real-runtime-v0 Condition D candidate was found.",
+    "64³ smoke executed but no real-runtime-v0 Condition D candidate was found.",
+    "64³ full three-seed real-runtime-v0 validation was not executed.",
+    "Previous surrogate/real64 gate cannot be used as real-runtime-v0 64³ full evidence."
+  ],
+  "decision": {
+    "canProceedToV22Planning": false,
+    "canStartV22Implementation": false,
+    "needs64Smoke": false,
+    "needs64FullValidation": false,
+    "needsRuntimeRework": true,
+    "needsAdditionalV212Scan": true,
+    "needsMetricsRework": false,
+    "recommendedNextStep": "Continue v2.1.2 runtime tuning before v2.2 planning."
+  }
+}
