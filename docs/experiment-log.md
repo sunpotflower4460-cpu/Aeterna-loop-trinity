@@ -970,3 +970,35 @@ Output:
 
 Interpretation:
 Completed: difference-attractor rows reduced fieldABDistance and produced surrogate candidates; real 64^3 validation is the next gate, not v2.2 planning.
+
+---
+
+## Experiment 019: v2.1.2 Real 64³ Validation Gate
+
+Purpose:
+Validate the v2.1.2 candidate params from Experiment 018 against real 64³ runtime if available, or clearly mark real 64³ validation as blocked if no real runtime exists.
+
+Reason:
+Experiment 018 found a stable surrogate candidate using difference-attractor coupling, but v2.2 should not start until the candidate is checked beyond the 16³ diagnostic surrogate.
+
+Candidate Params:
+- GAMMA = 0.005
+- HISTORY_ALPHA = 0.00025
+- MEMORY_WEIGHT = 0.04
+- MEMORY_COUPLING_FORMULA = difference-attractor
+- MEMORY_COUPLING_ORDER = after-memory-update
+- MEMORY_COUPLING_WEIGHT = 1.0
+- COUPLING_G = 0.05
+- PHEROMONE_DIFFUSION = 0
+- PHEROMONE_DEPOSIT_THRESHOLD_RATIO = 0.95
+- PHEROMONE_DEPOSIT = 0.02
+- PHEROMONE_DEPOSIT_MODE = top-10-percent-amplitude
+- PHEROMONE_FEEDBACK_ENABLED = false
+
+Output:
+- experiments/v2.1.2-real64-validation-results.json
+- experiments/v2.1.2-real64-validation-summary.json
+- docs/v2.1.2-real64-validation.md
+
+Interpretation:
+Completed. Real 64³ validation is blocked because no production-equivalent real A/B runtime exists in this repository snapshot. A clearly labeled surrogate-64 fallback was run, and it must not be treated as real-64 validation or v2.2 approval.

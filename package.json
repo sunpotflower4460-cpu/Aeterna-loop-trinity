@@ -15,6 +15,8 @@
     "experiment:memory-coupling-narrow-scan": "node scripts/run-memory-coupling-narrow-scan.js",
     "experiment:v212-combined-validation": "node scripts/run-v212-combined-validation.js",
     "experiment:v212-combined-coupling-retune": "node scripts/run-v212-combined-coupling-retune.js",
-    "experiment:v212-coupling-mechanism-audit": "node scripts/run-v212-coupling-mechanism-audit.js"
+    "experiment:v212-coupling-mechanism-audit": "node scripts/run-v212-coupling-mechanism-audit.js",
+    "experiment:v212-real64-validation": "node scripts/run-v212-real64-validation.js",
+    "experiment:v212-surrogate64-validation": "node scripts/run-v212-real64-validation.js"
   }
 }
