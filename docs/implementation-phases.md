@@ -465,3 +465,19 @@ Notes:
 - 64³ smoke was not run because the 32³ stages found direction candidates but no full stability candidate.
 - 64³ full validation remains blocked until 64³ smoke passes.
 - v2.2 planning remains blocked.
+
+Real Runtime Stability Narrow Retune:
+- [x] previous direction candidate audited
+- [x] narrow scan around COUPLING_G=0.005
+- [x] narrow scan around MEMORY_WEIGHT=0.01
+- [x] narrow scan around HISTORY_ALPHA=0.001
+- [x] collapse flags
+- [x] stability flags
+- [x] 32³ narrow single-seed scan
+- [x] 32³ three-seed confirmation if candidate-like rows appear
+- [x] 64³ smoke only if 32³ full candidate confirmed
+- [x] 64³ full validation only if 64³ smoke passes
+- [x] results JSON
+- [x] summary JSON
+- [x] narrow retune doc
+- [x] proceed / retune / runtime rework decision
