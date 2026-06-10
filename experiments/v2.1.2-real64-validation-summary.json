@@ -1,0 +1,179 @@
+{
+  "runMeta": {
+    "version": "v2.1.2",
+    "createdAt": "2026-06-10T03:48:13.046Z",
+    "sourceExperiment": "experiments/v2.1.2-real64-validation-results.json",
+    "interpretationRunType": "real64-validation-gate"
+  },
+  "runtimeAudit": {
+    "realRuntimeFound": false,
+    "realRuntimeFiles": [],
+    "simulationLoopFound": false,
+    "simulationLoopFiles": [],
+    "metricsConnectionFound": false,
+    "metricsConnectionFiles": [
+      "src/metrics/aeterna-metrics.js"
+    ],
+    "canRunGrid64": false,
+    "limitations": [
+      "No production-equivalent browser/UI or main A/B simulation runtime was found under src/.",
+      "Available executable field dynamics are diagnostic-surrogate scripts, not real-runtime validation.",
+      "Real 64³ validation is blocked until a real runtime exposes A/B fields and metrics.",
+      "Surrogate-64 fallback defaults to maxSteps=50 as a smoke gate because long 64³ diagnostic runs are expensive in this environment."
+    ]
+  },
+  "topCandidates": [
+    {
+      "conditionName": "Condition A: baseline surrogate 64 default behavior",
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "fieldABDistance_start_mean": 0.6099754970550385,
+      "fieldABDistance_end_mean": 0.6089950046802888,
+      "memoryABDistance_end_mean": 0.6099754970550385,
+      "finalVortexCount_mean": 8,
+      "pheromoneActiveRatio_end_mean": 0,
+      "fieldEnergyProxyDeltaRatio_mean": -0.006658521615550999,
+      "decisions": [
+        "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band",
+        "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band",
+        "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+      ]
+    },
+    {
+      "conditionName": "Condition B: memory only",
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "fieldABDistance_start_mean": 0.6099754970550385,
+      "fieldABDistance_end_mean": 0.609401744250964,
+      "memoryABDistance_end_mean": 0.609970810628387,
+      "finalVortexCount_mean": 8,
+      "pheromoneActiveRatio_end_mean": 0,
+      "fieldEnergyProxyDeltaRatio_mean": -0.003834786455003427,
+      "decisions": [
+        "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band",
+        "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band",
+        "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+      ]
+    },
+    {
+      "conditionName": "Condition C: memory + coupling",
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "fieldABDistance_start_mean": 0.6099754970550385,
+      "fieldABDistance_end_mean": 0.06850633037457428,
+      "memoryABDistance_end_mean": 0.6033425305558603,
+      "finalVortexCount_mean": 8,
+      "pheromoneActiveRatio_end_mean": 0,
+      "fieldEnergyProxyDeltaRatio_mean": -0.05900757124153582,
+      "decisions": [
+        "surrogate-64 candidate only; real-64 still blocked",
+        "surrogate-64 candidate only; real-64 still blocked",
+        "surrogate-64 candidate only; real-64 still blocked"
+      ]
+    },
+    {
+      "conditionName": "Condition D: memory + coupling + pheromone trace",
+      "seeds": [
+        12345,
+        23456,
+        34567
+      ],
+      "fieldABDistance_start_mean": 0.6099754970550385,
+      "fieldABDistance_end_mean": 0.06850633037457428,
+      "memoryABDistance_end_mean": 0.6033425305558603,
+      "finalVortexCount_mean": 8,
+      "pheromoneActiveRatio_end_mean": 0.18392054239908853,
+      "fieldEnergyProxyDeltaRatio_mean": -0.05900757124153582,
+      "decisions": [
+        "surrogate-64 candidate only; real-64 still blocked",
+        "surrogate-64 candidate only; real-64 still blocked",
+        "surrogate-64 candidate only; real-64 still blocked"
+      ]
+    }
+  ],
+  "blockedReasons": [
+    "No production-equivalent browser/UI or main A/B simulation runtime was found under src/.",
+    "Available executable field dynamics are diagnostic-surrogate scripts, not real-runtime validation.",
+    "Real 64³ validation is blocked until a real runtime exposes A/B fields and metrics.",
+    "Surrogate-64 fallback defaults to maxSteps=50 as a smoke gate because long 64³ diagnostic runs are expensive in this environment.",
+    "blocked: real runtime unavailable"
+  ],
+  "rejectedPatterns": [
+    {
+      "conditionName": "Condition A: baseline surrogate 64 default behavior",
+      "seed": 12345,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "conditionName": "Condition A: baseline surrogate 64 default behavior",
+      "seed": 23456,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "conditionName": "Condition A: baseline surrogate 64 default behavior",
+      "seed": 34567,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "conditionName": "Condition B: memory only",
+      "seed": 12345,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "conditionName": "Condition B: memory only",
+      "seed": 23456,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+    },
+    {
+      "conditionName": "Condition B: memory only",
+      "seed": 34567,
+      "decision": "rejected: A/B remain too separate; memory trace A outside target band; memory trace B outside target band"
+    }
+  ],
+  "recommendedParams": {
+    "GAMMA": 0.005,
+    "MEMORY_ENABLED": true,
+    "MEMORY_BLEND_VELOCITY": true,
+    "HISTORY_ALPHA": 0.00025,
+    "MEMORY_WEIGHT": 0.04,
+    "MEMORY_WEIGHT_MODE": "fixed",
+    "MEMORY_VELOCITY_SCALE": 0.1,
+    "MEMORY_COUPLING_ENABLED": true,
+    "MEMORY_COUPLING_FORMULA": "difference-attractor",
+    "MEMORY_COUPLING_ORDER": "after-memory-update",
+    "MEMORY_COUPLING_WEIGHT": 1,
+    "COUPLING_G": 0.05,
+    "COUPLING_TYPE": "memory",
+    "PHEROMONE_ENABLED": true,
+    "PHEROMONE_FEEDBACK_ENABLED": false,
+    "PHEROMONE_DIFFUSION": 0,
+    "PHEROMONE_DEPOSIT_THRESHOLD_RATIO": 0.95,
+    "PHEROMONE_DEPOSIT": 0.02,
+    "PHEROMONE_DEPOSIT_MODE": "top-10-percent-amplitude"
+  },
+  "decision": {
+    "real64CandidateFound": false,
+    "surrogate64CandidateFound": true,
+    "canProceedToReal64Validation": true,
+    "canProceedToV22Planning": false,
+    "needsAdditionalV212Scan": false,
+    "needsRealRuntimeImplementation": true,
+    "blockingIssues": [
+      "No production-equivalent browser/UI or main A/B simulation runtime was found under src/.",
+      "Available executable field dynamics are diagnostic-surrogate scripts, not real-runtime validation.",
+      "Real 64³ validation is blocked until a real runtime exposes A/B fields and metrics.",
+      "Surrogate-64 fallback defaults to maxSteps=50 as a smoke gate because long 64³ diagnostic runs are expensive in this environment.",
+      "blocked: real runtime unavailable"
+    ],
+    "recommendedNextStep": "Implement or connect the real A/B 64³ runtime and rerun this gate; do not start v2.2 planning yet."
+  }
+}

@@ -401,3 +401,12 @@ Coupling Mechanism Audit:
 - [x] summary JSON
 - [x] audit doc
 - [x] proceed / rescan / real64 / v2.2 / model-rework decision
+
+Real 64³ Validation Gate:
+- [x] runtime audit
+- [x] real 64³ validation script
+- [x] surrogate-64 fallback clearly labeled
+- [x] results JSON
+- [x] summary JSON
+- [x] validation doc
+- [x] proceed / blocked / v2.2 decision
