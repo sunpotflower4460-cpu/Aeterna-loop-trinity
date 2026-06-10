@@ -442,3 +442,26 @@ Notes:
 - The runtime foundation is intentionally headless and explicitly reports `runType = real-runtime-v0`.
 - It is not the diagnostic-surrogate runner.
 - The v2.1.2 candidate failed the smoke checks due to identity collapse under memory coupling, so v2.2 planning remains blocked.
+
+## v2.1.2 Real Runtime Stability Retune
+
+Real Runtime Stability Retune:
+- [x] previous failure modes audited
+- [x] lower coupling scan
+- [x] memory weight scan
+- [x] HISTORY_ALPHA interaction scan
+- [x] collapse flags
+- [x] stability flags
+- [x] 32³ broad scan
+- [x] 32³ three-seed confirmation if candidate found
+- [ ] 64³ smoke if 32³ candidate found
+- [ ] 64³ full validation if 64³ smoke passes
+- [x] results JSON
+- [x] summary JSON
+- [x] retune doc
+- [x] proceed / retune / runtime rework decision
+
+Notes:
+- 64³ smoke was not run because the 32³ stages found direction candidates but no full stability candidate.
+- 64³ full validation remains blocked until 64³ smoke passes.
+- v2.2 planning remains blocked.
