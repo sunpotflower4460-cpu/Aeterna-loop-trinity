@@ -112,6 +112,16 @@ assert.strictEqual(
   'non-finite aligned distances should not trigger structural-collapse onset',
 );
 
+const validStructuralOnset = findStructuralCollapseOnsetStep([
+  { step: 0, alignedFieldABDistance: 0.03 },
+  { step: 10, alignedFieldABDistance: 0.004 },
+]);
+assert.strictEqual(
+  validStructuralOnset,
+  10,
+  'finite aligned distances below threshold should trigger structural-collapse onset',
+);
+
 const insufficientThetaWindowSamples = [
   { step: 0, thetaStar: 0.001 },
   { step: 10, thetaStar: Number.NaN },
