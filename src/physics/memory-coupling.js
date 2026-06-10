@@ -93,6 +93,7 @@ function applyMemoryCoupling(fieldA, fieldB, params = {}) {
     fieldA.phiIm[i] = aIm + deltaAIm;
 
     totalDeltaA += Math.hypot(deltaARe, deltaAIm);
+    appliedCells += 1;
 
     if (bidirectional) {
       const targetBRe = fieldA.memoryRe[i];
@@ -117,7 +118,6 @@ function applyMemoryCoupling(fieldA, fieldB, params = {}) {
       totalDeltaB += Math.hypot(deltaBRe, deltaBIm);
     }
 
-    appliedCells += 1;
   }
 
   const metrics = createMemoryCouplingMetrics(true, totalDeltaA, totalDeltaB, appliedCells, coupling);

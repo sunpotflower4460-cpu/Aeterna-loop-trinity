@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-06-10T10:42:41.330Z",
+  "requiredRuns": [
+    {
+      "label": "32^3-1000-seedA12345-seedB67890",
+      "thetaStar_start": -0.6283185307179551,
+      "thetaStar_end": -0.036628039749332784,
+      "rawFieldABDistance_start": 0.5857998869123546,
+      "rawFieldABDistance_end": 0.035174990171042544,
+      "alignedFieldABDistance_start": 0.0006654888060925622,
+      "alignedFieldABDistance_end": 0.0008883965585991851,
+      "D_inv_end": 0.0011610955769614999,
+      "gaugeOverlap_end": 0.9999992768641746,
+      "phaseLockOnsetStep": 600,
+      "structuralCollapseOnsetStep": null,
+      "rawDistanceCollapseOnsetStep": null,
+      "finalRegimeVerdict": "near-identical-from-start"
+    },
+    {
+      "label": "32^3-3000-seedA12345-seedB67890",
+      "thetaStar_start": -0.6283185307179551,
+      "thetaStar_end": -0.0020612181368271786,
+      "rawFieldABDistance_start": 0.5857998869123546,
+      "rawFieldABDistance_end": 0.0020597621969660885,
+      "alignedFieldABDistance_start": 0.0006654888060925622,
+      "alignedFieldABDistance_end": 0.00026460286720460924,
+      "D_inv_end": 0.00032283536162565883,
+      "gaugeOverlap_end": 0.9999999478237678,
+      "phaseLockOnsetStep": 600,
+      "structuralCollapseOnsetStep": null,
+      "rawDistanceCollapseOnsetStep": 2450,
+      "finalRegimeVerdict": "near-identical-from-start"
+    }
+  ],
+  "optionalRunsSkipped": [
+    "64^3 / 1000 steps / 1 seed pair",
+    "64^3 / 3000 steps / 1 seed pair",
+    "64^3 / 3000 steps / 3 seed pairs"
+  ],
+  "optionalRunSkipReason": "Skipped to keep this observer-correction PR lightweight and avoid broad/heavy parameter scans.",
+  "verdict": "Experiment 023 best condition is classified as near-identical-from-start under gauge-invariant structural metrics; the legacy raw-distance collapse reflects global phase offset relaxation / phase locking, not measured structural collapse."
+}

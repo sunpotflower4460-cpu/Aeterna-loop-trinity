@@ -1,6 +1,7 @@
 'use strict';
 
 const { computePheromoneStats } = require('../physics/pheromone');
+const { computeGaugeInvariantABMetrics, computeGaugeInvariantMemoryMetrics } = require('./gauge-invariant-metrics');
 
 const DEFAULT_AMP_THRESHOLD = 0.01;
 const DEFAULT_LOCAL_SAMPLE_COUNT = 1024;
@@ -442,6 +443,8 @@ function collectAeternaMetrics({
   const pheromoneFeedbackB = normalizePheromoneFeedbackMetrics(pheromoneFeedbackMetricsB);
   const fieldABDistance = computeFieldDistance(fieldA, fieldB);
   const memoryABDistance = computeMemoryDistance(fieldA, fieldB);
+  const gaugeAB = computeGaugeInvariantABMetrics(fieldA, fieldB);
+  const gaugeMemory = computeGaugeInvariantMemoryMetrics(fieldA, fieldB);
   const normalizedVortexCount = vortexCount ?? normalizeVortexCount(vortices);
   let vortexLifetime = null;
 
@@ -485,7 +488,19 @@ function collectAeternaMetrics({
     totalEnergyB: energyB.totalEnergy,
     totalEnergyCombined: fieldEnergyProxyCombined,
     fieldABDistance,
+    thetaStar: gaugeAB?.thetaStar ?? null,
+    gaugeOverlap: gaugeAB?.gaugeOverlap ?? null,
+    rawFieldABDistance: gaugeAB?.rawFieldABDistance ?? fieldABDistance,
+    rawFieldABDistanceL2: gaugeAB?.rawFieldABDistanceL2 ?? null,
+    alignedFieldABDistance: gaugeAB?.alignedFieldABDistance ?? null,
+    D_inv: gaugeAB?.D_inv ?? null,
     memoryABDistance,
+    thetaStarMemory: gaugeMemory?.thetaStarMemory ?? null,
+    gaugeOverlapMemory: gaugeMemory?.gaugeOverlapMemory ?? null,
+    rawMemoryABDistance: gaugeMemory?.rawMemoryABDistance ?? memoryABDistance,
+    rawMemoryABDistanceL2: gaugeMemory?.rawMemoryABDistanceL2 ?? null,
+    alignedMemoryABDistance: gaugeMemory?.alignedMemoryABDistance ?? null,
+    D_inv_memory: gaugeMemory?.D_inv_memory ?? null,
     memoryEnergyA: memoryA.memoryEnergy,
     memoryEnergyB: memoryB.memoryEnergy,
     memoryFieldDifferenceA: memoryA.memoryFieldDifference,
