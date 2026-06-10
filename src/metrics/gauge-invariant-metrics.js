@@ -4,6 +4,7 @@ const DEFAULT_THRESHOLDS = Object.freeze({
   structuralDistinctnessThreshold: 0.02,
   structuralCollapseThreshold: 0.005,
   lockThetaStdMax: 0.02,
+  lockMinFiniteThetaSamples: null,
   driftMinTotalRadians: Math.PI,
 });
 
@@ -23,6 +24,7 @@ function computeComplexABMetrics(aRe, aIm, bRe, bIm) {
   let normB = 0;
   let rawSum = 0;
   let rawSumSq = 0;
+  let finiteCount = 0;
 
   for (let i = 0; i < count; i += 1) {
     const ar = aRe[i];
@@ -31,6 +33,7 @@ function computeComplexABMetrics(aRe, aIm, bRe, bIm) {
     const bi = bIm[i];
 
     if (!Number.isFinite(ar) || !Number.isFinite(ai) || !Number.isFinite(br) || !Number.isFinite(bi)) continue;
+    finiteCount += 1;
 
     innerRe += ar * br + ai * bi;
     innerIm += ai * br - ar * bi;
@@ -43,6 +46,8 @@ function computeComplexABMetrics(aRe, aIm, bRe, bIm) {
     rawSum += d;
     rawSumSq += d * d;
   }
+
+  if (finiteCount === 0) return null;
 
   const innerAbs = Math.hypot(innerRe, innerIm);
   const thetaStar = Math.atan2(innerIm, innerRe);
@@ -68,10 +73,10 @@ function computeComplexABMetrics(aRe, aIm, bRe, bIm) {
   return {
     thetaStar,
     gaugeOverlap: denominator > 0 ? innerAbs / denominator : null,
-    rawFieldABDistance: rawSum / count,
-    rawFieldABDistanceL2: Math.sqrt(rawSumSq / count),
-    alignedFieldABDistance: alignedSum / count,
-    D_inv: Math.sqrt(Math.max(0, (normA + normB - 2 * innerAbs) / count)),
+    rawFieldABDistance: rawSum / finiteCount,
+    rawFieldABDistanceL2: Math.sqrt(rawSumSq / finiteCount),
+    alignedFieldABDistance: alignedSum / finiteCount,
+    D_inv: Math.sqrt(Math.max(0, (normA + normB - 2 * innerAbs) / finiteCount)),
   };
 }
 
@@ -149,6 +154,18 @@ function totalTravel(values) {
   return travel;
 }
 
+function countFinite(values) {
+  return values.reduce((count, value) => count + (Number.isFinite(value) ? 1 : 0), 0);
+}
+
+function resolveMinFiniteThetaSamples(configuredMinimum, windowSize) {
+  if (windowSize <= 0) return 0;
+  if (Number.isFinite(configuredMinimum) && configuredMinimum > 0) {
+    return Math.min(windowSize, Math.floor(configuredMinimum));
+  }
+  return windowSize;
+}
+
 function classifyPhaseStructureRegime(input = {}, thresholdOverrides = {}) {
   const thresholds = { ...DEFAULT_THRESHOLDS, ...thresholdOverrides };
   const alignedSeries = input.alignedFieldABDistanceSeries || input.alignedSeries || [];
@@ -159,6 +176,11 @@ function classifyPhaseStructureRegime(input = {}, thresholdOverrides = {}) {
   const endWindowSize = Math.min(10, unwrappedTheta.length);
   const endWindow = endWindowSize > 0 ? unwrappedTheta.slice(-endWindowSize) : [];
   const endWindowStd = input.thetaEndWindowStd ?? std(endWindow);
+  const minFiniteTheta = resolveMinFiniteThetaSamples(
+    input.lockMinFiniteThetaSamples ?? thresholds.lockMinFiniteThetaSamples,
+    endWindow.length,
+  );
+  const hasSufficientFiniteTheta = countFinite(endWindow) >= minFiniteTheta;
   const thetaTotalTravel = input.thetaTotalTravel ?? totalTravel(unwrappedTheta);
 
   if (Number.isFinite(alignedStart) && alignedStart < thresholds.structuralDistinctnessThreshold) {
@@ -174,7 +196,7 @@ function classifyPhaseStructureRegime(input = {}, thresholdOverrides = {}) {
     return 'structural-collapse';
   }
 
-  if (Number.isFinite(endWindowStd) && endWindowStd <= thresholds.lockThetaStdMax) {
+  if (hasSufficientFiniteTheta && Number.isFinite(endWindowStd) && endWindowStd <= thresholds.lockThetaStdMax) {
     return 'phase-locking';
   }
 
@@ -194,9 +216,13 @@ function findPhaseLockOnsetStep(samples = [], options = {}) {
     ? thetaSeries
     : unwrapPhaseSeries(thetaSeries);
   const windowSize = Math.min(options.windowSize || 10, samples.length);
+  const minFiniteThetaConfigured = options.lockMinFiniteThetaSamples ?? thresholds.lockMinFiniteThetaSamples;
   const lockedAt = samples.map((_sample, index) => {
     const start = Math.max(0, index - windowSize + 1);
-    const windowStd = std(unwrapped.slice(start, index + 1));
+    const window = unwrapped.slice(start, index + 1);
+    const minFiniteTheta = resolveMinFiniteThetaSamples(minFiniteThetaConfigured, window.length);
+    if (countFinite(window) < minFiniteTheta) return false;
+    const windowStd = std(window);
     return Number.isFinite(windowStd) && windowStd <= thresholds.lockThetaStdMax;
   });
 
@@ -214,13 +240,24 @@ function findStructuralCollapseOnsetStep(samples = [], options = {}) {
   const start = samples[0].alignedFieldABDistance;
   if (!Number.isFinite(start) || start < thresholds.structuralDistinctnessThreshold) return null;
 
-  const hit = samples.find((sample) => sample.alignedFieldABDistance < thresholds.structuralCollapseThreshold);
+  const hit = samples.find(
+    (sample) =>
+      Number.isFinite(sample.alignedFieldABDistance) &&
+      sample.alignedFieldABDistance < thresholds.structuralCollapseThreshold,
+  );
   return hit ? hit.step : null;
 }
 
 function findRawDistanceCollapseOnsetStep(samples = [], legacyCollapseThreshold = DEFAULT_THRESHOLDS.structuralCollapseThreshold) {
   if (!Array.isArray(samples) || samples.length === 0) return null;
-  const hit = samples.find((sample) => sample.rawFieldABDistance < legacyCollapseThreshold || sample.fieldABDistance < legacyCollapseThreshold);
+  const hit = samples.find((sample) => {
+    const rawDistance = sample.rawFieldABDistance;
+    const legacyRawDistance = sample.fieldABDistance;
+    return (
+      (Number.isFinite(rawDistance) && rawDistance < legacyCollapseThreshold) ||
+      (Number.isFinite(legacyRawDistance) && legacyRawDistance < legacyCollapseThreshold)
+    );
+  });
   return hit ? hit.step : null;
 }
 
