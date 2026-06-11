@@ -46,8 +46,12 @@ function createRandomizedVortexLayout({ rng, gridSize, pairCount = 2, minSeparat
     vortices.push(accepted);
   }
 
+  const pairs = [];
+  for (let i = 0; i < vortices.length; i += 2) pairs.push([i, i + 1]);
+
   return {
     vortices,
+    pairs,
     pairCount,
     minSeparationRatio,
     minSeparation,
@@ -55,7 +59,57 @@ function createRandomizedVortexLayout({ rng, gridSize, pairCount = 2, minSeparat
   };
 }
 
-function createRandomizedAeternaField({ gridSize, seed, phaseOffset = 0, pairCount = 2, minSeparationRatio = 0.18, params = {}, config = {} } = {}) {
+function phaseFromVortexAt(x, y, vortex, gridSize, phaseConstructionMode) {
+  if (phaseConstructionMode === 'legacy-torus-atan2') {
+    return vortex.charge * Math.atan2(nearestSignedDelta(y, vortex.y, gridSize), nearestSignedDelta(x, vortex.x, gridSize));
+  }
+  if (phaseConstructionMode === 'unwrapped-atan2') {
+    return vortex.charge * Math.atan2(y - vortex.y, x - vortex.x);
+  }
+  throw new Error(`Unsupported randomized phaseConstructionMode=${phaseConstructionMode}`);
+}
+
+function dipoleImagePhaseAt(x, y, positiveVortex, negativeVortex, gridSize, imageRadius = 1) {
+  let phase = 0;
+  for (let ix = -imageRadius; ix <= imageRadius; ix += 1) {
+    for (let iy = -imageRadius; iy <= imageRadius; iy += 1) {
+      const shiftX = ix * gridSize;
+      const shiftY = iy * gridSize;
+      const posPhase = Math.atan2(y - (positiveVortex.y + shiftY), x - (positiveVortex.x + shiftX));
+      const negPhase = Math.atan2(y - (negativeVortex.y + shiftY), x - (negativeVortex.x + shiftX));
+      // Add each periodic image as a neutral +1/-1 pair. Do not sum independent single-vortex images.
+      phase += posPhase - negPhase;
+    }
+  }
+  return phase;
+}
+
+function imageRadiusForPhaseConstructionMode(phaseConstructionMode) {
+  if (phaseConstructionMode === 'periodic-dipole-image-sum-radius-1') return 1;
+  return null;
+}
+
+function addPhaseContributionAt(x, y, layout, gridSize, phaseConstructionMode) {
+  const imageRadius = imageRadiusForPhaseConstructionMode(phaseConstructionMode);
+  if (imageRadius !== null) {
+    let phase = 0;
+    for (const [positiveIndex, negativeIndex] of layout.pairs) {
+      const positiveVortex = layout.vortices[positiveIndex];
+      const negativeVortex = layout.vortices[negativeIndex];
+      if (!positiveVortex || !negativeVortex || positiveVortex.charge !== 1 || negativeVortex.charge !== -1) {
+        throw new Error('Dipole phase construction requires sequential neutral +1/-1 vortex pairs');
+      }
+      phase += dipoleImagePhaseAt(x, y, positiveVortex, negativeVortex, gridSize, imageRadius);
+    }
+    return phase;
+  }
+
+  let phase = 0;
+  for (const vortex of layout.vortices) phase += phaseFromVortexAt(x, y, vortex, gridSize, phaseConstructionMode);
+  return phase;
+}
+
+function createRandomizedAeternaField({ gridSize, seed, phaseOffset = 0, pairCount = 2, minSeparationRatio = 0.18, phaseConstructionMode = 'legacy-torus-atan2', params = {}, config = {} } = {}) {
   const n = gridSize;
   const size = n * n * n;
   const phiRe = new Float64Array(size);
@@ -75,10 +129,11 @@ function createRandomizedAeternaField({ gridSize, seed, phaseOffset = 0, pairCou
         let phase = phaseOffset;
         let coreSuppression = 0;
 
+        phase += addPhaseContributionAt(x, y, layout, n, phaseConstructionMode);
+
         for (const vortex of layout.vortices) {
           const dx = nearestSignedDelta(x, vortex.x, n);
           const dy = nearestSignedDelta(y, vortex.y, n);
-          phase += vortex.charge * Math.atan2(dy, dx);
           coreSuppression += Math.exp(-(dx * dx + dy * dy) / 5.0);
         }
 
@@ -96,9 +151,9 @@ function createRandomizedAeternaField({ gridSize, seed, phaseOffset = 0, pairCou
   return { field, vortexLayout: layout };
 }
 
-function createRandomizedAeternaFields({ gridSize, seedA, seedB, phaseOffsetB = Math.PI / 5, pairCount = 2, minSeparationRatio = 0.18, params = {}, config = {} } = {}) {
-  const a = createRandomizedAeternaField({ gridSize, seed: seedA, phaseOffset: 0, pairCount, minSeparationRatio, params, config });
-  const b = createRandomizedAeternaField({ gridSize, seed: seedB, phaseOffset: phaseOffsetB, pairCount, minSeparationRatio, params, config });
+function createRandomizedAeternaFields({ gridSize, seedA, seedB, phaseOffsetB = Math.PI / 5, pairCount = 2, minSeparationRatio = 0.18, phaseConstructionMode = 'legacy-torus-atan2', params = {}, config = {} } = {}) {
+  const a = createRandomizedAeternaField({ gridSize, seed: seedA, phaseOffset: 0, pairCount, minSeparationRatio, phaseConstructionMode, params, config });
+  const b = createRandomizedAeternaField({ gridSize, seed: seedB, phaseOffset: phaseOffsetB, pairCount, minSeparationRatio, phaseConstructionMode, params, config });
   return {
     fieldA: a.field,
     fieldB: b.field,
@@ -111,5 +166,7 @@ module.exports = {
   createRandomizedAeternaField,
   createRandomizedAeternaFields,
   createRandomizedVortexLayout,
+  dipoleImagePhaseAt,
+  imageRadiusForPhaseConstructionMode,
   torusDistance,
 };

@@ -127,6 +127,34 @@ Observation-hygiene warning: branch-cut artifacts may inflate `initialVortexCoun
 
 Observation-hygiene warning: absolute `initialVortexCount` and `vortexZeroStep` should not be over-interpreted until periodic-consistent vortex initialization exists.
 
+### `legacy_torus_atan2_vortex_phase`
+
+Initialization-audit tag: randomized vortex phase construction uses the legacy torus nearest-delta `atan2` construction. This is a construction-mode tag, not a new physics phenomenon.
+
+### `unwrapped_atan2_vortex_phase_audit`
+
+Initialization-audit tag: randomized vortex phase construction uses direct unwrapped coordinate deltas as a diagnostic for wrapped-delta seam artifacts. This is a diagnostic initializer, not a new physical force.
+
+### `neutral_dipole_image_sum_candidate`
+
+Initialization-audit tag: randomized vortex phase construction uses neutral +1/-1 pair image sums as a periodic-consistent candidate. This is an initial-condition hygiene candidate, not a closed-form periodic vortex construction and not a new physical force.
+
+### `periodic_vortex_initialization_candidate`
+
+Initialization-audit tag: a candidate initializer reduced or otherwise characterized periodic seam artifacts in measured initialization audits. Promotion requires matched-seed evidence and should remain separate from runtime physics claims.
+
+### `wrapped_delta_seam_artifact_candidate`
+
+Initialization-audit tag: measured counts or phase construction indicate possible non-`2π` discontinuity sheets from wrapped nearest-delta jumps near periodic seams.
+
+### `branch_cut_artifact_reduced_candidate`
+
+Initialization-audit tag: matched audit evidence indicates an opt-in initializer reduced branch-cut / wrapped-delta count inflation relative to the legacy construction.
+
+### `branch_cut_artifact_still_present`
+
+Initialization-audit tag: matched audit evidence indicates seam or wrapped-delta artifacts remain present after a candidate initializer.
+
 Branch-cut cautions apply to both disappearance and preservation claims, including `vortex_annihilation`, `vortex_preserved_slice_based`, `persistent_vortex`, and `vortex_preserved`.
 
 Current `vortexCount` is measured on the central z-slice using x-y plaquettes. It should be interpreted as a slice-based vortex indicator, not a full 3D vortex-tube census. Future z-dependent or twisted vortex initial conditions require multi-slice or full-3D vortex tracking.
