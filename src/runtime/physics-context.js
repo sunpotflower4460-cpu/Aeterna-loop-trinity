@@ -28,7 +28,7 @@ function describePhysicsContext(params = {}, runtimeConfig = {}) {
     params.PHASE_ROTATION_ENABLED
       ? 'Phase rotation is an operational approximation; velocity is not rotated.'
       : null,
-    params.MEMORY_COUPLING_ENABLED && params.COUPLING_TYPE === 'memory'
+    memoryCouplingApplied
       ? 'Memory coupling applies state updates to phi fields using memory fields as the source.'
       : null,
     memoryCouplingApplied
