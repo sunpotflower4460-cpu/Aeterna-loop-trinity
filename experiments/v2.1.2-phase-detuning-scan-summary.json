@@ -1,0 +1,458 @@
+{
+  "generatedAt": "2026-06-10T12:50:43.601Z",
+  "purpose": "Corrected g x deltaOmega phase-locking / phase-drift smoke scan.",
+  "runConfig": {
+    "gridSize": 32,
+    "maxSteps": 2000,
+    "calibrationSteps": 1000,
+    "sampleInterval": 50,
+    "dt": 0.03,
+    "seedA": 12345,
+    "seedB": 67890
+  },
+  "correctedAxes": {
+    "couplingGValues": [
+      0.003,
+      0.005,
+      0.0075
+    ],
+    "omegaA": 0.01,
+    "omegaBValues": [
+      0.05,
+      0.11,
+      0.21,
+      0.41,
+      0.61
+    ],
+    "deltaOmegaValues": [
+      0.04,
+      0.1,
+      0.19999999999999998,
+      0.39999999999999997,
+      0.6
+    ]
+  },
+  "expandedDriftCriterion": "phase_drift if thetaTotalTravel >= pi OR abs(driftRatePerStep) > 1e-4 rad/step in the second half; scan-local only.",
+  "calibrationSummary": [
+    {
+      "omegaB": 0.05,
+      "deltaOmega": 0.04,
+      "nominalDriftPerStep": 0.0012,
+      "measuredDriftRatePerStep": -0.0011436554996672886,
+      "measuredDriftRatePerStep_abs": 0.0011436554996672886,
+      "driftRateRatio": -0.9530462497227405,
+      "driftRateRatio_abs": 0.9530462497227405,
+      "thetaTotalTravel": 1.1631327966417717
+    },
+    {
+      "omegaB": 0.21,
+      "deltaOmega": 0.19999999999999998,
+      "nominalDriftPerStep": 0.005999999999999999,
+      "measuredDriftRatePerStep": -0.0058038344000939865,
+      "measuredDriftRatePerStep_abs": 0.0058038344000939865,
+      "driftRateRatio": -0.9673057333489978,
+      "driftRateRatio_abs": 0.9673057333489978,
+      "thetaTotalTravel": 5.8655057074000645
+    },
+    {
+      "omegaB": 0.61,
+      "deltaOmega": 0.6,
+      "nominalDriftPerStep": 0.018,
+      "measuredDriftRatePerStep": -0.01785929596777252,
+      "measuredDriftRatePerStep_abs": 0.01785929596777252,
+      "driftRateRatio": -0.9921831093206955,
+      "driftRateRatio_abs": 0.9921831093206955,
+      "thetaTotalTravel": 17.877130035449852
+    }
+  ],
+  "scanSummary": [
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.05,
+      "deltaOmega": 0.04,
+      "driftRatePerStep": -0.00009449085615096922,
+      "driftRatePerStep_abs": 0.00009449085615096922,
+      "thetaEndWindowStd": 0.008791082433172994,
+      "thetaTotalTravel": 0.5135642985021998,
+      "finalRegimeVerdict": "near-identical-from-start",
+      "boundaryCandidate": true
+    },
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.11,
+      "deltaOmega": 0.1,
+      "driftRatePerStep": -0.0012883186568601287,
+      "driftRatePerStep_abs": 0.0012883186568601287,
+      "thetaEndWindowStd": 0.26042644405233706,
+      "thetaTotalTravel": 2.7393724292462633,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": true
+    },
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.21,
+      "deltaOmega": 0.19999999999999998,
+      "driftRatePerStep": -0.0023361367742929153,
+      "driftRatePerStep_abs": 0.0023361367742929153,
+      "thetaEndWindowStd": 0.35183032702594985,
+      "thetaTotalTravel": 6.120979700721461,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.41,
+      "deltaOmega": 0.39999999999999997,
+      "driftRatePerStep": -0.0020755994004886926,
+      "driftRatePerStep_abs": 0.0020755994004886926,
+      "thetaEndWindowStd": 0.2829323718063173,
+      "thetaTotalTravel": 7.637113754728631,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.61,
+      "deltaOmega": 0.6,
+      "driftRatePerStep": -0.003300455107918674,
+      "driftRatePerStep_abs": 0.003300455107918674,
+      "thetaEndWindowStd": 0.5378538466294697,
+      "thetaTotalTravel": 10.808228741797304,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.05,
+      "deltaOmega": 0.04,
+      "driftRatePerStep": -0.000018782485562556757,
+      "driftRatePerStep_abs": 0.000018782485562556757,
+      "thetaEndWindowStd": 0.003973839452560024,
+      "thetaTotalTravel": 0.44291567825068934,
+      "finalRegimeVerdict": "near-identical-from-start",
+      "boundaryCandidate": true
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.11,
+      "deltaOmega": 0.1,
+      "driftRatePerStep": -0.0001776721476010802,
+      "driftRatePerStep_abs": 0.0001776721476010802,
+      "thetaEndWindowStd": 0.02561332916980823,
+      "thetaTotalTravel": 1.1009109621982391,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": true
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.21,
+      "deltaOmega": 0.19999999999999998,
+      "driftRatePerStep": -0.0016967599449669985,
+      "driftRatePerStep_abs": 0.0016967599449669985,
+      "thetaEndWindowStd": 0.36379212022782603,
+      "thetaTotalTravel": 3.558351263595048,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.41,
+      "deltaOmega": 0.39999999999999997,
+      "driftRatePerStep": -0.0023360424377464875,
+      "driftRatePerStep_abs": 0.0023360424377464875,
+      "thetaEndWindowStd": 0.2950008811040151,
+      "thetaTotalTravel": 6.4633215519843,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.61,
+      "deltaOmega": 0.6,
+      "driftRatePerStep": -0.0024299275052201705,
+      "driftRatePerStep_abs": 0.0024299275052201705,
+      "thetaEndWindowStd": 0.34966477920426087,
+      "thetaTotalTravel": 8.408681732375802,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.05,
+      "deltaOmega": 0.04,
+      "driftRatePerStep": -0.000006210695505539388,
+      "driftRatePerStep_abs": 0.000006210695505539388,
+      "thetaEndWindowStd": 0.0003862098685648269,
+      "thetaTotalTravel": 0.5250719819586245,
+      "finalRegimeVerdict": "near-identical-from-start",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.11,
+      "deltaOmega": 0.1,
+      "driftRatePerStep": -0.00007219455893390116,
+      "driftRatePerStep_abs": 0.00007219455893390116,
+      "thetaEndWindowStd": 0.0029464452113898785,
+      "thetaTotalTravel": 0.6793234530911673,
+      "finalRegimeVerdict": "near-identical-from-start",
+      "boundaryCandidate": true
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.21,
+      "deltaOmega": 0.19999999999999998,
+      "driftRatePerStep": -0.00031111998228178635,
+      "driftRatePerStep_abs": 0.00031111998228178635,
+      "thetaEndWindowStd": 0.09044958075009062,
+      "thetaTotalTravel": 1.4266738097076865,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": true
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.41,
+      "deltaOmega": 0.39999999999999997,
+      "driftRatePerStep": -0.0025440340258300275,
+      "driftRatePerStep_abs": 0.0025440340258300275,
+      "thetaEndWindowStd": 0.4530637210071901,
+      "thetaTotalTravel": 4.996741286544904,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.61,
+      "deltaOmega": 0.6,
+      "driftRatePerStep": -0.0029723799315607155,
+      "driftRatePerStep_abs": 0.0029723799315607155,
+      "thetaEndWindowStd": 0.3578896421677541,
+      "thetaTotalTravel": 7.563265568865999,
+      "finalRegimeVerdict": "phase-drift",
+      "boundaryCandidate": false
+    }
+  ],
+  "boundaryCandidates": [
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.05,
+      "deltaOmega": 0.04,
+      "driftRatePerStep": -0.00009449085615096922,
+      "thetaEndWindowStd": 0.008791082433172994,
+      "finalRegimeVerdict": "near-identical-from-start"
+    },
+    {
+      "couplingG": 0.003,
+      "omegaB": 0.11,
+      "deltaOmega": 0.1,
+      "driftRatePerStep": -0.0012883186568601287,
+      "thetaEndWindowStd": 0.26042644405233706,
+      "finalRegimeVerdict": "phase-drift"
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.05,
+      "deltaOmega": 0.04,
+      "driftRatePerStep": -0.000018782485562556757,
+      "thetaEndWindowStd": 0.003973839452560024,
+      "finalRegimeVerdict": "near-identical-from-start"
+    },
+    {
+      "couplingG": 0.005,
+      "omegaB": 0.11,
+      "deltaOmega": 0.1,
+      "driftRatePerStep": -0.0001776721476010802,
+      "thetaEndWindowStd": 0.02561332916980823,
+      "finalRegimeVerdict": "phase-drift"
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.11,
+      "deltaOmega": 0.1,
+      "driftRatePerStep": -0.00007219455893390116,
+      "thetaEndWindowStd": 0.0029464452113898785,
+      "finalRegimeVerdict": "near-identical-from-start"
+    },
+    {
+      "couplingG": 0.0075,
+      "omegaB": 0.21,
+      "deltaOmega": 0.19999999999999998,
+      "driftRatePerStep": -0.00031111998228178635,
+      "thetaEndWindowStd": 0.09044958075009062,
+      "finalRegimeVerdict": "phase-drift"
+    }
+  ],
+  "atlasCandidates": [
+    {
+      "templateId": "v212-phase-locking-boundary-candidate",
+      "sourceExperiment": "v2.1.2-phase-detuning-scan",
+      "claimLevel": "interpretive",
+      "initialConditionType": "legacy_same_layout_phase_offset_with_phase_rotation",
+      "parameters": {
+        "GAMMA": 0.005,
+        "MEMORY_ENABLED": true,
+        "MEMORY_BLEND_VELOCITY": true,
+        "MEMORY_WEIGHT_MODE": "fixed",
+        "MEMORY_VELOCITY_SCALE": 0.1,
+        "PHASE_ROTATION_ENABLED": true,
+        "PHASE_ROTATION_TARGET": "field-and-memory",
+        "OMEGA_A": 0.01,
+        "COUPLING_ENABLED": true,
+        "COUPLING_TYPE": "memory",
+        "MEMORY_COUPLING_ENABLED": true,
+        "MEMORY_COUPLING_FORMULA": "difference-attractor",
+        "MEMORY_COUPLING_ORDER": "after-memory-update",
+        "MEMORY_COUPLING_WEIGHT": 1,
+        "MEMORY_WEIGHT": 0.0075,
+        "HISTORY_ALPHA": 0.002,
+        "PHEROMONE_ENABLED": false,
+        "PHEROMONE_FEEDBACK_ENABLED": false,
+        "couplingGValues": [
+          0.003,
+          0.005,
+          0.0075
+        ],
+        "omegaBValues": [
+          0.05,
+          0.11,
+          0.21,
+          0.41,
+          0.61
+        ]
+      },
+      "runConfig": {
+        "gridSize": 32,
+        "maxSteps": 2000,
+        "sampleInterval": 50,
+        "dt": 0.03
+      },
+      "measuredEvidence": [
+        {
+          "couplingG": 0.003,
+          "deltaOmega": 0.04,
+          "driftRatePerStep": -0.00009449085615096922,
+          "thetaEndWindowStd": 0.008791082433172994,
+          "verdict": "near-identical-from-start"
+        },
+        {
+          "couplingG": 0.003,
+          "deltaOmega": 0.1,
+          "driftRatePerStep": -0.0012883186568601287,
+          "thetaEndWindowStd": 0.26042644405233706,
+          "verdict": "phase-drift"
+        },
+        {
+          "couplingG": 0.005,
+          "deltaOmega": 0.04,
+          "driftRatePerStep": -0.000018782485562556757,
+          "thetaEndWindowStd": 0.003973839452560024,
+          "verdict": "near-identical-from-start"
+        },
+        {
+          "couplingG": 0.005,
+          "deltaOmega": 0.1,
+          "driftRatePerStep": -0.0001776721476010802,
+          "thetaEndWindowStd": 0.02561332916980823,
+          "verdict": "phase-drift"
+        },
+        {
+          "couplingG": 0.0075,
+          "deltaOmega": 0.1,
+          "driftRatePerStep": -0.00007219455893390116,
+          "thetaEndWindowStd": 0.0029464452113898785,
+          "verdict": "near-identical-from-start"
+        },
+        {
+          "couplingG": 0.0075,
+          "deltaOmega": 0.19999999999999998,
+          "driftRatePerStep": -0.00031111998228178635,
+          "thetaEndWindowStd": 0.09044958075009062,
+          "verdict": "phase-drift"
+        }
+      ],
+      "observedPhenomena": [
+        "phase-locking",
+        "phase-drift",
+        "arnold_tongue_region_candidate"
+      ],
+      "regimeVerdict": "phase_locking_boundary candidate",
+      "manualReviewNotes": "Boundary criteria are scan-local and heuristic; do not call this a confirmed Arnold tongue.",
+      "limitations": [
+        "legacy same-layout phase dynamics only",
+        "32^3 lightweight scan",
+        "K_eff not fit exactly"
+      ],
+      "notScriptedNotes": "Outcomes are measured from thetaStar; lock/drift labels are not hard-coded."
+    },
+    {
+      "templateId": "v212-arnold-tongue-region-candidate",
+      "sourceExperiment": "v2.1.2-phase-detuning-scan",
+      "claimLevel": "speculative",
+      "initialConditionType": "legacy_same_layout_phase_offset_with_phase_rotation",
+      "parameters": {
+        "qualitativeModel": "dtheta/dt ~= deltaOmega - K_eff sin(theta)"
+      },
+      "runConfig": {
+        "gridSize": 32,
+        "maxSteps": 2000,
+        "sampleInterval": 50,
+        "dt": 0.03
+      },
+      "measuredEvidence": [
+        {
+          "couplingG": 0.003,
+          "omegaB": 0.05,
+          "deltaOmega": 0.04,
+          "nominalDriftPerStep": 0.0012,
+          "measuredDriftRatePerStep": -0.00009449085615096922
+        },
+        {
+          "couplingG": 0.003,
+          "omegaB": 0.11,
+          "deltaOmega": 0.1,
+          "nominalDriftPerStep": 0.003,
+          "measuredDriftRatePerStep": -0.0012883186568601287
+        },
+        {
+          "couplingG": 0.005,
+          "omegaB": 0.05,
+          "deltaOmega": 0.04,
+          "nominalDriftPerStep": 0.0012,
+          "measuredDriftRatePerStep": -0.000018782485562556757
+        },
+        {
+          "couplingG": 0.005,
+          "omegaB": 0.11,
+          "deltaOmega": 0.1,
+          "nominalDriftPerStep": 0.003,
+          "measuredDriftRatePerStep": -0.0001776721476010802
+        },
+        {
+          "couplingG": 0.0075,
+          "omegaB": 0.11,
+          "deltaOmega": 0.1,
+          "nominalDriftPerStep": 0.003,
+          "measuredDriftRatePerStep": -0.00007219455893390116
+        },
+        {
+          "couplingG": 0.0075,
+          "omegaB": 0.21,
+          "deltaOmega": 0.19999999999999998,
+          "nominalDriftPerStep": 0.005999999999999999,
+          "measuredDriftRatePerStep": -0.00031111998228178635
+        }
+      ],
+      "observedPhenomena": [
+        "arnold_tongue_region_candidate"
+      ],
+      "regimeVerdict": "candidate only",
+      "manualReviewNotes": "Compare against Adler-like dynamics qualitatively only.",
+      "limitations": [
+        "no exact K_eff estimate",
+        "requires denser scan for confirmation"
+      ],
+      "notScriptedNotes": "Boundary candidates were derived after measuring adjacent row flips and drift statistics."
+    }
+  ],
+  "defaultLegacyBehaviorUnchanged": true
+}
