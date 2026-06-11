@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-06-11T08:04:30.158Z",
+  "purpose": "Opt-in periodic vortex phase construction audit for randomized initial conditions.",
+  "runConfig": {
+    "gridSize": 32,
+    "pairCountValues": [
+      2,
+      4
+    ],
+    "minSeparationRatio": 0.18,
+    "sampleSlices": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28
+    ],
+    "seedPairs": [
+      {
+        "seedA": 12345,
+        "seedB": 67890
+      },
+      {
+        "seedA": 23456,
+        "seedB": 78901
+      },
+      {
+        "seedA": 34567,
+        "seedB": 89012
+      }
+    ],
+    "phaseConstructionModes": [
+      "legacy-torus-atan2",
+      "unwrapped-atan2",
+      "periodic-dipole-image-sum-radius-1"
+    ]
+  },
+  "physicsContext": {
+    "engineType": "damped-nonlinear-klein-gordon",
+    "integrator": "semi-implicit-euler",
+    "potentialType": "mexican-hat",
+    "phaseDriveModel": "none",
+    "phaseRotationAppliedTo": [],
+    "velocityRotated": false,
+    "couplingApplication": "none",
+    "memoryBlendApplication": "post-integration-state-update",
+    "adlerComparisonLevel": "not-applicable",
+    "notes": [
+      "Second-order damped nonlinear Klein-Gordon-style runtime with Mexican-hat potential."
+    ]
+  },
+  "modeSummaries": [
+    {
+      "phaseConstructionMode": "legacy-torus-atan2",
+      "meanCenterInflationRatio": 3.46875,
+      "meanSliceInflationRatio": 3.46875,
+      "maxSliceMinusMinSlice": 0,
+      "nonFiniteDetected": false,
+      "netChargeZeroAllLayouts": true
+    },
+    {
+      "phaseConstructionMode": "unwrapped-atan2",
+      "meanCenterInflationRatio": 1.25,
+      "meanSliceInflationRatio": 1.25,
+      "maxSliceMinusMinSlice": 0,
+      "nonFiniteDetected": false,
+      "netChargeZeroAllLayouts": true
+    },
+    {
+      "phaseConstructionMode": "periodic-dipole-image-sum-radius-1",
+      "meanCenterInflationRatio": 1.046875,
+      "meanSliceInflationRatio": 1.046875,
+      "maxSliceMinusMinSlice": 0,
+      "nonFiniteDetected": false,
+      "netChargeZeroAllLayouts": true
+    }
+  ],
+  "deterministicSameLayoutChecks": [
+    {
+      "phaseConstructionMode": "legacy-torus-atan2",
+      "seed": 112233,
+      "alignedFieldABDistance_start": 1.7966616008945478e-15,
+      "rawFieldABDistance_start": 0.5858027726144781,
+      "gaugeOverlap_start": 1.0000000000000084
+    },
+    {
+      "phaseConstructionMode": "unwrapped-atan2",
+      "seed": 112233,
+      "alignedFieldABDistance_start": 1.799911812152467e-15,
+      "rawFieldABDistance_start": 0.585802772614478,
+      "gaugeOverlap_start": 1.0000000000000084
+    },
+    {
+      "phaseConstructionMode": "periodic-dipole-image-sum-radius-1",
+      "seed": 112233,
+      "alignedFieldABDistance_start": 1.801630155591609e-15,
+      "rawFieldABDistance_start": 0.5858027726144781,
+      "gaugeOverlap_start": 1.0000000000000084
+    }
+  ],
+  "answeredQuestions": {
+    "unwrappedReducedInflationRelativeToLegacy": true,
+    "dipoleReducedInflationRelativeToUnwrapped": true,
+    "deterministicSeedingPreserved": true,
+    "netChargeZeroInLayoutSpecification": true,
+    "structuralDistinctnessForDistinctSeedPairs": true,
+    "sameLayoutGaugeAlignedDistanceNearZero": true,
+    "nonFiniteDetected": false
+  },
+  "recommendation": "Keep all non-legacy phase construction modes experimental and opt-in. Consider broader validation only if downstream experiments need lower initial count inflation; do not claim closed-form torus-vortex construction."
+}
