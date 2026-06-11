@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const { createAeternaRuntimeV0, collectRuntimeMetrics, computeVortexCount, hasNonFiniteValues } = require('../src/runtime/aeterna-runtime-v0');
 const { stepAeternaRuntimeV0 } = require('../src/runtime/step-aeterna-runtime-v0');
+const { describePhysicsContext } = require('../src/runtime/physics-context');
+const { classifyPhaseDynamics, PHASE_BEHAVIOR_CRITERION } = require('../src/runtime/phase-dynamics-classifier');
 const {
   classifyPhaseStructureRegime,
   findPhaseLockOnsetStep,
@@ -141,11 +143,15 @@ function runRuntime({ label, params, maxSteps }) {
   const endWindow = samples.slice(-10).map((sample) => sample.unwrappedThetaStar);
   const driftRatePerStep = slope(secondHalf);
   const thetaTotalTravel = totalTravel(unwrapped);
-  const baseVerdict = classifyPhaseStructureRegime({
+  const structuralRegimeVerdict = classifyPhaseStructureRegime({
     alignedFieldABDistanceSeries: samples.map((sample) => sample.alignedFieldABDistance),
     unwrappedThetaStarSeries: samples.map((sample) => sample.unwrappedThetaStar),
   });
-  const scanVerdict = (thetaTotalTravel >= Math.PI || Math.abs(driftRatePerStep ?? 0) > 1e-4) ? 'phase-drift' : baseVerdict;
+  const phaseDynamics = classifyPhaseDynamics({
+    thetaTotalTravel,
+    driftRatePerStep,
+    thetaEndWindowStd: std(endWindow),
+  });
   return {
     label,
     gridSize: GRID_SIZE,
@@ -181,8 +187,13 @@ function runRuntime({ label, params, maxSteps }) {
     thetaEndWindowMean: mean(endWindow),
     thetaEndWindowStd: std(endWindow),
     finalThetaMean: mean(endWindow),
-    baseRegimeVerdict: baseVerdict,
-    finalRegimeVerdict: scanVerdict,
+    physicsContext: describePhysicsContext(params, { dt: DT }),
+    structuralRegimeVerdict,
+    phaseDynamicsVerdict: phaseDynamics.phaseDynamicsVerdict,
+    phaseBehavior: phaseDynamics.phaseBehavior,
+    phaseBehaviorCriterion: phaseDynamics.phaseBehaviorCriterion,
+    baseRegimeVerdict: structuralRegimeVerdict,
+    finalRegimeVerdict: structuralRegimeVerdict,
     elapsedMs: Date.now() - startedAt,
     samples,
   };
@@ -223,7 +234,7 @@ function boundaryCandidate(result, rowResults) {
   const stdNearThreshold = Math.abs((result.thetaEndWindowStd ?? 999) - 0.02) <= 0.01;
   const sorted = rowResults.slice().sort((a, b) => a.omegaB - b.omegaB);
   const index = sorted.findIndex((item) => item.omegaB === result.omegaB);
-  const adjacentFlip = [sorted[index - 1], sorted[index + 1]].some((neighbor) => neighbor && neighbor.finalRegimeVerdict !== result.finalRegimeVerdict);
+  const adjacentFlip = [sorted[index - 1], sorted[index + 1]].some((neighbor) => neighbor && neighbor.phaseDynamicsVerdict !== result.phaseDynamicsVerdict);
   return smallPersistentDrift || stdNearThreshold || adjacentFlip;
 }
 
@@ -250,7 +261,7 @@ function runScan(g, omegaB) {
     nominalDriftPerStep: deltaOmega * DT,
     measuredDriftRatePerStep: result.driftRatePerStep,
     driftRateRatio: deltaOmega !== 0 ? result.driftRatePerStep / (deltaOmega * DT) : null,
-    thetaLockApprox: result.finalRegimeVerdict === 'phase-locking' ? result.finalThetaMean : null,
+    thetaLockApprox: result.phaseDynamicsVerdict === 'phase-locking' ? result.finalThetaMean : null,
     boundaryCandidate: false,
     phenomenonTags: [],
   };
@@ -265,8 +276,9 @@ function atlasCandidates(scanResults) {
       claimLevel: 'interpretive',
       initialConditionType: 'legacy_same_layout_phase_offset_with_phase_rotation',
       parameters: { ...BASE_PARAMS, couplingGValues: COUPLING_G_VALUES, omegaBValues: OMEGA_B_VALUES },
+      physicsContext: describePhysicsContext(BASE_PARAMS, { dt: DT }),
       runConfig: { gridSize: GRID_SIZE, maxSteps: MAX_STEPS, sampleInterval: SAMPLE_INTERVAL, dt: DT },
-      measuredEvidence: candidates.map((result) => ({ couplingG: result.couplingG, deltaOmega: result.deltaOmega, driftRatePerStep: result.driftRatePerStep, thetaEndWindowStd: result.thetaEndWindowStd, verdict: result.finalRegimeVerdict })),
+      measuredEvidence: candidates.map((result) => ({ couplingG: result.couplingG, deltaOmega: result.deltaOmega, driftRatePerStep: result.driftRatePerStep, thetaEndWindowStd: result.thetaEndWindowStd, structuralRegimeVerdict: result.structuralRegimeVerdict, phaseDynamicsVerdict: result.phaseDynamicsVerdict, phaseBehavior: result.phaseBehavior })),
       observedPhenomena: ['phase-locking', 'phase-drift', 'arnold_tongue_region_candidate'],
       regimeVerdict: 'phase_locking_boundary candidate',
       manualReviewNotes: 'Boundary criteria are scan-local and heuristic; do not call this a confirmed Arnold tongue.',
@@ -279,6 +291,7 @@ function atlasCandidates(scanResults) {
       claimLevel: 'speculative',
       initialConditionType: 'legacy_same_layout_phase_offset_with_phase_rotation',
       parameters: { qualitativeModel: 'dtheta/dt ~= deltaOmega - K_eff sin(theta)' },
+      physicsContext: describePhysicsContext(BASE_PARAMS, { dt: DT }),
       runConfig: { gridSize: GRID_SIZE, maxSteps: MAX_STEPS, sampleInterval: SAMPLE_INTERVAL, dt: DT },
       measuredEvidence: candidates.map((result) => ({ couplingG: result.couplingG, omegaB: result.omegaB, deltaOmega: result.deltaOmega, nominalDriftPerStep: result.nominalDriftPerStep, measuredDriftRatePerStep: result.measuredDriftRatePerStep })),
       observedPhenomena: ['arnold_tongue_region_candidate'],
@@ -290,9 +303,14 @@ function atlasCandidates(scanResults) {
   ];
 }
 
+
+function fmt(value, digits = 6) {
+  return Number.isFinite(value) ? value.toFixed(digits) : 'null';
+}
+
 function writeDoc(calibrations, scanResults, summary) {
-  const calRows = calibrations.map((r) => `| ${r.omegaB} | ${r.deltaOmega.toFixed(3)} | ${r.nominalDriftPerStep.toFixed(6)} | ${r.measuredDriftRatePerStep.toFixed(6)} | ${r.driftRateRatio.toFixed(3)} | ${r.thetaTotalTravel.toFixed(6)} |`);
-  const scanRows = scanResults.map((r) => `| ${r.couplingG} | ${r.omegaB} | ${r.deltaOmega.toFixed(3)} | ${r.nominalDriftPerStep.toFixed(6)} | ${r.driftRatePerStep.toFixed(6)} | ${r.thetaEndWindowStd.toFixed(6)} | ${r.thetaTotalTravel.toFixed(6)} | ${r.finalRegimeVerdict} | ${r.boundaryCandidate} |`);
+  const calRows = calibrations.map((r) => `| ${fmt(r.omegaB)} | ${fmt(r.deltaOmega, 3)} | ${fmt(r.nominalDriftPerStep)} | ${fmt(r.measuredDriftRatePerStep)} | ${fmt(r.driftRateRatio, 3)} | ${fmt(r.thetaTotalTravel)} |`);
+  const scanRows = scanResults.map((r) => `| ${fmt(r.couplingG)} | ${fmt(r.omegaB)} | ${fmt(r.deltaOmega, 3)} | ${fmt(r.nominalDriftPerStep)} | ${fmt(r.driftRatePerStep)} | ${fmt(r.thetaEndWindowStd)} | ${fmt(r.thetaTotalTravel)} | ${r.structuralRegimeVerdict} | ${r.phaseDynamicsVerdict} | ${r.phaseBehavior} | ${r.boundaryCandidate} |`);
   const doc = `# v2.1.2 Phase Detuning Scan
 
 ## Purpose
@@ -312,6 +330,7 @@ Phase rotation advances by \`omega * dt\` per step. With \`dt=${DT}\`, earlier t
 - COUPLING_G: ${COUPLING_G_VALUES.join(', ')}
 - PHEROMONE_ENABLED=false for clean phase dynamics
 - Drift classification for this scan is expanded: phase_drift if thetaTotalTravel >= pi OR abs(driftRatePerStep) > 1e-4 rad/step in the second half.
+- The drift-rate threshold is a v2.1.2 scan heuristic calibrated for dt=0.03 and 2000-step runs; it is not a universal physical constant.
 
 ## Coupling-OFF drift calibration
 
@@ -321,8 +340,8 @@ ${calRows.join('\n')}
 
 ## g × Δω scan results
 
-| g | OMEGA_B | Δω | nominal drift/step | driftRatePerStep | end std | theta travel | verdict | boundary candidate |
-| ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| g | OMEGA_B | Δω | nominal drift/step | driftRatePerStep | end std | theta travel | structural verdict | phase dynamics verdict | phase behavior | boundary candidate |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
 ${scanRows.join('\n')}
 
 ## Adler / Arnold tongue interpretation
@@ -350,18 +369,21 @@ function main() {
     const row = scanResults.filter((result) => result.couplingG === g);
     row.forEach((result) => {
       result.boundaryCandidate = boundaryCandidate(result, row);
-      result.phenomenonTags = result.boundaryCandidate ? ['arnold_tongue_region_candidate'] : [];
+      if (result.boundaryCandidate) result.phaseBehavior = 'boundary-candidate';
+      result.phenomenonTags = result.boundaryCandidate ? ['arnold_tongue_region_candidate', 'phase_boundary_candidate'] : [];
     });
   }
   const summary = {
     generatedAt: new Date().toISOString(),
     purpose: 'Corrected g x deltaOmega phase-locking / phase-drift smoke scan.',
+    physicsContext: describePhysicsContext(BASE_PARAMS, { dt: DT }),
     runConfig: { gridSize: GRID_SIZE, maxSteps: MAX_STEPS, calibrationSteps: CALIBRATION_STEPS, sampleInterval: SAMPLE_INTERVAL, dt: DT, seedA: SEED_A, seedB: SEED_B },
     correctedAxes: { couplingGValues: COUPLING_G_VALUES, omegaA: OMEGA_A, omegaBValues: OMEGA_B_VALUES, deltaOmegaValues: OMEGA_B_VALUES.map((omegaB) => omegaB - OMEGA_A) },
     expandedDriftCriterion: 'phase_drift if thetaTotalTravel >= pi OR abs(driftRatePerStep) > 1e-4 rad/step in the second half; scan-local only.',
+    phaseBehaviorCriterion: PHASE_BEHAVIOR_CRITERION,
     calibrationSummary: calibrations.map((r) => ({ omegaB: r.omegaB, deltaOmega: r.deltaOmega, nominalDriftPerStep: r.nominalDriftPerStep, measuredDriftRatePerStep: r.measuredDriftRatePerStep, measuredDriftRatePerStep_abs: r.measuredDriftRatePerStep_abs, driftRateRatio: r.driftRateRatio, driftRateRatio_abs: r.driftRateRatio_abs, thetaTotalTravel: r.thetaTotalTravel })),
-    scanSummary: scanResults.map((r) => ({ couplingG: r.couplingG, omegaB: r.omegaB, deltaOmega: r.deltaOmega, driftRatePerStep: r.driftRatePerStep, driftRatePerStep_abs: r.driftRatePerStep_abs, thetaEndWindowStd: r.thetaEndWindowStd, thetaTotalTravel: r.thetaTotalTravel, finalRegimeVerdict: r.finalRegimeVerdict, boundaryCandidate: r.boundaryCandidate })),
-    boundaryCandidates: scanResults.filter((r) => r.boundaryCandidate).map((r) => ({ couplingG: r.couplingG, omegaB: r.omegaB, deltaOmega: r.deltaOmega, driftRatePerStep: r.driftRatePerStep, thetaEndWindowStd: r.thetaEndWindowStd, finalRegimeVerdict: r.finalRegimeVerdict })),
+    scanSummary: scanResults.map((r) => ({ couplingG: r.couplingG, omegaB: r.omegaB, deltaOmega: r.deltaOmega, driftRatePerStep: r.driftRatePerStep, driftRatePerStep_abs: r.driftRatePerStep_abs, thetaEndWindowStd: r.thetaEndWindowStd, thetaTotalTravel: r.thetaTotalTravel, structuralRegimeVerdict: r.structuralRegimeVerdict, phaseDynamicsVerdict: r.phaseDynamicsVerdict, phaseBehavior: r.phaseBehavior, finalRegimeVerdict: r.finalRegimeVerdict, boundaryCandidate: r.boundaryCandidate })),
+    boundaryCandidates: scanResults.filter((r) => r.boundaryCandidate).map((r) => ({ couplingG: r.couplingG, omegaB: r.omegaB, deltaOmega: r.deltaOmega, driftRatePerStep: r.driftRatePerStep, thetaEndWindowStd: r.thetaEndWindowStd, structuralRegimeVerdict: r.structuralRegimeVerdict, phaseDynamicsVerdict: r.phaseDynamicsVerdict, phaseBehavior: r.phaseBehavior })),
     atlasCandidates: atlasCandidates(scanResults),
     defaultLegacyBehaviorUnchanged: true,
   };
