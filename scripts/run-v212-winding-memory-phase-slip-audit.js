@@ -260,14 +260,15 @@ function perturbationRun({ epsilon, seed, memoryEnabled = true, maxSteps = COST.
   const runtime = makeRuntime(params); setGlobalWinding(runtime.fieldA, { gridSize: COST.GRID_SIZE, winding: 1, target: 'field' }); copyFieldToMemory(runtime.fieldA); addPerturbation(runtime.fieldA, { epsilon, seed }); if (memoryEnabled) copyFieldToMemory(runtime.fieldA);
   const samples = []; runSteps(runtime, maxSteps, COST.SAMPLE_INTERVAL, () => samples.push(sampleSolo(runtime, 1)));
   const analysis = analyzeSamples(samples, 1); const final = samples[samples.length - 1];
+  const finalOnTarget = final.fieldDominantW === 1 && final.fieldDominantFraction >= 0.99;
   let classification = 'persistent_without_break';
-  if (analysis.firstNonTargetStep !== null && analysis.recoveryStep !== null) classification = 'break_then_recover';
-  else if (analysis.firstNonTargetStep !== null && final.fieldDominantW === 1) classification = 'break_then_recover';
+  if (analysis.firstNonTargetStep !== null && finalOnTarget) classification = 'break_then_recover';
+  else if (analysis.firstNonTargetStep !== null && analysis.recoveryStep !== null && !finalOnTarget) classification = 'transient_recovery_then_loss';
   else if (analysis.firstNonTargetStep !== null && final.fieldDominantW !== 1) classification = final.fieldDominantW === null ? 'break_no_recovery' : 'phase_slip_to_other_W';
   const rec = commonRecord({ runId: `perturb-W1-e${epsilon}-seed${seed}-${label}`, runFamily: 'perturbation_sweep', runConfig: { initialW: 1, targetW: 1, epsilon, noiseSeed: seed, memoryEnabled, memoryConditionLabel: label, maxSteps, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['measured: winding loss/recovery, minAmp collapse, and P1 recovery; interpretive tag remains candidate only.'] });
   return { ...rec, epsilon, noiseSeed: seed, initialDominantW: samples[0].fieldDominantW, ...roundObj(analysis), finalDominantW: final.fieldDominantW, finalDominantFraction: final.fieldDominantFraction };
 }
-function ledgerRun({ label, memoryW, memoryEnabled = true, epsilon = 1.2, seed = 101, memoryWeight = 0.04 }) {
+function ledgerRun({ label, memoryW, memoryEnabled = true, epsilon = 1.2, seed = 101, memoryWeight = 0.0075 }) {
   const params = baseParams(memoryEnabled ? { MEMORY_WEIGHT: memoryWeight } : { MEMORY_ENABLED: false, MEMORY_WEIGHT: 0, MEMORY_COUPLING_ENABLED: false, COUPLING_ENABLED: false });
   const runtime = makeRuntime(params); setGlobalWinding(runtime.fieldA, { gridSize: COST.GRID_SIZE, winding: 1, target: 'field' }); addPerturbation(runtime.fieldA, { epsilon, seed });
   if (memoryEnabled) {
@@ -276,15 +277,18 @@ function ledgerRun({ label, memoryW, memoryEnabled = true, epsilon = 1.2, seed =
   } else setGlobalWinding(runtime.fieldA, { gridSize: COST.GRID_SIZE, winding: 0, target: 'memory', initializeVelocity: false });
   const samples = []; runSteps(runtime, COST.MAX_STEPS_PERTURBATION, COST.SAMPLE_INTERVAL, () => samples.push(sampleSolo(runtime, 1)));
   const final = samples[samples.length - 1]; const analysis = analyzeSamples(samples, 1);
-  const memoryRewrite = samples.find((s) => memoryEnabled && memoryW !== null && s.memoryDominantW === 1 && s.memoryDominantFraction >= 0.99);
+  const fieldInitialW = 1;
+  const targetW = 1;
+  const memoryRewrite = samples.find((sample) => memoryEnabled && memoryW !== null && memoryW !== targetW && sample.step > 0 && sample.memoryDominantW === targetW && sample.memoryDominantFraction >= 0.99);
   let classification = 'mixed_or_tangled';
   if (!memoryEnabled) classification = final.fieldDominantW === 1 ? 'memory_off_field_returns_to_W1' : 'memory_off_no_recovery';
   else if (memoryW === 0 && final.fieldDominantW === 0) classification = 'field_follows_clean_W0_memory';
   else if (memoryW === 2 && final.fieldDominantW === 2) classification = 'memory_writes_W2_to_field';
+  else if (memoryW !== fieldInitialW && memoryRewrite) classification = 'field_rewrites_memory';
   else if (memoryW === 2 && final.fieldDominantW === 1) classification = 'field_returns_to_W1';
-  else if (memoryRewrite) classification = 'field_rewrites_memory';
+  else if (memoryW === 1 && final.fieldDominantW === 1) classification = label === 'L1b_clean_W1' ? 'clean_W1_memory_recovery' : 'field_returns_to_W1';
   const rec = commonRecord({ runId: `ledger-${label}-mw${memoryWeight}`, runFamily: 'ledger_discrimination_matrix', runConfig: { fieldInitialW: 1, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, noiseSeed: seed, memoryEnabled, memoryWeight, maxSteps: COST.MAX_STEPS_PERTURBATION, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['observed ledger-discrimination result; interpretive level: memory_biased_basin_selection if field/memory disagreement changes outcome.'] });
-  return { ...rec, fieldInitialW: 1, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, memoryWeight, finalFieldDominantW: final.fieldDominantW, finalMemoryDominantW: final.memoryDominantW, fieldRecoveryStep: analysis.recoveryStep, memoryRewriteStep: memoryRewrite ? memoryRewrite.step : null };
+  return { ...rec, fieldInitialW, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, memoryWeight, finalFieldDominantW: final.fieldDominantW, finalMemoryDominantW: final.memoryDominantW, fieldRecoveryStep: analysis.recoveryStep, memoryRewriteStep: memoryRewrite ? memoryRewrite.step : null };
 }
 function memoryWeightRun(memoryWeight) {
   const rec = ledgerRun({ label: 'D2_clean_W2_memory_weight_sweep', memoryW: 2, memoryEnabled: true, memoryWeight });
@@ -331,7 +335,7 @@ function summarize(results) {
   const baseline = results.filter((r) => r.runFamily === 'baseline_global_winding').map((r) => ({ W: r.initialW, finalDominantW: r.finalDominantW, allLinesTargetW: r.allLinesTargetW, finalMeanAmp: r.finalMeanAmp, predictedStationaryAmplitude: r.predictedStationaryAmplitude, meanAmpError: r.meanAmpError }));
   const priorExpectations = {
     baselinePersistence: baseline.map((b) => ({ expectation: `W=${b.W} persists through tested horizon`, result: b.allLinesTargetW ? 'hit' : 'miss' })),
-    memoryOffNoRecovery: classifyExpectation(results.find((r) => r.runId.includes('memory-off-long')), (r) => r && r.classification !== 'break_then_recover'),
+    memoryOffNoRecovery: classifyExpectation(results.find((r) => r.runId.includes('memory-off-long')), (r) => r && r.finalDominantW !== 1),
     cleanW0Memory: classifyExpectation(results.find((r) => r.memoryConditionLabel === 'L2_clean_W0'), (r) => r && r.finalFieldDominantW === 0),
     lowWeightW2Failure: classifyExpectation(results.find((r) => r.runFamily === 'memory_weight_sweep_uphill_writing' && r.memoryWeight === 0.0075), (r) => r && r.finalFieldDominantW !== 2),
     pureNoiseNoW1: classifyExpectation(results.find((r) => r.runFamily === 'pure_noise_control'), (r) => r && r.finalDominantW !== 1),

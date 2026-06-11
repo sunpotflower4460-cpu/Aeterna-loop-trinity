@@ -1,13 +1,14 @@
 {
   "audit": "v2.1.2-winding-memory-phase-slip-audit",
-  "generatedAt": "2026-06-11T14:03:58.800Z",
-  "runMode": "lightweight-runtime-limited",
+  "generatedAt": "2026-06-11T23:04:11.570Z",
+  "runMode": "lightweight",
   "phaseConstructionMode": "legacy-torus-atan2",
   "costPolicy": {
-    "mode": "lightweight-runtime-limited",
-    "GRID_SIZE": 16,
+    "mode": "lightweight",
+    "GRID_SIZE": 32,
     "NOISE_SEEDS": [
-      101
+      101,
+      202
     ],
     "EPSILON_VALUES": [
       0.5,
@@ -23,22 +24,18 @@
       0.02,
       0.05
     ],
-    "MAX_STEPS_BASELINE": 600,
-    "MAX_STEPS_PERTURBATION": 400,
-    "MAX_STEPS_LONG_MEMORY_OFF": 900,
-    "MAX_STEPS_COUPLING_SWEEP": 500,
+    "MAX_STEPS_BASELINE": 3000,
+    "MAX_STEPS_PERTURBATION": 1500,
+    "MAX_STEPS_LONG_MEMORY_OFF": 4500,
+    "MAX_STEPS_COUPLING_SWEEP": 2000,
     "SAMPLE_INTERVAL": 50,
     "FINE_SAMPLE_INTERVAL": 10
   },
-  "omittedConditions": [
-    "Runtime-limited repository artifact used GRID_SIZE=16 instead of suggested lightweight GRID_SIZE=32.",
-    "Runtime-limited repository artifact used NOISE_SEEDS=[101] instead of suggested lightweight [101,202].",
-    "Runtime-limited repository artifact shortened baseline, perturbation, long memory-off, and coupling horizons; rerun without --runtime-limited for the full lightweight audit."
-  ],
+  "omittedConditions": [],
   "observerContext": {
-    "observerVersion": "v212-winding-memory-phase-slip-audit@d895933",
+    "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
     "windingMeasuredAxis": "x",
-    "windingLineCount": 256,
+    "windingLineCount": 1024,
     "windingHistogramScope": "x-lines across all y,z",
     "detectsGlobalWinding": true,
     "detectsFull3DPhaseSlipDirectly": false,
@@ -52,7 +49,7 @@
     ]
   },
   "modePowerFormula": "P_m = |mean(phi * exp(-i2πmx/N))|^2",
-  "runCount": 20,
+  "runCount": 22,
   "byFamily": {
     "baseline_global_winding": [
       {
@@ -82,7 +79,19 @@
         "finalMemoryW": 1
       },
       {
+        "runId": "perturb-W1-e0.5-seed202-memory-on",
+        "classification": "persistent_without_break",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
         "runId": "perturb-W1-e1.2-seed101-memory-on",
+        "classification": "break_then_recover",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed202-memory-on",
         "classification": "break_then_recover",
         "finalW": 1,
         "finalMemoryW": 1
@@ -95,46 +104,46 @@
       },
       {
         "runId": "perturb-W1-e1.2-seed101-memory-off-matched",
-        "classification": "break_then_recover",
+        "classification": "persistent_without_break",
         "finalW": 1,
         "finalMemoryW": 1
       },
       {
         "runId": "perturb-W1-e1.2-seed101-memory-off-long",
-        "classification": "break_then_recover",
+        "classification": "phase_slip_to_other_W",
         "finalW": 0,
         "finalMemoryW": 1
       }
     ],
     "ledger_discrimination_matrix": [
       {
-        "runId": "ledger-L0_memory_OFF-mw0.04",
+        "runId": "ledger-L0_memory_OFF-mw0.0075",
         "classification": "memory_off_field_returns_to_W1",
         "finalW": 1,
         "finalMemoryW": 0
       },
       {
-        "runId": "ledger-L1_noisy_W1_copy-mw0.04",
+        "runId": "ledger-L1_noisy_W1_copy-mw0.0075",
         "classification": "mixed_or_tangled",
-        "finalW": 1,
+        "finalW": 0,
         "finalMemoryW": 1
       },
       {
-        "runId": "ledger-L1b_clean_W1-mw0.04",
-        "classification": "field_rewrites_memory",
-        "finalW": 1,
+        "runId": "ledger-L1b_clean_W1-mw0.0075",
+        "classification": "mixed_or_tangled",
+        "finalW": 0,
         "finalMemoryW": 1
       },
       {
-        "runId": "ledger-L2_clean_W0-mw0.04",
+        "runId": "ledger-L2_clean_W0-mw0.0075",
         "classification": "field_follows_clean_W0_memory",
         "finalW": 0,
         "finalMemoryW": 0
       },
       {
-        "runId": "ledger-L3_clean_W2-mw0.04",
-        "classification": "memory_writes_W2_to_field",
-        "finalW": 2,
+        "runId": "ledger-L3_clean_W2-mw0.0075",
+        "classification": "field_returns_to_W1",
+        "finalW": 1,
         "finalMemoryW": 2
       }
     ],
@@ -200,17 +209,17 @@
       "W": 1,
       "finalDominantW": 1,
       "allLinesTargetW": true,
-      "finalMeanAmp": 0.93876828,
-      "predictedStationaryAmplitude": 0.92073833,
-      "meanAmpError": 0.01802995
+      "finalMeanAmp": 0.98312571,
+      "predictedStationaryAmplitude": 0.98059704,
+      "meanAmpError": 0.00252866
     },
     {
       "W": 2,
       "finalDominantW": 2,
       "allLinesTargetW": true,
-      "finalMeanAmp": 0.75972425,
-      "predictedStationaryAmplitude": 0.64359425,
-      "meanAmpError": 0.11612999
+      "finalMeanAmp": 0.93215072,
+      "predictedStationaryAmplitude": 0.92073833,
+      "meanAmpError": 0.0114124
     }
   ],
   "priorExpectations": {
@@ -228,7 +237,7 @@
         "result": "hit"
       }
     ],
-    "memoryOffNoRecovery": "miss",
+    "memoryOffNoRecovery": "hit",
     "cleanW0Memory": "hit",
     "lowWeightW2Failure": "hit",
     "pureNoiseNoW1": "hit"

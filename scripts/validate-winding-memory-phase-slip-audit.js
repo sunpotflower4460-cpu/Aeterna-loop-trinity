@@ -43,6 +43,9 @@ function main() {
   const summary = JSON.parse(read(SUMMARY_REL));
   const records = resultsDoc.results || [];
   const doc = read(DOC_REL);
+
+  assert(['lightweight', 'full'].includes(summary.runMode), `Official summary runMode must be lightweight or full, got ${summary.runMode}`);
+  assert(!String(summary.runMode).includes('runtime-limited'), 'Official summary must not be the runtime-limited smoke artifact');
   const allText = `${JSON.stringify(resultsDoc)}\n${JSON.stringify(summary)}\n${doc}`;
 
   assert(records.length > 0, 'No run records found');
@@ -59,6 +62,22 @@ function main() {
   for (const label of ['L0_memory_OFF', 'L1_noisy_W1_copy', 'L2_clean_W0', 'L3_clean_W2']) {
     assert(ledger.some((r) => r.memoryConditionLabel === label), `Ledger matrix condition ${label} missing`);
   }
+  for (const record of records) {
+    if (record.classification === 'break_then_recover') {
+      const finalW = record.finalDominantW ?? record.finalFieldDominantW;
+      const finalFraction = record.finalDominantFraction ?? record.finalFieldDominantFraction ?? record.fieldWindingHistogram?.dominantFraction;
+      const targetW = record.runConfig?.targetW ?? record.runConfig?.fieldInitialW ?? 1;
+      assert(finalW === targetW && finalFraction >= 0.99, `break_then_recover final state is not recovered in ${record.runId}`);
+    }
+    if (record.classification === 'field_rewrites_memory') {
+      assert(record.memoryInitialW !== record.fieldInitialW, `field_rewrites_memory used without differing initial memory in ${record.runId}`);
+      assert(record.memoryRewriteStep !== null && record.memoryRewriteStep > 0, `field_rewrites_memory missing post-initial rewrite step in ${record.runId}`);
+    }
+  }
+  const mainLedger = ledger.filter((r) => ['L1_noisy_W1_copy', 'L1b_clean_W1', 'L2_clean_W0', 'L3_clean_W2'].includes(r.memoryConditionLabel));
+  for (const record of mainLedger) assert(record.memoryWeight === 0.0075, `Main ledger condition ${record.runId} did not use MEMORY_WEIGHT=0.0075`);
+  const l1b = ledger.find((r) => r.memoryConditionLabel === 'L1b_clean_W1');
+  assert(!l1b || l1b.memoryRewriteStep === null, 'L1b clean W=1 must not report memoryRewriteStep');
 
   const weightSweep = family(records, 'memory_weight_sweep_uphill_writing');
   requestedValuesPresentOrOmitted(weightSweep, (r) => r.memoryWeight, [0.0075, 0.03, 0.05], summary, 'MEMORY_WEIGHT');
