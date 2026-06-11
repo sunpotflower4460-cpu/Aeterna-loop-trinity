@@ -1,0 +1,240 @@
+{
+  "audit": "v2.1.2-winding-memory-phase-slip-audit",
+  "generatedAt": "2026-06-11T14:03:58.800Z",
+  "runMode": "lightweight-runtime-limited",
+  "phaseConstructionMode": "legacy-torus-atan2",
+  "costPolicy": {
+    "mode": "lightweight-runtime-limited",
+    "GRID_SIZE": 16,
+    "NOISE_SEEDS": [
+      101
+    ],
+    "EPSILON_VALUES": [
+      0.5,
+      1.2
+    ],
+    "MEMORY_WEIGHT_VALUES": [
+      0.0075,
+      0.03,
+      0.05
+    ],
+    "COUPLING_G_VALUES": [
+      0.0075,
+      0.02,
+      0.05
+    ],
+    "MAX_STEPS_BASELINE": 600,
+    "MAX_STEPS_PERTURBATION": 400,
+    "MAX_STEPS_LONG_MEMORY_OFF": 900,
+    "MAX_STEPS_COUPLING_SWEEP": 500,
+    "SAMPLE_INTERVAL": 50,
+    "FINE_SAMPLE_INTERVAL": 10
+  },
+  "omittedConditions": [
+    "Runtime-limited repository artifact used GRID_SIZE=16 instead of suggested lightweight GRID_SIZE=32.",
+    "Runtime-limited repository artifact used NOISE_SEEDS=[101] instead of suggested lightweight [101,202].",
+    "Runtime-limited repository artifact shortened baseline, perturbation, long memory-off, and coupling horizons; rerun without --runtime-limited for the full lightweight audit."
+  ],
+  "observerContext": {
+    "observerVersion": "v212-winding-memory-phase-slip-audit@d895933",
+    "windingMeasuredAxis": "x",
+    "windingLineCount": 256,
+    "windingHistogramScope": "x-lines across all y,z",
+    "detectsGlobalWinding": true,
+    "detectsFull3DPhaseSlipDirectly": false,
+    "detectsVortexTanglesDirectly": false,
+    "modePowerFormula": "P_m = |mean(phi * exp(-i2πmx/N))|^2",
+    "limitations": [
+      "Winding histogram measures x-axis global line winding only.",
+      "During tangled phases, line-wise W values are activity indicators rather than full topology classification.",
+      "Phase slip is inferred from winding loss/recovery, minAmp collapse, and mode power changes.",
+      "This audit does not implement full 3D vortex-core tracking."
+    ]
+  },
+  "modePowerFormula": "P_m = |mean(phi * exp(-i2πmx/N))|^2",
+  "runCount": 20,
+  "byFamily": {
+    "baseline_global_winding": [
+      {
+        "runId": "baseline-W0",
+        "classification": "baseline_persistence_calibration",
+        "finalW": 0,
+        "finalMemoryW": 0
+      },
+      {
+        "runId": "baseline-W1",
+        "classification": "baseline_persistence_calibration",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "baseline-W2",
+        "classification": "baseline_persistence_calibration",
+        "finalW": 2,
+        "finalMemoryW": 2
+      }
+    ],
+    "perturbation_sweep": [
+      {
+        "runId": "perturb-W1-e0.5-seed101-memory-on",
+        "classification": "persistent_without_break",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-on",
+        "classification": "break_then_recover",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-on-matched",
+        "classification": "break_then_recover",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-matched",
+        "classification": "break_then_recover",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-long",
+        "classification": "break_then_recover",
+        "finalW": 0,
+        "finalMemoryW": 1
+      }
+    ],
+    "ledger_discrimination_matrix": [
+      {
+        "runId": "ledger-L0_memory_OFF-mw0.04",
+        "classification": "memory_off_field_returns_to_W1",
+        "finalW": 1,
+        "finalMemoryW": 0
+      },
+      {
+        "runId": "ledger-L1_noisy_W1_copy-mw0.04",
+        "classification": "mixed_or_tangled",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "ledger-L1b_clean_W1-mw0.04",
+        "classification": "field_rewrites_memory",
+        "finalW": 1,
+        "finalMemoryW": 1
+      },
+      {
+        "runId": "ledger-L2_clean_W0-mw0.04",
+        "classification": "field_follows_clean_W0_memory",
+        "finalW": 0,
+        "finalMemoryW": 0
+      },
+      {
+        "runId": "ledger-L3_clean_W2-mw0.04",
+        "classification": "memory_writes_W2_to_field",
+        "finalW": 2,
+        "finalMemoryW": 2
+      }
+    ],
+    "memory_weight_sweep_uphill_writing": [
+      {
+        "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.0075",
+        "classification": "field_returns_to_W1",
+        "finalW": 1,
+        "finalMemoryW": 2
+      },
+      {
+        "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.03",
+        "classification": "memory_writes_W2_to_field",
+        "finalW": 2,
+        "finalMemoryW": 2
+      },
+      {
+        "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.05",
+        "classification": "memory_writes_W2_to_field",
+        "finalW": 2,
+        "finalMemoryW": 2
+      }
+    ],
+    "one_sided_coupling_sweep": [
+      {
+        "runId": "coupling-W1-W0-g0.0075",
+        "classification": "topological_frustration_plateau",
+        "finalW": null,
+        "finalMemoryW": null
+      },
+      {
+        "runId": "coupling-W1-W0-g0.02",
+        "classification": "topological_frustration_plateau",
+        "finalW": null,
+        "finalMemoryW": null
+      },
+      {
+        "runId": "coupling-W1-W0-g0.05",
+        "classification": "double_slip_exchange",
+        "finalW": null,
+        "finalMemoryW": null
+      }
+    ],
+    "pure_noise_control": [
+      {
+        "runId": "pure-noise-W0-e1.2",
+        "classification": "no_stable_W1_created",
+        "finalW": 0,
+        "finalMemoryW": 0
+      }
+    ]
+  },
+  "baseline": [
+    {
+      "W": 0,
+      "finalDominantW": 0,
+      "allLinesTargetW": true,
+      "finalMeanAmp": 1,
+      "predictedStationaryAmplitude": 1,
+      "meanAmpError": 0
+    },
+    {
+      "W": 1,
+      "finalDominantW": 1,
+      "allLinesTargetW": true,
+      "finalMeanAmp": 0.93876828,
+      "predictedStationaryAmplitude": 0.92073833,
+      "meanAmpError": 0.01802995
+    },
+    {
+      "W": 2,
+      "finalDominantW": 2,
+      "allLinesTargetW": true,
+      "finalMeanAmp": 0.75972425,
+      "predictedStationaryAmplitude": 0.64359425,
+      "meanAmpError": 0.11612999
+    }
+  ],
+  "priorExpectations": {
+    "baselinePersistence": [
+      {
+        "expectation": "W=0 persists through tested horizon",
+        "result": "hit"
+      },
+      {
+        "expectation": "W=1 persists through tested horizon",
+        "result": "hit"
+      },
+      {
+        "expectation": "W=2 persists through tested horizon",
+        "result": "hit"
+      }
+    ],
+    "memoryOffNoRecovery": "miss",
+    "cleanW0Memory": "hit",
+    "lowWeightW2Failure": "hit",
+    "pureNoiseNoW1": "hit"
+  },
+  "cautions": [
+    "Memory is not interpreted as an infallible ledger.",
+    "Candidate tags do not imply biological life, consciousness, exact topology proof, or permanent survival."
+  ]
+}
