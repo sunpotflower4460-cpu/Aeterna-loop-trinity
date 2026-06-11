@@ -33,7 +33,20 @@ Example: future randomized-vortex controls may reveal whether structurally disti
 - Always distinguish raw distance collapse, phase locking, and structural collapse.
 - Existing `fieldABDistance` is a raw phase-sensitive A/B distance, not a structural identity distance.
 - Structural-collapse claims require gauge-invariant structural metrics such as `alignedFieldABDistance` and `D_inv`.
+- Do not infer causality from distance reduction alone.
+- A decrease in `alignedFieldABDistance` is measured structural convergence, not necessarily mutual convergence.
+- Mutual convergence requires a matched control comparison. Any tag containing `mutual` must include a matched `controlRunId` or comparison evidence.
 - `identity collapse` alone is forbidden because it hides whether the measured event was raw distance collapse, phase locking, structural collapse, or near-identical-from-start.
+
+## Historical output preservation
+
+Historical JSON outputs should not be rewritten after observer improvements. Later interpretations should be added as documentation notes or explicitly named derived summaries. Preserve what was measured at the time, then document how later observer improvements changed the interpretation.
+
+## Runtime implementation labels
+
+Do not use CGL as the implementation label for `real-runtime-v0`. Current `real-runtime-v0` should be described as a damped nonlinear Klein-Gordon-style engine with a Mexican-hat potential and a semi-implicit Euler integrator.
+
+CGL may be mentioned only as historical context, analogy, or a future candidate framework.
 
 ## Not allowed at the current evidence level
 

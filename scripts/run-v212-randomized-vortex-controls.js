@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const { createAeternaRuntimeV0, collectRuntimeMetrics, computeVortexCount, hasNonFiniteValues } = require('../src/runtime/aeterna-runtime-v0');
 const { stepAeternaRuntimeV0 } = require('../src/runtime/step-aeterna-runtime-v0');
+const { describePhysicsContext } = require('../src/runtime/physics-context');
+const { classifyPhaseDynamics } = require('../src/runtime/phase-dynamics-classifier');
 const { createAeternaFields } = require('../src/runtime/create-aeterna-fields');
 const { createRandomizedAeternaFields } = require('../src/runtime/create-randomized-fields');
 const { computeGaugeInvariantABMetrics } = require('../src/metrics/gauge-invariant-metrics');
@@ -121,6 +123,33 @@ function conditionParams(condition) {
   };
 }
 
+
+function mean(values) {
+  const finite = values.filter(Number.isFinite);
+  return finite.length === 0 ? null : finite.reduce((sum, value) => sum + value, 0) / finite.length;
+}
+
+function std(values) {
+  const m = mean(values);
+  if (!Number.isFinite(m)) return null;
+  const finite = values.filter(Number.isFinite);
+  return Math.sqrt(finite.reduce((sum, value) => sum + (value - m) * (value - m), 0) / finite.length);
+}
+
+function slope(samples) {
+  const finite = samples.filter((sample) => Number.isFinite(sample.step) && Number.isFinite(sample.unwrappedThetaStar));
+  if (finite.length < 2) return null;
+  const xMean = mean(finite.map((sample) => sample.step));
+  const yMean = mean(finite.map((sample) => sample.unwrappedThetaStar));
+  let numerator = 0;
+  let denominator = 0;
+  for (const sample of finite) {
+    numerator += (sample.step - xMean) * (sample.unwrappedThetaStar - yMean);
+    denominator += (sample.step - xMean) * (sample.step - xMean);
+  }
+  return denominator > 0 ? numerator / denominator : null;
+}
+
 function totalTravel(values) {
   let travel = 0;
   for (let i = 1; i < values.length; i += 1) {
@@ -182,6 +211,15 @@ function runOne(condition, seedPair) {
 
   const unwrapped = unwrapPhaseSeries(samples.map((sample) => sample.thetaStar));
   samples.forEach((sample, index) => { sample.unwrappedThetaStar = unwrapped[index]; });
+  const thetaTotalTravel = totalTravel(unwrapped);
+  const secondHalf = samples.filter((sample) => sample.step >= MAX_STEPS / 2);
+  const endWindow = samples.slice(-10).map((sample) => sample.unwrappedThetaStar);
+  const driftRatePerStep = slope(secondHalf);
+  const phaseDynamics = classifyPhaseDynamics({
+    thetaTotalTravel,
+    driftRatePerStep,
+    thetaEndWindowStd: std(endWindow),
+  });
   const result = {
     conditionId: condition.id,
     initializer: condition.initializer,
@@ -204,7 +242,11 @@ function runOne(condition, seedPair) {
     phaseLockOnsetStep: findPhaseLockOnsetStep(samples),
     structuralCollapseOnsetStep: findStructuralCollapseOnsetStep(samples),
     rawDistanceCollapseOnsetStep: findRawDistanceCollapseOnsetStep(samples),
-    unwrappedThetaStar_totalTravel: totalTravel(unwrapped),
+    unwrappedThetaStar_totalTravel: thetaTotalTravel,
+    driftRatePerStep,
+    driftRatePerStep_abs: Math.abs(driftRatePerStep ?? 0),
+    thetaEndWindowMean: mean(endWindow),
+    thetaEndWindowStd: std(endWindow),
     nonFiniteDetected,
     elapsedMs: Date.now() - startedAt,
     samples,
@@ -227,10 +269,15 @@ function runOne(condition, seedPair) {
     pheromoneActiveRatio_end: flatten(samples[samples.length - 1], 'pheromoneActiveRatio'),
     pheromoneSpatialEntropy_end: flatten(samples[samples.length - 1], 'pheromoneSpatialEntropy'),
   });
-  result.finalRegimeVerdict = classifyPhaseStructureRegime({
+  result.physicsContext = describePhysicsContext(params, runtime.config);
+  result.structuralRegimeVerdict = classifyPhaseStructureRegime({
     alignedFieldABDistanceSeries: samples.map((sample) => sample.alignedFieldABDistance),
     unwrappedThetaStarSeries: samples.map((sample) => sample.unwrappedThetaStar),
   });
+  result.phaseDynamicsVerdict = phaseDynamics.phaseDynamicsVerdict;
+  result.phaseBehavior = phaseDynamics.phaseBehavior;
+  result.phaseBehaviorCriterion = phaseDynamics.phaseBehaviorCriterion;
+  result.finalRegimeVerdict = result.structuralRegimeVerdict;
   result.phenomenonTags = tagsFor(result);
   return result;
 }
@@ -269,8 +316,9 @@ function atlasCandidates(results) {
       claimLevel: 'measured',
       initialConditionType: 'legacy_same_layout_phase_offset',
       parameters: BEST_PARAMS,
+      physicsContext: describePhysicsContext(BEST_PARAMS),
       runConfig: { gridSize: GRID_SIZE, maxSteps: MAX_STEPS, sampleInterval: SAMPLE_INTERVAL },
-      measuredEvidence: legacy.map((run) => ({ seedA: run.seedA, seedB: run.seedB, alignedFieldABDistance_start: run.alignedFieldABDistance_start, thetaTravel: run.unwrappedThetaStar_totalTravel, verdict: run.finalRegimeVerdict })),
+      measuredEvidence: legacy.map((run) => ({ seedA: run.seedA, seedB: run.seedB, alignedFieldABDistance_start: run.alignedFieldABDistance_start, thetaTravel: run.unwrappedThetaStar_totalTravel, structuralRegimeVerdict: run.structuralRegimeVerdict, phaseDynamicsVerdict: run.phaseDynamicsVerdict, phaseBehavior: run.phaseBehavior })),
       observedPhenomena: ['near-identical-from-start', 'phase-locking'],
       regimeVerdict: 'near-identical-from-start',
       manualReviewNotes: 'Legacy layout remains a phase-relaxation baseline, not structural-collapse evidence.',
@@ -283,8 +331,9 @@ function atlasCandidates(results) {
       claimLevel: 'observed',
       initialConditionType: 'randomized_distinct_layout',
       parameters: BEST_PARAMS,
+      physicsContext: describePhysicsContext(BEST_PARAMS),
       runConfig: { gridSize: GRID_SIZE, maxSteps: MAX_STEPS, sampleInterval: SAMPLE_INTERVAL },
-      measuredEvidence: distinctOn.map((run) => ({ seedA: run.seedA, seedB: run.seedB, alignedStart: run.alignedFieldABDistance_start, alignedEnd: run.alignedFieldABDistance_end, vortexZeroStep: run.stepWhenVortexCountReachedZero, tags: run.phenomenonTags, verdict: run.finalRegimeVerdict })),
+      measuredEvidence: distinctOn.map((run) => ({ seedA: run.seedA, seedB: run.seedB, alignedStart: run.alignedFieldABDistance_start, alignedEnd: run.alignedFieldABDistance_end, vortexZeroStep: run.stepWhenVortexCountReachedZero, tags: run.phenomenonTags, structuralRegimeVerdict: run.structuralRegimeVerdict, phaseDynamicsVerdict: run.phaseDynamicsVerdict, phaseBehavior: run.phaseBehavior })),
       observedPhenomena: Array.from(new Set(distinctOn.flatMap((run) => run.phenomenonTags))),
       regimeVerdict: Array.from(new Set(distinctOn.map((run) => run.finalRegimeVerdict))).join(', '),
       manualReviewNotes: 'Candidate only; do not call true meeting without aligned-distance evidence.',
@@ -295,7 +344,7 @@ function atlasCandidates(results) {
 }
 
 function writeDoc(results, summary) {
-  const rows = results.map((r) => `| ${r.conditionId} | ${r.seedA}/${r.seedB} | ${r.finalRegimeVerdict} | ${r.alignedFieldABDistance_start.toFixed(6)} | ${r.alignedFieldABDistance_end.toFixed(6)} | ${r.unwrappedThetaStar_totalTravel.toFixed(6)} | ${r.initialVortexCount} | ${r.finalVortexCount} | ${r.stepWhenVortexCountReachedZero ?? 'null'} | ${r.phenomenonTags.join(', ')} |`);
+  const rows = results.map((r) => `| ${r.conditionId} | ${r.seedA}/${r.seedB} | ${r.structuralRegimeVerdict} | ${r.phaseDynamicsVerdict} | ${r.phaseBehavior} | ${r.alignedFieldABDistance_start.toFixed(6)} | ${r.alignedFieldABDistance_end.toFixed(6)} | ${r.unwrappedThetaStar_totalTravel.toFixed(6)} | ${r.initialVortexCount} | ${r.finalVortexCount} | ${r.stepWhenVortexCountReachedZero ?? 'null'} | ${r.phenomenonTags.join(', ')} |`);
   const doc = `# v2.1.2 Randomized Vortex Controls
 
 ## Purpose
@@ -314,8 +363,8 @@ PR #27 corrected the observer with gauge-invariant phase/structure metrics. This
 
 ## Measured results
 
-| condition | seeds | verdict | aligned start | aligned end | theta travel | vortex start | vortex end | vortex zero step | phenomenon tags |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| condition | seeds | structural verdict | phase dynamics verdict | phase behavior | aligned start | aligned end | theta travel | vortex start | vortex end | vortex zero step | phenomenon tags |
+| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 ${rows.join('\n')}
 
 Machine-readable outputs were written to \`experiments/v2.1.2-randomized-vortex-controls-results.json\` and \`experiments/v2.1.2-randomized-vortex-controls-summary.json\`.
@@ -355,10 +404,11 @@ function main() {
     generatedAt: new Date().toISOString(),
     purpose: 'Randomized vortex controls using PR #27 gauge metrics.',
     sanityChecks,
+    physicsContext: describePhysicsContext(BEST_PARAMS),
     runConfig: { gridSize: GRID_SIZE, maxSteps: MAX_STEPS, sampleInterval: SAMPLE_INTERVAL, pairCount: PAIR_COUNT, minSeparationRatio: MIN_SEPARATION_RATIO },
     conditionSummaries: CONDITIONS.map((condition) => ({
       conditionId: condition.id,
-      verdicts: results.filter((r) => r.conditionId === condition.id).map((r) => ({ seedA: r.seedA, seedB: r.seedB, verdict: r.finalRegimeVerdict, tags: r.phenomenonTags })),
+      verdicts: results.filter((r) => r.conditionId === condition.id).map((r) => ({ seedA: r.seedA, seedB: r.seedB, structuralRegimeVerdict: r.structuralRegimeVerdict, phaseDynamicsVerdict: r.phaseDynamicsVerdict, phaseBehavior: r.phaseBehavior, tags: r.phenomenonTags })),
     })),
     couplingComparisonNotes,
     atlasCandidates: atlasCandidates(results),
