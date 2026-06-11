@@ -37,7 +37,9 @@ assert(phaseDriven.velocityRotated === false, 'phase-driven context must include
 assert(JSON.stringify(phaseDriven.phaseRotationAppliedTo) === JSON.stringify(['phi', 'memory']), 'field-and-memory target must map to phi and memory');
 
 assert(describePhysicsContext({ COUPLING_ENABLED: false }).couplingApplication === 'none', 'disabled coupling must map to none');
-assert(describePhysicsContext({ COUPLING_ENABLED: true, COUPLING_TYPE: 'phase' }).couplingApplication === 'none-currently-no-op-for-selected-type', 'non-memory coupling must map to no-op label');
+const noOpCoupling = describePhysicsContext({ COUPLING_ENABLED: true, COUPLING_TYPE: 'phase' });
+assert(noOpCoupling.couplingApplication === 'none-currently-no-op-for-selected-type', 'non-memory coupling must map to no-op label');
+assert(!noOpCoupling.notes.some((note) => note.includes('Current memory coupling')), 'no-op coupling must not claim memory coupling is applied');
 assert(describePhysicsContext({ COUPLING_ENABLED: true, COUPLING_TYPE: 'memory', MEMORY_COUPLING_ENABLED: false }).couplingApplication === 'none', 'disabled memory coupling must map to none');
 assert(describePhysicsContext({ COUPLING_ENABLED: true, COUPLING_TYPE: 'memory', MEMORY_COUPLING_ENABLED: true, MEMORY_COUPLING_ORDER: 'before-memory-update' }).couplingApplication === 'pre-memory-update-state-update', 'before-memory-update must map to pre-memory-update-state-update');
 assert(describePhysicsContext({ COUPLING_ENABLED: true, COUPLING_TYPE: 'memory', MEMORY_COUPLING_ENABLED: true }).couplingApplication === 'post-memory-update-state-update', 'default memory coupling must map to post-memory-update-state-update');
@@ -56,12 +58,34 @@ assert(scripts.every((content) => content.includes('structuralRegimeVerdict')), 
 assert(scripts.every((content) => content.includes('phaseDynamicsVerdict')), 'future-facing scripts must include phaseDynamicsVerdict');
 assert(scripts.every((content) => content.includes('phaseBehavior')), 'future-facing scripts must include phaseBehavior');
 
+function gitLines(args) {
+  return execFileSync('git', args, { cwd: ROOT, encoding: 'utf8' })
+    .split('\n')
+    .filter(Boolean);
+}
+
+function gitRefExists(ref) {
+  try {
+    execFileSync('git', ['rev-parse', '--verify', `${ref}^{commit}`], { cwd: ROOT, stdio: 'ignore' });
+    return true;
+  } catch (_error) {
+    return false;
+  }
+}
+
 const changed = [
-  ...execFileSync('git', ['diff', '--name-only'], { cwd: ROOT, encoding: 'utf8' }).split('\n'),
-  ...execFileSync('git', ['diff', '--cached', '--name-only'], { cwd: ROOT, encoding: 'utf8' }).split('\n'),
-]
-  .filter(Boolean);
-const touchedHistorical = changed.filter((file) => HISTORICAL_JSON.has(file));
+  ...gitLines(['diff', '--name-only']),
+  ...gitLines(['diff', '--cached', '--name-only']),
+];
+
+// Prefer a PR/base range when available so committed historical JSON changes are also caught.
+// In local checkouts without origin/main or an explicit OBSERVATION_HYGIENE_BASE_REF, this remains a working-tree/staged guard.
+const baseRef = [process.env.OBSERVATION_HYGIENE_BASE_REF, 'origin/main', 'origin/master', 'main', 'master']
+  .filter(Boolean)
+  .find(gitRefExists);
+if (baseRef) changed.push(...gitLines(['diff', '--name-only', `${baseRef}...HEAD`]));
+
+const touchedHistorical = Array.from(new Set(changed)).filter((file) => HISTORICAL_JSON.has(file));
 assert(touchedHistorical.length === 0, `historical PR #28 JSON files must not be modified: ${touchedHistorical.join(', ')}`);
 
 console.log('[observation-hygiene] validation passed');

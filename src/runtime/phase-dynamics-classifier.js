@@ -10,7 +10,10 @@ const PHASE_BEHAVIOR_CRITERION = Object.freeze({
 });
 
 function classifyPhaseDynamics(input = {}) {
-  const criterion = input.phaseBehaviorCriterion || PHASE_BEHAVIOR_CRITERION;
+  const criterion = {
+    ...PHASE_BEHAVIOR_CRITERION,
+    ...(input.phaseBehaviorCriterion || {}),
+  };
   const thetaTotalTravel = input.thetaTotalTravel;
   const driftRatePerStep = input.driftRatePerStep;
   const thetaEndWindowStd = input.thetaEndWindowStd;

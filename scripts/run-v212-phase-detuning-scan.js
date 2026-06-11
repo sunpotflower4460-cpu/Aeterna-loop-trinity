@@ -193,7 +193,7 @@ function runRuntime({ label, params, maxSteps }) {
     phaseBehavior: phaseDynamics.phaseBehavior,
     phaseBehaviorCriterion: phaseDynamics.phaseBehaviorCriterion,
     baseRegimeVerdict: structuralRegimeVerdict,
-    finalRegimeVerdict: phaseDynamics.phaseDynamicsVerdict,
+    finalRegimeVerdict: structuralRegimeVerdict,
     elapsedMs: Date.now() - startedAt,
     samples,
   };
@@ -303,9 +303,14 @@ function atlasCandidates(scanResults) {
   ];
 }
 
+
+function fmt(value, digits = 6) {
+  return Number.isFinite(value) ? value.toFixed(digits) : 'null';
+}
+
 function writeDoc(calibrations, scanResults, summary) {
-  const calRows = calibrations.map((r) => `| ${r.omegaB} | ${r.deltaOmega.toFixed(3)} | ${r.nominalDriftPerStep.toFixed(6)} | ${r.measuredDriftRatePerStep.toFixed(6)} | ${r.driftRateRatio.toFixed(3)} | ${r.thetaTotalTravel.toFixed(6)} |`);
-  const scanRows = scanResults.map((r) => `| ${r.couplingG} | ${r.omegaB} | ${r.deltaOmega.toFixed(3)} | ${r.nominalDriftPerStep.toFixed(6)} | ${r.driftRatePerStep.toFixed(6)} | ${r.thetaEndWindowStd.toFixed(6)} | ${r.thetaTotalTravel.toFixed(6)} | ${r.structuralRegimeVerdict} | ${r.phaseDynamicsVerdict} | ${r.phaseBehavior} | ${r.boundaryCandidate} |`);
+  const calRows = calibrations.map((r) => `| ${fmt(r.omegaB)} | ${fmt(r.deltaOmega, 3)} | ${fmt(r.nominalDriftPerStep)} | ${fmt(r.measuredDriftRatePerStep)} | ${fmt(r.driftRateRatio, 3)} | ${fmt(r.thetaTotalTravel)} |`);
+  const scanRows = scanResults.map((r) => `| ${fmt(r.couplingG)} | ${fmt(r.omegaB)} | ${fmt(r.deltaOmega, 3)} | ${fmt(r.nominalDriftPerStep)} | ${fmt(r.driftRatePerStep)} | ${fmt(r.thetaEndWindowStd)} | ${fmt(r.thetaTotalTravel)} | ${r.structuralRegimeVerdict} | ${r.phaseDynamicsVerdict} | ${r.phaseBehavior} | ${r.boundaryCandidate} |`);
   const doc = `# v2.1.2 Phase Detuning Scan
 
 ## Purpose

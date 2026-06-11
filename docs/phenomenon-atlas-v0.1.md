@@ -43,6 +43,7 @@ Future Atlas candidates should include:
 - Because the PR #27 classifier includes priority rules, `structuralRegimeVerdict` may still return phase-like labels such as `phase-locking` or `phase-drift`.
 - For phase-dynamics interpretation, use `phaseDynamicsVerdict` and `phaseBehavior`.
 - `phaseBehavior=boundary-candidate` must reuse the existing PR #28 scan-level `boundaryCandidate` logic; do not invent a new boundary threshold.
+- `finalRegimeVerdict`, when present in future outputs, is only a legacy compatibility alias for `structuralRegimeVerdict`; use the separated verdict fields for interpretation.
 
 ## Gauge and A/B structure tags
 

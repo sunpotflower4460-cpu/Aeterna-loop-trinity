@@ -20,6 +20,9 @@ function deriveCouplingApplication(params = {}) {
 function describePhysicsContext(params = {}, runtimeConfig = {}) {
   const phaseRotationAppliedTo = derivePhaseRotationAppliedTo(params);
   const couplingApplication = deriveCouplingApplication(params);
+  const memoryCouplingApplied =
+    couplingApplication === 'pre-memory-update-state-update' ||
+    couplingApplication === 'post-memory-update-state-update';
   const notes = [
     'Second-order damped nonlinear Klein-Gordon-style runtime with Mexican-hat potential.',
     params.PHASE_ROTATION_ENABLED
@@ -28,7 +31,7 @@ function describePhysicsContext(params = {}, runtimeConfig = {}) {
     params.MEMORY_COUPLING_ENABLED && params.COUPLING_TYPE === 'memory'
       ? 'Memory coupling applies state updates to phi fields using memory fields as the source.'
       : null,
-    couplingApplication !== 'none'
+    memoryCouplingApplied
       ? 'Current memory coupling and memory blending are post-integration state updates, not force/acceleration terms. If future implementations move coupling into the acceleration term, physicsContext must change accordingly.'
       : null,
   ].filter(Boolean);
