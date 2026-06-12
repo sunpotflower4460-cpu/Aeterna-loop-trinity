@@ -16,14 +16,28 @@ const HISTORICAL_JSON = Object.freeze([
   'experiments/v2.1.2-phase-detuning-scan-summary.json',
   'experiments/v2.1.2-periodic-vortex-initialization-audit-results.json',
   'experiments/v2.1.2-periodic-vortex-initialization-audit-summary.json',
+  // After PR #34, the v2.1.2 winding/memory/phase-slip audit JSON artifacts
+  // are historical records. Future updates should create new artifact files or a
+  // clearly named follow-up audit rather than silently rewriting these files.
+  RESULTS_REL,
+  SUMMARY_REL,
 ]);
-const NEW_OUTPUTS = Object.freeze([RESULTS_REL, SUMMARY_REL, DOC_REL]);
+const NEW_OUTPUTS = Object.freeze([DOC_REL]);
 const PROHIBITED = [/life appeared/i, /\beternal\b/i, /perfect ledger/i, /proven permanent/i, /heart was created/i, /consciousness emerged/i];
 
 function read(rel) { return fs.readFileSync(path.join(ROOT, rel), 'utf8'); }
 function exists(rel) { return fs.existsSync(path.join(ROOT, rel)); }
 function assert(condition, message) { if (!condition) throw new Error(message); }
 function gitStatusPaths(paths) { return execFileSync('git', ['status', '--porcelain', '--', ...paths], { cwd: ROOT, encoding: 'utf8' }).trim(); }
+function git(args) { return execFileSync('git', args, { cwd: ROOT, encoding: 'utf8' }).trim(); }
+function canResolveRef(ref) {
+  try { git(['rev-parse', '--verify', '--quiet', ref]); return true; }
+  catch (_) { return false; }
+}
+function resolveAuditBaseRef() {
+  const candidates = [process.env.AUDIT_BASE_REF, 'origin/main', 'main', 'HEAD~1'].filter(Boolean);
+  return candidates.find(canResolveRef) || null;
+}
 function family(results, name) { return results.filter((r) => r.runFamily === name); }
 function hasOmission(summary, fragment) { return (summary.omittedConditions || []).some((item) => item.includes(fragment)); }
 function requestedValuesPresentOrOmitted(records, accessor, requested, summary, omissionFragment) {
@@ -35,6 +49,11 @@ function requestedValuesPresentOrOmitted(records, accessor, requested, summary, 
 function main() {
   for (const output of NEW_OUTPUTS) assert(!HISTORICAL_JSON.includes(output), `New output overlaps historical JSON path: ${output}`);
   assert(gitStatusPaths(HISTORICAL_JSON) === '', `Historical JSON files are modified:\n${gitStatusPaths(HISTORICAL_JSON)}`);
+  const baseRef = resolveAuditBaseRef();
+  assert(baseRef, 'Unable to resolve audit base ref. Set AUDIT_BASE_REF or ensure origin/main/main/HEAD~1 exists.');
+  const mergeBase = git(['merge-base', 'HEAD', baseRef]);
+  const changedHistorical = git(['diff', '--name-only', `${mergeBase}..HEAD`, '--', ...HISTORICAL_JSON]);
+  assert(!changedHistorical, `Protected historical JSON changed in committed diff:\n${changedHistorical}`);
   assert(exists(RESULTS_REL), 'Results JSON is missing');
   assert(exists(SUMMARY_REL), 'Summary JSON is missing');
   assert(exists(DOC_REL), 'Audit doc is missing');
@@ -45,8 +64,18 @@ function main() {
   const doc = read(DOC_REL);
 
   assert(summary.parameterLineage === 'exp023-real', `Summary parameterLineage must be exp023-real, got ${summary.parameterLineage}`);
+  assert(summary.runMode === resultsDoc.runMode, 'Results/summary runMode mismatch');
   assert(['lightweight', 'full'].includes(summary.runMode), `Official summary runMode must be lightweight or full, got ${summary.runMode}`);
+  assert(['lightweight', 'full'].includes(resultsDoc.runMode), `Official results runMode must be lightweight or full, got ${resultsDoc.runMode}`);
   assert(!String(summary.runMode).includes('runtime-limited'), 'Official summary must not be the runtime-limited smoke artifact');
+  assert(!String(resultsDoc.runMode).includes('runtime-limited'), 'Official results must not be runtime-limited');
+  assert(summary.costPolicy?.mode === summary.runMode, 'Summary costPolicy.mode must match summary.runMode');
+  for (const docLike of [resultsDoc, summary]) {
+    assert(docLike.generatorGitHash, 'Artifact provenance missing generatorGitHash');
+    assert(Object.prototype.hasOwnProperty.call(docLike, 'artifactGeneratedFromReachableCommit'), 'Artifact provenance missing artifactGeneratedFromReachableCommit');
+    assert(docLike.artifactGeneratedFromReachableCommit === (Boolean(docLike.generatorGitHash) && docLike.generatorGitHash !== 'git-hash-unavailable'), 'Artifact reachable provenance does not match generatorGitHash availability');
+    assert(docLike.artifactCommittedIn, 'Artifact provenance missing artifactCommittedIn');
+  }
   const allText = `${JSON.stringify(resultsDoc)}\n${JSON.stringify(summary)}\n${doc}`;
 
   assert(records.length > 0, 'No run records found');
@@ -54,6 +83,9 @@ function main() {
     assert(record.physicsContext, `physicsContext missing in ${record.runId}`);
     assert(record.observerContext, `observerContext missing in ${record.runId}`);
     assert(record.phaseConstructionMode === 'legacy-torus-atan2', `Unexpected phaseConstructionMode in ${record.runId}`);
+    assert(record.windingInitializationMode === 'manual-global-x-winding-ramp', `Unexpected windingInitializationMode in ${record.runId}`);
+    assert(record.initializerComparisonMode === 'not-tested-in-this-audit', `Unexpected initializerComparisonMode in ${record.runId}`);
+    assert(record.runtimeInitializerContext === 'legacy-torus-atan2', `Unexpected runtimeInitializerContext in ${record.runId}`);
     assert(record.parameterLineage === 'exp023-real' || record.runConfig?.parameterLineage === 'exp023-real', `parameterLineage missing or non-canonical in ${record.runId}`);
     assert(record.physicsContext?.parameterLineage === 'exp023-real', `physicsContext parameterLineage missing in ${record.runId}`);
   }
@@ -91,6 +123,18 @@ function main() {
   }
   const mainLedger = ledger.filter((r) => ['L1_noisy_W1_copy', 'L1b_clean_W1', 'L2_clean_W0', 'L3_clean_W2'].includes(r.memoryConditionLabel));
   for (const record of mainLedger) assert(record.memoryWeight === 0.0075, `Main ledger condition ${record.runId} did not use MEMORY_WEIGHT=0.0075`);
+  const memoryOffRecords = records.filter((r) => r.runConfig?.memoryEnabled === false || r.memoryEnabled === false);
+  for (const record of memoryOffRecords) {
+    assert(record.effectiveMemoryWeight === 0, `Memory-off record effectiveMemoryWeight must be zero in ${record.runId}`);
+    assert(record.runConfig?.effectiveMemoryWeight === 0, `Memory-off runConfig effectiveMemoryWeight must be zero in ${record.runId}`);
+    assert(record.runConfig?.nominalComparisonMemoryWeight === 0.0075, `Memory-off nominal comparison weight missing in ${record.runId}`);
+  }
+  const pureNoise = family(records, 'pure_noise_control');
+  for (const record of pureNoise) {
+    assert(record.runConfig?.controlType === 'memory_off_W0_noise_control', `Pure noise control must be explicitly memory-off in ${record.runId}`);
+    assert(record.runConfig?.memoryEnabled === false && record.runConfig?.effectiveMemoryWeight === 0, `Pure noise control has active memory metadata in ${record.runId}`);
+  }
+
   const l1b = ledger.find((r) => r.memoryConditionLabel === 'L1b_clean_W1');
   assert(!l1b || l1b.memoryRewriteStep === null, 'L1b clean W=1 must not report memoryRewriteStep');
 
@@ -103,6 +147,9 @@ function main() {
     assert(record.runConfig?.couplingDirectionality === 'bidirectional', `Coupling directionality not recorded as bidirectional in ${record.runId}`);
     assert(record.runConfig?.oneSidedMeaning === 'winding_asymmetry_only', `One-sided meaning not recorded as winding asymmetry in ${record.runId}`);
     assert(record.physicsContext?.memoryCouplingUseBidirectional === true, `One-sided winding coupling physicsContext did not record bidirectional=true in ${record.runId}`);
+    if (record.classification === 'double_slip_exchange') {
+      assert(record.fieldWindingHistogramA?.dominantW === 0 && record.fieldWindingHistogramB?.dominantW === 1, `double_slip_exchange must end with swapped A/B winding assignments in ${record.runId}`);
+    }
   }
   const couplingSummary = summary.byFamily?.one_sided_winding_coupling_sweep || [];
   assert(couplingSummary.length === couplingSweep.length, 'Coupling summary count mismatch');
