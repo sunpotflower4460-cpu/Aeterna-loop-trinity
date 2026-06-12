@@ -4,6 +4,8 @@ Phenomenon Atlas records what occurred. It does not force success/failure. Colla
 
 This document defines tag names, schema expectations, and observation-hygiene rules only. It does not activate a full Atlas implementation.
 
+For the current v2.2 regime roadmap, hypothesis provenance ledger, and superseded gate definitions, see [Regime Roadmap and Hypothesis Provenance](./regime-roadmap-and-hypothesis-provenance.md).
+
 ## Required future candidate fields
 
 Future Atlas candidates should include:
