@@ -5,6 +5,7 @@ const { computeGaugeInvariantABMetrics } = require('./gauge-invariant-metrics');
 
 const OBSERVER_VERSION = 'observer-v2.0';
 const DEFAULT_VALIDITY_AMP_THRESHOLD = 0.1;
+const DEFAULT_NEAR_PI_MARGIN = 0.3;
 const DISTANCE_FORMULA = 'sqrt(mean |a-b|^2) over complex samples';
 const THETA_STAR_SIGN_CONVENTION = 'thetaStar is the angle applied to b in exp(+i thetaStar) so b best aligns to a; inherited from gauge-invariant-metrics computeGaugeInvariantABMetrics';
 const TARGET_AMPLITUDE_POLICY = 'stationary-amplitude-reference';
@@ -26,11 +27,12 @@ function arraysFor(fieldLike, source = 'field') {
 function assertArrays(a, b) {
   if (!a.re || !a.im || !b.re || !b.im) throw new Error('complex arrays are required');
   if (a.re.length !== a.im.length || b.re.length !== b.im.length) throw new Error('complex arrays must have matching re/im lengths');
+  if (a.re.length !== b.re.length) throw new Error('complex arrays must have matching sample counts');
 }
 
 function computeRawL2(aArrays, bArrays, thetaForB = 0) {
   assertArrays(aArrays, bArrays);
-  const count = Math.min(aArrays.re.length, bArrays.re.length);
+  const count = aArrays.re.length;
   if (count === 0) return null;
   const cosTheta = Math.cos(thetaForB);
   const sinTheta = Math.sin(thetaForB);
@@ -52,6 +54,7 @@ function computeRawL2(aArrays, bArrays, thetaForB = 0) {
   return finiteCount ? Math.sqrt(sumSq / finiteCount) : null;
 }
 
+/** Compute raw or gauge-aligned L2 distance between complex field-like objects. */
 function computeFieldDistance(a, b, { gridSize, source = 'field', alignment = 'raw' } = {}) {
   const aArrays = arraysFor(a, source);
   const bArrays = arraysFor(b, source);
@@ -78,12 +81,14 @@ function computeFieldDistance(a, b, { gridSize, source = 'field', alignment = 'r
   };
 }
 
+/** Return the discrete stationary amplitude used as the analytic target reference. */
 function predictedStationaryAmplitude(winding, gridSize, { vev = 1.0, lambda = 1.0 } = {}) {
   const k = (Math.PI * 2 * winding) / gridSize;
   const curvatureCost = 2 - 2 * Math.cos(k);
   return Math.sqrt(Math.max(0, vev * vev - curvatureCost / lambda));
 }
 
+/** Build a manual x-axis analytic winding state using the v2.1.2 ramp convention. */
 function makeAnalyticWindingState({ gridSize, winding, axis = 'x', amplitude } = {}) {
   if (axis !== 'x') throw new Error('Observer V2 calibration currently supports x-axis analytic winding states only');
   if (!Number.isFinite(gridSize) || gridSize <= 0) throw new Error('gridSize must be positive');
@@ -103,6 +108,7 @@ function makeAnalyticWindingState({ gridSize, winding, axis = 'x', amplitude } =
   return { phiRe, phiIm, memoryRe, memoryIm, analyticWinding: winding, amplitude, targetAmplitudePolicy: TARGET_AMPLITUDE_POLICY };
 }
 
+/** Compute a dimensionless coefficient-times-distance pull proxy; not physical energy. */
 function computeEffectivePullWork({ coefficient, distance } = {}) {
   const workProxy = Number.isFinite(coefficient) && Number.isFinite(distance) ? coefficient * distance : null;
   return {
@@ -113,32 +119,52 @@ function computeEffectivePullWork({ coefficient, distance } = {}) {
   };
 }
 
-function computeWindingValidity(fieldLike, { gridSize, axis = 'x', source = 'field', validityAmpThreshold = DEFAULT_VALIDITY_AMP_THRESHOLD } = {}) {
+/** Summarize x-line winding confidence from amplitude and near-pi phase-step reliability metrics. */
+function computeWindingValidity(fieldLike, { gridSize, axis = 'x', source = 'field', validityAmpThreshold = DEFAULT_VALIDITY_AMP_THRESHOLD, nearPiMargin = DEFAULT_NEAR_PI_MARGIN } = {}) {
   if (axis !== 'x') throw new Error('Observer V2 winding validity currently supports x-axis lines only');
   const { re, im } = arraysFor(fieldLike, source);
   if (!re || !im) throw new Error('complex arrays are required');
   const validLineWindingHistogram = {};
   const rawWindingHistogram = {};
   const lineMinAmps = [];
-  const residuals = [];
+  const lineMaxAbsPhaseSteps = [];
+  const lineMeanAbsPhaseSteps = [];
+  const closedLoopFloatResiduals = [];
+  const nearPiStepCounts = [];
   let invalidLineCount = 0;
   let validLineCount = 0;
+  let totalNearPiStepCount = 0;
+  let maxNearPiStepCount = 0;
+  const nearPiThreshold = Math.PI - nearPiMargin;
   for (let z = 0; z < gridSize; z += 1) for (let y = 0; y < gridSize; y += 1) {
     let acc = 0;
     let lineMinAmp = Infinity;
+    let lineMaxAbsPhaseStep = 0;
+    let lineAbsPhaseStepSum = 0;
+    let nearPiStepCount = 0;
     for (let x = 0; x < gridSize; x += 1) {
       const i = index3D(x, y, z, gridSize);
       const j = index3D((x + 1) % gridSize, y, z, gridSize);
       lineMinAmp = Math.min(lineMinAmp, Math.hypot(re[i], im[i]));
-      acc += phaseDelta(Math.atan2(im[i], re[i]), Math.atan2(im[j], re[j]));
+      const delta = phaseDelta(Math.atan2(im[i], re[i]), Math.atan2(im[j], re[j]));
+      const absDelta = Math.abs(delta);
+      acc += delta;
+      lineMaxAbsPhaseStep = Math.max(lineMaxAbsPhaseStep, absDelta);
+      lineAbsPhaseStepSum += absDelta;
+      if (absDelta > nearPiThreshold) nearPiStepCount += 1;
     }
     const rawWinding = acc / (Math.PI * 2);
     const nearestIntegerWinding = Math.round(rawWinding);
-    const residual = Math.abs(rawWinding - nearestIntegerWinding);
+    const closedLoopFloatResidual = Math.abs(rawWinding - nearestIntegerWinding);
     const rawKey = String(nearestIntegerWinding);
     rawWindingHistogram[rawKey] = (rawWindingHistogram[rawKey] || 0) + 1;
     lineMinAmps.push(lineMinAmp);
-    residuals.push(residual);
+    lineMaxAbsPhaseSteps.push(lineMaxAbsPhaseStep);
+    lineMeanAbsPhaseSteps.push(lineAbsPhaseStepSum / gridSize);
+    closedLoopFloatResiduals.push(closedLoopFloatResidual);
+    nearPiStepCounts.push(nearPiStepCount);
+    totalNearPiStepCount += nearPiStepCount;
+    maxNearPiStepCount = Math.max(maxNearPiStepCount, nearPiStepCount);
     if (lineMinAmp < validityAmpThreshold) {
       invalidLineCount += 1;
     } else {
@@ -147,22 +173,35 @@ function computeWindingValidity(fieldLike, { gridSize, axis = 'x', source = 'fie
     }
   }
   const mean = (values) => values.reduce((sum, value) => sum + value, 0) / values.length;
+  const lineCount = gridSize * gridSize;
   return {
     axis,
     source,
     validityAmpThreshold,
+    nearPiMargin,
+    nearPiThreshold,
     invalidLineCount,
     validLineCount,
     lineMinAmpMin: Math.min(...lineMinAmps),
     lineMinAmpMean: mean(lineMinAmps),
-    windingResidualMean: mean(residuals),
-    windingResidualMax: Math.max(...residuals),
+    lineMaxAbsPhaseStepMean: mean(lineMaxAbsPhaseSteps),
+    lineMaxAbsPhaseStepMax: Math.max(...lineMaxAbsPhaseSteps),
+    lineMeanAbsPhaseStepMean: mean(lineMeanAbsPhaseSteps),
+    lineMeanAbsPhaseStepMax: Math.max(...lineMeanAbsPhaseSteps),
+    nearPiStepCount: totalNearPiStepCount,
+    nearPiStepFraction: totalNearPiStepCount / (lineCount * gridSize),
+    maxNearPiStepCount,
+    totalNearPiStepCount,
+    closedLoopFloatResidualMean: mean(closedLoopFloatResiduals),
+    closedLoopFloatResidualMax: Math.max(...closedLoopFloatResiduals),
+    closedLoopFloatResidualPolicy: 'floating-point sanity check only, not a reliability signal',
     validLineWindingHistogram,
     rawWindingHistogram,
   };
 }
 
-function makeObserverContextV2({ validityAmpThreshold = DEFAULT_VALIDITY_AMP_THRESHOLD } = {}) {
+/** Describe Observer V2 policies, supported axes, and limitations for artifacts. */
+function makeObserverContextV2({ validityAmpThreshold = DEFAULT_VALIDITY_AMP_THRESHOLD, nearPiMargin = DEFAULT_NEAR_PI_MARGIN } = {}) {
   return {
     observerVersion: OBSERVER_VERSION,
     distanceFormula: DISTANCE_FORMULA,
@@ -170,6 +209,9 @@ function makeObserverContextV2({ validityAmpThreshold = DEFAULT_VALIDITY_AMP_THR
     thetaStarSignConvention: THETA_STAR_SIGN_CONVENTION,
     normalizationPolicy: 'L2 distances are normalized by finite complex sample count; mode powers remain v2.1.2 observer-normalized where reported',
     validityAmpThreshold,
+    nearPiMargin,
+    reliabilityMetrics: ['lineMinAmp', 'invalidLineCount', 'lineMaxAbsPhaseStep', 'lineMeanAbsPhaseStep', 'nearPiStepCount', 'nearPiStepFraction'],
+    closedLoopFloatResidualPolicy: 'floating-point sanity check only, not a reliability signal',
     targetAmplitudePolicy: TARGET_AMPLITUDE_POLICY,
     supportedAxes: ['x'],
     limitations: [
@@ -177,12 +219,14 @@ function makeObserverContextV2({ validityAmpThreshold = DEFAULT_VALIDITY_AMP_THR
       'no full 3D vortex-core observer',
       'no exact topology proof',
       'no biological life / consciousness / agency / permanent survival claim',
+      'Closed-loop float residual is not a winding reliability signal. Reliability is estimated from low-amplitude lines and near-π phase steps.',
     ],
   };
 }
 
 module.exports = {
   DEFAULT_VALIDITY_AMP_THRESHOLD,
+  DEFAULT_NEAR_PI_MARGIN,
   OBSERVER_VERSION,
   computeFieldDistance,
   makeAnalyticWindingState,

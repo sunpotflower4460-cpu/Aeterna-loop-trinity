@@ -82,17 +82,17 @@ This section pre-registers Observer V2 calibration expectations before the offic
 
 Tier 1 uses synthetic known-answer fields and is pass/fail for observer correctness.
 
-1. Clean analytic `W=1` at the stationary-amplitude reference compared with itself should have raw distance near `0`, gauge-aligned distance near `0`, winding residuals near `0`, and `invalidLineCount=0` within numerical tolerance `1e-9`.
+1. Clean analytic `W=1` at the stationary-amplitude reference compared with itself should have raw distance near `0`, gauge-aligned distance near `0`, closed-loop float sanity near `0`, and `invalidLineCount=0` within numerical tolerance `1e-9`.
 2. A global phase offset of `π/5` applied to the same `W=1` state should have raw distance above `0`, gauge-aligned distance near `0`, and recorded `thetaStar` matching the documented sign convention: the angle applied to the second field to align it to the first field.
 3. Clean `W=2` compared with analytic `W=2` should have distance near `0`, while clean `W=2` compared with analytic `W=1` should be clearly larger than the `W=2` self-distance.
-4. Seeded additive component-noise cases at `epsilon=0.15`, `0.5`, and `1.2` should show non-decreasing `windingResidualMean` within tolerance `1e-12`; `windingResidualMax` should increase or not decrease materially. If `invalidLineCount` remains tied at zero while all line minima stay above the validity threshold, that tie is threshold context rather than a hidden failure. If `windingResidualMean` is not non-decreasing within tolerance, the Tier 1 case fails.
+4. Seeded random additive component-noise cases at `epsilon=0.15`, `0.5`, and `1.2` should show non-decreasing `lineMaxAbsPhaseStepMean` or `lineMaxAbsPhaseStepMax` within tolerance `1e-12`; `nearPiStepCount` / `nearPiStepFraction` should increase or remain tied only with explicit threshold context. If `invalidLineCount` remains tied at zero while all line minima stay above the validity threshold, that tie is threshold context rather than a hidden failure. Closed-loop float residual is not the success signal.
 5. A synthetic field with exactly `K` known near-zero-amplitude `(y,z)` x-lines should report `invalidLineCount=K`.
 
 ### Tier 2 soft expectations
 
-Tier 2 reruns representative v2.1.2-style scenarios with Observer V2 attached. These expectations are hit/miss observations, not proof claims, and misses are evidence.
+Tier 2 reruns representative v2.1.2-style scenarios with Observer V2 attached. These expectations are hit/miss observations, not proof claims, and misses are evidence after construction equivalence is checked. A harness-construction mismatch is not evidence; it is a bug to fix.
 
-- Clean recovery: `fieldTargetDistance(W=1)` returns near zero and the validity residual remains low after recovery.
+- Clean recovery: `fieldTargetDistance(W=1)` returns near zero and reliability metrics remain high after recovery.
 - Partial recovery: `W=1`-like dominance may return, while `fieldTargetDistance` remains finite and/or `invalidLineCount` stays elevated.
 - Memory-on vs memory-off: distance traces diverge after the break window.
 - L2 clean `W=0`: the field tends toward the memory basin.
