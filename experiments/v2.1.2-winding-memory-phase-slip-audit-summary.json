@@ -1,7 +1,8 @@
 {
   "audit": "v2.1.2-winding-memory-phase-slip-audit",
-  "generatedAt": "2026-06-12T01:40:14.821Z",
+  "generatedAt": "2026-06-12T04:40:37.130Z",
   "runMode": "lightweight",
+  "parameterLineage": "exp023-real",
   "phaseConstructionMode": "legacy-torus-atan2",
   "costPolicy": {
     "mode": "lightweight",
@@ -32,8 +33,49 @@
     "FINE_SAMPLE_INTERVAL": 10
   },
   "omittedConditions": [],
+  "lineageSanityChecks": {
+    "parameterLineage": "exp023-real",
+    "baselineW1MeanAmpCloseTo0980597": {
+      "observed": 0.98059731,
+      "reference": 0.980597,
+      "delta": 3.1e-7,
+      "claimLevel": "lineage sanity check, not pass/fail"
+    },
+    "baselineW2MeanAmpCloseTo0920739": {
+      "observed": 0.92073952,
+      "reference": 0.920739,
+      "delta": 5.2e-7,
+      "claimLevel": "lineage sanity check, not pass/fail"
+    },
+    "couplingG02SingleSlipExpectation": {
+      "runId": "coupling-W1-W0-g0.02",
+      "classification": "single_slip_merge",
+      "firstSlipStepA": 80,
+      "priorExpectedFirstSlipStepAWindow": "70-90",
+      "claimLevel": "expectation comparison, not pass/fail"
+    },
+    "l1bEvaluatedUnderExp023Real": {
+      "runId": "ledger-L1b_clean_W1-mw0.0075",
+      "parameterLineage": "exp023-real",
+      "classification": "clean_W1_memory_recovery"
+    },
+    "strictMemoryOffClassifications": {
+      "matched": {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-matched",
+        "classification": "break_partial_recovery",
+        "finalW": 1,
+        "finalFraction": 0.39160156
+      },
+      "long": {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-long",
+        "classification": "phase_slip_to_other_W",
+        "finalW": 0,
+        "finalFraction": 0.52148438
+      }
+    }
+  },
   "observerContext": {
-    "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
+    "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
     "windingMeasuredAxis": "x",
     "windingLineCount": 1024,
     "windingHistogramScope": "x-lines across all y,z",
@@ -100,15 +142,15 @@
         "finalW": 1,
         "finalFraction": 1,
         "finalMemoryW": 1,
-        "finalMemoryFraction": 0.98339844
+        "finalMemoryFraction": 1
       },
       {
         "runId": "perturb-W1-e1.2-seed202-memory-on",
-        "classification": "break_then_recover",
+        "classification": "break_partial_recovery",
         "finalW": 1,
-        "finalFraction": 1,
+        "finalFraction": 0.86816406,
         "finalMemoryW": 1,
-        "finalMemoryFraction": 0.97558594
+        "finalMemoryFraction": 0.81933594
       },
       {
         "runId": "perturb-W1-e1.2-seed101-memory-on-matched",
@@ -116,7 +158,7 @@
         "finalW": 1,
         "finalFraction": 1,
         "finalMemoryW": 1,
-        "finalMemoryFraction": 0.98339844
+        "finalMemoryFraction": 1
       },
       {
         "runId": "perturb-W1-e1.2-seed101-memory-off-matched",
@@ -146,17 +188,17 @@
       },
       {
         "runId": "ledger-L1_noisy_W1_copy-mw0.0075",
-        "classification": "mixed_or_tangled",
-        "finalW": 0,
+        "classification": "field_returns_to_W1",
+        "finalW": 1,
         "finalFraction": 1,
         "finalMemoryW": 1,
-        "finalMemoryFraction": 0.61914063
+        "finalMemoryFraction": 1
       },
       {
         "runId": "ledger-L1b_clean_W1-mw0.0075",
-        "classification": "mixed_or_tangled",
-        "finalW": 0,
-        "finalFraction": 0.9296875,
+        "classification": "clean_W1_memory_recovery",
+        "finalW": 1,
+        "finalFraction": 1,
         "finalMemoryW": 1,
         "finalMemoryFraction": 1
       },
@@ -170,20 +212,20 @@
       },
       {
         "runId": "ledger-L3_clean_W2-mw0.0075",
-        "classification": "field_returns_to_W1",
+        "classification": "field_rewrites_memory",
         "finalW": 1,
         "finalFraction": 1,
-        "finalMemoryW": 2,
+        "finalMemoryW": 1,
         "finalMemoryFraction": 1
       }
     ],
     "memory_weight_sweep_uphill_writing": [
       {
         "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.0075",
-        "classification": "field_returns_to_W1",
+        "classification": "field_rewrites_memory",
         "finalW": 1,
         "finalFraction": 1,
-        "finalMemoryW": 2,
+        "finalMemoryW": 1,
         "finalMemoryFraction": 1
       },
       {
@@ -203,7 +245,7 @@
         "finalMemoryFraction": 1
       }
     ],
-    "one_sided_coupling_sweep": [
+    "one_sided_winding_coupling_sweep": [
       {
         "runId": "coupling-W1-W0-g0.0075",
         "classification": "topological_frustration_plateau",
@@ -217,25 +259,29 @@
       },
       {
         "runId": "coupling-W1-W0-g0.02",
-        "classification": "topological_frustration_plateau",
-        "finalWA": 1,
+        "classification": "single_slip_merge",
+        "finalWA": 0,
         "finalWB": 0,
-        "finalMemoryWA": 1,
+        "finalMemoryWA": 0,
         "finalMemoryWB": 0,
-        "firstSlipStepA": null,
+        "firstSlipStepA": 80,
         "firstSlipStepB": null,
         "transferWindow": null
       },
       {
         "runId": "coupling-W1-W0-g0.05",
-        "classification": "single_slip_merge",
+        "classification": "double_slip_exchange",
         "finalWA": 0,
         "finalWB": 0,
-        "finalMemoryWA": 1,
+        "finalMemoryWA": 0,
         "finalMemoryWB": 0,
-        "firstSlipStepA": 30,
-        "firstSlipStepB": null,
-        "transferWindow": null
+        "firstSlipStepA": 20,
+        "firstSlipStepB": 20,
+        "transferWindow": {
+          "stepA": 20,
+          "stepB": 20,
+          "deltaSteps": 0
+        }
       }
     ],
     "pure_noise_control": [
@@ -245,7 +291,7 @@
         "finalW": 0,
         "finalFraction": 1,
         "finalMemoryW": 0,
-        "finalMemoryFraction": 1
+        "finalMemoryFraction": 0.97070313
       }
     ]
   },
@@ -262,17 +308,17 @@
       "W": 1,
       "finalDominantW": 1,
       "allLinesTargetW": true,
-      "finalMeanAmp": 0.98312571,
+      "finalMeanAmp": 0.98059731,
       "predictedStationaryAmplitude": 0.98059704,
-      "meanAmpError": 0.00252866
+      "meanAmpError": 2.7e-7
     },
     {
       "W": 2,
       "finalDominantW": 2,
       "allLinesTargetW": true,
-      "finalMeanAmp": 0.93215072,
+      "finalMeanAmp": 0.92073952,
       "predictedStationaryAmplitude": 0.92073833,
-      "meanAmpError": 0.0114124
+      "meanAmpError": 0.0000012
     }
   ],
   "priorExpectations": {

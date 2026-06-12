@@ -9,13 +9,29 @@ const { stepAeternaRuntimeV0 } = require('../src/runtime/step-aeterna-runtime-v0
 const { createRng, index3D } = require('../src/runtime/create-aeterna-fields');
 const { describePhysicsContext } = require('../src/runtime/physics-context');
 const { computeGaugeInvariantABMetrics } = require('../src/metrics/gauge-invariant-metrics');
-const { V212_CANDIDATE_PARAMS } = require('../src/params/v2.1.2-candidate-params');
 
 const ROOT = path.join(__dirname, '..');
 const RESULTS_PATH = path.join(ROOT, 'experiments/v2.1.2-winding-memory-phase-slip-audit-results.json');
 const SUMMARY_PATH = path.join(ROOT, 'experiments/v2.1.2-winding-memory-phase-slip-audit-summary.json');
 const PHASE_CONSTRUCTION_MODE = 'legacy-torus-atan2';
 const MODE_POWER_FORMULA = 'P_m = |mean(phi * exp(-i2πmx/N))|^2';
+const PARAMETER_LINEAGE = 'exp023-real';
+const EXP023_REAL_PARAMS = Object.freeze({
+  GAMMA: 0.005,
+  MEMORY_ENABLED: true,
+  MEMORY_BLEND_VELOCITY: true,
+  HISTORY_ALPHA: 0.002,
+  MEMORY_WEIGHT: 0.0075,
+  MEMORY_WEIGHT_MODE: 'fixed',
+  MEMORY_VELOCITY_SCALE: 0.1,
+  MEMORY_COUPLING_ENABLED: true,
+  MEMORY_COUPLING_FORMULA: 'difference-attractor',
+  MEMORY_COUPLING_ORDER: 'after-memory-update',
+  MEMORY_COUPLING_WEIGHT: 1.0,
+  MEMORY_COUPLING_USE_BIDIRECTIONAL: true,
+  COUPLING_G: 0.05,
+  COUPLING_TYPE: 'memory',
+});
 
 function hasFlag(flag) { return process.argv.includes(flag); }
 function getGitHash() {
@@ -182,14 +198,14 @@ function snapshot(field, gridSize, sourcePrefix = '') {
 function markTarget(hist, targetW) { return { ...hist, allLinesTargetW: hist.histogram[String(targetW)] === hist.lineCount }; }
 function baseParams(overrides = {}) {
   return {
-    ...V212_CANDIDATE_PARAMS,
+    ...EXP023_REAL_PARAMS,
+    parameterLineage: PARAMETER_LINEAGE,
     PHEROMONE_ENABLED: false,
     PHEROMONE_FEEDBACK_ENABLED: false,
     COUPLING_ENABLED: false,
     MEMORY_COUPLING_ENABLED: false,
     COUPLING_TYPE: 'memory',
     MEMORY_ENABLED: true,
-    MEMORY_WEIGHT: 0.04,
     ...overrides,
   };
 }
@@ -214,7 +230,7 @@ function commonRecord({ runId, runFamily, runConfig, params, runtime, samples, c
   const gridSize = runtime.config.gridSize;
   const finalSnap = snapshot(runtime.fieldA, gridSize);
   return roundObj({
-    runId, runFamily, runConfig, physicsContext: describePhysicsContext(params, runtime.config), observerContext: observerContextBase,
+    runId, runFamily, parameterLineage: PARAMETER_LINEAGE, runConfig, physicsContext: { ...describePhysicsContext(params, runtime.config), parameterLineage: PARAMETER_LINEAGE }, observerContext: observerContextBase,
     phaseConstructionMode: PHASE_CONSTRUCTION_MODE, samples, ...finalSnap, classification, claimLevelNotes, limitations,
   });
 }
@@ -251,11 +267,11 @@ function baselineRun(w) {
   const samples = [];
   runSteps(runtime, COST.MAX_STEPS_BASELINE, COST.SAMPLE_INTERVAL, () => samples.push(sampleSolo(runtime, w)));
   const finalAmp = computeAmplitudeStats(runtime.fieldA); const predicted = predictedAmplitude(w, COST.GRID_SIZE, runtime.config);
-  const rec = commonRecord({ runId: `baseline-W${w}`, runFamily: 'baseline_global_winding', runConfig: { initialW: w, targetW: w, maxSteps: COST.MAX_STEPS_BASELINE, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification: 'baseline_persistence_calibration', claimLevelNotes: ['measured: final x-line winding histogram and mode powers; observed if dominant W persists through tested horizon.'] });
+  const rec = commonRecord({ runId: `baseline-W${w}`, runFamily: 'baseline_global_winding', runConfig: { initialW: w, targetW: w, maxSteps: COST.MAX_STEPS_BASELINE, gridSize: COST.GRID_SIZE, parameterLineage: PARAMETER_LINEAGE }, params, runtime, samples, classification: 'baseline_persistence_calibration', claimLevelNotes: ['measured: final x-line winding histogram and mode powers; observed if dominant W persists through tested horizon.'] });
   rec.initialW = w; rec.targetW = w; rec.finalDominantW = rec.fieldWindingHistogram.dominantW; rec.finalDominantFraction = rec.fieldWindingHistogram.dominantFraction; rec.allLinesTargetW = rec.fieldWindingHistogram.histogram[String(w)] === rec.fieldWindingHistogram.lineCount; rec.initialMeanAmp = round(initialAmp.meanAmp); rec.finalMeanAmp = round(finalAmp.meanAmp); rec.predictedStationaryAmplitude = round(predicted); rec.meanAmpError = round(finalAmp.meanAmp - predicted); rec.minAmp = round(finalAmp.minAmp); rec.kineticEnergyProxy = rec.kineticEnergyProxy;
   return rec;
 }
-function perturbationRun({ epsilon, seed, memoryEnabled = true, maxSteps = COST.MAX_STEPS_PERTURBATION, label = 'memory-on', memoryWeight = 0.04 }) {
+function perturbationRun({ epsilon, seed, memoryEnabled = true, maxSteps = COST.MAX_STEPS_PERTURBATION, label = 'memory-on', memoryWeight = 0.0075 }) {
   const params = baseParams(memoryEnabled ? { MEMORY_WEIGHT: memoryWeight } : { MEMORY_ENABLED: false, MEMORY_WEIGHT: 0, MEMORY_COUPLING_ENABLED: false, COUPLING_ENABLED: false });
   const runtime = makeRuntime(params); setGlobalWinding(runtime.fieldA, { gridSize: COST.GRID_SIZE, winding: 1, target: 'field' }); copyFieldToMemory(runtime.fieldA); addPerturbation(runtime.fieldA, { epsilon, seed }); if (memoryEnabled) copyFieldToMemory(runtime.fieldA);
   const samples = []; runSteps(runtime, maxSteps, COST.SAMPLE_INTERVAL, () => samples.push(sampleSolo(runtime, 1)));
@@ -263,10 +279,10 @@ function perturbationRun({ epsilon, seed, memoryEnabled = true, maxSteps = COST.
   const finalOnTarget = final.fieldDominantW === 1 && final.fieldDominantFraction >= 0.99;
   let classification = 'persistent_without_break';
   if (analysis.firstNonTargetStep !== null && finalOnTarget) classification = 'break_then_recover';
-  else if (analysis.firstNonTargetStep !== null && analysis.recoveryStep !== null && !finalOnTarget) classification = 'transient_recovery_then_loss';
   else if (analysis.firstNonTargetStep !== null && final.fieldDominantW === 1 && final.fieldDominantFraction < 0.99) classification = 'break_partial_recovery';
+  else if (analysis.firstNonTargetStep !== null && analysis.recoveryStep !== null && !finalOnTarget) classification = 'transient_recovery_then_loss';
   else if (analysis.firstNonTargetStep !== null && final.fieldDominantW !== 1) classification = final.fieldDominantW === null ? 'break_no_recovery' : 'phase_slip_to_other_W';
-  const rec = commonRecord({ runId: `perturb-W1-e${epsilon}-seed${seed}-${label}`, runFamily: 'perturbation_sweep', runConfig: { initialW: 1, targetW: 1, epsilon, noiseSeed: seed, memoryEnabled, memoryConditionLabel: label, maxSteps, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['measured: winding loss/recovery, minAmp collapse, and P1 recovery; interpretive tag remains candidate only.'] });
+  const rec = commonRecord({ runId: `perturb-W1-e${epsilon}-seed${seed}-${label}`, runFamily: 'perturbation_sweep', runConfig: { initialW: 1, targetW: 1, epsilon, noiseSeed: seed, memoryEnabled, memoryConditionLabel: label, maxSteps, gridSize: COST.GRID_SIZE, parameterLineage: PARAMETER_LINEAGE }, params, runtime, samples, classification, claimLevelNotes: ['measured: winding loss/recovery, minAmp collapse, and P1 recovery; interpretive tag remains candidate only.'] });
   return { ...rec, epsilon, noiseSeed: seed, initialDominantW: samples[0].fieldDominantW, ...roundObj(analysis), finalDominantW: final.fieldDominantW, finalDominantFraction: final.fieldDominantFraction };
 }
 function ledgerRun({ label, memoryW, memoryEnabled = true, epsilon = 1.2, seed = 101, memoryWeight = 0.0075 }) {
@@ -291,7 +307,7 @@ function ledgerRun({ label, memoryW, memoryEnabled = true, epsilon = 1.2, seed =
   else if (memoryW !== fieldInitialW && memoryRewrite) classification = 'field_rewrites_memory';
   else if (memoryW === 2 && finalFieldOnW1) classification = 'field_returns_to_W1';
   else if (memoryW === 1 && finalFieldOnW1) classification = label === 'L1b_clean_W1' ? 'clean_W1_memory_recovery' : 'field_returns_to_W1';
-  const rec = commonRecord({ runId: `ledger-${label}-mw${memoryWeight}`, runFamily: 'ledger_discrimination_matrix', runConfig: { fieldInitialW: 1, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, noiseSeed: seed, memoryEnabled, memoryWeight, maxSteps: COST.MAX_STEPS_PERTURBATION, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['observed ledger-discrimination result; interpretive level: memory_biased_basin_selection if field/memory disagreement changes outcome.'] });
+  const rec = commonRecord({ runId: `ledger-${label}-mw${memoryWeight}`, runFamily: 'ledger_discrimination_matrix', runConfig: { fieldInitialW: 1, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, noiseSeed: seed, memoryEnabled, memoryWeight, maxSteps: COST.MAX_STEPS_PERTURBATION, gridSize: COST.GRID_SIZE, parameterLineage: PARAMETER_LINEAGE }, params, runtime, samples, classification, claimLevelNotes: ['observed ledger-discrimination result; interpretive level: memory_biased_basin_selection if field/memory disagreement changes outcome.'] });
   return { ...rec, fieldInitialW, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, memoryWeight, finalFieldDominantW: final.fieldDominantW, finalFieldDominantFraction: final.fieldDominantFraction, finalMemoryDominantW: final.memoryDominantW, finalMemoryDominantFraction: final.memoryDominantFraction, fieldRecoveryStep: analysis.recoveryStep, memoryRewriteStep: memoryRewrite ? memoryRewrite.step : null };
 }
 function memoryWeightRun(memoryWeight) {
@@ -308,11 +324,11 @@ function pureNoiseRun() {
   const samples = []; runSteps(runtime, COST.MAX_STEPS_PERTURBATION, COST.SAMPLE_INTERVAL, () => samples.push(sampleSolo(runtime, 0)));
   const final = samples[samples.length - 1];
   const classification = final.fieldDominantW === 1 && final.fieldDominantFraction >= 0.99 ? 'spurious_W1_creation_candidate' : 'no_stable_W1_created';
-  const rec = commonRecord({ runId: 'pure-noise-W0-e1.2', runFamily: 'pure_noise_control', runConfig: { initialW: 0, targetW: 0, epsilon: 1.2, noiseSeed: 101, maxSteps: COST.MAX_STEPS_PERTURBATION, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['control: strong W=0 noise should not be described as spontaneous stable W=1 recovery unless measured.'] });
+  const rec = commonRecord({ runId: 'pure-noise-W0-e1.2', runFamily: 'pure_noise_control', runConfig: { initialW: 0, targetW: 0, epsilon: 1.2, noiseSeed: 101, maxSteps: COST.MAX_STEPS_PERTURBATION, gridSize: COST.GRID_SIZE, parameterLineage: PARAMETER_LINEAGE }, params, runtime, samples, classification, claimLevelNotes: ['control: strong W=0 noise should not be described as spontaneous stable W=1 recovery unless measured.'] });
   return { ...rec, finalDominantW: final.fieldDominantW, finalDominantFraction: final.fieldDominantFraction };
 }
 function couplingRun(g) {
-  const params = baseParams({ COUPLING_ENABLED: true, MEMORY_COUPLING_ENABLED: true, MEMORY_COUPLING_USE_BIDIRECTIONAL: false, COUPLING_G: g, MEMORY_WEIGHT: 0.04 });
+  const params = baseParams({ COUPLING_ENABLED: true, MEMORY_COUPLING_ENABLED: true, MEMORY_COUPLING_USE_BIDIRECTIONAL: true, COUPLING_G: g, MEMORY_WEIGHT: 0.0075 });
   const runtime = makeRuntime(params); setGlobalWinding(runtime.fieldA, { gridSize: COST.GRID_SIZE, winding: 1, target: 'field' }); copyFieldToMemory(runtime.fieldA); setGlobalWinding(runtime.fieldB, { gridSize: COST.GRID_SIZE, winding: 0, target: 'field' }); copyFieldToMemory(runtime.fieldB);
   const samples = [];
   runSteps(runtime, COST.MAX_STEPS_COUPLING_SWEEP, COST.SAMPLE_INTERVAL, () => {
@@ -330,15 +346,15 @@ function couplingRun(g) {
   else if (Boolean(firstSlipA) !== Boolean(firstSlipB) && final.fieldDominantWA === final.fieldDominantWB) classification = 'single_slip_merge';
   else if (firstSlipA || firstSlipB) classification = 'transfer_then_merge';
   const snapA = snapshot(runtime.fieldA, COST.GRID_SIZE, 'A'); const snapB = snapshot(runtime.fieldB, COST.GRID_SIZE, 'B'); const gauge = computeGaugeInvariantABMetrics(runtime.fieldA, runtime.fieldB);
-  const physicsContext = { ...describePhysicsContext(params, runtime.config), memoryCouplingUseBidirectional: params.MEMORY_COUPLING_USE_BIDIRECTIONAL };
-  return roundObj({ runId: `coupling-W1-W0-g${g}`, runFamily: 'one_sided_coupling_sweep', runConfig: { initialWA: 1, initialWB: 0, couplingG: g, memoryCouplingUseBidirectional: params.MEMORY_COUPLING_USE_BIDIRECTIONAL, couplingDirection: 'B-memory-to-A-field only', maxSteps: COST.MAX_STEPS_COUPLING_SWEEP, gridSize: COST.GRID_SIZE, samplePolicy: 'every 10 steps for first 200 steps, then every 50 steps' }, physicsContext, observerContext: observerContextBase, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, samples, fieldWindingHistogramA: snapA.AfieldWindingHistogram, fieldWindingHistogramB: snapB.BfieldWindingHistogram, memoryWindingHistogramA: snapA.AmemoryWindingHistogram, memoryWindingHistogramB: snapB.BmemoryWindingHistogram, minAmpA: snapA.AamplitudeStats.minAmp, minAmpB: snapB.BamplitudeStats.minAmp, fieldPowersA: snapA.AfieldModePowers, fieldPowersB: snapB.BfieldModePowers, memoryPowersA: snapA.AmemoryModePowers, memoryPowersB: snapB.BmemoryModePowers, alignedFieldABDistance: gauge.alignedFieldABDistance, rawFieldABDistance: gauge.rawFieldABDistance, gaugeOverlap: gauge.gaugeOverlap, firstSlipStepA: firstSlipA ? firstSlipA.step : null, firstSlipStepB: firstSlipB ? firstSlipB.step : null, transferWindow: firstSlipA && firstSlipB ? { stepA: firstSlipA.step, stepB: firstSlipB.step, deltaSteps: Math.abs(firstSlipA.step - firstSlipB.step) } : null, classification, claimLevelNotes: ['candidate coupling regime classification; synchronized_double_phase_slip requires nearby W changes and minAmp drops, not full topology proof.'], limitations: observerContextBase.limitations });
+  const physicsContext = { ...describePhysicsContext(params, runtime.config), parameterLineage: PARAMETER_LINEAGE, couplingDirectionality: 'bidirectional', oneSidedMeaning: 'winding_asymmetry_only', memoryCouplingUseBidirectional: params.MEMORY_COUPLING_USE_BIDIRECTIONAL };
+  return roundObj({ runId: `coupling-W1-W0-g${g}`, runFamily: 'one_sided_winding_coupling_sweep', parameterLineage: PARAMETER_LINEAGE, runConfig: { initialWA: 1, initialWB: 0, couplingG: g, memoryCouplingUseBidirectional: params.MEMORY_COUPLING_USE_BIDIRECTIONAL, couplingDirectionality: 'bidirectional', oneSidedMeaning: 'winding_asymmetry_only', parameterLineage: PARAMETER_LINEAGE, maxSteps: COST.MAX_STEPS_COUPLING_SWEEP, gridSize: COST.GRID_SIZE, samplePolicy: 'every 10 steps for first 200 steps, then every 50 steps' }, physicsContext, observerContext: observerContextBase, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, samples, fieldWindingHistogramA: snapA.AfieldWindingHistogram, fieldWindingHistogramB: snapB.BfieldWindingHistogram, memoryWindingHistogramA: snapA.AmemoryWindingHistogram, memoryWindingHistogramB: snapB.BmemoryWindingHistogram, minAmpA: snapA.AamplitudeStats.minAmp, minAmpB: snapB.BamplitudeStats.minAmp, fieldPowersA: snapA.AfieldModePowers, fieldPowersB: snapB.BfieldModePowers, memoryPowersA: snapA.AmemoryModePowers, memoryPowersB: snapB.BmemoryModePowers, alignedFieldABDistance: gauge.alignedFieldABDistance, rawFieldABDistance: gauge.rawFieldABDistance, gaugeOverlap: gauge.gaugeOverlap, firstSlipStepA: firstSlipA ? firstSlipA.step : null, firstSlipStepB: firstSlipB ? firstSlipB.step : null, transferWindow: firstSlipA && firstSlipB ? { stepA: firstSlipA.step, stepB: firstSlipB.step, deltaSteps: Math.abs(firstSlipA.step - firstSlipB.step) } : null, classification, claimLevelNotes: ['candidate coupling regime classification; synchronized_double_phase_slip requires nearby W changes and minAmp drops, not full topology proof.'], limitations: observerContextBase.limitations });
 }
 
 function summarize(results) {
   const byFamily = {};
   for (const r of results) {
     byFamily[r.runFamily] ||= [];
-    if (r.runFamily === 'one_sided_coupling_sweep') {
+    if (r.runFamily === 'one_sided_winding_coupling_sweep') {
       byFamily[r.runFamily].push({
         runId: r.runId,
         classification: r.classification,
@@ -369,7 +385,21 @@ function summarize(results) {
     lowWeightW2Failure: classifyExpectation(results.find((r) => r.runFamily === 'memory_weight_sweep_uphill_writing' && r.memoryWeight === 0.0075), (r) => r && r.finalFieldDominantW !== 2),
     pureNoiseNoW1: classifyExpectation(results.find((r) => r.runFamily === 'pure_noise_control'), (r) => r && r.finalDominantW !== 1),
   };
-  return roundObj({ audit: 'v2.1.2-winding-memory-phase-slip-audit', generatedAt: new Date().toISOString(), runMode: COST.mode, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, costPolicy: COST, omittedConditions, observerContext: observerContextBase, modePowerFormula: MODE_POWER_FORMULA, runCount: results.length, byFamily, baseline, priorExpectations, cautions: ['Memory is not interpreted as an infallible ledger.', 'Candidate tags do not imply biological life, consciousness, exact topology proof, or permanent survival.'] });
+  const couplingG02 = results.find((r) => r.runFamily === 'one_sided_winding_coupling_sweep' && r.runConfig?.couplingG === 0.02);
+  const l1b = results.find((r) => r.memoryConditionLabel === 'L1b_clean_W1');
+  const memoryOffMatched = results.find((r) => r.runConfig?.memoryConditionLabel === 'memory-off-matched');
+  const memoryOffLong = results.find((r) => r.runConfig?.memoryConditionLabel === 'memory-off-long');
+  const baselineW1 = baseline.find((b) => b.W === 1);
+  const baselineW2 = baseline.find((b) => b.W === 2);
+  const lineageSanityChecks = {
+    parameterLineage: PARAMETER_LINEAGE,
+    baselineW1MeanAmpCloseTo0980597: { observed: baselineW1?.finalMeanAmp ?? null, reference: 0.980597, delta: baselineW1 ? baselineW1.finalMeanAmp - 0.980597 : null, claimLevel: 'lineage sanity check, not pass/fail' },
+    baselineW2MeanAmpCloseTo0920739: { observed: baselineW2?.finalMeanAmp ?? null, reference: 0.920739, delta: baselineW2 ? baselineW2.finalMeanAmp - 0.920739 : null, claimLevel: 'lineage sanity check, not pass/fail' },
+    couplingG02SingleSlipExpectation: { runId: couplingG02?.runId ?? null, classification: couplingG02?.classification ?? null, firstSlipStepA: couplingG02?.firstSlipStepA ?? null, priorExpectedFirstSlipStepAWindow: '70-90', claimLevel: 'expectation comparison, not pass/fail' },
+    l1bEvaluatedUnderExp023Real: { runId: l1b?.runId ?? null, parameterLineage: l1b?.parameterLineage ?? l1b?.runConfig?.parameterLineage ?? null, classification: l1b?.classification ?? null },
+    strictMemoryOffClassifications: { matched: memoryOffMatched ? { runId: memoryOffMatched.runId, classification: memoryOffMatched.classification, finalW: memoryOffMatched.finalDominantW, finalFraction: memoryOffMatched.finalDominantFraction } : null, long: memoryOffLong ? { runId: memoryOffLong.runId, classification: memoryOffLong.classification, finalW: memoryOffLong.finalDominantW, finalFraction: memoryOffLong.finalDominantFraction } : null },
+  };
+  return roundObj({ audit: 'v2.1.2-winding-memory-phase-slip-audit', generatedAt: new Date().toISOString(), runMode: COST.mode, parameterLineage: PARAMETER_LINEAGE, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, costPolicy: COST, omittedConditions, lineageSanityChecks, observerContext: observerContextBase, modePowerFormula: MODE_POWER_FORMULA, runCount: results.length, byFamily, baseline, priorExpectations, cautions: ['Memory is not interpreted as an infallible ledger.', 'Candidate tags do not imply biological life, consciousness, exact topology proof, or permanent survival.'] });
 }
 function classifyExpectation(record, predicate) { if (!record) return 'indeterminate'; return predicate(record) ? 'hit' : 'miss'; }
 
@@ -388,7 +418,7 @@ function main() {
   for (const memoryWeight of COST.MEMORY_WEIGHT_VALUES) results.push(memoryWeightRun(memoryWeight));
   for (const g of COST.COUPLING_G_VALUES) results.push(couplingRun(g));
   results.push(pureNoiseRun());
-  const output = { audit: 'v2.1.2-winding-memory-phase-slip-audit', generatedAt: new Date().toISOString(), runMode: COST.mode, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, results };
+  const output = { audit: 'v2.1.2-winding-memory-phase-slip-audit', generatedAt: new Date().toISOString(), runMode: COST.mode, parameterLineage: PARAMETER_LINEAGE, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, results };
   fs.writeFileSync(RESULTS_PATH, `${JSON.stringify(roundObj(output), null, 2)}\n`);
   fs.writeFileSync(SUMMARY_PATH, `${JSON.stringify(summarize(results), null, 2)}\n`);
   console.log(`Wrote ${path.relative(ROOT, RESULTS_PATH)} and ${path.relative(ROOT, SUMMARY_PATH)} (${results.length} runs, ${COST.mode}).`);

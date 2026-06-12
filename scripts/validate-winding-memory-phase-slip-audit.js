@@ -44,6 +44,7 @@ function main() {
   const records = resultsDoc.results || [];
   const doc = read(DOC_REL);
 
+  assert(summary.parameterLineage === 'exp023-real', `Summary parameterLineage must be exp023-real, got ${summary.parameterLineage}`);
   assert(['lightweight', 'full'].includes(summary.runMode), `Official summary runMode must be lightweight or full, got ${summary.runMode}`);
   assert(!String(summary.runMode).includes('runtime-limited'), 'Official summary must not be the runtime-limited smoke artifact');
   const allText = `${JSON.stringify(resultsDoc)}\n${JSON.stringify(summary)}\n${doc}`;
@@ -53,6 +54,8 @@ function main() {
     assert(record.physicsContext, `physicsContext missing in ${record.runId}`);
     assert(record.observerContext, `observerContext missing in ${record.runId}`);
     assert(record.phaseConstructionMode === 'legacy-torus-atan2', `Unexpected phaseConstructionMode in ${record.runId}`);
+    assert(record.parameterLineage === 'exp023-real' || record.runConfig?.parameterLineage === 'exp023-real', `parameterLineage missing or non-canonical in ${record.runId}`);
+    assert(record.physicsContext?.parameterLineage === 'exp023-real', `physicsContext parameterLineage missing in ${record.runId}`);
   }
 
   const baselines = family(records, 'baseline_global_winding');
@@ -93,13 +96,15 @@ function main() {
 
   const weightSweep = family(records, 'memory_weight_sweep_uphill_writing');
   requestedValuesPresentOrOmitted(weightSweep, (r) => r.memoryWeight, [0.0075, 0.03, 0.05], summary, 'MEMORY_WEIGHT');
-  const couplingSweep = family(records, 'one_sided_coupling_sweep');
+  const couplingSweep = family(records, 'one_sided_winding_coupling_sweep');
   requestedValuesPresentOrOmitted(couplingSweep, (r) => r.runConfig && r.runConfig.couplingG, [0.0075, 0.02, 0.05], summary, 'COUPLING_G');
   for (const record of couplingSweep) {
-    assert(record.runConfig?.memoryCouplingUseBidirectional === false, `One-sided coupling did not disable bidirectional coupling in ${record.runId}`);
-    assert(record.physicsContext?.memoryCouplingUseBidirectional === false, `One-sided coupling physicsContext did not record bidirectional=false in ${record.runId}`);
+    assert(record.runConfig?.memoryCouplingUseBidirectional === true, `One-sided winding coupling did not preserve bidirectional coupling in ${record.runId}`);
+    assert(record.runConfig?.couplingDirectionality === 'bidirectional', `Coupling directionality not recorded as bidirectional in ${record.runId}`);
+    assert(record.runConfig?.oneSidedMeaning === 'winding_asymmetry_only', `One-sided meaning not recorded as winding asymmetry in ${record.runId}`);
+    assert(record.physicsContext?.memoryCouplingUseBidirectional === true, `One-sided winding coupling physicsContext did not record bidirectional=true in ${record.runId}`);
   }
-  const couplingSummary = summary.byFamily?.one_sided_coupling_sweep || [];
+  const couplingSummary = summary.byFamily?.one_sided_winding_coupling_sweep || [];
   assert(couplingSummary.length === couplingSweep.length, 'Coupling summary count mismatch');
   for (const item of couplingSummary) {
     assert(Object.prototype.hasOwnProperty.call(item, 'finalWA') && Object.prototype.hasOwnProperty.call(item, 'finalWB'), `Coupling summary missing A/B final W fields for ${item.runId}`);
