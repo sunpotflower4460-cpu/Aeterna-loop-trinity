@@ -16,8 +16,13 @@ const HISTORICAL_JSON = Object.freeze([
   'experiments/v2.1.2-phase-detuning-scan-summary.json',
   'experiments/v2.1.2-periodic-vortex-initialization-audit-results.json',
   'experiments/v2.1.2-periodic-vortex-initialization-audit-summary.json',
+  // After PR #34, the v2.1.2 winding/memory/phase-slip audit JSON artifacts
+  // are historical records. Future updates should create new artifact files or a
+  // clearly named follow-up audit rather than silently rewriting these files.
+  RESULTS_REL,
+  SUMMARY_REL,
 ]);
-const NEW_OUTPUTS = Object.freeze([RESULTS_REL, SUMMARY_REL, DOC_REL]);
+const NEW_OUTPUTS = Object.freeze([DOC_REL]);
 const PROHIBITED = [/life appeared/i, /\beternal\b/i, /perfect ledger/i, /proven permanent/i, /heart was created/i, /consciousness emerged/i];
 
 function read(rel) { return fs.readFileSync(path.join(ROOT, rel), 'utf8'); }
