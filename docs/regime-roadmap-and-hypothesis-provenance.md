@@ -172,6 +172,10 @@ These gates define future work without implementing it in this PR.
 - **What would count as support:** L2 traces separate clean recovery from tangled partial recovery and improve interpretation of memory-off and ledger cases.
 - **What would count as a miss/revision:** L2 traces add no discriminatory power beyond existing winding/mode metrics.
 - **Artifact naming rule:** `experiments/v2.2-observer-v2-calibration-results.json` and `experiments/v2.2-observer-v2-calibration-summary.json`.
+- **Status:** implemented by v2.2 Observer V2 calibration PR.
+- **Artifacts:**
+  - `experiments/v2.2-observer-v2-calibration-results.json`
+  - `experiments/v2.2-observer-v2-calibration-summary.json`
 
 ### G2. Winding validity residuals / low-amplitude line confidence
 
@@ -180,6 +184,10 @@ These gates define future work without implementing it in this PR.
 - **What would count as support:** Residuals and low-amplitude flags identify phase-slip windows and distinguish stable winding from unreliable winding estimates.
 - **What would count as a miss/revision:** Residuals do not correlate with slip or classification changes.
 - **Artifact naming rule:** `experiments/v2.2-winding-validity-observer-results.json` and `experiments/v2.2-winding-validity-observer-summary.json`.
+- **Status:** implemented by v2.2 Observer V2 calibration PR.
+- **Artifacts:**
+  - `experiments/v2.2-observer-v2-calibration-results.json`
+  - `experiments/v2.2-observer-v2-calibration-summary.json`
 
 ### G3. Memory anchoring comparison
 

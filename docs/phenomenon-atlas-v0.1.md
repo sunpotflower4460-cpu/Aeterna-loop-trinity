@@ -173,6 +173,8 @@ Detection condition: reuse the existing `pheromoneLocal` guardrail definition fr
 
 These tags come from the v2.1.2 winding / memory / phase-slip audit family. They are candidate or observed tags in the current damped runtime only. They do not imply biological life, consciousness, exact topology proof, or permanent survival.
 
+Observer V2 calibration for roadmap G1/G2 is documented in `docs/v2.2-observer-v2-calibration.md` and the `experiments/v2.2-observer-v2-calibration-*.json` artifacts. This is a measurement-aid note and does not change the tag definitions below.
+
 ### `global_winding_persistence_candidate`
 
 Detection condition: global x-axis line-winding histogram remains dominated by the target `W` across all sampled `(y,z)` lines through the tested horizon.

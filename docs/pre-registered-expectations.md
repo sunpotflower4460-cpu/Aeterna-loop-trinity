@@ -73,3 +73,31 @@ This file records expectations before or alongside audit interpretation. These a
 - The pure W0 noise control is explicitly memory-off (`memory_off_W0_noise_control`) and records `effectiveMemoryWeight=0`.
 - Exact threshold locations for memory strength and coupling require denser local scans around the observed transitions.
 - Future work: add time-series L2 distances (`mean |field-memory|`, `mean |field-targetW|`, `mean |memory-targetW|`), a coupling control with `MEMORY_WEIGHT=0`, denser `g` values around `0.0125`, `0.015`, and `0.025`, low-amplitude winding validity residuals, and a later CI runtime-limited smoke command.
+
+## v2.2 Observer V2 Calibration
+
+This section pre-registers Observer V2 calibration expectations before the official v2.2 calibration artifacts are generated. The calibration adds measurement aids only; it does not add physics, reclassify v2.1.2 artifacts, or promote candidate phenomena to proof claims.
+
+### Tier 1 hard expectations
+
+Tier 1 uses synthetic known-answer fields and is pass/fail for observer correctness.
+
+1. Clean analytic `W=1` at the stationary-amplitude reference compared with itself should have raw distance near `0`, gauge-aligned distance near `0`, winding residuals near `0`, and `invalidLineCount=0` within numerical tolerance `1e-9`.
+2. A global phase offset of `π/5` applied to the same `W=1` state should have raw distance above `0`, gauge-aligned distance near `0`, and recorded `thetaStar` matching the documented sign convention: the angle applied to the second field to align it to the first field.
+3. Clean `W=2` compared with analytic `W=2` should have distance near `0`, while clean `W=2` compared with analytic `W=1` should be clearly larger than the `W=2` self-distance.
+4. Seeded additive component-noise cases at `epsilon=0.15`, `0.5`, and `1.2` should show non-decreasing `windingResidualMean` within tolerance `1e-12`; `windingResidualMax` should increase or not decrease materially. If `invalidLineCount` remains tied at zero while all line minima stay above the validity threshold, that tie is threshold context rather than a hidden failure. If `windingResidualMean` is not non-decreasing within tolerance, the Tier 1 case fails.
+5. A synthetic field with exactly `K` known near-zero-amplitude `(y,z)` x-lines should report `invalidLineCount=K`.
+
+### Tier 2 soft expectations
+
+Tier 2 reruns representative v2.1.2-style scenarios with Observer V2 attached. These expectations are hit/miss observations, not proof claims, and misses are evidence.
+
+- Clean recovery: `fieldTargetDistance(W=1)` returns near zero and the validity residual remains low after recovery.
+- Partial recovery: `W=1`-like dominance may return, while `fieldTargetDistance` remains finite and/or `invalidLineCount` stays elevated.
+- Memory-on vs memory-off: distance traces diverge after the break window.
+- L2 clean `W=0`: the field tends toward the memory basin.
+- L3 clean `W=2`: field-memory direction distinguishes whether field rewrites memory or memory writes field.
+- Coupling `g=0.0075`: aligned A/B distance plateaus rather than collapsing.
+- Coupling `g=0.02`: distance traces collapse after single-slip merge.
+- Coupling `g=0.05`: traces show a transient swap window followed by final merge.
+- Optional `L3_clean_W2` at `MEMORY_WEIGHT=0.03`: work-proxy traces should make uphill `W=2` memory-writing more interpretable.

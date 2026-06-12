@@ -1,0 +1,1613 @@
+{
+  "audit": "v2.2-observer-v2-calibration",
+  "runMode": "lightweight",
+  "generatorGitHash": "5498a4b",
+  "artifactGeneratedFromReachableCommit": true,
+  "artifactCommittedIn": "pending merge commit containing v2.2 Observer V2 calibration artifacts",
+  "observerVersion": "observer-v2.0",
+  "observerPurpose": "Observer V2 calibration only",
+  "claimLevel": "finite-horizon observer calibration",
+  "generatedAt": "2026-06-12T10:38:48.951Z",
+  "costPolicy": {
+    "mode": "lightweight",
+    "gridSize": 16,
+    "maxStepsBaseline": 500,
+    "maxStepsPerturbation": 700,
+    "maxStepsMemoryOff": 900,
+    "maxStepsLedger": 700,
+    "maxStepsCoupling": 700,
+    "sampleInterval": 50,
+    "fineSampleInterval": 10,
+    "reductionDisclosure": "v2.2 observer calibration lightweight mode uses GRID_SIZE=16 and shortened horizons to keep official calibration artifacts reproducible in CI; family coverage is preserved and this is not a runtime-limited smoke artifact."
+  },
+  "runCount": 19,
+  "parameterLineageSummary": {
+    "synthetic-calibration": 5,
+    "exp023-real": 14
+  },
+  "byScenario": {
+    "baseline-W0": {
+      "classification": "baseline_persistence_calibration",
+      "finalMetrics": {
+        "step": 500,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 0,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 1,
+          "P1": 3.072467461244955e-33,
+          "P2": 1.5422493229628105e-33,
+          "normalizedP0": 1,
+          "normalizedP1": 3.072467461244955e-33,
+          "normalizedP2": 1.5422493229628105e-33,
+          "P1OverP0": 3.072467461244955e-33,
+          "P2OverP0": 1.5422493229628105e-33
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 1,
+          "P1": 3.072467461244955e-33,
+          "P2": 1.5422493229628105e-33,
+          "normalizedP0": 1,
+          "normalizedP1": 3.072467461244955e-33,
+          "normalizedP2": 1.5422493229628105e-33,
+          "P1OverP0": 3.072467461244955e-33,
+          "P2OverP0": 1.5422493229628105e-33
+        },
+        "fieldMinAmp": 1,
+        "memoryMinAmp": 1,
+        "fieldMeanAmp": 1,
+        "memoryMeanAmp": 1,
+        "fieldMemoryDistanceRaw": 0,
+        "fieldMemoryDistanceAligned": 0,
+        "fieldTargetDistanceRaw": 0,
+        "fieldTargetDistanceAligned": 0,
+        "memoryTargetDistanceRaw": 0,
+        "memoryTargetDistanceAligned": 0,
+        "thetaStarFieldMemory": 0,
+        "thetaStarFieldTarget": 0,
+        "thetaStarMemoryTarget": 0,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 1,
+          "lineMinAmpMean": 1,
+          "windingResidualMean": 0,
+          "windingResidualMax": 0,
+          "validLineWindingHistogram": {
+            "0": 256
+          },
+          "rawWindingHistogram": {
+            "0": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 0,
+          "workProxy": 0,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "baseline-W1": {
+      "classification": "baseline_persistence_calibration",
+      "finalMetrics": {
+        "step": 500,
+        "fieldDominantW": 1,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 1,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 2.7751449914811696e-32,
+          "P1": 0.847759065,
+          "P2": 6.158161952267347e-32,
+          "normalizedP0": 3.273506714325437e-32,
+          "normalizedP1": 1,
+          "normalizedP2": 7.264047305827907e-32,
+          "P1OverP0": 3.0548280094365637e+31,
+          "P2OverP0": 2.2190415172
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 3.084498094912644e-33,
+          "P1": 0.847759065,
+          "P2": 6.165985822261229e-33,
+          "normalizedP0": 3.638413580196922e-33,
+          "normalizedP1": 1,
+          "normalizedP2": 7.273276189736893e-33,
+          "P1OverP0": 2.7484506034244656e+32,
+          "P2OverP0": 1.9990240333
+        },
+        "fieldMinAmp": 0.920738326,
+        "memoryMinAmp": 0.920738326,
+        "fieldMeanAmp": 0.920738326,
+        "memoryMeanAmp": 0.920738326,
+        "fieldMemoryDistanceRaw": 1.3142765372893459e-15,
+        "fieldMemoryDistanceAligned": 5.97119495667204e-16,
+        "fieldTargetDistanceRaw": 1.4790039170492098e-15,
+        "fieldTargetDistanceAligned": 5.761869146029506e-16,
+        "memoryTargetDistanceRaw": 3.937002285828084e-16,
+        "memoryTargetDistanceAligned": 3.370232425079931e-16,
+        "thetaStarFieldMemory": -1.2738915274175066e-15,
+        "thetaStarFieldTarget": -1.4873647081221832e-15,
+        "thetaStarMemoryTarget": -2.134731807046637e-16,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.920738326,
+          "lineMinAmpMean": 0.920738326,
+          "windingResidualMean": 3.3306690738754696e-16,
+          "windingResidualMax": 3.3306690738754696e-16,
+          "validLineWindingHistogram": {
+            "1": 256
+          },
+          "rawWindingHistogram": {
+            "1": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 5.761869146029506e-16,
+          "workProxy": 4.3214018595221296e-18,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "baseline-W2": {
+      "classification": "baseline_persistence_calibration",
+      "finalMetrics": {
+        "step": 500,
+        "fieldDominantW": 2,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 2,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 1.6928691971114267e-28,
+          "P1": 3.497913236076674e-29,
+          "P2": 0.4142135624,
+          "normalizedP0": 4.086947774990014e-28,
+          "normalizedP1": 8.444709574540576e-29,
+          "normalizedP2": 1,
+          "P1OverP0": 0.2066263148,
+          "P2OverP0": 2.4468137472161444e+27
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 6.857920654590362e-31,
+          "P1": 4.487296664286964e-31,
+          "P2": 0.4142135624,
+          "normalizedP0": 1.655648505399044e-30,
+          "normalizedP1": 1.0833292465313016e-30,
+          "normalizedP2": 1,
+          "P1OverP0": 0.6543232111,
+          "P2OverP0": 6.039929349369843e+29
+        },
+        "fieldMinAmp": 0.6435942529,
+        "memoryMinAmp": 0.6435942529,
+        "fieldMeanAmp": 0.6435942529,
+        "memoryMeanAmp": 0.6435942529,
+        "fieldMemoryDistanceRaw": 1.3833155248881007e-14,
+        "fieldMemoryDistanceAligned": 1.3831249279203208e-14,
+        "fieldTargetDistanceRaw": 1.5022060424227458e-14,
+        "fieldTargetDistanceAligned": 1.501660686955228e-14,
+        "memoryTargetDistanceRaw": 1.8671951000504683e-15,
+        "memoryTargetDistanceAligned": 1.8589130273107333e-15,
+        "thetaStarFieldMemory": 3.5961842992477704e-16,
+        "thetaStarFieldTarget": 6.336040292460172e-16,
+        "thetaStarMemoryTarget": 2.739855993212411e-16,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.6435942529,
+          "lineMinAmpMean": 0.6435942529,
+          "windingResidualMean": 2.220446049250313e-16,
+          "windingResidualMax": 2.220446049250313e-16,
+          "validLineWindingHistogram": {
+            "2": 256
+          },
+          "rawWindingHistogram": {
+            "2": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 1.501660686955228e-14,
+          "workProxy": 1.126245515216421e-16,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "memory-on-break-then-recover": {
+      "classification": "break_then_recover",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 0,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.9817005644,
+          "P1": 0.0052766065,
+          "P2": 0.0000012755,
+          "normalizedP0": 0.994652485,
+          "normalizedP1": 0.0053462227,
+          "normalizedP2": 0.0000012923,
+          "P1OverP0": 0.0053749654,
+          "P2OverP0": 0.0000012992
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.2552292084,
+          "P1": 0.0074926336,
+          "P2": 0.000435514,
+          "normalizedP0": 0.9698729773,
+          "normalizedP1": 0.0284720661,
+          "normalizedP2": 0.0016549565,
+          "P1OverP0": 0.0293564898,
+          "P2OverP0": 0.0017063642
+        },
+        "fieldMinAmp": 0.8949920547,
+        "memoryMinAmp": 0.2418756205,
+        "fieldMeanAmp": 0.9996835001,
+        "memoryMeanAmp": 0.5127639896,
+        "fieldMemoryDistanceRaw": 0.5300219164,
+        "fieldMemoryDistanceAligned": 0.5296505697,
+        "fieldTargetDistanceRaw": 1.3101430241,
+        "fieldTargetDistanceAligned": 1.3091820833,
+        "memoryTargetDistanceRaw": 1.0017166742,
+        "memoryTargetDistanceAligned": 0.9825209617,
+        "thetaStarFieldMemory": -0.0281049942,
+        "thetaStarFieldTarget": -0.1942985578,
+        "thetaStarMemoryTarget": 0.7058723986,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.8949920547,
+          "lineMinAmpMean": 0.9635996658,
+          "windingResidualMean": 8.282694482977906e-19,
+          "windingResidualMax": 8.834874115176436e-18,
+          "validLineWindingHistogram": {
+            "0": 256
+          },
+          "rawWindingHistogram": {
+            "0": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 1.3091820833,
+          "workProxy": 0.0098188656,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "memory-on-break-partial-recovery": {
+      "classification": "break_partial_recovery",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 0.546875,
+        "memoryDominantW": 1,
+        "memoryDominantFraction": 0.58203125,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.3425459213,
+          "P1": 0.3378928165,
+          "P2": 0.006912527,
+          "normalizedP0": 0.4983564282,
+          "normalizedP1": 0.4915868113,
+          "normalizedP2": 0.0100567605,
+          "P1OverP0": 0.9864161141,
+          "P2OverP0": 0.020179855
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0541786109,
+          "P1": 0.0434156083,
+          "P2": 0.003106695,
+          "normalizedP0": 0.5380150846,
+          "normalizedP1": 0.431134202,
+          "normalizedP2": 0.0308507134,
+          "P1OverP0": 0.8013422194,
+          "P2OverP0": 0.0573417257
+        },
+        "fieldMinAmp": 0.068950662,
+        "memoryMinAmp": 0.0141972209,
+        "fieldMeanAmp": 0.8987523711,
+        "memoryMeanAmp": 0.3644347425,
+        "fieldMemoryDistanceRaw": 0.5770861568,
+        "fieldMemoryDistanceAligned": 0.5750680734,
+        "fieldTargetDistanceRaw": 1.6506023088,
+        "fieldTargetDistanceAligned": 0.7778773183,
+        "memoryTargetDistanceRaw": 1.1613449674,
+        "memoryTargetDistanceAligned": 0.7804088701,
+        "thetaStarFieldMemory": -0.0851320347,
+        "thetaStarFieldTarget": -2.9410514959,
+        "thetaStarMemoryTarget": -2.7592108043,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 4,
+          "validLineCount": 252,
+          "lineMinAmpMin": 0.068950662,
+          "lineMinAmpMean": 0.5814097661,
+          "windingResidualMean": 4.094680456559269e-17,
+          "windingResidualMax": 3.3306690738754696e-16,
+          "validLineWindingHistogram": {
+            "0": 138,
+            "1": 114
+          },
+          "rawWindingHistogram": {
+            "0": 140,
+            "1": 116
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 0.7778773183,
+          "workProxy": 0.0058340799,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "memory-off-matched": {
+      "classification": "memory_off_no_recovery",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 0.421875,
+        "memoryDominantW": 1,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0484451472,
+          "P1": 0.1923406459,
+          "P2": 0.0026355753,
+          "normalizedP0": 0.1990176439,
+          "normalizedP1": 0.7901551418,
+          "normalizedP2": 0.0108272143,
+          "P1OverP0": 3.9702768376,
+          "P2OverP0": 0.0544032887
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 6.167490638701274e-33,
+          "P1": 0.847759065,
+          "P2": 6.165985822261229e-33,
+          "normalizedP0": 7.275051241755953e-33,
+          "normalizedP1": 1,
+          "normalizedP2": 7.273276189736893e-33,
+          "P1OverP0": 1.3745607649612011e+32,
+          "P2OverP0": 0.9997560083
+        },
+        "fieldMinAmp": 0.0169898541,
+        "memoryMinAmp": 0.920738326,
+        "fieldMeanAmp": 0.8265779974,
+        "memoryMeanAmp": 0.920738326,
+        "fieldMemoryDistanceRaw": 1.5778218973,
+        "fieldMemoryDistanceAligned": 0.9350543242,
+        "fieldTargetDistanceRaw": 1.5778218973,
+        "fieldTargetDistanceAligned": 0.9350543242,
+        "memoryTargetDistanceRaw": 0,
+        "memoryTargetDistanceAligned": 0,
+        "thetaStarFieldMemory": 3.1337419136,
+        "thetaStarFieldTarget": 3.1337419136,
+        "thetaStarMemoryTarget": 0,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 38,
+          "validLineCount": 218,
+          "lineMinAmpMin": 0.0169898541,
+          "lineMinAmpMean": 0.219990986,
+          "windingResidualMean": 8.599723923404204e-17,
+          "windingResidualMax": 4.947529504498804e-16,
+          "validLineWindingHistogram": {
+            "0": 94,
+            "1": 89,
+            "2": 8,
+            "-1": 23,
+            "-2": 4
+          },
+          "rawWindingHistogram": {
+            "0": 108,
+            "1": 100,
+            "2": 13,
+            "-1": 30,
+            "-2": 5
+          }
+        },
+        "workProxy": {
+          "coefficient": 0,
+          "distance": 0.9350543242,
+          "workProxy": 0,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "memory-off-long": {
+      "classification": "memory_off_no_recovery",
+      "finalMetrics": {
+        "step": 900,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 0.5078125,
+        "memoryDominantW": 1,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0015277499,
+          "P1": 0.0027740581,
+          "P2": 0.0001005155,
+          "normalizedP0": 0.3470326402,
+          "normalizedP1": 0.6301349944,
+          "normalizedP2": 0.0228323654,
+          "P1OverP0": 1.8157801929,
+          "P2OverP0": 0.065793135
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 6.167490638701274e-33,
+          "P1": 0.847759065,
+          "P2": 6.165985822261229e-33,
+          "normalizedP0": 7.275051241755953e-33,
+          "normalizedP1": 1,
+          "normalizedP2": 7.273276189736893e-33,
+          "P1OverP0": 1.3745607649612011e+32,
+          "P2OverP0": 0.9997560083
+        },
+        "fieldMinAmp": 0.0115982049,
+        "memoryMinAmp": 0.920738326,
+        "fieldMeanAmp": 0.7728658166,
+        "memoryMeanAmp": 0.920738326,
+        "fieldMemoryDistanceRaw": 1.2800183811,
+        "fieldMemoryDistanceAligned": 1.2183067708,
+        "fieldTargetDistanceRaw": 1.2800183811,
+        "fieldTargetDistanceAligned": 1.2183067708,
+        "memoryTargetDistanceRaw": 0,
+        "memoryTargetDistanceAligned": 0,
+        "thetaStarFieldMemory": 2.2013779487,
+        "thetaStarFieldTarget": 2.2013779487,
+        "thetaStarMemoryTarget": 0,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 44,
+          "validLineCount": 212,
+          "lineMinAmpMin": 0.0115982049,
+          "lineMinAmpMean": 0.2104478439,
+          "windingResidualMean": 1.0352756740528699e-16,
+          "windingResidualMax": 5.551115123125783e-16,
+          "validLineWindingHistogram": {
+            "0": 110,
+            "1": 42,
+            "2": 6,
+            "-1": 40,
+            "-2": 14
+          },
+          "rawWindingHistogram": {
+            "0": 130,
+            "1": 52,
+            "2": 9,
+            "-1": 49,
+            "-2": 16
+          }
+        },
+        "workProxy": {
+          "coefficient": 0,
+          "distance": 1.2183067708,
+          "workProxy": 0,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "ledger-L1b_clean_W1-mw0.0075": {
+      "classification": "clean_W1_memory_recovery",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 0,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.9817005644,
+          "P1": 0.0052766065,
+          "P2": 0.0000012755,
+          "normalizedP0": 0.994652485,
+          "normalizedP1": 0.0053462227,
+          "normalizedP2": 0.0000012923,
+          "P1OverP0": 0.0053749654,
+          "P2OverP0": 0.0000012992
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.2552292084,
+          "P1": 0.0074926336,
+          "P2": 0.000435514,
+          "normalizedP0": 0.9698729773,
+          "normalizedP1": 0.0284720661,
+          "normalizedP2": 0.0016549565,
+          "P1OverP0": 0.0293564898,
+          "P2OverP0": 0.0017063642
+        },
+        "fieldMinAmp": 0.8949920547,
+        "memoryMinAmp": 0.2418756205,
+        "fieldMeanAmp": 0.9996835001,
+        "memoryMeanAmp": 0.5127639896,
+        "fieldMemoryDistanceRaw": 0.5300219164,
+        "fieldMemoryDistanceAligned": 0.5296505697,
+        "fieldTargetDistanceRaw": 1.3101430241,
+        "fieldTargetDistanceAligned": 1.3091820833,
+        "memoryTargetDistanceRaw": 1.0017166742,
+        "memoryTargetDistanceAligned": 0.9825209617,
+        "thetaStarFieldMemory": -0.0281049942,
+        "thetaStarFieldTarget": -0.1942985578,
+        "thetaStarMemoryTarget": 0.7058723986,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.8949920547,
+          "lineMinAmpMean": 0.9635996658,
+          "windingResidualMean": 8.282694482977906e-19,
+          "windingResidualMax": 8.834874115176436e-18,
+          "validLineWindingHistogram": {
+            "0": 256
+          },
+          "rawWindingHistogram": {
+            "0": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 1.3091820833,
+          "workProxy": 0.0098188656,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "ledger-L2_clean_W0-mw0.0075": {
+      "classification": "field_follows_clean_W0_memory",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 0,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 0,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.996046571,
+          "P1": 0.0002148584,
+          "P2": 0.0000916209,
+          "normalizedP0": 0.9996923989,
+          "normalizedP1": 0.0002156448,
+          "normalizedP2": 0.0000919562,
+          "P1OverP0": 0.0002157112,
+          "P2OverP0": 0.0000919845
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.8666904862,
+          "P1": 0.0000911868,
+          "P2": 0.0000111294,
+          "normalizedP0": 0.9998819601,
+          "normalizedP1": 0.0001052002,
+          "normalizedP2": 0.0000128397,
+          "P1OverP0": 0.0001052126,
+          "P2OverP0": 0.0000128412
+        },
+        "fieldMinAmp": 0.9355218007,
+        "memoryMinAmp": 0.8968406644,
+        "fieldMeanAmp": 0.9984328955,
+        "memoryMeanAmp": 0.931107511,
+        "fieldMemoryDistanceRaw": 0.0725176019,
+        "fieldMemoryDistanceAligned": 0.0724993936,
+        "fieldTargetDistanceRaw": 0.0334141847,
+        "fieldTargetDistanceAligned": 0.0326488745,
+        "memoryTargetDistanceRaw": 0.0715858099,
+        "memoryTargetDistanceAligned": 0.0713933313,
+        "thetaStarFieldMemory": -0.0016855228,
+        "thetaStarFieldTarget": -0.0071175266,
+        "thetaStarMemoryTarget": -0.0054370343,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.9355218007,
+          "lineMinAmpMean": 0.9714035383,
+          "windingResidualMean": 8.819236215436452e-19,
+          "windingResidualMax": 3.3130777931911632e-18,
+          "validLineWindingHistogram": {
+            "0": 256
+          },
+          "rawWindingHistogram": {
+            "0": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 0.0326488745,
+          "workProxy": 0.0002448666,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "ledger-L3_clean_W2-mw0.0075": {
+      "classification": "field_rewrites_memory",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 1,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 1,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0000902927,
+          "P1": 0.859717243,
+          "P2": 0.0000395651,
+          "normalizedP0": 0.0001050102,
+          "normalizedP1": 0.9998489757,
+          "normalizedP2": 0.0000460141,
+          "P1OverP0": 9521.4505273456,
+          "P2OverP0": 0.4381873304
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0003599788,
+          "P1": 0.3603970779,
+          "P2": 0.0319816107,
+          "normalizedP0": 0.000916586,
+          "normalizedP1": 0.9176511199,
+          "normalizedP2": 0.0814322941,
+          "P1OverP0": 1001.162050479,
+          "P2OverP0": 88.8430480282
+        },
+        "fieldMinAmp": 0.8684867828,
+        "memoryMinAmp": 0.3988194327,
+        "fieldMeanAmp": 0.9274863416,
+        "memoryMeanAmp": 0.6165858141,
+        "fieldMemoryDistanceRaw": 0.370892097,
+        "fieldMemoryDistanceAligned": 0.3708872527,
+        "fieldTargetDistanceRaw": 1.125431309,
+        "fieldTargetDistanceAligned": 1.1254313016,
+        "memoryTargetDistanceRaw": 0.759548555,
+        "memoryTargetDistanceAligned": 0.7595463315,
+        "thetaStarFieldMemory": 0.0025379022,
+        "thetaStarFieldTarget": 0.0020218717,
+        "thetaStarMemoryTarget": -0.0054173196,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.8684867828,
+          "lineMinAmpMean": 0.9000253677,
+          "windingResidualMean": 7.546047120499111e-17,
+          "windingResidualMax": 3.3306690738754696e-16,
+          "validLineWindingHistogram": {
+            "1": 256
+          },
+          "rawWindingHistogram": {
+            "1": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.0075,
+          "distance": 1.1254313016,
+          "workProxy": 0.0084407348,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "ledger-L3_clean_W2-mw0.03": {
+      "classification": "memory_writes_W2_to_field",
+      "finalMetrics": {
+        "step": 700,
+        "fieldDominantW": 2,
+        "fieldDominantFraction": 1,
+        "memoryDominantW": 2,
+        "memoryDominantFraction": 1,
+        "fieldModePowers": {
+          "source": "field",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0334654193,
+          "P1": 0.0175258087,
+          "P2": 0.3580525115,
+          "normalizedP0": 0.0818137918,
+          "normalizedP1": 0.042845806,
+          "normalizedP2": 0.8753404022,
+          "P1OverP0": 0.5236990621,
+          "P2OverP0": 10.6991789925
+        },
+        "memoryModePowers": {
+          "source": "memory",
+          "axis": "x",
+          "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+          "P0": 0.0051114573,
+          "P1": 0.0037552567,
+          "P2": 0.3761895511,
+          "normalizedP0": 0.0132745724,
+          "normalizedP1": 0.0097524881,
+          "normalizedP2": 0.9769729395,
+          "P1OverP0": 0.7346743717,
+          "P2OverP0": 73.5973190322
+        },
+        "fieldMinAmp": 0.2027503988,
+        "memoryMinAmp": 0.4616827355,
+        "fieldMeanAmp": 0.6297734509,
+        "memoryMeanAmp": 0.6186153892,
+        "fieldMemoryDistanceRaw": 0.1392581714,
+        "fieldMemoryDistanceAligned": 0.1392581574,
+        "fieldTargetDistanceRaw": 0.2387032652,
+        "fieldTargetDistanceAligned": 0.2386962268,
+        "memoryTargetDistanceRaw": 0.1020075258,
+        "memoryTargetDistanceAligned": 0.1019926356,
+        "thetaStarFieldMemory": 0.0001000107,
+        "thetaStarFieldTarget": 0.0029538268,
+        "thetaStarMemoryTarget": 0.0027740106,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.2027503988,
+          "lineMinAmpMean": 0.270771378,
+          "windingResidualMean": 1.682681771697503e-16,
+          "windingResidualMax": 6.661338147750939e-16,
+          "validLineWindingHistogram": {
+            "2": 256
+          },
+          "rawWindingHistogram": {
+            "2": 256
+          }
+        },
+        "workProxy": {
+          "coefficient": 0.03,
+          "distance": 0.2386962268,
+          "workProxy": 0.0071608868,
+          "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+        }
+      }
+    },
+    "coupling-W1-W0-g0.0075": {
+      "classification": "topological_frustration_plateau",
+      "finalMetrics": {
+        "step": 700,
+        "fieldADominantW": 1,
+        "fieldBDominantW": 0,
+        "fieldADominantFraction": 1,
+        "fieldBDominantFraction": 1,
+        "memoryADominantW": 1,
+        "memoryBDominantW": 0,
+        "minAmpA": 0.8349187522,
+        "minAmpB": 0.9814385339,
+        "fieldABDistanceRaw": 1.1720582857,
+        "fieldABDistanceAligned": 1.1720582857,
+        "memoryABDistanceRaw": 1.178917551,
+        "memoryABDistanceAligned": 1.178917551,
+        "fieldAMemoryADistanceAligned": 0.0116347112,
+        "fieldBMemoryBDistanceAligned": 0.0070561717,
+        "fieldAMemoryBDistanceAligned": 1.1777811683,
+        "fieldBMemoryADistanceAligned": 1.17321188,
+        "thetaStarFieldAB": -6.236659387965814e-20,
+        "thetaStarMemoryAB": -2.7028686547550496e-16
+      }
+    },
+    "coupling-W1-W0-g0.02": {
+      "classification": "single_slip_merge",
+      "finalMetrics": {
+        "step": 700,
+        "fieldADominantW": 0,
+        "fieldBDominantW": 0,
+        "fieldADominantFraction": 1,
+        "fieldBDominantFraction": 1,
+        "memoryADominantW": 0,
+        "memoryBDominantW": 0,
+        "minAmpA": 0.9968283607,
+        "minAmpB": 0.9971363144,
+        "fieldABDistanceRaw": 0.0007280218,
+        "fieldABDistanceAligned": 0.0007280218,
+        "memoryABDistanceRaw": 0.3332016149,
+        "memoryABDistanceAligned": 0.3332016149,
+        "fieldAMemoryADistanceAligned": 0.4095652451,
+        "fieldBMemoryBDistanceAligned": 0.0972253702,
+        "fieldAMemoryBDistanceAligned": 0.0965035643,
+        "fieldBMemoryADistanceAligned": 0.410140305,
+        "thetaStarFieldAB": 1.408594796751308e-17,
+        "thetaStarMemoryAB": 1.9021527078690346e-17
+      }
+    },
+    "coupling-W1-W0-g0.05": {
+      "classification": "synchronized_double_phase_slip_candidate",
+      "finalMetrics": {
+        "step": 700,
+        "fieldADominantW": 0,
+        "fieldBDominantW": 0,
+        "fieldADominantFraction": 1,
+        "fieldBDominantFraction": 1,
+        "memoryADominantW": 0,
+        "memoryBDominantW": 0,
+        "minAmpA": 0.9731984004,
+        "minAmpB": 0.9493882974,
+        "fieldABDistanceRaw": 0.1285362284,
+        "fieldABDistanceAligned": 0.1285362284,
+        "memoryABDistanceRaw": 0.0925939466,
+        "memoryABDistanceAligned": 0.0925939466,
+        "fieldAMemoryADistanceAligned": 0.314119134,
+        "fieldBMemoryBDistanceAligned": 0.2936496115,
+        "fieldAMemoryBDistanceAligned": 0.3609248354,
+        "fieldBMemoryADistanceAligned": 0.2555679199,
+        "thetaStarFieldAB": 1.4389101619091997e-17,
+        "thetaStarMemoryAB": 2.5657854063981994e-17
+      }
+    }
+  },
+  "byClassification": {
+    "baseline_persistence_calibration": 3,
+    "break_then_recover": 1,
+    "break_partial_recovery": 1,
+    "memory_off_no_recovery": 2,
+    "clean_W1_memory_recovery": 1,
+    "field_follows_clean_W0_memory": 1,
+    "field_rewrites_memory": 1,
+    "memory_writes_W2_to_field": 1,
+    "topological_frustration_plateau": 1,
+    "single_slip_merge": 1,
+    "synchronized_double_phase_slip_candidate": 1
+  },
+  "tier1CorrectnessSummary": [
+    {
+      "caseId": "tier1-clean-W1-self-distance",
+      "expected": "raw≈0, aligned≈0, residual≈0, invalidLineCount=0",
+      "measured": {
+        "rawDistance": 0,
+        "alignedDistance": 0,
+        "thetaStar": 0,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 0,
+          "validLineCount": 256,
+          "lineMinAmpMin": 0.920738326,
+          "lineMinAmpMean": 0.920738326,
+          "windingResidualMean": 0,
+          "windingResidualMax": 0,
+          "validLineWindingHistogram": {
+            "1": 256
+          },
+          "rawWindingHistogram": {
+            "1": 256
+          }
+        }
+      },
+      "pass": true,
+      "tolerance": 1e-9
+    },
+    {
+      "caseId": "tier1-global-phase-offset-pi-over-5",
+      "expected": "raw>0, aligned≈0, thetaStar≈-π/5",
+      "measured": {
+        "phaseOffsetAppliedToSecondField": 0.6283185307,
+        "rawDistance": 0.5690475802,
+        "alignedDistance": 1.478551700663531e-14,
+        "thetaStar": -0.6283185307,
+        "expectedThetaStar": -0.6283185307
+      },
+      "pass": true,
+      "tolerance": 1e-9
+    },
+    {
+      "caseId": "tier1-W2-target-discrimination",
+      "expected": "W2 self≈0 and W2-vs-W1 clearly larger",
+      "measured": {
+        "w2SelfAlignedDistance": 0,
+        "w2VsW1AlignedDistance": 1.1233755505,
+        "separation": 1.1233755505
+      },
+      "pass": true,
+      "tolerance": 1e-9
+    },
+    {
+      "caseId": "tier1-additive-component-noise-monotonicity",
+      "expected": "windingResidualMean non-decreasing with epsilon; invalid-line ties documented as threshold context",
+      "measured": {
+        "residualVsEpsilon": [
+          {
+            "epsilon": 0.15,
+            "windingResidualMean": 8.066464163292153e-17,
+            "windingResidualMax": 3.3306690738754696e-16,
+            "invalidLineCount": 0,
+            "lineMinAmpMin": 0.8898725659
+          },
+          {
+            "epsilon": 0.5,
+            "windingResidualMean": 8.543513119185775e-17,
+            "windingResidualMax": 3.3306690738754696e-16,
+            "invalidLineCount": 0,
+            "lineMinAmpMin": 0.8178624561
+          },
+          {
+            "epsilon": 1.2,
+            "windingResidualMean": 1.0191500421363742e-16,
+            "windingResidualMax": 3.3306690738754696e-16,
+            "invalidLineCount": 0,
+            "lineMinAmpMin": 0.6738996068
+          }
+        ],
+        "thresholdContext": "invalidLineCount ties at zero are acceptable only when lineMinAmpMin stays above validityAmpThreshold"
+      },
+      "pass": true,
+      "tolerance": 1e-12
+    },
+    {
+      "caseId": "tier1-known-low-amplitude-lines",
+      "expected": "invalidLineCount equals known K low-amplitude lines",
+      "measured": {
+        "knownInvalidLineCount": 3,
+        "windingValidity": {
+          "axis": "x",
+          "source": "field",
+          "validityAmpThreshold": 0.1,
+          "invalidLineCount": 3,
+          "validLineCount": 253,
+          "lineMinAmpMin": 9.207e-7,
+          "lineMinAmpMean": 0.9099484346,
+          "windingResidualMean": 0,
+          "windingResidualMax": 0,
+          "validLineWindingHistogram": {
+            "1": 253
+          },
+          "rawWindingHistogram": {
+            "1": 256
+          }
+        }
+      },
+      "pass": true,
+      "tolerance": 0
+    }
+  ],
+  "tier2ExpectationSummary": {
+    "cleanRecovery": {
+      "runId": "memory-on-break-then-recover",
+      "classification": "break_then_recover",
+      "result": "miss"
+    },
+    "partialRecovery": {
+      "runId": "memory-on-break-partial-recovery",
+      "classification": "break_partial_recovery",
+      "result": "hit"
+    },
+    "memoryOnVsMemoryOff": {
+      "result": "hit",
+      "memoryOnDistance": 1.3091820833,
+      "memoryOffDistance": 0.9350543242
+    },
+    "L2CleanW0": {
+      "runId": "ledger-L2_clean_W0-mw0.0075",
+      "classification": "field_follows_clean_W0_memory",
+      "result": "hit"
+    },
+    "L3CleanW2": {
+      "runId": "ledger-L3_clean_W2-mw0.0075",
+      "classification": "field_rewrites_memory",
+      "result": "hit"
+    },
+    "couplingG00075": {
+      "runId": "coupling-W1-W0-g0.0075",
+      "classification": "topological_frustration_plateau",
+      "result": "hit"
+    },
+    "couplingG002": {
+      "runId": "coupling-W1-W0-g0.02",
+      "classification": "single_slip_merge",
+      "result": "hit"
+    },
+    "couplingG005": {
+      "runId": "coupling-W1-W0-g0.05",
+      "classification": "synchronized_double_phase_slip_candidate",
+      "result": "hit",
+      "interpretation": "transient swap window followed by final merge is the registered expectation; traces are calibration evidence, not proof."
+    },
+    "optionalL3W2MemoryWeight003": {
+      "runId": "ledger-L3_clean_W2-mw0.03",
+      "classification": "memory_writes_W2_to_field",
+      "result": "hit"
+    }
+  },
+  "distanceSeparationSummary": [
+    {
+      "runId": "baseline-W0",
+      "classification": "baseline_persistence_calibration",
+      "finalFieldTargetDistanceAligned": 0,
+      "finalFieldMemoryDistanceAligned": 0,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "baseline-W1",
+      "classification": "baseline_persistence_calibration",
+      "finalFieldTargetDistanceAligned": 5.761869146029506e-16,
+      "finalFieldMemoryDistanceAligned": 5.97119495667204e-16,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "baseline-W2",
+      "classification": "baseline_persistence_calibration",
+      "finalFieldTargetDistanceAligned": 1.501660686955228e-14,
+      "finalFieldMemoryDistanceAligned": 1.3831249279203208e-14,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "memory-on-break-then-recover",
+      "classification": "break_then_recover",
+      "finalFieldTargetDistanceAligned": 1.3091820833,
+      "finalFieldMemoryDistanceAligned": 0.5296505697,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "memory-on-break-partial-recovery",
+      "classification": "break_partial_recovery",
+      "finalFieldTargetDistanceAligned": 0.7778773183,
+      "finalFieldMemoryDistanceAligned": 0.5750680734,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "memory-off-matched",
+      "classification": "memory_off_no_recovery",
+      "finalFieldTargetDistanceAligned": 0.9350543242,
+      "finalFieldMemoryDistanceAligned": 0.9350543242,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "memory-off-long",
+      "classification": "memory_off_no_recovery",
+      "finalFieldTargetDistanceAligned": 1.2183067708,
+      "finalFieldMemoryDistanceAligned": 1.2183067708,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "ledger-L1b_clean_W1-mw0.0075",
+      "classification": "clean_W1_memory_recovery",
+      "finalFieldTargetDistanceAligned": 1.3091820833,
+      "finalFieldMemoryDistanceAligned": 0.5296505697,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "ledger-L2_clean_W0-mw0.0075",
+      "classification": "field_follows_clean_W0_memory",
+      "finalFieldTargetDistanceAligned": 0.0326488745,
+      "finalFieldMemoryDistanceAligned": 0.0724993936,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "ledger-L3_clean_W2-mw0.0075",
+      "classification": "field_rewrites_memory",
+      "finalFieldTargetDistanceAligned": 1.1254313016,
+      "finalFieldMemoryDistanceAligned": 0.3708872527,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "ledger-L3_clean_W2-mw0.03",
+      "classification": "memory_writes_W2_to_field",
+      "finalFieldTargetDistanceAligned": 0.2386962268,
+      "finalFieldMemoryDistanceAligned": 0.1392581574,
+      "finalFieldABDistanceAligned": null
+    },
+    {
+      "runId": "coupling-W1-W0-g0.0075",
+      "classification": "topological_frustration_plateau",
+      "finalFieldTargetDistanceAligned": null,
+      "finalFieldMemoryDistanceAligned": null,
+      "finalFieldABDistanceAligned": 1.1720582857
+    },
+    {
+      "runId": "coupling-W1-W0-g0.02",
+      "classification": "single_slip_merge",
+      "finalFieldTargetDistanceAligned": null,
+      "finalFieldMemoryDistanceAligned": null,
+      "finalFieldABDistanceAligned": 0.0007280218
+    },
+    {
+      "runId": "coupling-W1-W0-g0.05",
+      "classification": "synchronized_double_phase_slip_candidate",
+      "finalFieldTargetDistanceAligned": null,
+      "finalFieldMemoryDistanceAligned": null,
+      "finalFieldABDistanceAligned": 0.1285362284
+    }
+  ],
+  "cleanVsPartialRecoverySummary": {
+    "clean": {
+      "step": 700,
+      "fieldDominantW": 0,
+      "fieldDominantFraction": 1,
+      "memoryDominantW": 0,
+      "memoryDominantFraction": 1,
+      "fieldModePowers": {
+        "source": "field",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.9817005644,
+        "P1": 0.0052766065,
+        "P2": 0.0000012755,
+        "normalizedP0": 0.994652485,
+        "normalizedP1": 0.0053462227,
+        "normalizedP2": 0.0000012923,
+        "P1OverP0": 0.0053749654,
+        "P2OverP0": 0.0000012992
+      },
+      "memoryModePowers": {
+        "source": "memory",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.2552292084,
+        "P1": 0.0074926336,
+        "P2": 0.000435514,
+        "normalizedP0": 0.9698729773,
+        "normalizedP1": 0.0284720661,
+        "normalizedP2": 0.0016549565,
+        "P1OverP0": 0.0293564898,
+        "P2OverP0": 0.0017063642
+      },
+      "fieldMinAmp": 0.8949920547,
+      "memoryMinAmp": 0.2418756205,
+      "fieldMeanAmp": 0.9996835001,
+      "memoryMeanAmp": 0.5127639896,
+      "fieldMemoryDistanceRaw": 0.5300219164,
+      "fieldMemoryDistanceAligned": 0.5296505697,
+      "fieldTargetDistanceRaw": 1.3101430241,
+      "fieldTargetDistanceAligned": 1.3091820833,
+      "memoryTargetDistanceRaw": 1.0017166742,
+      "memoryTargetDistanceAligned": 0.9825209617,
+      "thetaStarFieldMemory": -0.0281049942,
+      "thetaStarFieldTarget": -0.1942985578,
+      "thetaStarMemoryTarget": 0.7058723986,
+      "windingValidity": {
+        "axis": "x",
+        "source": "field",
+        "validityAmpThreshold": 0.1,
+        "invalidLineCount": 0,
+        "validLineCount": 256,
+        "lineMinAmpMin": 0.8949920547,
+        "lineMinAmpMean": 0.9635996658,
+        "windingResidualMean": 8.282694482977906e-19,
+        "windingResidualMax": 8.834874115176436e-18,
+        "validLineWindingHistogram": {
+          "0": 256
+        },
+        "rawWindingHistogram": {
+          "0": 256
+        }
+      },
+      "workProxy": {
+        "coefficient": 0.0075,
+        "distance": 1.3091820833,
+        "workProxy": 0.0098188656,
+        "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+      }
+    },
+    "partial": {
+      "step": 700,
+      "fieldDominantW": 0,
+      "fieldDominantFraction": 0.546875,
+      "memoryDominantW": 1,
+      "memoryDominantFraction": 0.58203125,
+      "fieldModePowers": {
+        "source": "field",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.3425459213,
+        "P1": 0.3378928165,
+        "P2": 0.006912527,
+        "normalizedP0": 0.4983564282,
+        "normalizedP1": 0.4915868113,
+        "normalizedP2": 0.0100567605,
+        "P1OverP0": 0.9864161141,
+        "P2OverP0": 0.020179855
+      },
+      "memoryModePowers": {
+        "source": "memory",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.0541786109,
+        "P1": 0.0434156083,
+        "P2": 0.003106695,
+        "normalizedP0": 0.5380150846,
+        "normalizedP1": 0.431134202,
+        "normalizedP2": 0.0308507134,
+        "P1OverP0": 0.8013422194,
+        "P2OverP0": 0.0573417257
+      },
+      "fieldMinAmp": 0.068950662,
+      "memoryMinAmp": 0.0141972209,
+      "fieldMeanAmp": 0.8987523711,
+      "memoryMeanAmp": 0.3644347425,
+      "fieldMemoryDistanceRaw": 0.5770861568,
+      "fieldMemoryDistanceAligned": 0.5750680734,
+      "fieldTargetDistanceRaw": 1.6506023088,
+      "fieldTargetDistanceAligned": 0.7778773183,
+      "memoryTargetDistanceRaw": 1.1613449674,
+      "memoryTargetDistanceAligned": 0.7804088701,
+      "thetaStarFieldMemory": -0.0851320347,
+      "thetaStarFieldTarget": -2.9410514959,
+      "thetaStarMemoryTarget": -2.7592108043,
+      "windingValidity": {
+        "axis": "x",
+        "source": "field",
+        "validityAmpThreshold": 0.1,
+        "invalidLineCount": 4,
+        "validLineCount": 252,
+        "lineMinAmpMin": 0.068950662,
+        "lineMinAmpMean": 0.5814097661,
+        "windingResidualMean": 4.094680456559269e-17,
+        "windingResidualMax": 3.3306690738754696e-16,
+        "validLineWindingHistogram": {
+          "0": 138,
+          "1": 114
+        },
+        "rawWindingHistogram": {
+          "0": 140,
+          "1": 116
+        }
+      },
+      "workProxy": {
+        "coefficient": 0.0075,
+        "distance": 0.7778773183,
+        "workProxy": 0.0058340799,
+        "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+      }
+    },
+    "interpretation": "clean recovery requires final target W and high dominant fraction plus low target distance and field-memory consistency; partial recovery may regain target-like W while distance/fraction/residual context remains inconsistent."
+  },
+  "memoryOnVsMemoryOffSummary": {
+    "memoryOn": {
+      "step": 700,
+      "fieldDominantW": 0,
+      "fieldDominantFraction": 1,
+      "memoryDominantW": 0,
+      "memoryDominantFraction": 1,
+      "fieldModePowers": {
+        "source": "field",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.9817005644,
+        "P1": 0.0052766065,
+        "P2": 0.0000012755,
+        "normalizedP0": 0.994652485,
+        "normalizedP1": 0.0053462227,
+        "normalizedP2": 0.0000012923,
+        "P1OverP0": 0.0053749654,
+        "P2OverP0": 0.0000012992
+      },
+      "memoryModePowers": {
+        "source": "memory",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.2552292084,
+        "P1": 0.0074926336,
+        "P2": 0.000435514,
+        "normalizedP0": 0.9698729773,
+        "normalizedP1": 0.0284720661,
+        "normalizedP2": 0.0016549565,
+        "P1OverP0": 0.0293564898,
+        "P2OverP0": 0.0017063642
+      },
+      "fieldMinAmp": 0.8949920547,
+      "memoryMinAmp": 0.2418756205,
+      "fieldMeanAmp": 0.9996835001,
+      "memoryMeanAmp": 0.5127639896,
+      "fieldMemoryDistanceRaw": 0.5300219164,
+      "fieldMemoryDistanceAligned": 0.5296505697,
+      "fieldTargetDistanceRaw": 1.3101430241,
+      "fieldTargetDistanceAligned": 1.3091820833,
+      "memoryTargetDistanceRaw": 1.0017166742,
+      "memoryTargetDistanceAligned": 0.9825209617,
+      "thetaStarFieldMemory": -0.0281049942,
+      "thetaStarFieldTarget": -0.1942985578,
+      "thetaStarMemoryTarget": 0.7058723986,
+      "windingValidity": {
+        "axis": "x",
+        "source": "field",
+        "validityAmpThreshold": 0.1,
+        "invalidLineCount": 0,
+        "validLineCount": 256,
+        "lineMinAmpMin": 0.8949920547,
+        "lineMinAmpMean": 0.9635996658,
+        "windingResidualMean": 8.282694482977906e-19,
+        "windingResidualMax": 8.834874115176436e-18,
+        "validLineWindingHistogram": {
+          "0": 256
+        },
+        "rawWindingHistogram": {
+          "0": 256
+        }
+      },
+      "workProxy": {
+        "coefficient": 0.0075,
+        "distance": 1.3091820833,
+        "workProxy": 0.0098188656,
+        "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+      }
+    },
+    "memoryOff": {
+      "step": 700,
+      "fieldDominantW": 0,
+      "fieldDominantFraction": 0.421875,
+      "memoryDominantW": 1,
+      "memoryDominantFraction": 1,
+      "fieldModePowers": {
+        "source": "field",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 0.0484451472,
+        "P1": 0.1923406459,
+        "P2": 0.0026355753,
+        "normalizedP0": 0.1990176439,
+        "normalizedP1": 0.7901551418,
+        "normalizedP2": 0.0108272143,
+        "P1OverP0": 3.9702768376,
+        "P2OverP0": 0.0544032887
+      },
+      "memoryModePowers": {
+        "source": "memory",
+        "axis": "x",
+        "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
+        "P0": 6.167490638701274e-33,
+        "P1": 0.847759065,
+        "P2": 6.165985822261229e-33,
+        "normalizedP0": 7.275051241755953e-33,
+        "normalizedP1": 1,
+        "normalizedP2": 7.273276189736893e-33,
+        "P1OverP0": 1.3745607649612011e+32,
+        "P2OverP0": 0.9997560083
+      },
+      "fieldMinAmp": 0.0169898541,
+      "memoryMinAmp": 0.920738326,
+      "fieldMeanAmp": 0.8265779974,
+      "memoryMeanAmp": 0.920738326,
+      "fieldMemoryDistanceRaw": 1.5778218973,
+      "fieldMemoryDistanceAligned": 0.9350543242,
+      "fieldTargetDistanceRaw": 1.5778218973,
+      "fieldTargetDistanceAligned": 0.9350543242,
+      "memoryTargetDistanceRaw": 0,
+      "memoryTargetDistanceAligned": 0,
+      "thetaStarFieldMemory": 3.1337419136,
+      "thetaStarFieldTarget": 3.1337419136,
+      "thetaStarMemoryTarget": 0,
+      "windingValidity": {
+        "axis": "x",
+        "source": "field",
+        "validityAmpThreshold": 0.1,
+        "invalidLineCount": 38,
+        "validLineCount": 218,
+        "lineMinAmpMin": 0.0169898541,
+        "lineMinAmpMean": 0.219990986,
+        "windingResidualMean": 8.599723923404204e-17,
+        "windingResidualMax": 4.947529504498804e-16,
+        "validLineWindingHistogram": {
+          "0": 94,
+          "1": 89,
+          "2": 8,
+          "-1": 23,
+          "-2": 4
+        },
+        "rawWindingHistogram": {
+          "0": 108,
+          "1": 100,
+          "2": 13,
+          "-1": 30,
+          "-2": 5
+        }
+      },
+      "workProxy": {
+        "coefficient": 0,
+        "distance": 0.9350543242,
+        "workProxy": 0,
+        "basis": "dimensionless per-step pull coefficient times target L2 distance for updates of form phi += k * (target - phi); not physical energy"
+      }
+    }
+  },
+  "couplingDistanceSummary": [
+    {
+      "runId": "coupling-W1-W0-g0.0075",
+      "classification": "topological_frustration_plateau",
+      "finalFieldABDistanceAligned": 1.1720582857,
+      "finalMemoryABDistanceAligned": 1.178917551,
+      "firstSlipStepA": null,
+      "firstSlipStepB": null,
+      "interpretation": "coupling-distance calibration only"
+    },
+    {
+      "runId": "coupling-W1-W0-g0.02",
+      "classification": "single_slip_merge",
+      "finalFieldABDistanceAligned": 0.0007280218,
+      "finalMemoryABDistanceAligned": 0.3332016149,
+      "firstSlipStepA": 50,
+      "firstSlipStepB": null,
+      "interpretation": "coupling-distance calibration only"
+    },
+    {
+      "runId": "coupling-W1-W0-g0.05",
+      "classification": "synchronized_double_phase_slip_candidate",
+      "finalFieldABDistanceAligned": 0.1285362284,
+      "finalMemoryABDistanceAligned": 0.0925939466,
+      "firstSlipStepA": 20,
+      "firstSlipStepB": 20,
+      "interpretation": "A transient swap window is evaluated from traces; final state is interpreted as merge if final A/B winding assignments share a common basin rather than a durable exchange."
+    }
+  ],
+  "validityResidualSummary": [
+    {
+      "runId": "baseline-W0",
+      "invalidLineCount": 0,
+      "windingResidualMean": 0,
+      "windingResidualMax": 0
+    },
+    {
+      "runId": "baseline-W1",
+      "invalidLineCount": 0,
+      "windingResidualMean": 3.3306690738754696e-16,
+      "windingResidualMax": 3.3306690738754696e-16
+    },
+    {
+      "runId": "baseline-W2",
+      "invalidLineCount": 0,
+      "windingResidualMean": 2.220446049250313e-16,
+      "windingResidualMax": 2.220446049250313e-16
+    },
+    {
+      "runId": "memory-on-break-then-recover",
+      "invalidLineCount": 0,
+      "windingResidualMean": 8.282694482977906e-19,
+      "windingResidualMax": 8.834874115176436e-18
+    },
+    {
+      "runId": "memory-on-break-partial-recovery",
+      "invalidLineCount": 4,
+      "windingResidualMean": 4.094680456559269e-17,
+      "windingResidualMax": 3.3306690738754696e-16
+    },
+    {
+      "runId": "memory-off-matched",
+      "invalidLineCount": 38,
+      "windingResidualMean": 8.599723923404204e-17,
+      "windingResidualMax": 4.947529504498804e-16
+    },
+    {
+      "runId": "memory-off-long",
+      "invalidLineCount": 44,
+      "windingResidualMean": 1.0352756740528699e-16,
+      "windingResidualMax": 5.551115123125783e-16
+    },
+    {
+      "runId": "ledger-L1b_clean_W1-mw0.0075",
+      "invalidLineCount": 0,
+      "windingResidualMean": 8.282694482977906e-19,
+      "windingResidualMax": 8.834874115176436e-18
+    },
+    {
+      "runId": "ledger-L2_clean_W0-mw0.0075",
+      "invalidLineCount": 0,
+      "windingResidualMean": 8.819236215436452e-19,
+      "windingResidualMax": 3.3130777931911632e-18
+    },
+    {
+      "runId": "ledger-L3_clean_W2-mw0.0075",
+      "invalidLineCount": 0,
+      "windingResidualMean": 7.546047120499111e-17,
+      "windingResidualMax": 3.3306690738754696e-16
+    },
+    {
+      "runId": "ledger-L3_clean_W2-mw0.03",
+      "invalidLineCount": 0,
+      "windingResidualMean": 1.682681771697503e-16,
+      "windingResidualMax": 6.661338147750939e-16
+    }
+  ],
+  "residualVsEpsilonSummary": [
+    {
+      "epsilon": 0.15,
+      "windingResidualMean": 8.066464163292153e-17,
+      "windingResidualMax": 3.3306690738754696e-16,
+      "invalidLineCount": 0,
+      "lineMinAmpMin": 0.8898725659
+    },
+    {
+      "epsilon": 0.5,
+      "windingResidualMean": 8.543513119185775e-17,
+      "windingResidualMax": 3.3306690738754696e-16,
+      "invalidLineCount": 0,
+      "lineMinAmpMin": 0.8178624561
+    },
+    {
+      "epsilon": 1.2,
+      "windingResidualMean": 1.0191500421363742e-16,
+      "windingResidualMax": 3.3306690738754696e-16,
+      "invalidLineCount": 0,
+      "lineMinAmpMin": 0.6738996068
+    }
+  ],
+  "interpretationDistinctions": {
+    "cleanRecovery": "final target W and high dominant fraction, plus low target distance and field-memory distance consistency",
+    "partialRecovery": "target-like W may return, but dominant fraction and/or distance traces remain inconsistent",
+    "phaseSlip": "target winding exits to another basin, with validity/minAmp context",
+    "merge": "two fields converge to a common basin, not necessarily stable exchange",
+    "transientSwap": "A/B winding assignments may temporarily exchange, but final state can still merge",
+    "memoryGuidedRestoration": "field-memory and target-distance traces support memory-mediated basin selection",
+    "fieldRewritesMemory": "memory moves toward field basin rather than field following memory",
+    "unreliableLineCondition": "winding estimates are low-confidence when residuals or invalidLineCount are elevated"
+  },
+  "omittedMetrics": [],
+  "omittedConditions": [],
+  "priorRoadmapGates": [
+    "G1",
+    "G2"
+  ],
+  "nextRecommendedGate": "G6 full 3D vortex-core/topology observer after using G1/G2 traces to choose targeted cases"
+}
