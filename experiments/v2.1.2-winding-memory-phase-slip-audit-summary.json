@@ -1,0 +1,348 @@
+{
+  "audit": "v2.1.2-winding-memory-phase-slip-audit",
+  "generatedAt": "2026-06-12T04:40:37.130Z",
+  "runMode": "lightweight",
+  "parameterLineage": "exp023-real",
+  "phaseConstructionMode": "legacy-torus-atan2",
+  "costPolicy": {
+    "mode": "lightweight",
+    "GRID_SIZE": 32,
+    "NOISE_SEEDS": [
+      101,
+      202
+    ],
+    "EPSILON_VALUES": [
+      0.5,
+      1.2
+    ],
+    "MEMORY_WEIGHT_VALUES": [
+      0.0075,
+      0.03,
+      0.05
+    ],
+    "COUPLING_G_VALUES": [
+      0.0075,
+      0.02,
+      0.05
+    ],
+    "MAX_STEPS_BASELINE": 3000,
+    "MAX_STEPS_PERTURBATION": 1500,
+    "MAX_STEPS_LONG_MEMORY_OFF": 4500,
+    "MAX_STEPS_COUPLING_SWEEP": 2000,
+    "SAMPLE_INTERVAL": 50,
+    "FINE_SAMPLE_INTERVAL": 10
+  },
+  "omittedConditions": [],
+  "lineageSanityChecks": {
+    "parameterLineage": "exp023-real",
+    "baselineW1MeanAmpCloseTo0980597": {
+      "observed": 0.98059731,
+      "reference": 0.980597,
+      "delta": 3.1e-7,
+      "claimLevel": "lineage sanity check, not pass/fail"
+    },
+    "baselineW2MeanAmpCloseTo0920739": {
+      "observed": 0.92073952,
+      "reference": 0.920739,
+      "delta": 5.2e-7,
+      "claimLevel": "lineage sanity check, not pass/fail"
+    },
+    "couplingG02SingleSlipExpectation": {
+      "runId": "coupling-W1-W0-g0.02",
+      "classification": "single_slip_merge",
+      "firstSlipStepA": 80,
+      "priorExpectedFirstSlipStepAWindow": "70-90",
+      "claimLevel": "expectation comparison, not pass/fail"
+    },
+    "l1bEvaluatedUnderExp023Real": {
+      "runId": "ledger-L1b_clean_W1-mw0.0075",
+      "parameterLineage": "exp023-real",
+      "classification": "clean_W1_memory_recovery"
+    },
+    "strictMemoryOffClassifications": {
+      "matched": {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-matched",
+        "classification": "break_partial_recovery",
+        "finalW": 1,
+        "finalFraction": 0.39160156
+      },
+      "long": {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-long",
+        "classification": "phase_slip_to_other_W",
+        "finalW": 0,
+        "finalFraction": 0.52148438
+      }
+    }
+  },
+  "observerContext": {
+    "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+    "windingMeasuredAxis": "x",
+    "windingLineCount": 1024,
+    "windingHistogramScope": "x-lines across all y,z",
+    "detectsGlobalWinding": true,
+    "detectsFull3DPhaseSlipDirectly": false,
+    "detectsVortexTanglesDirectly": false,
+    "modePowerFormula": "P_m = |mean(phi * exp(-i2πmx/N))|^2",
+    "limitations": [
+      "Winding histogram measures x-axis global line winding only.",
+      "During tangled phases, line-wise W values are activity indicators rather than full topology classification.",
+      "Phase slip is inferred from winding loss/recovery, minAmp collapse, and mode power changes.",
+      "This audit does not implement full 3D vortex-core tracking."
+    ]
+  },
+  "modePowerFormula": "P_m = |mean(phi * exp(-i2πmx/N))|^2",
+  "runCount": 22,
+  "byFamily": {
+    "baseline_global_winding": [
+      {
+        "runId": "baseline-W0",
+        "classification": "baseline_persistence_calibration",
+        "finalW": 0,
+        "finalFraction": 1,
+        "finalMemoryW": 0,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "baseline-W1",
+        "classification": "baseline_persistence_calibration",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "baseline-W2",
+        "classification": "baseline_persistence_calibration",
+        "finalW": 2,
+        "finalFraction": 1,
+        "finalMemoryW": 2,
+        "finalMemoryFraction": 1
+      }
+    ],
+    "perturbation_sweep": [
+      {
+        "runId": "perturb-W1-e0.5-seed101-memory-on",
+        "classification": "persistent_without_break",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "perturb-W1-e0.5-seed202-memory-on",
+        "classification": "persistent_without_break",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-on",
+        "classification": "break_then_recover",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed202-memory-on",
+        "classification": "break_partial_recovery",
+        "finalW": 1,
+        "finalFraction": 0.86816406,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 0.81933594
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-on-matched",
+        "classification": "break_then_recover",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-matched",
+        "classification": "break_partial_recovery",
+        "finalW": 1,
+        "finalFraction": 0.39160156,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "perturb-W1-e1.2-seed101-memory-off-long",
+        "classification": "phase_slip_to_other_W",
+        "finalW": 0,
+        "finalFraction": 0.52148438,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      }
+    ],
+    "ledger_discrimination_matrix": [
+      {
+        "runId": "ledger-L0_memory_OFF-mw0.0075",
+        "classification": "memory_off_no_recovery",
+        "finalW": 1,
+        "finalFraction": 0.39160156,
+        "finalMemoryW": 0,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "ledger-L1_noisy_W1_copy-mw0.0075",
+        "classification": "field_returns_to_W1",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "ledger-L1b_clean_W1-mw0.0075",
+        "classification": "clean_W1_memory_recovery",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "ledger-L2_clean_W0-mw0.0075",
+        "classification": "field_follows_clean_W0_memory",
+        "finalW": 0,
+        "finalFraction": 1,
+        "finalMemoryW": 0,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "ledger-L3_clean_W2-mw0.0075",
+        "classification": "field_rewrites_memory",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      }
+    ],
+    "memory_weight_sweep_uphill_writing": [
+      {
+        "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.0075",
+        "classification": "field_rewrites_memory",
+        "finalW": 1,
+        "finalFraction": 1,
+        "finalMemoryW": 1,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.03",
+        "classification": "memory_writes_W2_to_field",
+        "finalW": 2,
+        "finalFraction": 1,
+        "finalMemoryW": 2,
+        "finalMemoryFraction": 1
+      },
+      {
+        "runId": "ledger-D2_clean_W2_memory_weight_sweep-mw0.05",
+        "classification": "memory_writes_W2_to_field",
+        "finalW": 2,
+        "finalFraction": 1,
+        "finalMemoryW": 2,
+        "finalMemoryFraction": 1
+      }
+    ],
+    "one_sided_winding_coupling_sweep": [
+      {
+        "runId": "coupling-W1-W0-g0.0075",
+        "classification": "topological_frustration_plateau",
+        "finalWA": 1,
+        "finalWB": 0,
+        "finalMemoryWA": 1,
+        "finalMemoryWB": 0,
+        "firstSlipStepA": null,
+        "firstSlipStepB": null,
+        "transferWindow": null
+      },
+      {
+        "runId": "coupling-W1-W0-g0.02",
+        "classification": "single_slip_merge",
+        "finalWA": 0,
+        "finalWB": 0,
+        "finalMemoryWA": 0,
+        "finalMemoryWB": 0,
+        "firstSlipStepA": 80,
+        "firstSlipStepB": null,
+        "transferWindow": null
+      },
+      {
+        "runId": "coupling-W1-W0-g0.05",
+        "classification": "double_slip_exchange",
+        "finalWA": 0,
+        "finalWB": 0,
+        "finalMemoryWA": 0,
+        "finalMemoryWB": 0,
+        "firstSlipStepA": 20,
+        "firstSlipStepB": 20,
+        "transferWindow": {
+          "stepA": 20,
+          "stepB": 20,
+          "deltaSteps": 0
+        }
+      }
+    ],
+    "pure_noise_control": [
+      {
+        "runId": "pure-noise-W0-e1.2",
+        "classification": "no_stable_W1_created",
+        "finalW": 0,
+        "finalFraction": 1,
+        "finalMemoryW": 0,
+        "finalMemoryFraction": 0.97070313
+      }
+    ]
+  },
+  "baseline": [
+    {
+      "W": 0,
+      "finalDominantW": 0,
+      "allLinesTargetW": true,
+      "finalMeanAmp": 1,
+      "predictedStationaryAmplitude": 1,
+      "meanAmpError": 0
+    },
+    {
+      "W": 1,
+      "finalDominantW": 1,
+      "allLinesTargetW": true,
+      "finalMeanAmp": 0.98059731,
+      "predictedStationaryAmplitude": 0.98059704,
+      "meanAmpError": 2.7e-7
+    },
+    {
+      "W": 2,
+      "finalDominantW": 2,
+      "allLinesTargetW": true,
+      "finalMeanAmp": 0.92073952,
+      "predictedStationaryAmplitude": 0.92073833,
+      "meanAmpError": 0.0000012
+    }
+  ],
+  "priorExpectations": {
+    "baselinePersistence": [
+      {
+        "expectation": "W=0 persists through tested horizon",
+        "result": "hit"
+      },
+      {
+        "expectation": "W=1 persists through tested horizon",
+        "result": "hit"
+      },
+      {
+        "expectation": "W=2 persists through tested horizon",
+        "result": "hit"
+      }
+    ],
+    "memoryOffNoRecovery": "hit",
+    "cleanW0Memory": "hit",
+    "lowWeightW2Failure": "hit",
+    "pureNoiseNoW1": "hit"
+  },
+  "cautions": [
+    "Memory is not interpreted as an infallible ledger.",
+    "Candidate tags do not imply biological life, consciousness, exact topology proof, or permanent survival."
+  ]
+}
