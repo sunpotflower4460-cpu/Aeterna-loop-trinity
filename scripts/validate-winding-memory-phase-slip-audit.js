@@ -1,0 +1,159 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+
+const ROOT = path.join(__dirname, '..');
+const RESULTS_REL = 'experiments/v2.1.2-winding-memory-phase-slip-audit-results.json';
+const SUMMARY_REL = 'experiments/v2.1.2-winding-memory-phase-slip-audit-summary.json';
+const DOC_REL = 'docs/v2.1.2-winding-memory-phase-slip-audit.md';
+const HISTORICAL_JSON = Object.freeze([
+  'experiments/v2.1.2-randomized-vortex-controls-results.json',
+  'experiments/v2.1.2-randomized-vortex-controls-summary.json',
+  'experiments/v2.1.2-phase-detuning-scan-results.json',
+  'experiments/v2.1.2-phase-detuning-scan-summary.json',
+  'experiments/v2.1.2-periodic-vortex-initialization-audit-results.json',
+  'experiments/v2.1.2-periodic-vortex-initialization-audit-summary.json',
+]);
+const NEW_OUTPUTS = Object.freeze([RESULTS_REL, SUMMARY_REL, DOC_REL]);
+const PROHIBITED = [/life appeared/i, /\beternal\b/i, /perfect ledger/i, /proven permanent/i, /heart was created/i, /consciousness emerged/i];
+const MODE_POWER_FORMULA = 'P_m = |mean(phi * exp(-i2πmx/N))|^2';
+
+function read(rel) { return fs.readFileSync(path.join(ROOT, rel), 'utf8'); }
+function exists(rel) { return fs.existsSync(path.join(ROOT, rel)); }
+function assert(condition, message) { if (!condition) throw new Error(message); }
+function gitStatusPaths(paths) { return execFileSync('git', ['status', '--porcelain', '--', ...paths], { cwd: ROOT, encoding: 'utf8' }).trim(); }
+function resolveAuditBaseRef() {
+  const candidates = [process.env.AUDIT_BASE_REF || 'origin/main', 'origin/main', 'main', 'HEAD~1'];
+  for (const candidate of candidates) {
+    try {
+      execFileSync('git', ['rev-parse', '--verify', candidate], { cwd: ROOT, stdio: 'ignore' });
+      return candidate;
+    } catch (_) {
+      // Try the next fallback for local review environments without origin/main.
+    }
+  }
+  return null;
+}
+function committedHistoricalDiff(paths) {
+  const baseRef = resolveAuditBaseRef();
+  if (!baseRef) return '';
+  const mergeBase = execFileSync('git', ['merge-base', 'HEAD', baseRef], { cwd: ROOT, encoding: 'utf8' }).trim();
+  return execFileSync('git', ['diff', '--name-only', `${mergeBase}..HEAD`, '--', ...paths], { cwd: ROOT, encoding: 'utf8' }).trim();
+}
+function family(results, name) { return results.filter((r) => r.runFamily === name); }
+function hasOmission(summary, fragment) { return (summary.omittedConditions || []).some((item) => item.includes(fragment)); }
+function requestedValuesPresentOrOmitted(records, accessor, requested, summary, omissionFragment) {
+  const values = new Set(records.map(accessor).filter((v) => v !== undefined && v !== null));
+  const missing = requested.filter((v) => !values.has(v));
+  assert(missing.length === 0 || hasOmission(summary, omissionFragment), `Missing requested values ${missing.join(', ')} without documented omission: ${omissionFragment}`);
+}
+
+function main() {
+  for (const output of NEW_OUTPUTS) assert(!HISTORICAL_JSON.includes(output), `New output overlaps historical JSON path: ${output}`);
+  assert(gitStatusPaths(HISTORICAL_JSON) === '', `Historical JSON files are modified:\n${gitStatusPaths(HISTORICAL_JSON)}`);
+  const committedHistorical = committedHistoricalDiff(HISTORICAL_JSON);
+  assert(committedHistorical === '', `Historical JSON files appear in committed diff:\n${committedHistorical}`);
+  assert(exists(RESULTS_REL), 'Results JSON is missing');
+  assert(exists(SUMMARY_REL), 'Summary JSON is missing');
+  assert(exists(DOC_REL), 'Audit doc is missing');
+
+  const resultsDoc = JSON.parse(read(RESULTS_REL));
+  const summary = JSON.parse(read(SUMMARY_REL));
+  const records = resultsDoc.results || [];
+  const doc = read(DOC_REL);
+
+  assert(summary.runMode === resultsDoc.runMode, `Results/summary runMode mismatch: ${resultsDoc.runMode} !== ${summary.runMode}`);
+  assert(['lightweight', 'full'].includes(summary.runMode), `Official summary runMode must be lightweight or full, got ${summary.runMode}`);
+  assert(['lightweight', 'full'].includes(resultsDoc.runMode), `Official results runMode must be lightweight or full, got ${resultsDoc.runMode}`);
+  assert(!String(summary.runMode).includes('runtime-limited'), 'Official summary must not be the runtime-limited smoke artifact');
+  assert(!String(resultsDoc.runMode).includes('runtime-limited'), 'Official results must not be runtime-limited');
+  assert(summary.costPolicy?.mode === summary.runMode, `Summary costPolicy.mode must match summary.runMode: ${summary.costPolicy?.mode} !== ${summary.runMode}`);
+  assert(summary.generatorGitHash === resultsDoc.generatorGitHash, 'Results/summary generatorGitHash mismatch');
+  assert(summary.artifactGeneratedFromReachableCommit === true && resultsDoc.artifactGeneratedFromReachableCommit === true, 'Artifacts must record reachable generator provenance');
+  assert(summary.parameterLineage === 'exp023-real' && resultsDoc.parameterLineage === 'exp023-real', 'Artifacts must record exp023-real parameter lineage');
+  const allText = `${JSON.stringify(resultsDoc)}\n${JSON.stringify(summary)}\n${doc}`;
+
+  assert(records.length > 0, 'No run records found');
+  for (const record of records) {
+    assert(record.physicsContext, `physicsContext missing in ${record.runId}`);
+    assert(record.observerContext, `observerContext missing in ${record.runId}`);
+    assert(record.phaseConstructionMode === 'legacy-torus-atan2', `Unexpected phaseConstructionMode in ${record.runId}`);
+    assert(record.parameterLineage === 'exp023-real', `parameterLineage missing or unexpected in ${record.runId}`);
+    assert(record.windingInitializationMode === 'manual-global-x-winding-ramp', `windingInitializationMode missing in ${record.runId}`);
+    assert(record.initializerComparisonMode === 'not-tested-in-this-audit', `initializerComparisonMode missing in ${record.runId}`);
+    assert(record.runtimeInitializerContext === 'legacy-torus-atan2', `runtimeInitializerContext missing in ${record.runId}`);
+  }
+
+  const baselines = family(records, 'baseline_global_winding');
+  for (const w of [0, 1, 2]) assert(baselines.some((r) => r.initialW === w), `Baseline W=${w} missing`);
+
+  const ledger = family(records, 'ledger_discrimination_matrix');
+  for (const label of ['L0_memory_OFF', 'L1_noisy_W1_copy', 'L1b_clean_W1', 'L2_clean_W0', 'L3_clean_W2']) {
+    assert(ledger.some((r) => r.memoryConditionLabel === label), `Ledger matrix condition ${label} missing`);
+  }
+  for (const record of records) {
+    if (record.classification === 'persistent_without_break') {
+      assert(record.firstNonTargetStep === null || record.firstNonTargetStep === undefined, `persistent_without_break used after target break in ${record.runId}`);
+    }
+    if (record.classification === 'break_then_recover') {
+      const finalW = record.finalDominantW ?? record.finalFieldDominantW;
+      const finalFraction = record.finalDominantFraction ?? record.finalFieldDominantFraction ?? record.fieldWindingHistogram?.dominantFraction;
+      const targetW = record.runConfig?.targetW ?? record.runConfig?.fieldInitialW ?? 1;
+      assert(finalW === targetW && finalFraction >= 0.99, `break_then_recover final state is not recovered in ${record.runId}`);
+    }
+    if (record.classification === 'field_rewrites_memory') {
+      assert(record.memoryInitialW !== record.fieldInitialW, `field_rewrites_memory used without differing initial memory in ${record.runId}`);
+      assert(record.memoryRewriteStep !== null && record.memoryRewriteStep > 0, `field_rewrites_memory missing post-initial rewrite step in ${record.runId}`);
+    }
+    if (['memory_off_field_returns_to_W1', 'field_returns_to_W1', 'clean_W1_memory_recovery'].includes(record.classification)) {
+      assert(record.finalFieldDominantW === 1 && record.finalFieldDominantFraction >= 0.99, `clean W=1 return classification lacks recovery-threshold support in ${record.runId}`);
+    }
+    if (record.classification === 'field_follows_clean_W0_memory') {
+      assert(record.finalFieldDominantW === 0 && record.finalFieldDominantFraction >= 0.99, `clean W=0 follow classification lacks recovery-threshold support in ${record.runId}`);
+    }
+    if (record.classification === 'memory_writes_W2_to_field') {
+      assert(record.finalFieldDominantW === 2 && record.finalFieldDominantFraction >= 0.99, `W2 write classification lacks recovery-threshold support in ${record.runId}`);
+    }
+    if (record.runConfig?.memoryEnabled === false) {
+      assert(record.runConfig.effectiveMemoryWeight === 0, `memory-off run missing effectiveMemoryWeight=0 in ${record.runId}`);
+    }
+  }
+  const mainLedger = ledger.filter((r) => ['L1_noisy_W1_copy', 'L1b_clean_W1', 'L2_clean_W0', 'L3_clean_W2'].includes(r.memoryConditionLabel));
+  for (const record of mainLedger) assert(record.memoryWeight === 0.0075, `Main ledger condition ${record.runId} did not use MEMORY_WEIGHT=0.0075`);
+  const l1b = ledger.find((r) => r.memoryConditionLabel === 'L1b_clean_W1');
+  assert(!l1b || l1b.memoryRewriteStep === null, 'L1b clean W=1 must not report memoryRewriteStep');
+
+  const weightSweep = family(records, 'memory_weight_sweep_uphill_writing');
+  requestedValuesPresentOrOmitted(weightSweep, (r) => r.memoryWeight, [0.0075, 0.03, 0.05], summary, 'MEMORY_WEIGHT');
+  const couplingSweep = family(records, 'one_sided_winding_coupling_sweep');
+  requestedValuesPresentOrOmitted(couplingSweep, (r) => r.runConfig && r.runConfig.couplingG, [0.0075, 0.02, 0.05], summary, 'COUPLING_G');
+  for (const record of couplingSweep) {
+    assert(record.runConfig?.memoryCouplingUseBidirectional === true, `One-sided winding coupling did not preserve bidirectional coupling in ${record.runId}`);
+    assert(record.physicsContext?.memoryCouplingUseBidirectional === true, `One-sided winding coupling physicsContext did not record bidirectional=true in ${record.runId}`);
+  }
+  const couplingSummary = summary.byFamily?.one_sided_winding_coupling_sweep || [];
+  assert(couplingSummary.length === couplingSweep.length, 'Coupling summary count mismatch');
+  for (const item of couplingSummary) {
+    assert(Object.prototype.hasOwnProperty.call(item, 'finalWA') && Object.prototype.hasOwnProperty.call(item, 'finalWB'), `Coupling summary missing A/B final W fields for ${item.runId}`);
+    assert(!Object.prototype.hasOwnProperty.call(item, 'finalW') && !Object.prototype.hasOwnProperty.call(item, 'finalMemoryW'), `Coupling summary still uses generic final fields for ${item.runId}`);
+  }
+  const pureNoise = family(records, 'pure_noise_control');
+  assert(pureNoise.length >= 1, 'Pure W=0 noise control missing');
+  for (const record of pureNoise) {
+    assert(record.runConfig?.memoryEnabled === false && record.runConfig?.effectiveMemoryWeight === 0, `Pure noise control must be memory-off in ${record.runId}`);
+  }
+
+  assert(/claim-level|claim level/i.test(doc), 'Docs do not include claim-level cautions');
+  assert(/lightweight/i.test(doc) && /full mode/i.test(doc), 'Docs do not mention lightweight vs full mode');
+  assert(doc.includes(MODE_POWER_FORMULA), 'Docs do not include exact mode power formula');
+  assert(summary.modePowerFormula === MODE_POWER_FORMULA, 'Summary mode power formula mismatch');
+  for (const pattern of PROHIBITED) assert(!pattern.test(allText), `Prohibited language found: ${pattern}`);
+  assert(allText.includes('memory_biased_basin_selection'), 'Preferred memory_biased_basin_selection tag missing');
+
+  console.log('Winding/memory/phase-slip audit validation passed.');
+}
+
+if (require.main === module) main();
