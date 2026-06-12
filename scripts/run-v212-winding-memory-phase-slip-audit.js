@@ -264,6 +264,7 @@ function perturbationRun({ epsilon, seed, memoryEnabled = true, maxSteps = COST.
   let classification = 'persistent_without_break';
   if (analysis.firstNonTargetStep !== null && finalOnTarget) classification = 'break_then_recover';
   else if (analysis.firstNonTargetStep !== null && analysis.recoveryStep !== null && !finalOnTarget) classification = 'transient_recovery_then_loss';
+  else if (analysis.firstNonTargetStep !== null && final.fieldDominantW === 1 && final.fieldDominantFraction < 0.99) classification = 'break_partial_recovery';
   else if (analysis.firstNonTargetStep !== null && final.fieldDominantW !== 1) classification = final.fieldDominantW === null ? 'break_no_recovery' : 'phase_slip_to_other_W';
   const rec = commonRecord({ runId: `perturb-W1-e${epsilon}-seed${seed}-${label}`, runFamily: 'perturbation_sweep', runConfig: { initialW: 1, targetW: 1, epsilon, noiseSeed: seed, memoryEnabled, memoryConditionLabel: label, maxSteps, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['measured: winding loss/recovery, minAmp collapse, and P1 recovery; interpretive tag remains candidate only.'] });
   return { ...rec, epsilon, noiseSeed: seed, initialDominantW: samples[0].fieldDominantW, ...roundObj(analysis), finalDominantW: final.fieldDominantW, finalDominantFraction: final.fieldDominantFraction };
@@ -279,22 +280,25 @@ function ledgerRun({ label, memoryW, memoryEnabled = true, epsilon = 1.2, seed =
   const final = samples[samples.length - 1]; const analysis = analyzeSamples(samples, 1);
   const fieldInitialW = 1;
   const targetW = 1;
+  const finalFieldOnW1 = final.fieldDominantW === 1 && final.fieldDominantFraction >= 0.99;
+  const finalFieldOnW0 = final.fieldDominantW === 0 && final.fieldDominantFraction >= 0.99;
+  const finalFieldOnW2 = final.fieldDominantW === 2 && final.fieldDominantFraction >= 0.99;
   const memoryRewrite = samples.find((sample) => memoryEnabled && memoryW !== null && memoryW !== targetW && sample.step > 0 && sample.memoryDominantW === targetW && sample.memoryDominantFraction >= 0.99);
   let classification = 'mixed_or_tangled';
-  if (!memoryEnabled) classification = final.fieldDominantW === 1 ? 'memory_off_field_returns_to_W1' : 'memory_off_no_recovery';
-  else if (memoryW === 0 && final.fieldDominantW === 0) classification = 'field_follows_clean_W0_memory';
-  else if (memoryW === 2 && final.fieldDominantW === 2) classification = 'memory_writes_W2_to_field';
+  if (!memoryEnabled) classification = finalFieldOnW1 ? 'memory_off_field_returns_to_W1' : 'memory_off_no_recovery';
+  else if (memoryW === 0 && finalFieldOnW0) classification = 'field_follows_clean_W0_memory';
+  else if (memoryW === 2 && finalFieldOnW2) classification = 'memory_writes_W2_to_field';
   else if (memoryW !== fieldInitialW && memoryRewrite) classification = 'field_rewrites_memory';
-  else if (memoryW === 2 && final.fieldDominantW === 1) classification = 'field_returns_to_W1';
-  else if (memoryW === 1 && final.fieldDominantW === 1) classification = label === 'L1b_clean_W1' ? 'clean_W1_memory_recovery' : 'field_returns_to_W1';
+  else if (memoryW === 2 && finalFieldOnW1) classification = 'field_returns_to_W1';
+  else if (memoryW === 1 && finalFieldOnW1) classification = label === 'L1b_clean_W1' ? 'clean_W1_memory_recovery' : 'field_returns_to_W1';
   const rec = commonRecord({ runId: `ledger-${label}-mw${memoryWeight}`, runFamily: 'ledger_discrimination_matrix', runConfig: { fieldInitialW: 1, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, noiseSeed: seed, memoryEnabled, memoryWeight, maxSteps: COST.MAX_STEPS_PERTURBATION, gridSize: COST.GRID_SIZE }, params, runtime, samples, classification, claimLevelNotes: ['observed ledger-discrimination result; interpretive level: memory_biased_basin_selection if field/memory disagreement changes outcome.'] });
-  return { ...rec, fieldInitialW, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, memoryWeight, finalFieldDominantW: final.fieldDominantW, finalMemoryDominantW: final.memoryDominantW, fieldRecoveryStep: analysis.recoveryStep, memoryRewriteStep: memoryRewrite ? memoryRewrite.step : null };
+  return { ...rec, fieldInitialW, memoryInitialW: memoryW, memoryConditionLabel: label, epsilon, memoryWeight, finalFieldDominantW: final.fieldDominantW, finalFieldDominantFraction: final.fieldDominantFraction, finalMemoryDominantW: final.memoryDominantW, finalMemoryDominantFraction: final.memoryDominantFraction, fieldRecoveryStep: analysis.recoveryStep, memoryRewriteStep: memoryRewrite ? memoryRewrite.step : null };
 }
 function memoryWeightRun(memoryWeight) {
   const rec = ledgerRun({ label: 'D2_clean_W2_memory_weight_sweep', memoryW: 2, memoryEnabled: true, memoryWeight });
-  if (rec.finalFieldDominantW === 2) rec.classification = 'memory_writes_W2_to_field';
-  else if (rec.finalFieldDominantW === 1 && rec.finalMemoryDominantW === 1) rec.classification = 'field_rewrites_memory';
-  else if (rec.finalFieldDominantW === 1) rec.classification = 'field_returns_to_W1';
+  if (rec.finalFieldDominantW === 2 && rec.finalFieldDominantFraction >= 0.99) rec.classification = 'memory_writes_W2_to_field';
+  else if (rec.finalFieldDominantW === 1 && rec.finalFieldDominantFraction >= 0.99 && rec.finalMemoryDominantW === 1 && rec.memoryInitialW !== 1 && rec.memoryRewriteStep !== null) rec.classification = 'field_rewrites_memory';
+  else if (rec.finalFieldDominantW === 1 && rec.finalFieldDominantFraction >= 0.99) rec.classification = 'field_returns_to_W1';
   else rec.classification = 'mixed_or_tangled';
   rec.runFamily = 'memory_weight_sweep_uphill_writing';
   return rec;
@@ -308,7 +312,7 @@ function pureNoiseRun() {
   return { ...rec, finalDominantW: final.fieldDominantW, finalDominantFraction: final.fieldDominantFraction };
 }
 function couplingRun(g) {
-  const params = baseParams({ COUPLING_ENABLED: true, MEMORY_COUPLING_ENABLED: true, COUPLING_G: g, MEMORY_WEIGHT: 0.04 });
+  const params = baseParams({ COUPLING_ENABLED: true, MEMORY_COUPLING_ENABLED: true, MEMORY_COUPLING_USE_BIDIRECTIONAL: false, COUPLING_G: g, MEMORY_WEIGHT: 0.04 });
   const runtime = makeRuntime(params); setGlobalWinding(runtime.fieldA, { gridSize: COST.GRID_SIZE, winding: 1, target: 'field' }); copyFieldToMemory(runtime.fieldA); setGlobalWinding(runtime.fieldB, { gridSize: COST.GRID_SIZE, winding: 0, target: 'field' }); copyFieldToMemory(runtime.fieldB);
   const samples = [];
   runSteps(runtime, COST.MAX_STEPS_COUPLING_SWEEP, COST.SAMPLE_INTERVAL, () => {
@@ -322,16 +326,41 @@ function couplingRun(g) {
   const final = samples[samples.length - 1];
   let classification = 'indeterminate';
   if (!firstSlipA && !firstSlipB) classification = 'topological_frustration_plateau';
-  else if (final.fieldDominantWA === final.fieldDominantWB) classification = 'single_slip_merge';
   else if (firstSlipA && firstSlipB && Math.abs(firstSlipA.step - firstSlipB.step) <= 50) classification = 'double_slip_exchange';
+  else if (Boolean(firstSlipA) !== Boolean(firstSlipB) && final.fieldDominantWA === final.fieldDominantWB) classification = 'single_slip_merge';
   else if (firstSlipA || firstSlipB) classification = 'transfer_then_merge';
   const snapA = snapshot(runtime.fieldA, COST.GRID_SIZE, 'A'); const snapB = snapshot(runtime.fieldB, COST.GRID_SIZE, 'B'); const gauge = computeGaugeInvariantABMetrics(runtime.fieldA, runtime.fieldB);
-  return roundObj({ runId: `coupling-W1-W0-g${g}`, runFamily: 'one_sided_coupling_sweep', runConfig: { initialWA: 1, initialWB: 0, couplingG: g, maxSteps: COST.MAX_STEPS_COUPLING_SWEEP, gridSize: COST.GRID_SIZE, samplePolicy: 'every 10 steps for first 200 steps, then every 50 steps' }, physicsContext: describePhysicsContext(params, runtime.config), observerContext: observerContextBase, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, samples, fieldWindingHistogramA: snapA.AfieldWindingHistogram, fieldWindingHistogramB: snapB.BfieldWindingHistogram, memoryWindingHistogramA: snapA.AmemoryWindingHistogram, memoryWindingHistogramB: snapB.BmemoryWindingHistogram, minAmpA: snapA.AamplitudeStats.minAmp, minAmpB: snapB.BamplitudeStats.minAmp, fieldPowersA: snapA.AfieldModePowers, fieldPowersB: snapB.BfieldModePowers, memoryPowersA: snapA.AmemoryModePowers, memoryPowersB: snapB.BmemoryModePowers, alignedFieldABDistance: gauge.alignedFieldABDistance, rawFieldABDistance: gauge.rawFieldABDistance, gaugeOverlap: gauge.gaugeOverlap, firstSlipStepA: firstSlipA ? firstSlipA.step : null, firstSlipStepB: firstSlipB ? firstSlipB.step : null, transferWindow: firstSlipA && firstSlipB ? { stepA: firstSlipA.step, stepB: firstSlipB.step, deltaSteps: Math.abs(firstSlipA.step - firstSlipB.step) } : null, classification, claimLevelNotes: ['candidate coupling regime classification; synchronized_double_phase_slip requires nearby W changes and minAmp drops, not full topology proof.'], limitations: observerContextBase.limitations });
+  const physicsContext = { ...describePhysicsContext(params, runtime.config), memoryCouplingUseBidirectional: params.MEMORY_COUPLING_USE_BIDIRECTIONAL };
+  return roundObj({ runId: `coupling-W1-W0-g${g}`, runFamily: 'one_sided_coupling_sweep', runConfig: { initialWA: 1, initialWB: 0, couplingG: g, memoryCouplingUseBidirectional: params.MEMORY_COUPLING_USE_BIDIRECTIONAL, couplingDirection: 'B-memory-to-A-field only', maxSteps: COST.MAX_STEPS_COUPLING_SWEEP, gridSize: COST.GRID_SIZE, samplePolicy: 'every 10 steps for first 200 steps, then every 50 steps' }, physicsContext, observerContext: observerContextBase, phaseConstructionMode: PHASE_CONSTRUCTION_MODE, samples, fieldWindingHistogramA: snapA.AfieldWindingHistogram, fieldWindingHistogramB: snapB.BfieldWindingHistogram, memoryWindingHistogramA: snapA.AmemoryWindingHistogram, memoryWindingHistogramB: snapB.BmemoryWindingHistogram, minAmpA: snapA.AamplitudeStats.minAmp, minAmpB: snapB.BamplitudeStats.minAmp, fieldPowersA: snapA.AfieldModePowers, fieldPowersB: snapB.BfieldModePowers, memoryPowersA: snapA.AmemoryModePowers, memoryPowersB: snapB.BmemoryModePowers, alignedFieldABDistance: gauge.alignedFieldABDistance, rawFieldABDistance: gauge.rawFieldABDistance, gaugeOverlap: gauge.gaugeOverlap, firstSlipStepA: firstSlipA ? firstSlipA.step : null, firstSlipStepB: firstSlipB ? firstSlipB.step : null, transferWindow: firstSlipA && firstSlipB ? { stepA: firstSlipA.step, stepB: firstSlipB.step, deltaSteps: Math.abs(firstSlipA.step - firstSlipB.step) } : null, classification, claimLevelNotes: ['candidate coupling regime classification; synchronized_double_phase_slip requires nearby W changes and minAmp drops, not full topology proof.'], limitations: observerContextBase.limitations });
 }
 
 function summarize(results) {
   const byFamily = {};
-  for (const r of results) { byFamily[r.runFamily] ||= []; byFamily[r.runFamily].push({ runId: r.runId, classification: r.classification, finalW: r.finalDominantW ?? r.finalFieldDominantW ?? r.fieldWindingHistogram?.dominantW ?? null, finalMemoryW: r.finalMemoryDominantW ?? r.memoryWindingHistogram?.dominantW ?? null }); }
+  for (const r of results) {
+    byFamily[r.runFamily] ||= [];
+    if (r.runFamily === 'one_sided_coupling_sweep') {
+      byFamily[r.runFamily].push({
+        runId: r.runId,
+        classification: r.classification,
+        finalWA: r.fieldWindingHistogramA?.dominantW ?? null,
+        finalWB: r.fieldWindingHistogramB?.dominantW ?? null,
+        finalMemoryWA: r.memoryWindingHistogramA?.dominantW ?? null,
+        finalMemoryWB: r.memoryWindingHistogramB?.dominantW ?? null,
+        firstSlipStepA: r.firstSlipStepA,
+        firstSlipStepB: r.firstSlipStepB,
+        transferWindow: r.transferWindow,
+      });
+    } else {
+      byFamily[r.runFamily].push({
+        runId: r.runId,
+        classification: r.classification,
+        finalW: r.finalDominantW ?? r.finalFieldDominantW ?? r.fieldWindingHistogram?.dominantW ?? null,
+        finalFraction: r.finalDominantFraction ?? r.finalFieldDominantFraction ?? r.fieldWindingHistogram?.dominantFraction ?? null,
+        finalMemoryW: r.finalMemoryDominantW ?? r.memoryWindingHistogram?.dominantW ?? null,
+        finalMemoryFraction: r.finalMemoryDominantFraction ?? r.memoryWindingHistogram?.dominantFraction ?? null,
+      });
+    }
+  }
   const baseline = results.filter((r) => r.runFamily === 'baseline_global_winding').map((r) => ({ W: r.initialW, finalDominantW: r.finalDominantW, allLinesTargetW: r.allLinesTargetW, finalMeanAmp: r.finalMeanAmp, predictedStationaryAmplitude: r.predictedStationaryAmplitude, meanAmpError: r.meanAmpError }));
   const priorExpectations = {
     baselinePersistence: baseline.map((b) => ({ expectation: `W=${b.W} persists through tested horizon`, result: b.allLinesTargetW ? 'hit' : 'miss' })),

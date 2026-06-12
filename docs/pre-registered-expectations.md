@@ -51,20 +51,22 @@ This file records expectations before or alongside audit interpretation. These a
 - Baseline `W=0`, `W=1`, and `W=2` persisted through the default lightweight horizon.
 - Moderate `W=1 + ε=0.5` persisted without a break for seeds `101` and `202`.
 - Strong memory-on `W=1 + ε=1.2` broke and recovered to final `W=1` for seeds `101` and `202`.
-- The long memory-off control ended at `W=0` and is no longer mislabeled as recovered.
+- The matched memory-off control is no longer overstated as recovered: it ends with weak `W=1` plurality and is classified as `break_partial_recovery`; the long memory-off control ends at `W=0`.
 - Clean `W=0` memory biased damaged field state to final `W=0` in D1 at low memory weight.
 - Low D2 memory weight (`0.0075`) did not write `W=2` into the field, while `0.03` and `0.05` did in the default lightweight artifact.
 - `L1b_clean_W1` no longer reports a spurious memory rewrite step.
 - Pure `W=0 + ε=1.2` noise did not produce stable final `W=1` in the checked-in artifact.
-- Low `g=0.0075` one-sided coupling produced a plateau; high `g=0.05` produced a synchronized double-slip candidate.
+- Low `g=0.0075` one-sided coupling produced a plateau; high `g=0.05` produced a one-sided single-slip merge after explicitly disabling bidirectional coupling.
 
 ### Misses
 
 - The intermediate `g≈0.02` single-slip merge expectation was missed in the default lightweight artifact; it remained a plateau over the tested horizon.
 - Low-weight clean `W=1` memory (`L1b`) did not restore the damaged field to final `W=1`; it ended as a mixed/tangled outcome with final field `W=0` and memory `W=1`.
+- The prior high-`g` synchronized double-slip / transfer expectation is not confirmed under explicitly one-sided coupling; `g=0.05` is a single-slip merge instead.
 
 ### Indeterminate results
 
-- Transfer-vs-merge classification remains candidate-level without denser coupling sampling and full 3D vortex-core tracking.
+- Transfer-vs-merge classification remains candidate-level without denser coupling sampling, bidirectional-control comparisons, and full 3D vortex-core tracking.
 - Whether memory ON reliably outperforms memory OFF across a broader seed set remains indeterminate because the default lightweight artifact tests only one matched memory-off strong perturbation and one longer memory-off horizon.
 - Exact threshold locations for memory strength and coupling require denser local scans around the observed transitions.
+- Future work: add time-series L2 distances (`mean |field-memory|`, `mean |field-targetW|`, `mean |memory-targetW|`), a coupling control with `MEMORY_WEIGHT=0`, denser `g` values around `0.0125`, `0.015`, and `0.025`, and a later CI runtime-limited smoke command.

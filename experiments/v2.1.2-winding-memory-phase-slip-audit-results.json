@@ -1,6 +1,6 @@
 {
   "audit": "v2.1.2-winding-memory-phase-slip-audit",
-  "generatedAt": "2026-06-11T23:04:11.541Z",
+  "generatedAt": "2026-06-12T01:40:14.798Z",
   "runMode": "lightweight",
   "phaseConstructionMode": "legacy-torus-atan2",
   "results": [
@@ -28,7 +28,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -1072,7 +1072,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -2116,7 +2116,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -3164,7 +3164,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -3856,7 +3856,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -4548,7 +4548,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -5242,7 +5242,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -5936,7 +5936,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -6630,7 +6630,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -7281,7 +7281,7 @@
         "totalKineticEnergyProxy": 49421.62341172,
         "nonFiniteCount": 0
       },
-      "classification": "persistent_without_break",
+      "classification": "break_partial_recovery",
       "claimLevelNotes": [
         "measured: winding loss/recovery, minAmp collapse, and P1 recovery; interpretive tag remains candidate only."
       ],
@@ -7329,7 +7329,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -8748,7 +8748,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -9399,7 +9399,7 @@
         "totalKineticEnergyProxy": 49421.62341172,
         "nonFiniteCount": 0
       },
-      "classification": "memory_off_field_returns_to_W1",
+      "classification": "memory_off_no_recovery",
       "claimLevelNotes": [
         "observed ledger-discrimination result; interpretive level: memory_biased_basin_selection if field/memory disagreement changes outcome."
       ],
@@ -9410,7 +9410,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.0075,
       "finalFieldDominantW": 1,
+      "finalFieldDominantFraction": 0.39160156,
       "finalMemoryDominantW": 0,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": null,
       "memoryRewriteStep": null
     },
@@ -9443,7 +9445,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -10103,7 +10105,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.0075,
       "finalFieldDominantW": 0,
+      "finalFieldDominantFraction": 1,
       "finalMemoryDominantW": 1,
+      "finalMemoryDominantFraction": 0.61914063,
       "fieldRecoveryStep": 20,
       "memoryRewriteStep": null
     },
@@ -10136,7 +10140,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -10792,7 +10796,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.0075,
       "finalFieldDominantW": 0,
+      "finalFieldDominantFraction": 0.9296875,
       "finalMemoryDominantW": 1,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": 20,
       "memoryRewriteStep": null
     },
@@ -10825,7 +10831,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -11480,7 +11486,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.0075,
       "finalFieldDominantW": 0,
+      "finalFieldDominantFraction": 1,
       "finalMemoryDominantW": 0,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": null,
       "memoryRewriteStep": null
     },
@@ -11513,7 +11521,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -12168,7 +12176,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.0075,
       "finalFieldDominantW": 1,
+      "finalFieldDominantFraction": 1,
       "finalMemoryDominantW": 2,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": 200,
       "memoryRewriteStep": null
     },
@@ -12201,7 +12211,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -12856,7 +12866,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.0075,
       "finalFieldDominantW": 1,
+      "finalFieldDominantFraction": 1,
       "finalMemoryDominantW": 2,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": 200,
       "memoryRewriteStep": null
     },
@@ -12889,7 +12901,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -13544,7 +13556,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.03,
       "finalFieldDominantW": 2,
+      "finalFieldDominantFraction": 1,
       "finalMemoryDominantW": 2,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": null,
       "memoryRewriteStep": null
     },
@@ -13577,7 +13591,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -14232,7 +14246,9 @@
       "epsilon": 1.2,
       "memoryWeight": 0.05,
       "finalFieldDominantW": 2,
+      "finalFieldDominantFraction": 1,
       "finalMemoryDominantW": 2,
+      "finalMemoryDominantFraction": 1,
       "fieldRecoveryStep": null,
       "memoryRewriteStep": null
     },
@@ -14243,6 +14259,8 @@
         "initialWA": 1,
         "initialWB": 0,
         "couplingG": 0.0075,
+        "memoryCouplingUseBidirectional": false,
+        "couplingDirection": "B-memory-to-A-field only",
         "maxSteps": 2000,
         "gridSize": 32,
         "samplePolicy": "every 10 steps for first 200 steps, then every 50 steps"
@@ -14261,10 +14279,11 @@
           "Second-order damped nonlinear Klein-Gordon-style runtime with Mexican-hat potential.",
           "Memory coupling applies state updates to phi fields using memory fields as the source.",
           "Current memory coupling and memory blending are post-integration state updates, not force/acceleration terms. If future implementations move coupling into the acceleration term, physicsContext must change accordingly."
-        ]
+        ],
+        "memoryCouplingUseBidirectional": false
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -14303,11 +14322,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87980025,
-          "minAmpB": 0.88130193,
-          "alignedFieldABDistance": 1.11899738,
-          "rawFieldABDistance": 1.11899738,
-          "gaugeOverlap": 0.12745623
+          "minAmpA": 0.87979648,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.19515101,
+          "rawFieldABDistance": 1.19515101,
+          "gaugeOverlap": 0.06392836
         },
         {
           "step": 20,
@@ -14317,11 +14336,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.81617638,
-          "minAmpB": 0.820829,
-          "alignedFieldABDistance": 1.03410634,
-          "rawFieldABDistance": 1.03410634,
-          "gaugeOverlap": 0.20522894
+          "minAmpA": 0.81615308,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15174977,
+          "rawFieldABDistance": 1.15174977,
+          "gaugeOverlap": 0.10355114
         },
         {
           "step": 30,
@@ -14331,11 +14350,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.79138809,
-          "minAmpB": 0.7998047,
-          "alignedFieldABDistance": 0.99458986,
-          "rawFieldABDistance": 0.99458986,
-          "gaugeOverlap": 0.24505323
+          "minAmpA": 0.79132799,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13087929,
+          "rawFieldABDistance": 1.13087929,
+          "gaugeOverlap": 0.12438381
         },
         {
           "step": 40,
@@ -14345,11 +14364,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.79045799,
-          "minAmpB": 0.80267335,
-          "alignedFieldABDistance": 0.98272226,
-          "rawFieldABDistance": 0.98272226,
-          "gaugeOverlap": 0.26037963
+          "minAmpA": 0.79034951,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12389377,
+          "rawFieldABDistance": 1.12389377,
+          "gaugeOverlap": 0.13285863
         },
         {
           "step": 50,
@@ -14359,11 +14378,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.802546,
-          "minAmpB": 0.81826016,
-          "alignedFieldABDistance": 0.98614605,
-          "rawFieldABDistance": 0.98614605,
-          "gaugeOverlap": 0.26176222
+          "minAmpA": 0.80238531,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12473425,
+          "rawFieldABDistance": 1.12473425,
+          "gaugeOverlap": 0.13418505
         },
         {
           "step": 60,
@@ -14373,11 +14392,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.82033176,
-          "minAmpB": 0.83903871,
-          "alignedFieldABDistance": 0.99672527,
-          "rawFieldABDistance": 0.99672527,
-          "gaugeOverlap": 0.25630302
+          "minAmpA": 0.82012219,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12937675,
+          "rawFieldABDistance": 1.12937675,
+          "gaugeOverlap": 0.13193984
         },
         {
           "step": 70,
@@ -14387,11 +14406,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.83913265,
-          "minAmpB": 0.86020733,
-          "alignedFieldABDistance": 1.00938727,
-          "rawFieldABDistance": 1.00938727,
-          "gaugeOverlap": 0.24836539
+          "minAmpA": 0.83888283,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13527771,
+          "rawFieldABDistance": 1.13527771,
+          "gaugeOverlap": 0.1283391
         },
         {
           "step": 80,
@@ -14401,11 +14420,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.8561828,
-          "minAmpB": 0.87895875,
-          "alignedFieldABDistance": 1.0212218,
-          "rawFieldABDistance": 1.0212218,
-          "gaugeOverlap": 0.24041194
+          "minAmpA": 0.85590423,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14094699,
+          "rawFieldABDistance": 1.14094699,
+          "gaugeOverlap": 0.12463604
         },
         {
           "step": 90,
@@ -14415,11 +14434,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87009394,
-          "minAmpB": 0.89393666,
-          "alignedFieldABDistance": 1.03081188,
-          "rawFieldABDistance": 1.03081188,
-          "gaugeOverlap": 0.23366606
+          "minAmpA": 0.8697985,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14563098,
+          "rawFieldABDistance": 1.14563098,
+          "gaugeOverlap": 0.12145511
         },
         {
           "step": 100,
@@ -14429,11 +14448,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.880439,
-          "minAmpB": 0.90480635,
-          "alignedFieldABDistance": 1.03772755,
-          "rawFieldABDistance": 1.03772755,
-          "gaugeOverlap": 0.22857828
+          "minAmpA": 0.88013702,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14907028,
+          "rawFieldABDistance": 1.14907028,
+          "gaugeOverlap": 0.11903211
         },
         {
           "step": 110,
@@ -14443,11 +14462,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88741455,
-          "minAmpB": 0.91189443,
-          "alignedFieldABDistance": 1.04213595,
-          "rawFieldABDistance": 1.04213595,
-          "gaugeOverlap": 0.22514452
+          "minAmpA": 0.88711354,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15131033,
+          "rawFieldABDistance": 1.15131033,
+          "gaugeOverlap": 0.11737722
         },
         {
           "step": 120,
@@ -14457,11 +14476,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89156615,
-          "minAmpB": 0.91588752,
-          "alignedFieldABDistance": 1.04450739,
-          "rawFieldABDistance": 1.04450739,
-          "gaugeOverlap": 0.22312208
+          "minAmpA": 0.89127037,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15255652,
+          "rawFieldABDistance": 1.15255652,
+          "gaugeOverlap": 0.11638355
         },
         {
           "step": 130,
@@ -14471,11 +14490,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89357669,
-          "minAmpB": 0.91759727,
-          "alignedFieldABDistance": 1.04540784,
-          "rawFieldABDistance": 1.04540784,
-          "gaugeOverlap": 0.2221739
+          "minAmpA": 0.89328746,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15307083,
+          "rawFieldABDistance": 1.15307083,
+          "gaugeOverlap": 0.11589786
         },
         {
           "step": 140,
@@ -14485,11 +14504,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89411943,
-          "minAmpB": 0.91779842,
-          "alignedFieldABDistance": 1.04536891,
-          "rawFieldABDistance": 1.04536891,
-          "gaugeOverlap": 0.22195988
+          "minAmpA": 0.89383579,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15310592,
+          "rawFieldABDistance": 1.15310592,
+          "gaugeOverlap": 0.11576416
         },
         {
           "step": 150,
@@ -14499,11 +14518,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89377128,
-          "minAmpB": 0.91713647,
-          "alignedFieldABDistance": 1.04482096,
-          "rawFieldABDistance": 1.04482096,
-          "gaugeOverlap": 0.22218812
+          "minAmpA": 0.89349084,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15287037,
+          "rawFieldABDistance": 1.15287037,
+          "gaugeOverlap": 0.11584776
         },
         {
           "step": 160,
@@ -14513,11 +14532,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89297542,
-          "minAmpB": 0.91609218,
-          "alignedFieldABDistance": 1.04407231,
-          "rawFieldABDistance": 1.04407231,
-          "gaugeOverlap": 0.22263648
+          "minAmpA": 0.89269517,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15251658,
+          "rawFieldABDistance": 1.15251658,
+          "gaugeOverlap": 0.11604535
         },
         {
           "step": 170,
@@ -14527,11 +14546,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.8920386,
-          "minAmpB": 0.91498531,
-          "alignedFieldABDistance": 1.04331724,
-          "rawFieldABDistance": 1.04331724,
-          "gaugeOverlap": 0.22315424
+          "minAmpA": 0.89175553,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15214309,
+          "rawFieldABDistance": 1.15214309,
+          "gaugeOverlap": 0.11628592
         },
         {
           "step": 180,
@@ -14541,11 +14560,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89114897,
-          "minAmpB": 0.9140003,
-          "alignedFieldABDistance": 1.04265829,
-          "rawFieldABDistance": 1.04265829,
-          "gaugeOverlap": 0.2236523
+          "minAmpA": 0.89086046,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15180431,
+          "rawFieldABDistance": 1.15180431,
+          "gaugeOverlap": 0.11652649
         },
         {
           "step": 190,
@@ -14555,11 +14574,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.89040288,
-          "minAmpB": 0.91322044,
-          "alignedFieldABDistance": 1.04213281,
-          "rawFieldABDistance": 1.04213281,
-          "gaugeOverlap": 0.2240884
+          "minAmpA": 0.89010691,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.1515226,
+          "rawFieldABDistance": 1.1515226,
+          "gaugeOverlap": 0.1167456
         },
         {
           "step": 200,
@@ -14569,11 +14588,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88983267,
-          "minAmpB": 0.91266144,
-          "alignedFieldABDistance": 1.04173738,
-          "rawFieldABDistance": 1.04173738,
-          "gaugeOverlap": 0.22445199
+          "minAmpA": 0.88952786,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15129981,
+          "rawFieldABDistance": 1.15129981,
+          "gaugeOverlap": 0.11693655
         },
         {
           "step": 250,
@@ -14583,11 +14602,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.8888854,
-          "minAmpB": 0.91198233,
-          "alignedFieldABDistance": 1.04073836,
-          "rawFieldABDistance": 1.04073836,
-          "gaugeOverlap": 0.22564963
+          "minAmpA": 0.88853186,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15065881,
+          "rawFieldABDistance": 1.15065881,
+          "gaugeOverlap": 0.11764249
         },
         {
           "step": 300,
@@ -14597,11 +14616,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88874312,
-          "minAmpB": 0.91203079,
-          "alignedFieldABDistance": 1.03967249,
-          "rawFieldABDistance": 1.03967249,
-          "gaugeOverlap": 0.22693733
+          "minAmpA": 0.88834638,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.15000488,
+          "rawFieldABDistance": 1.15000488,
+          "gaugeOverlap": 0.11841573
         },
         {
           "step": 350,
@@ -14611,11 +14630,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88842056,
-          "minAmpB": 0.91186527,
-          "alignedFieldABDistance": 1.03823799,
-          "rawFieldABDistance": 1.03823799,
-          "gaugeOverlap": 0.22857481
+          "minAmpA": 0.88798271,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14916862,
+          "rawFieldABDistance": 1.14916862,
+          "gaugeOverlap": 0.11937244
         },
         {
           "step": 400,
@@ -14625,11 +14644,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88804739,
-          "minAmpB": 0.91166899,
-          "alignedFieldABDistance": 1.03667137,
-          "rawFieldABDistance": 1.03667137,
-          "gaugeOverlap": 0.23036384
+          "minAmpA": 0.88756814,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14826223,
+          "rawFieldABDistance": 1.14826223,
+          "gaugeOverlap": 0.12041497
         },
         {
           "step": 450,
@@ -14639,11 +14658,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88767843,
-          "minAmpB": 0.91148538,
-          "alignedFieldABDistance": 1.03504806,
-          "rawFieldABDistance": 1.03504806,
-          "gaugeOverlap": 0.23221972
+          "minAmpA": 0.8871579,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14732615,
+          "rawFieldABDistance": 1.14732615,
+          "gaugeOverlap": 0.12149657
         },
         {
           "step": 500,
@@ -14653,11 +14672,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88730951,
-          "minAmpB": 0.91130408,
-          "alignedFieldABDistance": 1.03339195,
-          "rawFieldABDistance": 1.03339195,
-          "gaugeOverlap": 0.2341127
+          "minAmpA": 0.886748,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14637318,
+          "rawFieldABDistance": 1.14637318,
+          "gaugeOverlap": 0.12259984
         },
         {
           "step": 550,
@@ -14667,11 +14686,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88693963,
-          "minAmpB": 0.91112342,
-          "alignedFieldABDistance": 1.03171871,
-          "rawFieldABDistance": 1.03171871,
-          "gaugeOverlap": 0.23602501
+          "minAmpA": 0.88633744,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14541125,
+          "rawFieldABDistance": 1.14541125,
+          "gaugeOverlap": 0.12371496
         },
         {
           "step": 600,
@@ -14681,11 +14700,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88657005,
-          "minAmpB": 0.9109441,
-          "alignedFieldABDistance": 1.03003743,
-          "rawFieldABDistance": 1.03003743,
-          "gaugeOverlap": 0.23794619
+          "minAmpA": 0.88592745,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14444499,
+          "rawFieldABDistance": 1.14444499,
+          "gaugeOverlap": 0.12483617
         },
         {
           "step": 650,
@@ -14695,11 +14714,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88620136,
-          "minAmpB": 0.91076625,
-          "alignedFieldABDistance": 1.02835288,
-          "rawFieldABDistance": 1.02835288,
-          "gaugeOverlap": 0.23987064
+          "minAmpA": 0.88551864,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14347684,
+          "rawFieldABDistance": 1.14347684,
+          "gaugeOverlap": 0.12596037
         },
         {
           "step": 700,
@@ -14709,11 +14728,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88583378,
-          "minAmpB": 0.91058985,
-          "alignedFieldABDistance": 1.02666761,
-          "rawFieldABDistance": 1.02666761,
-          "gaugeOverlap": 0.24179533
+          "minAmpA": 0.88511125,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14250809,
+          "rawFieldABDistance": 1.14250809,
+          "gaugeOverlap": 0.12708588
         },
         {
           "step": 750,
@@ -14723,11 +14742,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88546746,
-          "minAmpB": 0.91041491,
-          "alignedFieldABDistance": 1.02498299,
-          "rawFieldABDistance": 1.02498299,
-          "gaugeOverlap": 0.24371859
+          "minAmpA": 0.88470539,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14153946,
+          "rawFieldABDistance": 1.14153946,
+          "gaugeOverlap": 0.1282118
         },
         {
           "step": 800,
@@ -14737,11 +14756,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88510245,
-          "minAmpB": 0.91024142,
-          "alignedFieldABDistance": 1.0232998,
-          "rawFieldABDistance": 1.0232998,
-          "gaugeOverlap": 0.24563951
+          "minAmpA": 0.88430114,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.14057132,
+          "rawFieldABDistance": 1.14057132,
+          "gaugeOverlap": 0.12933761
         },
         {
           "step": 850,
@@ -14751,11 +14770,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.8847388,
-          "minAmpB": 0.91006937,
-          "alignedFieldABDistance": 1.02161842,
-          "rawFieldABDistance": 1.02161842,
-          "gaugeOverlap": 0.24755756
+          "minAmpA": 0.88389853,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13960387,
+          "rawFieldABDistance": 1.13960387,
+          "gaugeOverlap": 0.13046304
         },
         {
           "step": 900,
@@ -14765,11 +14784,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88437649,
-          "minAmpB": 0.90989875,
-          "alignedFieldABDistance": 1.01993909,
-          "rawFieldABDistance": 1.01993909,
-          "gaugeOverlap": 0.24947248
+          "minAmpA": 0.88349757,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13863722,
+          "rawFieldABDistance": 1.13863722,
+          "gaugeOverlap": 0.13158794
         },
         {
           "step": 950,
@@ -14779,11 +14798,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88401555,
-          "minAmpB": 0.90972955,
-          "alignedFieldABDistance": 1.01826192,
-          "rawFieldABDistance": 1.01826192,
-          "gaugeOverlap": 0.25138409
+          "minAmpA": 0.88309825,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13767144,
+          "rawFieldABDistance": 1.13767144,
+          "gaugeOverlap": 0.13271221
         },
         {
           "step": 1000,
@@ -14793,11 +14812,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88365594,
-          "minAmpB": 0.90956174,
-          "alignedFieldABDistance": 1.01658698,
-          "rawFieldABDistance": 1.01658698,
-          "gaugeOverlap": 0.2532923
+          "minAmpA": 0.88270056,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13670655,
+          "rawFieldABDistance": 1.13670655,
+          "gaugeOverlap": 0.13383582
         },
         {
           "step": 1050,
@@ -14807,11 +14826,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88329766,
-          "minAmpB": 0.90939533,
-          "alignedFieldABDistance": 1.01491429,
-          "rawFieldABDistance": 1.01491429,
-          "gaugeOverlap": 0.25519705
+          "minAmpA": 0.88230448,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13574255,
+          "rawFieldABDistance": 1.13574255,
+          "gaugeOverlap": 0.13495872
         },
         {
           "step": 1100,
@@ -14821,11 +14840,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88294069,
-          "minAmpB": 0.90923028,
-          "alignedFieldABDistance": 1.01324387,
-          "rawFieldABDistance": 1.01324387,
-          "gaugeOverlap": 0.25709831
+          "minAmpA": 0.88191,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13477947,
+          "rawFieldABDistance": 1.13477947,
+          "gaugeOverlap": 0.13608091
         },
         {
           "step": 1150,
@@ -14835,11 +14854,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88258501,
-          "minAmpB": 0.90906659,
-          "alignedFieldABDistance": 1.01157573,
-          "rawFieldABDistance": 1.01157573,
-          "gaugeOverlap": 0.25899604
+          "minAmpA": 0.8815171,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13381729,
+          "rawFieldABDistance": 1.13381729,
+          "gaugeOverlap": 0.13720236
         },
         {
           "step": 1200,
@@ -14849,11 +14868,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88223061,
-          "minAmpB": 0.90890423,
-          "alignedFieldABDistance": 1.00990988,
-          "rawFieldABDistance": 1.00990988,
-          "gaugeOverlap": 0.26089022
+          "minAmpA": 0.88112576,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13285603,
+          "rawFieldABDistance": 1.13285603,
+          "gaugeOverlap": 0.13832307
         },
         {
           "step": 1250,
@@ -14863,11 +14882,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88187747,
-          "minAmpB": 0.90874321,
-          "alignedFieldABDistance": 1.00824631,
-          "rawFieldABDistance": 1.00824631,
-          "gaugeOverlap": 0.26278083
+          "minAmpA": 0.88073596,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.13189566,
+          "rawFieldABDistance": 1.13189566,
+          "gaugeOverlap": 0.13944304
         },
         {
           "step": 1300,
@@ -14877,11 +14896,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88152557,
-          "minAmpB": 0.90858349,
-          "alignedFieldABDistance": 1.00658503,
-          "rawFieldABDistance": 1.00658503,
-          "gaugeOverlap": 0.26466786
+          "minAmpA": 0.88034768,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.1309362,
+          "rawFieldABDistance": 1.1309362,
+          "gaugeOverlap": 0.14056224
         },
         {
           "step": 1350,
@@ -14891,11 +14910,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.8811749,
-          "minAmpB": 0.90842506,
-          "alignedFieldABDistance": 1.00492602,
-          "rawFieldABDistance": 1.00492602,
-          "gaugeOverlap": 0.26655129
+          "minAmpA": 0.87996091,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12997763,
+          "rawFieldABDistance": 1.12997763,
+          "gaugeOverlap": 0.14168069
         },
         {
           "step": 1400,
@@ -14905,11 +14924,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88082543,
-          "minAmpB": 0.90826791,
-          "alignedFieldABDistance": 1.00326929,
-          "rawFieldABDistance": 1.00326929,
-          "gaugeOverlap": 0.26843111
+          "minAmpA": 0.87957563,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12901995,
+          "rawFieldABDistance": 1.12901995,
+          "gaugeOverlap": 0.14279837
         },
         {
           "step": 1450,
@@ -14919,11 +14938,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88047715,
-          "minAmpB": 0.90811203,
-          "alignedFieldABDistance": 1.00161484,
-          "rawFieldABDistance": 1.00161484,
-          "gaugeOverlap": 0.2703073
+          "minAmpA": 0.87919181,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12806316,
+          "rawFieldABDistance": 1.12806316,
+          "gaugeOverlap": 0.14391528
         },
         {
           "step": 1500,
@@ -14933,11 +14952,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.88013005,
-          "minAmpB": 0.9079574,
-          "alignedFieldABDistance": 0.99996267,
-          "rawFieldABDistance": 0.99996267,
-          "gaugeOverlap": 0.27217986
+          "minAmpA": 0.87880944,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12710725,
+          "rawFieldABDistance": 1.12710725,
+          "gaugeOverlap": 0.14503141
         },
         {
           "step": 1550,
@@ -14947,11 +14966,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87978409,
-          "minAmpB": 0.90780401,
-          "alignedFieldABDistance": 0.99831276,
-          "rawFieldABDistance": 0.99831276,
-          "gaugeOverlap": 0.27404875
+          "minAmpA": 0.8784285,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12615222,
+          "rawFieldABDistance": 1.12615222,
+          "gaugeOverlap": 0.14614676
         },
         {
           "step": 1600,
@@ -14961,11 +14980,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87943928,
-          "minAmpB": 0.90765183,
-          "alignedFieldABDistance": 0.99666512,
-          "rawFieldABDistance": 0.99666512,
-          "gaugeOverlap": 0.27591398
+          "minAmpA": 0.87804898,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12519806,
+          "rawFieldABDistance": 1.12519806,
+          "gaugeOverlap": 0.14726132
         },
         {
           "step": 1650,
@@ -14975,11 +14994,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87909558,
-          "minAmpB": 0.90750087,
-          "alignedFieldABDistance": 0.99501975,
-          "rawFieldABDistance": 0.99501975,
-          "gaugeOverlap": 0.27777552
+          "minAmpA": 0.87767084,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12424478,
+          "rawFieldABDistance": 1.12424478,
+          "gaugeOverlap": 0.14837508
         },
         {
           "step": 1700,
@@ -14989,11 +15008,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87875299,
-          "minAmpB": 0.90735109,
-          "alignedFieldABDistance": 0.99337665,
-          "rawFieldABDistance": 0.99337665,
-          "gaugeOverlap": 0.27963338
+          "minAmpA": 0.87729409,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12329236,
+          "rawFieldABDistance": 1.12329236,
+          "gaugeOverlap": 0.14948806
         },
         {
           "step": 1750,
@@ -15003,11 +15022,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87841149,
-          "minAmpB": 0.9072025,
-          "alignedFieldABDistance": 0.99173581,
-          "rawFieldABDistance": 0.99173581,
-          "gaugeOverlap": 0.28148752
+          "minAmpA": 0.87691869,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.1223408,
+          "rawFieldABDistance": 1.1223408,
+          "gaugeOverlap": 0.15060022
         },
         {
           "step": 1800,
@@ -15017,11 +15036,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87807106,
-          "minAmpB": 0.90705507,
-          "alignedFieldABDistance": 0.99009723,
-          "rawFieldABDistance": 0.99009723,
-          "gaugeOverlap": 0.28333794
+          "minAmpA": 0.87654464,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.1213901,
+          "rawFieldABDistance": 1.1213901,
+          "gaugeOverlap": 0.15171159
         },
         {
           "step": 1850,
@@ -15031,11 +15050,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87773168,
-          "minAmpB": 0.90690879,
-          "alignedFieldABDistance": 0.98846092,
-          "rawFieldABDistance": 0.98846092,
-          "gaugeOverlap": 0.28518463
+          "minAmpA": 0.87617191,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.12044025,
+          "rawFieldABDistance": 1.12044025,
+          "gaugeOverlap": 0.15282214
         },
         {
           "step": 1900,
@@ -15045,11 +15064,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87739335,
-          "minAmpB": 0.90676365,
-          "alignedFieldABDistance": 0.98682686,
-          "rawFieldABDistance": 0.98682686,
-          "gaugeOverlap": 0.28702757
+          "minAmpA": 0.87580048,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.11949125,
+          "rawFieldABDistance": 1.11949125,
+          "gaugeOverlap": 0.15393187
         },
         {
           "step": 1950,
@@ -15059,11 +15078,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87705603,
-          "minAmpB": 0.90661964,
-          "alignedFieldABDistance": 0.98519506,
-          "rawFieldABDistance": 0.98519506,
-          "gaugeOverlap": 0.28886675
+          "minAmpA": 0.87543034,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.1185431,
+          "rawFieldABDistance": 1.1185431,
+          "gaugeOverlap": 0.15504078
         },
         {
           "step": 2000,
@@ -15073,11 +15092,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.87671973,
-          "minAmpB": 0.90647674,
-          "alignedFieldABDistance": 0.98356552,
-          "rawFieldABDistance": 0.98356552,
-          "gaugeOverlap": 0.29070217
+          "minAmpA": 0.87506148,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.11759578,
+          "rawFieldABDistance": 1.11759578,
+          "gaugeOverlap": 0.15614887
         }
       ],
       "fieldWindingHistogramA": {
@@ -15128,63 +15147,63 @@
         "allLinesTargetW": null,
         "lineWindingSum": 0
       },
-      "minAmpA": 0.87671973,
-      "minAmpB": 0.90647674,
+      "minAmpA": 0.87506148,
+      "minAmpB": 1,
       "fieldPowersA": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.02068769,
-        "P1": 0.85978774,
-        "P2": 0.00740618,
-        "normalizedP0": 0.02330005,
-        "normalizedP1": 0.96835854,
-        "normalizedP2": 0.0083414,
-        "P1OverP0": 41.56035696,
-        "P2OverP0": 0.35799933
+        "P0": 0.02155816,
+        "P1": 0.85465795,
+        "P2": 0.00775384,
+        "normalizedP0": 0.02438789,
+        "normalizedP1": 0.9668405,
+        "normalizedP2": 0.00877161,
+        "P1OverP0": 39.64428217,
+        "P2OverP0": 0.35967066
       },
       "fieldPowersB": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.89383513,
-        "P1": 0.01830549,
-        "P2": 0.00004565,
-        "normalizedP0": 0.97988225,
-        "normalizedP1": 0.02006771,
-        "normalizedP2": 0.00005004,
-        "P1OverP0": 0.02047972,
-        "P2OverP0": 0.00005107
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
       "memoryPowersA": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.00236604,
-        "P1": 0.95018182,
-        "P2": 0.00085189,
-        "normalizedP0": 0.00248168,
-        "normalizedP1": 0.99662479,
-        "normalizedP2": 0.00089353,
-        "P1OverP0": 401.59232266,
-        "P2OverP0": 0.36005013
+        "P0": 0.00242667,
+        "P1": 0.94914195,
+        "P2": 0.00087615,
+        "normalizedP0": 0.00254784,
+        "normalizedP1": 0.99653227,
+        "normalizedP2": 0.0009199,
+        "P1OverP0": 391.12860529,
+        "P2OverP0": 0.36104995
       },
       "memoryPowersB": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.96363319,
-        "P1": 0.00211072,
-        "P2": 0.00000342,
-        "normalizedP0": 0.99781087,
-        "normalizedP1": 0.00218558,
-        "normalizedP2": 0.00000354,
-        "P1OverP0": 0.00219038,
-        "P2OverP0": 0.00000355
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
-      "alignedFieldABDistance": 0.98356552,
-      "rawFieldABDistance": 0.98356552,
-      "gaugeOverlap": 0.29070217,
+      "alignedFieldABDistance": 1.11759578,
+      "rawFieldABDistance": 1.11759578,
+      "gaugeOverlap": 0.15614887,
       "firstSlipStepA": null,
       "firstSlipStepB": null,
       "transferWindow": null,
@@ -15206,6 +15225,8 @@
         "initialWA": 1,
         "initialWB": 0,
         "couplingG": 0.02,
+        "memoryCouplingUseBidirectional": false,
+        "couplingDirection": "B-memory-to-A-field only",
         "maxSteps": 2000,
         "gridSize": 32,
         "samplePolicy": "every 10 steps for first 200 steps, then every 50 steps"
@@ -15224,10 +15245,11 @@
           "Second-order damped nonlinear Klein-Gordon-style runtime with Mexican-hat potential.",
           "Memory coupling applies state updates to phi fields using memory fields as the source.",
           "Current memory coupling and memory blending are post-integration state updates, not force/acceleration terms. If future implementations move coupling into the acceleration term, physicsContext must change accordingly."
-        ]
+        ],
+        "memoryCouplingUseBidirectional": false
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -15266,11 +15288,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.69659163,
-          "minAmpB": 0.69803195,
-          "alignedFieldABDistance": 0.88442537,
-          "rawFieldABDistance": 0.88442537,
-          "gaugeOverlap": 0.34880953
+          "minAmpA": 0.69656595,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 1.07787048,
+          "rawFieldABDistance": 1.07787048,
+          "gaugeOverlap": 0.17741153
         },
         {
           "step": 20,
@@ -15280,11 +15302,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.55091254,
-          "minAmpB": 0.55533831,
-          "alignedFieldABDistance": 0.69084113,
-          "rawFieldABDistance": 0.69084113,
-          "gaugeOverlap": 0.54729254
+          "minAmpA": 0.55075907,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.98013742,
+          "rawFieldABDistance": 0.98013742,
+          "gaugeOverlap": 0.28659953
         },
         {
           "step": 30,
@@ -15294,11 +15316,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.49151805,
-          "minAmpB": 0.49965104,
-          "alignedFieldABDistance": 0.60307709,
-          "rawFieldABDistance": 0.60307709,
-          "gaugeOverlap": 0.63878788
+          "minAmpA": 0.49112615,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.93520725,
+          "rawFieldABDistance": 0.93520725,
+          "gaugeOverlap": 0.34194738
         },
         {
           "step": 40,
@@ -15308,11 +15330,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.47627653,
-          "minAmpB": 0.48850019,
-          "alignedFieldABDistance": 0.5700198,
-          "rawFieldABDistance": 0.5700198,
-          "gaugeOverlap": 0.67487668
+          "minAmpA": 0.47556102,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.91777723,
+          "rawFieldABDistance": 0.91777723,
+          "gaugeOverlap": 0.36579885
         },
         {
           "step": 50,
@@ -15322,11 +15344,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.48269514,
-          "minAmpB": 0.49922818,
-          "alignedFieldABDistance": 0.56414404,
-          "rawFieldABDistance": 0.56414404,
-          "gaugeOverlap": 0.68456824
+          "minAmpA": 0.48160109,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.91417662,
+          "rawFieldABDistance": 0.91417662,
+          "gaugeOverlap": 0.37333648
         },
         {
           "step": 60,
@@ -15336,11 +15358,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.49910958,
-          "minAmpB": 0.52005343,
-          "alignedFieldABDistance": 0.57098022,
-          "rawFieldABDistance": 0.57098022,
-          "gaugeOverlap": 0.68201629
+          "minAmpA": 0.4976089,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.91714448,
+          "rawFieldABDistance": 0.91714448,
+          "gaugeOverlap": 0.37299108
         },
         {
           "step": 70,
@@ -15350,11 +15372,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.51949818,
-          "minAmpB": 0.54484293,
-          "alignedFieldABDistance": 0.58300825,
-          "rawFieldABDistance": 0.58300825,
-          "gaugeOverlap": 0.67408462
+          "minAmpA": 0.51758477,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.92284764,
+          "rawFieldABDistance": 0.92284764,
+          "gaugeOverlap": 0.36913769
         },
         {
           "step": 80,
@@ -15364,11 +15386,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.54073872,
-          "minAmpB": 0.5703618,
-          "alignedFieldABDistance": 0.59637999,
-          "rawFieldABDistance": 0.59637999,
-          "gaugeOverlap": 0.66416714
+          "minAmpA": 0.53842367,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.92929129,
+          "rawFieldABDistance": 0.92929129,
+          "gaugeOverlap": 0.36398768
         },
         {
           "step": 90,
@@ -15378,11 +15400,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.56120978,
-          "minAmpB": 0.59488049,
-          "alignedFieldABDistance": 0.60919774,
-          "rawFieldABDistance": 0.60919774,
-          "gaugeOverlap": 0.6539678
+          "minAmpA": 0.55851712,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.93547858,
+          "rawFieldABDistance": 0.93547858,
+          "gaugeOverlap": 0.35864059
         },
         {
           "step": 100,
@@ -15392,11 +15414,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.58008552,
-          "minAmpB": 0.61747861,
-          "alignedFieldABDistance": 0.62060751,
-          "rawFieldABDistance": 0.62060751,
-          "gaugeOverlap": 0.64434048
+          "minAmpA": 0.57704814,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.94095879,
+          "rawFieldABDistance": 0.94095879,
+          "gaugeOverlap": 0.3536277
         },
         {
           "step": 110,
@@ -15406,11 +15428,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.59697826,
-          "minAmpB": 0.63769571,
-          "alignedFieldABDistance": 0.63031367,
-          "rawFieldABDistance": 0.63031367,
-          "gaugeOverlap": 0.63569442
+          "minAmpA": 0.59363417,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.94557796,
+          "rawFieldABDistance": 0.94557796,
+          "gaugeOverlap": 0.34918646
         },
         {
           "step": 120,
@@ -15420,11 +15442,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.6117532,
-          "minAmpB": 0.65535118,
-          "alignedFieldABDistance": 0.63831321,
-          "rawFieldABDistance": 0.63831321,
-          "gaugeOverlap": 0.62819534
+          "minAmpA": 0.60814215,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.94933795,
+          "rawFieldABDistance": 0.94933795,
+          "gaugeOverlap": 0.34539937
         },
         {
           "step": 130,
@@ -15434,11 +15456,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.62442793,
-          "minAmpB": 0.67044527,
-          "alignedFieldABDistance": 0.64474738,
-          "rawFieldABDistance": 0.64474738,
-          "gaugeOverlap": 0.62186954
+          "minAmpA": 0.62058859,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95231593,
+          "rawFieldABDistance": 0.95231593,
+          "gaugeOverlap": 0.34226607
         },
         {
           "step": 140,
@@ -15448,11 +15470,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63511374,
-          "minAmpB": 0.68309845,
-          "alignedFieldABDistance": 0.64981807,
-          "rawFieldABDistance": 0.64981807,
-          "gaugeOverlap": 0.61666194
+          "minAmpA": 0.63108146,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95461889,
+          "rawFieldABDistance": 0.95461889,
+          "gaugeOverlap": 0.33974243
         },
         {
           "step": 150,
@@ -15462,11 +15484,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.6439782,
-          "minAmpB": 0.69350935,
-          "alignedFieldABDistance": 0.65374124,
-          "rawFieldABDistance": 0.65374124,
-          "gaugeOverlap": 0.61247137
+          "minAmpA": 0.63978352,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95635869,
+          "rawFieldABDistance": 0.95635869,
+          "gaugeOverlap": 0.33776294
         },
         {
           "step": 160,
@@ -15476,11 +15498,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.65121929,
-          "minAmpB": 0.70192266,
-          "alignedFieldABDistance": 0.65672214,
-          "rawFieldABDistance": 0.65672214,
-          "gaugeOverlap": 0.60917398
+          "minAmpA": 0.64688711,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95763945,
+          "rawFieldABDistance": 0.95763945,
+          "gaugeOverlap": 0.33625418
         },
         {
           "step": 170,
@@ -15490,11 +15512,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.6570467,
-          "minAmpB": 0.70860384,
-          "alignedFieldABDistance": 0.65894332,
-          "rawFieldABDistance": 0.65894332,
-          "gaugeOverlap": 0.60663915
+          "minAmpA": 0.65259607,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95855199,
+          "rawFieldABDistance": 0.95855199,
+          "gaugeOverlap": 0.33514294
         },
         {
           "step": 180,
@@ -15504,11 +15526,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66166816,
-          "minAmpB": 0.71381939,
-          "alignedFieldABDistance": 0.66056042,
-          "rawFieldABDistance": 0.66056042,
-          "gaugeOverlap": 0.60474029
+          "minAmpA": 0.65711259,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95917243,
+          "rawFieldABDistance": 0.95917243,
+          "gaugeOverlap": 0.33436105
         },
         {
           "step": 190,
@@ -15518,11 +15540,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66527998,
-          "minAmpB": 0.71782248,
-          "alignedFieldABDistance": 0.66170211,
-          "rawFieldABDistance": 0.66170211,
-          "gaugeOverlap": 0.60336149
+          "minAmpA": 0.66062803,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95956281,
+          "rawFieldABDistance": 0.95956281,
+          "gaugeOverlap": 0.33384791
         },
         {
           "step": 200,
@@ -15532,11 +15554,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66806083,
-          "minAmpB": 0.72084336,
-          "alignedFieldABDistance": 0.66247236,
-          "rawFieldABDistance": 0.66247236,
-          "gaugeOverlap": 0.6024011
+          "minAmpA": 0.6633169,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95977273,
+          "rawFieldABDistance": 0.95977273,
+          "gaugeOverlap": 0.33355152
         },
         {
           "step": 250,
@@ -15546,11 +15568,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.67425969,
-          "minAmpB": 0.72724803,
-          "alignedFieldABDistance": 0.66308445,
-          "rawFieldABDistance": 0.66308445,
-          "gaugeOverlap": 0.60135933
+          "minAmpA": 0.66903512,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95921907,
+          "rawFieldABDistance": 0.95921907,
+          "gaugeOverlap": 0.33405811
         },
         {
           "step": 300,
@@ -15560,11 +15582,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.67491983,
-          "minAmpB": 0.72802015,
-          "alignedFieldABDistance": 0.66133356,
-          "rawFieldABDistance": 0.66133356,
-          "gaugeOverlap": 0.60306268
+          "minAmpA": 0.66911194,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95744451,
+          "rawFieldABDistance": 0.95744451,
+          "gaugeOverlap": 0.33610875
         },
         {
           "step": 350,
@@ -15574,11 +15596,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.67414677,
-          "minAmpB": 0.72771794,
-          "alignedFieldABDistance": 0.6587789,
-          "rawFieldABDistance": 0.6587789,
-          "gaugeOverlap": 0.60566259
+          "minAmpA": 0.6676787,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95522657,
+          "rawFieldABDistance": 0.95522657,
+          "gaugeOverlap": 0.33873291
         },
         {
           "step": 400,
@@ -15588,11 +15610,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.6729543,
-          "minAmpB": 0.72723916,
-          "alignedFieldABDistance": 0.65586104,
-          "rawFieldABDistance": 0.65586104,
-          "gaugeOverlap": 0.60865767
+          "minAmpA": 0.66578775,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95280284,
+          "rawFieldABDistance": 0.95280284,
+          "gaugeOverlap": 0.34163433
         },
         {
           "step": 450,
@@ -15602,11 +15624,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.67158195,
-          "minAmpB": 0.72671764,
-          "alignedFieldABDistance": 0.65274281,
-          "rawFieldABDistance": 0.65274281,
-          "gaugeOverlap": 0.6118678
+          "minAmpA": 0.66369628,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.95026362,
+          "rawFieldABDistance": 0.95026362,
+          "gaugeOverlap": 0.34469618
         },
         {
           "step": 500,
@@ -15616,11 +15638,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.67010708,
-          "minAmpB": 0.72617649,
-          "alignedFieldABDistance": 0.64950601,
-          "rawFieldABDistance": 0.64950601,
-          "gaugeOverlap": 0.61520142
+          "minAmpA": 0.66148759,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.94765312,
+          "rawFieldABDistance": 0.94765312,
+          "gaugeOverlap": 0.34785825
         },
         {
           "step": 550,
@@ -15630,11 +15652,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66856668,
-          "minAmpB": 0.72562472,
-          "alignedFieldABDistance": 0.64619908,
-          "rawFieldABDistance": 0.64619908,
-          "gaugeOverlap": 0.61860359
+          "minAmpA": 0.65920055,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.94499686,
+          "rawFieldABDistance": 0.94499686,
+          "gaugeOverlap": 0.35108466
         },
         {
           "step": 600,
@@ -15644,11 +15666,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66698197,
-          "minAmpB": 0.72506762,
-          "alignedFieldABDistance": 0.64285222,
-          "rawFieldABDistance": 0.64285222,
-          "gaugeOverlap": 0.62203979
+          "minAmpA": 0.65685695,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.94231059,
+          "rawFieldABDistance": 0.94231059,
+          "gaugeOverlap": 0.35435284
         },
         {
           "step": 650,
@@ -15658,11 +15680,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66536588,
-          "minAmpB": 0.72450846,
-          "alignedFieldABDistance": 0.63948455,
-          "rawFieldABDistance": 0.63948455,
-          "gaugeOverlap": 0.62548815
+          "minAmpA": 0.65446988,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.93960426,
+          "rawFieldABDistance": 0.93960426,
+          "gaugeOverlap": 0.35764838
         },
         {
           "step": 700,
@@ -15672,11 +15694,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66372644,
-          "minAmpB": 0.72394925,
-          "alignedFieldABDistance": 0.63610819,
-          "rawFieldABDistance": 0.63610819,
-          "gaugeOverlap": 0.62893477
+          "minAmpA": 0.65204732,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.93688422,
+          "rawFieldABDistance": 0.93688422,
+          "gaugeOverlap": 0.360962
         },
         {
           "step": 750,
@@ -15686,11 +15708,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66206868,
-          "minAmpB": 0.72339123,
-          "alignedFieldABDistance": 0.63273089,
-          "rawFieldABDistance": 0.63273089,
-          "gaugeOverlap": 0.63237085
+          "minAmpA": 0.64959411,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.9341545,
+          "rawFieldABDistance": 0.9341545,
+          "gaugeOverlap": 0.36428774
         },
         {
           "step": 800,
@@ -15700,11 +15722,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.66039573,
-          "minAmpB": 0.72283519,
-          "alignedFieldABDistance": 0.62935756,
-          "rawFieldABDistance": 0.62935756,
-          "gaugeOverlap": 0.63579079
+          "minAmpA": 0.64711316,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.93141769,
+          "rawFieldABDistance": 0.93141769,
+          "gaugeOverlap": 0.36762174
         },
         {
           "step": 850,
@@ -15714,11 +15736,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.65870957,
-          "minAmpB": 0.72228161,
-          "alignedFieldABDistance": 0.6259914,
-          "rawFieldABDistance": 0.6259914,
-          "gaugeOverlap": 0.63919105
+          "minAmpA": 0.64460611,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.92867544,
+          "rawFieldABDistance": 0.92867544,
+          "gaugeOverlap": 0.37096152
         },
         {
           "step": 900,
@@ -15728,11 +15750,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.65701138,
-          "minAmpB": 0.7217308,
-          "alignedFieldABDistance": 0.62263442,
-          "rawFieldABDistance": 0.62263442,
-          "gaugeOverlap": 0.64256939
+          "minAmpA": 0.64207377,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.92592879,
+          "rawFieldABDistance": 0.92592879,
+          "gaugeOverlap": 0.37430547
         },
         {
           "step": 950,
@@ -15742,11 +15764,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.6553019,
-          "minAmpB": 0.72118296,
-          "alignedFieldABDistance": 0.61928795,
-          "rawFieldABDistance": 0.61928795,
-          "gaugeOverlap": 0.64592439
+          "minAmpA": 0.63951644,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.92317841,
+          "rawFieldABDistance": 0.92317841,
+          "gaugeOverlap": 0.37765254
         },
         {
           "step": 1000,
@@ -15756,11 +15778,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.65358152,
-          "minAmpB": 0.7206382,
-          "alignedFieldABDistance": 0.61595284,
-          "rawFieldABDistance": 0.61595284,
-          "gaugeOverlap": 0.64925517
+          "minAmpA": 0.63693407,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.92042469,
+          "rawFieldABDistance": 0.92042469,
+          "gaugeOverlap": 0.38100207
         },
         {
           "step": 1050,
@@ -15770,11 +15792,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.65185045,
-          "minAmpB": 0.72009663,
-          "alignedFieldABDistance": 0.61262968,
-          "rawFieldABDistance": 0.61262968,
-          "gaugeOverlap": 0.65256118
+          "minAmpA": 0.63432637,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.91766789,
+          "rawFieldABDistance": 0.91766789,
+          "gaugeOverlap": 0.38435363
         },
         {
           "step": 1100,
@@ -15784,11 +15806,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.65010876,
-          "minAmpB": 0.71955828,
-          "alignedFieldABDistance": 0.60931882,
-          "rawFieldABDistance": 0.60931882,
-          "gaugeOverlap": 0.65584208
+          "minAmpA": 0.6316929,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.91490814,
+          "rawFieldABDistance": 0.91490814,
+          "gaugeOverlap": 0.38770692
         },
         {
           "step": 1150,
@@ -15798,11 +15820,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.64835645,
-          "minAmpB": 0.71902319,
-          "alignedFieldABDistance": 0.60602054,
-          "rawFieldABDistance": 0.60602054,
-          "gaugeOverlap": 0.65909769
+          "minAmpA": 0.62903307,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.91214551,
+          "rawFieldABDistance": 0.91214551,
+          "gaugeOverlap": 0.39106179
         },
         {
           "step": 1200,
@@ -15812,11 +15834,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.64659344,
-          "minAmpB": 0.71849139,
-          "alignedFieldABDistance": 0.60273501,
-          "rawFieldABDistance": 0.60273501,
-          "gaugeOverlap": 0.6623279
+          "minAmpA": 0.62634625,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.90938001,
+          "rawFieldABDistance": 0.90938001,
+          "gaugeOverlap": 0.39441812
         },
         {
           "step": 1250,
@@ -15826,11 +15848,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.64481963,
-          "minAmpB": 0.71796291,
-          "alignedFieldABDistance": 0.59946237,
-          "rawFieldABDistance": 0.59946237,
-          "gaugeOverlap": 0.66553267
+          "minAmpA": 0.62363173,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.90661163,
+          "rawFieldABDistance": 0.90661163,
+          "gaugeOverlap": 0.39777586
         },
         {
           "step": 1300,
@@ -15840,11 +15862,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.64303489,
-          "minAmpB": 0.71743776,
-          "alignedFieldABDistance": 0.59620271,
-          "rawFieldABDistance": 0.59620271,
-          "gaugeOverlap": 0.66871199
+          "minAmpA": 0.62088874,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.90384035,
+          "rawFieldABDistance": 0.90384035,
+          "gaugeOverlap": 0.40113498
         },
         {
           "step": 1350,
@@ -15854,11 +15876,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.64123909,
-          "minAmpB": 0.71691595,
-          "alignedFieldABDistance": 0.5929561,
-          "rawFieldABDistance": 0.5929561,
-          "gaugeOverlap": 0.67186589
+          "minAmpA": 0.61811648,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.90106612,
+          "rawFieldABDistance": 0.90106612,
+          "gaugeOverlap": 0.40449547
         },
         {
           "step": 1400,
@@ -15868,11 +15890,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63943206,
-          "minAmpB": 0.7163975,
-          "alignedFieldABDistance": 0.58972262,
-          "rawFieldABDistance": 0.58972262,
-          "gaugeOverlap": 0.6749944
+          "minAmpA": 0.6153141,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.89828887,
+          "rawFieldABDistance": 0.89828887,
+          "gaugeOverlap": 0.40785734
         },
         {
           "step": 1450,
@@ -15882,11 +15904,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63761365,
-          "minAmpB": 0.71588243,
-          "alignedFieldABDistance": 0.5865023,
-          "rawFieldABDistance": 0.5865023,
-          "gaugeOverlap": 0.67809759
+          "minAmpA": 0.61248072,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.89550854,
+          "rawFieldABDistance": 0.89550854,
+          "gaugeOverlap": 0.41122062
         },
         {
           "step": 1500,
@@ -15896,11 +15918,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63578368,
-          "minAmpB": 0.71537074,
-          "alignedFieldABDistance": 0.5832952,
-          "rawFieldABDistance": 0.5832952,
-          "gaugeOverlap": 0.68117553
+          "minAmpA": 0.60961544,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.89272506,
+          "rawFieldABDistance": 0.89272506,
+          "gaugeOverlap": 0.41458533
         },
         {
           "step": 1550,
@@ -15910,11 +15932,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63394198,
-          "minAmpB": 0.71486247,
-          "alignedFieldABDistance": 0.58010135,
-          "rawFieldABDistance": 0.58010135,
-          "gaugeOverlap": 0.68422827
+          "minAmpA": 0.6067173,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.88993835,
+          "rawFieldABDistance": 0.88993835,
+          "gaugeOverlap": 0.41795153
         },
         {
           "step": 1600,
@@ -15924,11 +15946,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63208838,
-          "minAmpB": 0.71435763,
-          "alignedFieldABDistance": 0.57692078,
-          "rawFieldABDistance": 0.57692078,
-          "gaugeOverlap": 0.68725591
+          "minAmpA": 0.60378531,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.88714831,
+          "rawFieldABDistance": 0.88714831,
+          "gaugeOverlap": 0.42131926
         },
         {
           "step": 1650,
@@ -15938,11 +15960,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.63022269,
-          "minAmpB": 0.71385623,
-          "alignedFieldABDistance": 0.57375353,
-          "rawFieldABDistance": 0.57375353,
-          "gaugeOverlap": 0.69025854
+          "minAmpA": 0.60081846,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.88435487,
+          "rawFieldABDistance": 0.88435487,
+          "gaugeOverlap": 0.42468858
         },
         {
           "step": 1700,
@@ -15952,11 +15974,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.62834473,
-          "minAmpB": 0.71335829,
-          "alignedFieldABDistance": 0.57059961,
-          "rawFieldABDistance": 0.57059961,
-          "gaugeOverlap": 0.69323625
+          "minAmpA": 0.59781568,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.88155792,
+          "rawFieldABDistance": 0.88155792,
+          "gaugeOverlap": 0.42805955
         },
         {
           "step": 1750,
@@ -15966,11 +15988,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.62645432,
-          "minAmpB": 0.71286385,
-          "alignedFieldABDistance": 0.56745906,
-          "rawFieldABDistance": 0.56745906,
-          "gaugeOverlap": 0.69618913
+          "minAmpA": 0.59477589,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.87875736,
+          "rawFieldABDistance": 0.87875736,
+          "gaugeOverlap": 0.43143226
         },
         {
           "step": 1800,
@@ -15980,11 +16002,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.62455126,
-          "minAmpB": 0.71237291,
-          "alignedFieldABDistance": 0.56433189,
-          "rawFieldABDistance": 0.56433189,
-          "gaugeOverlap": 0.69911729
+          "minAmpA": 0.59169794,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.87595309,
+          "rawFieldABDistance": 0.87595309,
+          "gaugeOverlap": 0.43480677
         },
         {
           "step": 1850,
@@ -15994,11 +16016,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.62263536,
-          "minAmpB": 0.7118855,
-          "alignedFieldABDistance": 0.56121813,
-          "rawFieldABDistance": 0.56121813,
-          "gaugeOverlap": 0.70202083
+          "minAmpA": 0.58858067,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.873145,
+          "rawFieldABDistance": 0.873145,
+          "gaugeOverlap": 0.43818317
         },
         {
           "step": 1900,
@@ -16008,11 +16030,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.62070643,
-          "minAmpB": 0.71140166,
-          "alignedFieldABDistance": 0.55811777,
-          "rawFieldABDistance": 0.55811777,
-          "gaugeOverlap": 0.70489987
+          "minAmpA": 0.58542283,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.87033296,
+          "rawFieldABDistance": 0.87033296,
+          "gaugeOverlap": 0.44156157
         },
         {
           "step": 1950,
@@ -16022,11 +16044,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.61876427,
-          "minAmpB": 0.7109214,
-          "alignedFieldABDistance": 0.55503085,
-          "rawFieldABDistance": 0.55503085,
-          "gaugeOverlap": 0.70775453
+          "minAmpA": 0.58222317,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.86751687,
+          "rawFieldABDistance": 0.86751687,
+          "gaugeOverlap": 0.44494206
         },
         {
           "step": 2000,
@@ -16036,11 +16058,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.61680867,
-          "minAmpB": 0.71044474,
-          "alignedFieldABDistance": 0.55195736,
-          "rawFieldABDistance": 0.55195736,
-          "gaugeOverlap": 0.71058492
+          "minAmpA": 0.57898036,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.86469658,
+          "rawFieldABDistance": 0.86469658,
+          "gaugeOverlap": 0.44832477
         }
       ],
       "fieldWindingHistogramA": {
@@ -16091,63 +16113,63 @@
         "allLinesTargetW": null,
         "lineWindingSum": 0
       },
-      "minAmpA": 0.61680867,
-      "minAmpB": 0.71044474,
+      "minAmpA": 0.57898036,
+      "minAmpB": 1,
       "fieldPowersA": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.12780475,
-        "P1": 0.62877908,
-        "P2": 0.02501878,
-        "normalizedP0": 0.16351628,
-        "normalizedP1": 0.80447413,
-        "normalizedP2": 0.03200959,
-        "P1OverP0": 4.91984126,
-        "P2OverP0": 0.19575782
+        "P0": 0.15367473,
+        "P1": 0.57614933,
+        "P2": 0.02811561,
+        "normalizedP0": 0.20275325,
+        "normalizedP1": 0.76015196,
+        "normalizedP2": 0.03709479,
+        "P1OverP0": 3.7491481,
+        "P2OverP0": 0.18295535
       },
       "fieldPowersB": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.67883994,
-        "P1": 0.10800758,
-        "P2": 0.00149271,
-        "normalizedP0": 0.86110022,
-        "normalizedP1": 0.1370063,
-        "normalizedP2": 0.00189348,
-        "P1OverP0": 0.1591061,
-        "P2OverP0": 0.00219891
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
       "memoryPowersA": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.01568176,
-        "P1": 0.86059333,
-        "P2": 0.00327654,
-        "normalizedP0": 0.01782927,
-        "normalizedP1": 0.9784455,
-        "normalizedP2": 0.00372524,
-        "P1OverP0": 54.87862138,
-        "P2OverP0": 0.2089394
+        "P0": 0.01749835,
+        "P1": 0.84834305,
+        "P2": 0.00353534,
+        "normalizedP0": 0.02012746,
+        "normalizedP1": 0.97580601,
+        "normalizedP2": 0.00406652,
+        "P1OverP0": 48.48131994,
+        "P2OverP0": 0.20203859
       },
       "memoryPowersB": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.879896,
-        "P1": 0.01355629,
-        "P2": 0.0001331,
-        "normalizedP0": 0.98468037,
-        "normalizedP1": 0.01517067,
-        "normalizedP2": 0.00014895,
-        "P1OverP0": 0.0154067,
-        "P2OverP0": 0.00015127
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
-      "alignedFieldABDistance": 0.55195736,
-      "rawFieldABDistance": 0.55195736,
-      "gaugeOverlap": 0.71058492,
+      "alignedFieldABDistance": 0.86469658,
+      "rawFieldABDistance": 0.86469658,
+      "gaugeOverlap": 0.44832477,
       "firstSlipStepA": null,
       "firstSlipStepB": null,
       "transferWindow": null,
@@ -16169,6 +16191,8 @@
         "initialWA": 1,
         "initialWB": 0,
         "couplingG": 0.05,
+        "memoryCouplingUseBidirectional": false,
+        "couplingDirection": "B-memory-to-A-field only",
         "maxSteps": 2000,
         "gridSize": 32,
         "samplePolicy": "every 10 steps for first 200 steps, then every 50 steps"
@@ -16187,10 +16211,11 @@
           "Second-order damped nonlinear Klein-Gordon-style runtime with Mexican-hat potential.",
           "Memory coupling applies state updates to phi fields using memory fields as the source.",
           "Current memory coupling and memory blending are post-integration state updates, not force/acceleration terms. If future implementations move coupling into the acceleration term, physicsContext must change accordingly."
-        ]
+        ],
+        "memoryCouplingUseBidirectional": false
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -16229,11 +16254,11 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.32418013,
-          "minAmpB": 0.32547926,
-          "alignedFieldABDistance": 0.40946242,
-          "rawFieldABDistance": 0.40946242,
-          "gaugeOverlap": 0.81253985
+          "minAmpA": 0.32403569,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.84036057,
+          "rawFieldABDistance": 0.84036057,
+          "gaugeOverlap": 0.45718733
         },
         {
           "step": 20,
@@ -16243,39 +16268,39 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.06801158,
-          "minAmpB": 0.07182612,
-          "alignedFieldABDistance": 0.07820308,
-          "rawFieldABDistance": 0.07820308,
-          "gaugeOverlap": 0.99211772
+          "minAmpA": 0.06722871,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.67370409,
+          "rawFieldABDistance": 0.67370409,
+          "gaugeOverlap": 0.66336719
         },
         {
           "step": 30,
-          "fieldDominantWA": 1,
+          "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.00356497,
-          "minAmpB": 0.00831119,
-          "alignedFieldABDistance": 0.04922192,
-          "rawFieldABDistance": 0.04922192,
-          "gaugeOverlap": 0.99737915
+          "minAmpA": 0.05942928,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.60751726,
+          "rawFieldABDistance": 0.60751726,
+          "gaugeOverlap": 0.73617051
         },
         {
           "step": 40,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.04283896,
-          "minAmpB": 0.00221845,
-          "alignedFieldABDistance": 0.09965062,
-          "rawFieldABDistance": 0.09965062,
-          "gaugeOverlap": 0.989298
+          "minAmpA": 0.08693865,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.5810334,
+          "rawFieldABDistance": 0.5810334,
+          "gaugeOverlap": 0.76248788
         },
         {
           "step": 50,
@@ -16285,725 +16310,725 @@
           "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.00222162,
-          "minAmpB": 0.00384036,
-          "alignedFieldABDistance": 0.1195721,
-          "rawFieldABDistance": 0.1195721,
-          "gaugeOverlap": 0.98443822
+          "minAmpA": 0.10372237,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.56898351,
+          "rawFieldABDistance": 0.56898351,
+          "gaugeOverlap": 0.77402491
         },
         {
           "step": 60,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.02187022,
-          "minAmpB": 0.00186023,
-          "alignedFieldABDistance": 0.13053411,
-          "rawFieldABDistance": 0.13053411,
-          "gaugeOverlap": 0.98182916
+          "minAmpA": 0.11731974,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.56255219,
+          "rawFieldABDistance": 0.56255219,
+          "gaugeOverlap": 0.7802177
         },
         {
           "step": 70,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.0094749,
-          "minAmpB": 0.0014329,
-          "alignedFieldABDistance": 0.13598209,
-          "rawFieldABDistance": 0.13598209,
-          "gaugeOverlap": 0.98031742
+          "minAmpA": 0.12991747,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.558362,
+          "rawFieldABDistance": 0.558362,
+          "gaugeOverlap": 0.78435919
         },
         {
           "step": 80,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.10700154,
-          "minAmpB": 0.09839467,
-          "alignedFieldABDistance": 0.14618017,
-          "rawFieldABDistance": 0.14618017,
-          "gaugeOverlap": 0.97811549
+          "minAmpA": 0.14206431,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.55510405,
+          "rawFieldABDistance": 0.55510405,
+          "gaugeOverlap": 0.78764831
         },
         {
           "step": 90,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.14824724,
-          "minAmpB": 0.12048273,
-          "alignedFieldABDistance": 0.15183884,
-          "rawFieldABDistance": 0.15183884,
-          "gaugeOverlap": 0.97629583
+          "minAmpA": 0.15386554,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.55226274,
+          "rawFieldABDistance": 0.55226274,
+          "gaugeOverlap": 0.79053635
         },
         {
           "step": 100,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.16543689,
-          "minAmpB": 0.12854379,
-          "alignedFieldABDistance": 0.15609443,
-          "rawFieldABDistance": 0.15609443,
-          "gaugeOverlap": 0.97487089
+          "minAmpA": 0.16533449,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.54963013,
+          "rawFieldABDistance": 0.54963013,
+          "gaugeOverlap": 0.79319996
         },
         {
           "step": 110,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.17320219,
-          "minAmpB": 0.13135469,
-          "alignedFieldABDistance": 0.15964298,
-          "rawFieldABDistance": 0.15964298,
-          "gaugeOverlap": 0.97364824
+          "minAmpA": 0.17647821,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.54711957,
+          "rawFieldABDistance": 0.54711957,
+          "gaugeOverlap": 0.79571244
         },
         {
           "step": 120,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.17796594,
-          "minAmpB": 0.13268354,
-          "alignedFieldABDistance": 0.16275758,
-          "rawFieldABDistance": 0.16275758,
-          "gaugeOverlap": 0.97252398
+          "minAmpA": 0.18730888,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.54469329,
+          "rawFieldABDistance": 0.54469329,
+          "gaugeOverlap": 0.79810716
         },
         {
           "step": 130,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.18231532,
-          "minAmpB": 0.13397461,
-          "alignedFieldABDistance": 0.16555364,
-          "rawFieldABDistance": 0.16555364,
-          "gaugeOverlap": 0.97146154
+          "minAmpA": 0.19783973,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.54233386,
+          "rawFieldABDistance": 0.54233386,
+          "gaugeOverlap": 0.80040139
         },
         {
           "step": 140,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.18709913,
-          "minAmpB": 0.13564224,
-          "alignedFieldABDistance": 0.16808698,
-          "rawFieldABDistance": 0.16808698,
-          "gaugeOverlap": 0.97045179
+          "minAmpA": 0.20808109,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.54003263,
+          "rawFieldABDistance": 0.54003263,
+          "gaugeOverlap": 0.80260555
         },
         {
           "step": 150,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.19243553,
-          "minAmpB": 0.1376879,
-          "alignedFieldABDistance": 0.17039005,
-          "rawFieldABDistance": 0.17039005,
-          "gaugeOverlap": 0.96949375
+          "minAmpA": 0.218039,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.53778491,
+          "rawFieldABDistance": 0.53778491,
+          "gaugeOverlap": 0.80472688
         },
         {
           "step": 160,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.19818281,
-          "minAmpB": 0.13998237,
-          "alignedFieldABDistance": 0.17248551,
-          "rawFieldABDistance": 0.17248551,
-          "gaugeOverlap": 0.96858792
+          "minAmpA": 0.22771559,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.5355879,
+          "rawFieldABDistance": 0.5355879,
+          "gaugeOverlap": 0.806771
         },
         {
           "step": 170,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.2041451,
-          "minAmpB": 0.14238395,
-          "alignedFieldABDistance": 0.1743914,
-          "rawFieldABDistance": 0.1743914,
-          "gaugeOverlap": 0.96773459
+          "minAmpA": 0.23711031,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.53343968,
+          "rawFieldABDistance": 0.53343968,
+          "gaugeOverlap": 0.8087426
         },
         {
           "step": 180,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.21015078,
-          "minAmpB": 0.14477938,
-          "alignedFieldABDistance": 0.1761231,
-          "rawFieldABDistance": 0.1761231,
-          "gaugeOverlap": 0.96693358
+          "minAmpA": 0.24622112,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.53133881,
+          "rawFieldABDistance": 0.53133881,
+          "gaugeOverlap": 0.81064577
         },
         {
           "step": 190,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.21607311,
-          "minAmpB": 0.14709104,
-          "alignedFieldABDistance": 0.17769421,
-          "rawFieldABDistance": 0.17769421,
-          "gaugeOverlap": 0.96618428
+          "minAmpA": 0.2550457,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.52928403,
+          "rawFieldABDistance": 0.52928403,
+          "gaugeOverlap": 0.8124842
         },
         {
           "step": 200,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.22182775,
-          "minAmpB": 0.14927164,
-          "alignedFieldABDistance": 0.17911694,
-          "rawFieldABDistance": 0.17911694,
-          "gaugeOverlap": 0.96548578
+          "minAmpA": 0.26358214,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.52727419,
+          "rawFieldABDistance": 0.52727419,
+          "gaugeOverlap": 0.81426129
         },
         {
           "step": 250,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.24692654,
-          "minAmpB": 0.15772779,
-          "alignedFieldABDistance": 0.18436058,
-          "rawFieldABDistance": 0.18436058,
-          "gaugeOverlap": 0.96270893
+          "minAmpA": 0.30195682,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.51785861,
+          "rawFieldABDistance": 0.51785861,
+          "gaugeOverlap": 0.82233066
         },
         {
           "step": 300,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.26563005,
-          "minAmpB": 0.16241775,
-          "alignedFieldABDistance": 0.18721025,
-          "rawFieldABDistance": 0.18721025,
-          "gaugeOverlap": 0.96097407
+          "minAmpA": 0.33355077,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.50938641,
+          "rawFieldABDistance": 0.50938641,
+          "gaugeOverlap": 0.82927261
         },
         {
           "step": 350,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.27891507,
-          "minAmpB": 0.16424074,
-          "alignedFieldABDistance": 0.18838359,
-          "rawFieldABDistance": 0.18838359,
-          "gaugeOverlap": 0.96006379
+          "minAmpA": 0.35938326,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.5016979,
+          "rawFieldABDistance": 0.5016979,
+          "gaugeOverlap": 0.8353475
         },
         {
           "step": 400,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.28803626,
-          "minAmpB": 0.16396273,
-          "alignedFieldABDistance": 0.18837112,
-          "rawFieldABDistance": 0.18837112,
-          "gaugeOverlap": 0.95977921
+          "minAmpA": 0.3807005,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.49464105,
+          "rawFieldABDistance": 0.49464105,
+          "gaugeOverlap": 0.84075673
         },
         {
           "step": 450,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.29411882,
-          "minAmpB": 0.16214616,
-          "alignedFieldABDistance": 0.18751541,
-          "rawFieldABDistance": 0.18751541,
-          "gaugeOverlap": 0.95995553
+          "minAmpA": 0.39865537,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.488084,
+          "rawFieldABDistance": 0.488084,
+          "gaugeOverlap": 0.84565313
         },
         {
           "step": 500,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.29805224,
-          "minAmpB": 0.15919159,
-          "alignedFieldABDistance": 0.18605922,
-          "rawFieldABDistance": 0.18605922,
-          "gaugeOverlap": 0.96046338
+          "minAmpA": 0.41417223,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.48191941,
+          "rawFieldABDistance": 0.48191941,
+          "gaugeOverlap": 0.85015064
         },
         {
           "step": 550,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30049484,
-          "minAmpB": 0.15538407,
-          "alignedFieldABDistance": 0.1841763,
-          "rawFieldABDistance": 0.1841763,
-          "gaugeOverlap": 0.96120433
+          "minAmpA": 0.42793461,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.47606358,
+          "rawFieldABDistance": 0.47606358,
+          "gaugeOverlap": 0.85433313
         },
         {
           "step": 600,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30191717,
-          "minAmpB": 0.15092893,
-          "alignedFieldABDistance": 0.181992,
-          "rawFieldABDistance": 0.181992,
-          "gaugeOverlap": 0.96210498
+          "minAmpA": 0.44042483,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.47045312,
+          "rawFieldABDistance": 0.47045312,
+          "gaugeOverlap": 0.85826185
         },
         {
           "step": 650,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30264974,
-          "minAmpB": 0.14597648,
-          "alignedFieldABDistance": 0.17959727,
-          "rawFieldABDistance": 0.17959727,
-          "gaugeOverlap": 0.96311123
+          "minAmpA": 0.45197441,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.46504089,
+          "rawFieldABDistance": 0.46504089,
+          "gaugeOverlap": 0.86198144
         },
         {
           "step": 700,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30292292,
-          "minAmpB": 0.14063843,
-          "alignedFieldABDistance": 0.17705846,
-          "rawFieldABDistance": 0.17705846,
-          "gaugeOverlap": 0.96418356
+          "minAmpA": 0.46280821,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.45979227,
+          "rawFieldABDistance": 0.45979227,
+          "gaugeOverlap": 0.8655245
         },
         {
           "step": 750,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30289704,
-          "minAmpB": 0.13499891,
-          "alignedFieldABDistance": 0.17442409,
-          "rawFieldABDistance": 0.17442409,
-          "gaugeOverlap": 0.96529327
+          "minAmpA": 0.47307824,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.45468194,
+          "rawFieldABDistance": 0.45468194,
+          "gaugeOverlap": 0.86891499
         },
         {
           "step": 800,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.3026838,
-          "minAmpB": 0.1291219,
-          "alignedFieldABDistance": 0.17172978,
-          "rawFieldABDistance": 0.17172978,
-          "gaugeOverlap": 0.96641966
+          "minAmpA": 0.48288781,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.44969143,
+          "rawFieldABDistance": 0.44969143,
+          "gaugeOverlap": 0.87217074
         },
         {
           "step": 850,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30236136,
-          "minAmpB": 0.12305644,
-          "alignedFieldABDistance": 0.16900172,
-          "rawFieldABDistance": 0.16900172,
-          "gaugeOverlap": 0.96754788
+          "minAmpA": 0.49230802,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.44480716,
+          "rawFieldABDistance": 0.44480716,
+          "gaugeOverlap": 0.87530522
         },
         {
           "step": 900,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30198455,
-          "minAmpB": 0.11684042,
-          "alignedFieldABDistance": 0.16625915,
-          "rawFieldABDistance": 0.16625915,
-          "gaugeOverlap": 0.96866734
+          "minAmpA": 0.50138886,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.44001908,
+          "rawFieldABDistance": 0.44001908,
+          "gaugeOverlap": 0.87832887
         },
         {
           "step": 950,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30159208,
-          "minAmpB": 0.11050321,
-          "alignedFieldABDistance": 0.16351626,
-          "rawFieldABDistance": 0.16351626,
-          "gaugeOverlap": 0.96977059
+          "minAmpA": 0.51016646,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.4353196,
+          "rawFieldABDistance": 0.4353196,
+          "gaugeOverlap": 0.88124993
         },
         {
           "step": 1000,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30121135,
-          "minAmpB": 0.10406775,
-          "alignedFieldABDistance": 0.16078347,
-          "rawFieldABDistance": 0.16078347,
-          "gaugeOverlap": 0.97085245
+          "minAmpA": 0.51866786,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.4307029,
+          "rawFieldABDistance": 0.4307029,
+          "gaugeOverlap": 0.88407511
         },
         {
           "step": 1050,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30086184,
-          "minAmpB": 0.09755203,
-          "alignedFieldABDistance": 0.15806844,
-          "rawFieldABDistance": 0.15806844,
-          "gaugeOverlap": 0.97190938
+          "minAmpA": 0.52691405,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.4261644,
+          "rawFieldABDistance": 0.4261644,
+          "gaugeOverlap": 0.88681
         },
         {
           "step": 1100,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30055746,
-          "minAmpB": 0.09097025,
-          "alignedFieldABDistance": 0.15537676,
-          "rawFieldABDistance": 0.15537676,
-          "gaugeOverlap": 0.97293905
+          "minAmpA": 0.53492198,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.42170039,
+          "rawFieldABDistance": 0.42170039,
+          "gaugeOverlap": 0.8894594
         },
         {
           "step": 1150,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30030812,
-          "minAmpB": 0.08433372,
-          "alignedFieldABDistance": 0.15271252,
-          "rawFieldABDistance": 0.15271252,
-          "gaugeOverlap": 0.97394001
+          "minAmpA": 0.5427058,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.41730778,
+          "rawFieldABDistance": 0.41730778,
+          "gaugeOverlap": 0.89202752
         },
         {
           "step": 1200,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30012093,
-          "minAmpB": 0.0776515,
-          "alignedFieldABDistance": 0.15007869,
-          "rawFieldABDistance": 0.15007869,
-          "gaugeOverlap": 0.97491144
+          "minAmpA": 0.55027767,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.41298392,
+          "rawFieldABDistance": 0.41298392,
+          "gaugeOverlap": 0.89451809
         },
         {
           "step": 1250,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30000093,
-          "minAmpB": 0.07093092,
-          "alignedFieldABDistance": 0.14747739,
-          "rawFieldABDistance": 0.14747739,
-          "gaugeOverlap": 0.97585297
+          "minAmpA": 0.55764833,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.40872651,
+          "rawFieldABDistance": 0.40872651,
+          "gaugeOverlap": 0.89693453
         },
         {
           "step": 1300,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.29995171,
-          "minAmpB": 0.06417802,
-          "alignedFieldABDistance": 0.14491012,
-          "rawFieldABDistance": 0.14491012,
-          "gaugeOverlap": 0.97676457
+          "minAmpA": 0.5648274,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.40453349,
+          "rawFieldABDistance": 0.40453349,
+          "gaugeOverlap": 0.89927994
         },
         {
           "step": 1350,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.29997579,
-          "minAmpB": 0.05739781,
-          "alignedFieldABDistance": 0.14237791,
-          "rawFieldABDistance": 0.14237791,
-          "gaugeOverlap": 0.97764644
+          "minAmpA": 0.57182365,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.40040297,
+          "rawFieldABDistance": 0.40040297,
+          "gaugeOverlap": 0.90155723
         },
         {
           "step": 1400,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30007489,
-          "minAmpB": 0.05059453,
-          "alignedFieldABDistance": 0.13988145,
-          "rawFieldABDistance": 0.13988145,
-          "gaugeOverlap": 0.97849896
+          "minAmpA": 0.57864513,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.39633321,
+          "rawFieldABDistance": 0.39633321,
+          "gaugeOverlap": 0.90376908
         },
         {
           "step": 1450,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30025015,
-          "minAmpB": 0.04377182,
-          "alignedFieldABDistance": 0.13742119,
-          "rawFieldABDistance": 0.13742119,
-          "gaugeOverlap": 0.97932263
+          "minAmpA": 0.58529929,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.3923226,
+          "rawFieldABDistance": 0.3923226,
+          "gaugeOverlap": 0.90591804
         },
         {
           "step": 1500,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30050229,
-          "minAmpB": 0.03693287,
-          "alignedFieldABDistance": 0.13499736,
-          "rawFieldABDistance": 0.13499736,
-          "gaugeOverlap": 0.98011801
+          "minAmpA": 0.59179308,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.38836963,
+          "rawFieldABDistance": 0.38836963,
+          "gaugeOverlap": 0.90800648
         },
         {
           "step": 1550,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30083167,
-          "minAmpB": 0.03008054,
-          "alignedFieldABDistance": 0.13261005,
-          "rawFieldABDistance": 0.13261005,
-          "gaugeOverlap": 0.98088576
+          "minAmpA": 0.59813296,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.38447286,
+          "rawFieldABDistance": 0.38447286,
+          "gaugeOverlap": 0.91003666
         },
         {
           "step": 1600,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30123842,
-          "minAmpB": 0.02321742,
-          "alignedFieldABDistance": 0.13025927,
-          "rawFieldABDistance": 0.13025927,
-          "gaugeOverlap": 0.98162653
+          "minAmpA": 0.60432502,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.38063091,
+          "rawFieldABDistance": 0.38063091,
+          "gaugeOverlap": 0.91201072
         },
         {
           "step": 1650,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30172244,
-          "minAmpB": 0.0163459,
-          "alignedFieldABDistance": 0.1279449,
-          "rawFieldABDistance": 0.1279449,
-          "gaugeOverlap": 0.98234103
+          "minAmpA": 0.61037495,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.3768425,
+          "rawFieldABDistance": 0.3768425,
+          "gaugeOverlap": 0.91393068
         },
         {
           "step": 1700,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30237676,
-          "minAmpB": 0.02075589,
-          "alignedFieldABDistance": 0.12614307,
-          "rawFieldABDistance": 0.12614307,
-          "gaugeOverlap": 0.9828187
+          "minAmpA": 0.61628812,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.37310639,
+          "rawFieldABDistance": 0.37310639,
+          "gaugeOverlap": 0.91579847
         },
         {
           "step": 1750,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30319452,
-          "minAmpB": 0.01332167,
-          "alignedFieldABDistance": 0.12418586,
-          "rawFieldABDistance": 0.12418586,
-          "gaugeOverlap": 0.98337279
+          "minAmpA": 0.62206959,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.36942137,
+          "rawFieldABDistance": 0.36942137,
+          "gaugeOverlap": 0.91761593
         },
         {
           "step": 1800,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30417516,
-          "minAmpB": 0.02678389,
-          "alignedFieldABDistance": 0.12295161,
-          "rawFieldABDistance": 0.12295161,
-          "gaugeOverlap": 0.98359916
+          "minAmpA": 0.62772414,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.36578632,
+          "rawFieldABDistance": 0.36578632,
+          "gaugeOverlap": 0.91938481
         },
         {
           "step": 1850,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30527994,
-          "minAmpB": 0.02052386,
-          "alignedFieldABDistance": 0.1211527,
-          "rawFieldABDistance": 0.1211527,
-          "gaugeOverlap": 0.98408817
+          "minAmpA": 0.63325627,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.36220013,
+          "rawFieldABDistance": 0.36220013,
+          "gaugeOverlap": 0.92110677
         },
         {
           "step": 1900,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30652135,
-          "minAmpB": 0.0158193,
-          "alignedFieldABDistance": 0.11945374,
-          "rawFieldABDistance": 0.11945374,
-          "gaugeOverlap": 0.98453187
+          "minAmpA": 0.63867027,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.35866176,
+          "rawFieldABDistance": 0.35866176,
+          "gaugeOverlap": 0.92278341
         },
         {
           "step": 1950,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30791475,
-          "minAmpB": 0.02972424,
-          "alignedFieldABDistance": 0.11839516,
-          "rawFieldABDistance": 0.11839516,
-          "gaugeOverlap": 0.98468102
+          "minAmpA": 0.64397017,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.35517018,
+          "rawFieldABDistance": 0.35517018,
+          "gaugeOverlap": 0.92441626
         },
         {
           "step": 2000,
           "fieldDominantWA": 0,
           "fieldDominantFractionA": 1,
           "memoryDominantWA": 1,
-          "fieldDominantWB": 1,
+          "fieldDominantWB": 0,
           "fieldDominantFractionB": 1,
           "memoryDominantWB": 0,
-          "minAmpA": 0.30944742,
-          "minAmpB": 0.01707083,
-          "alignedFieldABDistance": 0.11652501,
-          "rawFieldABDistance": 0.11652501,
-          "gaugeOverlap": 0.98520909
+          "minAmpA": 0.64915982,
+          "minAmpB": 1,
+          "alignedFieldABDistance": 0.35172441,
+          "rawFieldABDistance": 0.35172441,
+          "gaugeOverlap": 0.92600677
         }
       ],
       "fieldWindingHistogramA": {
@@ -17023,12 +17048,12 @@
         "source": "field",
         "lineCount": 1024,
         "histogram": {
-          "1": 1024
+          "0": 1024
         },
-        "dominantW": 1,
+        "dominantW": 0,
         "dominantFraction": 1,
         "allLinesTargetW": null,
-        "lineWindingSum": 1024
+        "lineWindingSum": 0
       },
       "memoryWindingHistogramA": {
         "axis": "x",
@@ -17054,71 +17079,67 @@
         "allLinesTargetW": null,
         "lineWindingSum": 0
       },
-      "minAmpA": 0.30944742,
-      "minAmpB": 0.01707083,
+      "minAmpA": 0.64915982,
+      "minAmpB": 1,
       "fieldPowersA": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.43410456,
-        "P1": 0.2486205,
-        "P2": 0.00640922,
-        "normalizedP0": 0.62992738,
-        "normalizedP1": 0.36077222,
-        "normalizedP2": 0.0093004,
-        "P1OverP0": 0.57272033,
-        "P2OverP0": 0.01476424
+        "P0": 0.65375546,
+        "P1": 0.09195015,
+        "P2": 0.00062764,
+        "normalizedP0": 0.8759565,
+        "normalizedP1": 0.12320254,
+        "normalizedP2": 0.00084096,
+        "P1OverP0": 0.14064915,
+        "P2OverP0": 0.00096005
       },
       "fieldPowersB": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.31481967,
-        "P1": 0.35613779,
-        "P2": 0.0113501,
-        "normalizedP0": 0.46140434,
-        "normalizedP1": 0.52196079,
-        "normalizedP2": 0.01663487,
-        "P1OverP0": 1.13124379,
-        "P2OverP0": 0.0360527
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
       "memoryPowersA": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.06733048,
-        "P1": 0.63776759,
-        "P2": 0.00083098,
-        "normalizedP0": 0.09537853,
-        "normalizedP1": 0.90344432,
-        "normalizedP2": 0.00117715,
-        "P1OverP0": 9.47219774,
-        "P2OverP0": 0.01234187
+        "P0": 0.08743357,
+        "P1": 0.56703873,
+        "P2": 0.00023736,
+        "normalizedP0": 0.13354557,
+        "normalizedP1": 0.86609189,
+        "normalizedP2": 0.00036254,
+        "P1OverP0": 6.48536618,
+        "P2OverP0": 0.00271475
       },
       "memoryPowersB": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.66787664,
-        "P1": 0.05796835,
-        "P2": 0.00171794,
-        "normalizedP0": 0.91796409,
-        "normalizedP1": 0.07967468,
-        "normalizedP2": 0.00236122,
-        "P1OverP0": 0.08679499,
-        "P2OverP0": 0.00257224
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
-      "alignedFieldABDistance": 0.11652501,
-      "rawFieldABDistance": 0.11652501,
-      "gaugeOverlap": 0.98520909,
-      "firstSlipStepA": 40,
-      "firstSlipStepB": 40,
-      "transferWindow": {
-        "stepA": 40,
-        "stepB": 40,
-        "deltaSteps": 0
-      },
-      "classification": "double_slip_exchange",
+      "alignedFieldABDistance": 0.35172441,
+      "rawFieldABDistance": 0.35172441,
+      "gaugeOverlap": 0.92600677,
+      "firstSlipStepA": 30,
+      "firstSlipStepB": null,
+      "transferWindow": null,
+      "classification": "single_slip_merge",
       "claimLevelNotes": [
         "candidate coupling regime classification; synchronized_double_phase_slip requires nearby W changes and minAmp drops, not full topology proof."
       ],
@@ -17155,7 +17176,7 @@
         ]
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@ba0512a",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@b8ee6da",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
