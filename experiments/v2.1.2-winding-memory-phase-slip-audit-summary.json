@@ -1,9 +1,15 @@
 {
   "audit": "v2.1.2-winding-memory-phase-slip-audit",
-  "generatedAt": "2026-06-12T04:40:37.130Z",
+  "generatedAt": "2026-06-12T08:01:17.236Z",
+  "generatorGitHash": "7981d0d",
+  "artifactGeneratedFromReachableCommit": true,
+  "artifactCommittedIn": "pending merge commit containing regenerated artifact",
   "runMode": "lightweight",
   "parameterLineage": "exp023-real",
   "phaseConstructionMode": "legacy-torus-atan2",
+  "windingInitializationMode": "manual-global-x-winding-ramp",
+  "initializerComparisonMode": "not-tested-in-this-audit",
+  "runtimeInitializerContext": "legacy-torus-atan2",
   "costPolicy": {
     "mode": "lightweight",
     "GRID_SIZE": 32,
@@ -75,7 +81,7 @@
     }
   },
   "observerContext": {
-    "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+    "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
     "windingMeasuredAxis": "x",
     "windingLineCount": 1024,
     "windingHistogramScope": "x-lines across all y,z",
@@ -270,7 +276,7 @@
       },
       {
         "runId": "coupling-W1-W0-g0.05",
-        "classification": "double_slip_exchange",
+        "classification": "synchronized_double_phase_slip_candidate",
         "finalWA": 0,
         "finalWB": 0,
         "finalMemoryWA": 0,
@@ -289,9 +295,9 @@
         "runId": "pure-noise-W0-e1.2",
         "classification": "no_stable_W1_created",
         "finalW": 0,
-        "finalFraction": 1,
+        "finalFraction": 0.45996094,
         "finalMemoryW": 0,
-        "finalMemoryFraction": 0.97070313
+        "finalMemoryFraction": 1
       }
     ]
   },

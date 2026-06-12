@@ -221,7 +221,7 @@ Detection condition: one side changes dominant winding and both sides end in the
 
 ### `double_slip_exchange`
 
-Detection condition: both sides change dominant winding within a nearby sampling window, with supporting amplitude or mode-power evidence.
+Detection condition: both sides change dominant winding within a nearby sampling window, with supporting amplitude or mode-power evidence, and the final dominant winding assignments are swapped relative to the initial setup.
 
 ### `synchronized_double_phase_slip`
 

@@ -55,12 +55,12 @@ This file records expectations before or alongside audit interpretation. These a
 - Baseline amplitude signatures matched exp023-real references: `W=1` final mean amplitude `0.98059731`, and `W=2` final mean amplitude `0.92073952`.
 - Moderate `W=1 + ε=0.5` persisted without a break for seeds `101` and `202`.
 - Strong memory-on `W=1 + ε=1.2` recovered cleanly for seed `101`; seed `202` ended as partial recovery and is not overstated.
-- The matched memory-off control is no longer overstated as recovered: it ends with weak `W=1` plurality and is classified as `break_partial_recovery`; the long memory-off control ends at `W=0`.
+- The matched memory-off control records `effectiveMemoryWeight=0` and is no longer overstated as recovered: it ends with weak `W=1` plurality and is classified as `break_partial_recovery`; the long memory-off control also records `effectiveMemoryWeight=0` and ends at `W=0`.
 - Clean `W=0` memory biased damaged field state to final `W=0` in D1 at low memory weight.
 - `L1b_clean_W1` was evaluated under exp023-real and recovers without a spurious memory rewrite step.
 - Low D2 memory weight (`0.0075`) did not write `W=2` into the field; instead the field rewrote memory back to `W=1`. Weights `0.03` and `0.05` wrote `W=2` into the field.
 - Pure `W=0 + ε=1.2` noise did not produce stable final `W=1` in the checked-in artifact.
-- One-sided-winding bidirectional coupling produced the expected low-`g` plateau, `g=0.02` single-slip merge with first A slip at step `80`, and `g=0.05` synchronized double-slip / exchange candidate.
+- One-sided-winding bidirectional coupling produced the expected low-`g` plateau, `g=0.02` single-slip merge with first A slip at step `80`, and `g=0.05` synchronized double phase-slip candidate (not an exchange label without final swapped winding assignments).
 
 ### Misses
 
@@ -70,5 +70,6 @@ This file records expectations before or alongside audit interpretation. These a
 
 - Transfer-vs-merge classification remains candidate-level without denser coupling sampling, bidirectional-control comparisons, and full 3D vortex-core tracking.
 - Whether memory ON reliably outperforms memory OFF across a broader seed set remains indeterminate because the default lightweight artifact tests only one matched memory-off strong perturbation and one longer memory-off horizon.
+- The pure W0 noise control is explicitly memory-off (`memory_off_W0_noise_control`) and records `effectiveMemoryWeight=0`.
 - Exact threshold locations for memory strength and coupling require denser local scans around the observed transitions.
 - Future work: add time-series L2 distances (`mean |field-memory|`, `mean |field-targetW|`, `mean |memory-targetW|`), a coupling control with `MEMORY_WEIGHT=0`, denser `g` values around `0.0125`, `0.015`, and `0.025`, low-amplitude winding validity residuals, and a later CI runtime-limited smoke command.
