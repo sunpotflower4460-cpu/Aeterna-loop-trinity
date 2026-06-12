@@ -1,15 +1,23 @@
 {
   "audit": "v2.1.2-winding-memory-phase-slip-audit",
-  "generatedAt": "2026-06-12T04:40:37.106Z",
+  "generatedAt": "2026-06-12T08:01:17.174Z",
+  "generatorGitHash": "7981d0d",
+  "artifactGeneratedFromReachableCommit": true,
+  "artifactCommittedIn": "pending merge commit containing regenerated artifact",
   "runMode": "lightweight",
   "parameterLineage": "exp023-real",
   "phaseConstructionMode": "legacy-torus-atan2",
+  "windingInitializationMode": "manual-global-x-winding-ramp",
+  "initializerComparisonMode": "not-tested-in-this-audit",
+  "runtimeInitializerContext": "legacy-torus-atan2",
   "results": [
     {
       "runId": "baseline-W0",
       "runFamily": "baseline_global_winding",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 0,
         "targetW": 0,
         "maxSteps": 3000,
@@ -32,7 +40,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -48,6 +56,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -1057,6 +1070,8 @@
       "runFamily": "baseline_global_winding",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 1,
         "targetW": 1,
         "maxSteps": 3000,
@@ -1079,7 +1094,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -1095,6 +1110,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -2104,6 +2124,8 @@
       "runFamily": "baseline_global_winding",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 2,
         "targetW": 2,
         "maxSteps": 3000,
@@ -2126,7 +2148,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -2142,6 +2164,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -3151,12 +3178,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 0.5,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryConditionLabel": "memory-on",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -3177,7 +3206,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -3193,6 +3222,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -3846,12 +3880,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 0.5,
         "noiseSeed": 202,
-        "memoryEnabled": true,
         "memoryConditionLabel": "memory-on",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -3872,7 +3908,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -3888,6 +3924,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -4541,12 +4582,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryConditionLabel": "memory-on",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -4567,7 +4610,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -4583,6 +4626,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -5226,8 +5274,8 @@
       "minAmpAtSlip": 0.00642676,
       "fieldP1Min": 0.46885724,
       "memoryP1Min": 0.29576275,
-      "fieldP1RecoveryStep": 0,
-      "memoryP1RecoveryStep": 0,
+      "fieldP1RecoveryStep": 10,
+      "memoryP1RecoveryStep": 10,
       "finalDominantW": 1,
       "finalDominantFraction": 1
     },
@@ -5236,12 +5284,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 1.2,
         "noiseSeed": 202,
-        "memoryEnabled": true,
         "memoryConditionLabel": "memory-on",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -5262,7 +5312,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -5278,6 +5328,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -5923,8 +5978,8 @@
       "minAmpAtSlip": 0.00251277,
       "fieldP1Min": 0.00483094,
       "memoryP1Min": 0.0393224,
-      "fieldP1RecoveryStep": 0,
-      "memoryP1RecoveryStep": 0,
+      "fieldP1RecoveryStep": 10,
+      "memoryP1RecoveryStep": 10,
       "finalDominantW": 1,
       "finalDominantFraction": 0.86816406
     },
@@ -5933,12 +5988,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryConditionLabel": "memory-on-matched",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -5959,7 +6016,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -5975,6 +6032,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -6618,8 +6680,8 @@
       "minAmpAtSlip": 0.00642676,
       "fieldP1Min": 0.46885724,
       "memoryP1Min": 0.29576275,
-      "fieldP1RecoveryStep": 0,
-      "memoryP1RecoveryStep": 0,
+      "fieldP1RecoveryStep": 10,
+      "memoryP1RecoveryStep": 10,
       "finalDominantW": 1,
       "finalDominantFraction": 1
     },
@@ -6628,12 +6690,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": false,
+        "effectiveMemoryWeight": 0,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": false,
         "memoryConditionLabel": "memory-off-matched",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -6654,7 +6718,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -6670,6 +6734,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": false,
+      "effectiveMemoryWeight": 0,
       "samples": [
         {
           "step": 0,
@@ -7320,8 +7389,8 @@
       "minAmpAtSlip": 0.00642676,
       "fieldP1Min": 0.76002417,
       "memoryP1Min": 1,
-      "fieldP1RecoveryStep": 0,
-      "memoryP1RecoveryStep": 0,
+      "fieldP1RecoveryStep": 10,
+      "memoryP1RecoveryStep": 10,
       "finalDominantW": 1,
       "finalDominantFraction": 0.39160156
     },
@@ -7330,12 +7399,14 @@
       "runFamily": "perturbation_sweep",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": false,
+        "effectiveMemoryWeight": 0,
         "initialW": 1,
         "targetW": 1,
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": false,
         "memoryConditionLabel": "memory-off-long",
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 4500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -7356,7 +7427,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -7372,6 +7443,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": false,
+      "effectiveMemoryWeight": 0,
       "samples": [
         {
           "step": 0,
@@ -8741,8 +8817,8 @@
       "minAmpAtSlip": 0.00642676,
       "fieldP1Min": 0.00249113,
       "memoryP1Min": 1,
-      "fieldP1RecoveryStep": 0,
-      "memoryP1RecoveryStep": 0,
+      "fieldP1RecoveryStep": 10,
+      "memoryP1RecoveryStep": 10,
       "finalDominantW": 0,
       "finalDominantFraction": 0.52148438
     },
@@ -8751,13 +8827,15 @@
       "runFamily": "ledger_discrimination_matrix",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": false,
+        "effectiveMemoryWeight": 0,
         "fieldInitialW": 1,
         "memoryInitialW": null,
         "memoryConditionLabel": "L0_memory_OFF",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": false,
         "memoryWeight": 0.0075,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -8778,7 +8856,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -8794,6 +8872,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": false,
+      "effectiveMemoryWeight": 0,
       "samples": [
         {
           "step": 0,
@@ -9451,13 +9534,15 @@
       "runFamily": "ledger_discrimination_matrix",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "fieldInitialW": 1,
         "memoryInitialW": 1,
         "memoryConditionLabel": "L1_noisy_W1_copy",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.0075,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -9478,7 +9563,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -9494,6 +9579,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -10144,13 +10234,15 @@
       "runFamily": "ledger_discrimination_matrix",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "fieldInitialW": 1,
         "memoryInitialW": 1,
         "memoryConditionLabel": "L1b_clean_W1",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.0075,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -10171,7 +10263,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -10187,6 +10279,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -10837,13 +10934,15 @@
       "runFamily": "ledger_discrimination_matrix",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "fieldInitialW": 1,
         "memoryInitialW": 0,
         "memoryConditionLabel": "L2_clean_W0",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.0075,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -10864,7 +10963,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -10880,6 +10979,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -11530,13 +11634,15 @@
       "runFamily": "ledger_discrimination_matrix",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "fieldInitialW": 1,
         "memoryInitialW": 2,
         "memoryConditionLabel": "L3_clean_W2",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.0075,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -11557,7 +11663,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -11573,6 +11679,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -12223,13 +12334,15 @@
       "runFamily": "memory_weight_sweep_uphill_writing",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.0075,
         "fieldInitialW": 1,
         "memoryInitialW": 2,
         "memoryConditionLabel": "D2_clean_W2_memory_weight_sweep",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.0075,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -12250,7 +12363,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -12266,6 +12379,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.0075,
       "samples": [
         {
           "step": 0,
@@ -12916,13 +13034,15 @@
       "runFamily": "memory_weight_sweep_uphill_writing",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.03,
         "fieldInitialW": 1,
         "memoryInitialW": 2,
         "memoryConditionLabel": "D2_clean_W2_memory_weight_sweep",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.03,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -12943,7 +13063,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -12959,6 +13079,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.03,
       "samples": [
         {
           "step": 0,
@@ -13609,13 +13734,15 @@
       "runFamily": "memory_weight_sweep_uphill_writing",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": true,
+        "effectiveMemoryWeight": 0.05,
         "fieldInitialW": 1,
         "memoryInitialW": 2,
         "memoryConditionLabel": "D2_clean_W2_memory_weight_sweep",
         "epsilon": 1.2,
         "noiseSeed": 101,
-        "memoryEnabled": true,
         "memoryWeight": 0.05,
+        "nominalComparisonMemoryWeight": 0.0075,
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -13636,7 +13763,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -13652,6 +13779,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": true,
+      "effectiveMemoryWeight": 0.05,
       "samples": [
         {
           "step": 0,
@@ -14334,7 +14466,7 @@
         "memoryCouplingUseBidirectional": true
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -14350,6 +14482,9 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
       "samples": [
         {
           "step": 0,
@@ -15306,7 +15441,7 @@
         "memoryCouplingUseBidirectional": true
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -15322,6 +15457,9 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
       "samples": [
         {
           "step": 0,
@@ -16278,7 +16416,7 @@
         "memoryCouplingUseBidirectional": true
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -16294,6 +16432,9 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
       "samples": [
         {
           "step": 0,
@@ -17206,7 +17347,7 @@
         "stepB": 20,
         "deltaSteps": 0
       },
-      "classification": "double_slip_exchange",
+      "classification": "synchronized_double_phase_slip_candidate",
       "claimLevelNotes": [
         "candidate coupling regime classification; synchronized_double_phase_slip requires nearby W changes and minAmp drops, not full topology proof."
       ],
@@ -17222,10 +17363,14 @@
       "runFamily": "pure_noise_control",
       "parameterLineage": "exp023-real",
       "runConfig": {
+        "memoryEnabled": false,
+        "effectiveMemoryWeight": 0,
         "initialW": 0,
         "targetW": 0,
         "epsilon": 1.2,
         "noiseSeed": 101,
+        "nominalComparisonMemoryWeight": 0.0075,
+        "controlType": "memory_off_W0_noise_control",
         "maxSteps": 1500,
         "gridSize": 32,
         "parameterLineage": "exp023-real"
@@ -17246,7 +17391,7 @@
         "parameterLineage": "exp023-real"
       },
       "observerContext": {
-        "observerVersion": "v212-winding-memory-phase-slip-audit@b4a8991",
+        "observerVersion": "v212-winding-memory-phase-slip-audit@7981d0d",
         "windingMeasuredAxis": "x",
         "windingLineCount": 1024,
         "windingHistogramScope": "x-lines across all y,z",
@@ -17262,6 +17407,11 @@
         ]
       },
       "phaseConstructionMode": "legacy-torus-atan2",
+      "windingInitializationMode": "manual-global-x-winding-ramp",
+      "initializerComparisonMode": "not-tested-in-this-audit",
+      "runtimeInitializerContext": "legacy-torus-atan2",
+      "memoryEnabled": false,
+      "effectiveMemoryWeight": 0,
       "samples": [
         {
           "step": 0,
@@ -17269,11 +17419,11 @@
           "fieldDominantFraction": 0.78613281,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.78613281,
+          "memoryDominantFraction": 1,
           "minAmp": 0.00479025,
           "meanAmp": 1.27883579,
           "fieldP1": 0.00003343,
-          "memoryP1": 0.00003343
+          "memoryP1": 0
         },
         {
           "step": 10,
@@ -17281,556 +17431,575 @@
           "fieldDominantFraction": 0.99511719,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.78808594,
-          "minAmp": 0.02827914,
-          "meanAmp": 1.06612242,
-          "fieldP1": 0.00003574,
-          "memoryP1": 0.00003344
+          "memoryDominantFraction": 1,
+          "minAmp": 0.03125227,
+          "meanAmp": 1.05951736,
+          "fieldP1": 0.00003587,
+          "memoryP1": 0
         },
         {
           "step": 20,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.99902344,
+          "fieldDominantFraction": 0.99804688,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.80371094,
-          "minAmp": 0.02528627,
-          "meanAmp": 0.83403613,
-          "fieldP1": 0.00004172,
-          "memoryP1": 0.00003348
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00937627,
+          "meanAmp": 0.82652613,
+          "fieldP1": 0.00004324,
+          "memoryP1": 0
         },
         {
           "step": 30,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.59472656,
+          "fieldDominantFraction": 0.42871094,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.83886719,
-          "minAmp": 0.00234447,
-          "meanAmp": 0.88800772,
-          "fieldP1": 0.00005032,
-          "memoryP1": 0.00003352
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00255038,
+          "meanAmp": 0.95753222,
+          "fieldP1": 0.00005838,
+          "memoryP1": 0
         },
         {
           "step": 40,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.43554688,
+          "fieldDominantFraction": 0.3125,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.87402344,
-          "minAmp": 0.00573182,
-          "meanAmp": 0.87897875,
-          "fieldP1": 0.0000668,
-          "memoryP1": 0.00003355
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00591561,
+          "meanAmp": 0.96633627,
+          "fieldP1": 0.00010084,
+          "memoryP1": 0
         },
         {
           "step": 50,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.45605469,
+          "fieldDominantFraction": 0.31835938,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.91308594,
-          "minAmp": 0.0037602,
-          "meanAmp": 0.68469959,
-          "fieldP1": 0.00010221,
-          "memoryP1": 0.00003357
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00647354,
+          "meanAmp": 0.71783729,
+          "fieldP1": 0.00028289,
+          "memoryP1": 0
         },
         {
           "step": 60,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.39550781,
+          "fieldDominantFraction": 0.27636719,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.9296875,
-          "minAmp": 0.0010859,
-          "meanAmp": 0.57699161,
-          "fieldP1": 0.00018451,
-          "memoryP1": 0.00003364
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00459535,
+          "meanAmp": 0.6432232,
+          "fieldP1": 0.00302181,
+          "memoryP1": 0
         },
         {
           "step": 70,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.33886719,
+          "fieldDominantFraction": 0.25097656,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93945313,
-          "minAmp": 0.00246007,
-          "meanAmp": 0.57213118,
-          "fieldP1": 0.00038242,
-          "memoryP1": 0.00003372
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00430186,
+          "meanAmp": 0.73370882,
+          "fieldP1": 0.00369836,
+          "memoryP1": 0
         },
         {
           "step": 80,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.28710938,
+          "fieldDominantFraction": 0.28320313,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.9375,
-          "minAmp": 0.00181496,
-          "meanAmp": 0.53338466,
-          "fieldP1": 0.00087019,
-          "memoryP1": 0.00003385
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00751188,
+          "meanAmp": 0.76156535,
+          "fieldP1": 0.0006102,
+          "memoryP1": 0
         },
         {
           "step": 90,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.28515625,
+          "fieldDominantFraction": 0.3671875,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93261719,
-          "minAmp": 0.00214493,
-          "meanAmp": 0.48209368,
-          "fieldP1": 0.00211043,
-          "memoryP1": 0.00003406
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00358076,
+          "meanAmp": 0.79523781,
+          "fieldP1": 0.00028993,
+          "memoryP1": 0
         },
         {
           "step": 100,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.28027344,
+          "fieldDominantFraction": 0.49414063,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93554688,
-          "minAmp": 0.00291343,
-          "meanAmp": 0.46348371,
-          "fieldP1": 0.00542067,
-          "memoryP1": 0.00003437
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00286487,
+          "meanAmp": 0.89671742,
+          "fieldP1": 0.00017341,
+          "memoryP1": 0
         },
         {
           "step": 110,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.28515625,
+          "fieldDominantFraction": 0.61132813,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93457031,
-          "minAmp": 0.00391263,
-          "meanAmp": 0.44603936,
-          "fieldP1": 0.01467255,
-          "memoryP1": 0.00003484
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00463735,
+          "meanAmp": 0.97664205,
+          "fieldP1": 0.00011973,
+          "memoryP1": 0
         },
         {
           "step": 120,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.2734375,
+          "fieldDominantFraction": 0.72558594,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.9375,
-          "minAmp": 0.00315796,
-          "meanAmp": 0.42240033,
-          "fieldP1": 0.0384534,
-          "memoryP1": 0.00003549
+          "memoryDominantFraction": 1,
+          "minAmp": 0.01326181,
+          "meanAmp": 1.02976582,
+          "fieldP1": 0.00010341,
+          "memoryP1": 0
         },
         {
           "step": 130,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.30664063,
+          "fieldDominantFraction": 0.74414063,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.94140625,
-          "minAmp": 0.00197178,
-          "meanAmp": 0.4074895,
-          "fieldP1": 0.0762308,
-          "memoryP1": 0.0000364
+          "memoryDominantFraction": 1,
+          "minAmp": 0.01160382,
+          "meanAmp": 1.0636099,
+          "fieldP1": 0.00010104,
+          "memoryP1": 0
         },
         {
           "step": 140,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.30761719,
+          "fieldDominantFraction": 0.69140625,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.9375,
-          "minAmp": 0.00109807,
-          "meanAmp": 0.40451069,
-          "fieldP1": 0.095053,
-          "memoryP1": 0.00003765
+          "memoryDominantFraction": 1,
+          "minAmp": 0.01395227,
+          "meanAmp": 1.05323388,
+          "fieldP1": 0.00011791,
+          "memoryP1": 0
         },
         {
           "step": 150,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.3203125,
+          "fieldDominantFraction": 0.6171875,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.9375,
-          "minAmp": 0.00360121,
-          "meanAmp": 0.4067121,
-          "fieldP1": 0.09206747,
-          "memoryP1": 0.00003936
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00890317,
+          "meanAmp": 0.99331451,
+          "fieldP1": 0.00016277,
+          "memoryP1": 0
         },
         {
           "step": 160,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.33398438,
+          "fieldDominantFraction": 0.50195313,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93554688,
-          "minAmp": 0.00153616,
-          "meanAmp": 0.40743731,
-          "fieldP1": 0.08593705,
-          "memoryP1": 0.00004175
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00573514,
+          "meanAmp": 0.90373696,
+          "fieldP1": 0.0002414,
+          "memoryP1": 0
         },
         {
           "step": 170,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.38183594,
+          "fieldDominantFraction": 0.41503906,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93164063,
-          "minAmp": 0.00419954,
-          "meanAmp": 0.4087161,
-          "fieldP1": 0.08241767,
-          "memoryP1": 0.00004514
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00517008,
+          "meanAmp": 0.82324351,
+          "fieldP1": 0.00043028,
+          "memoryP1": 0
         },
         {
           "step": 180,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.37402344,
+          "fieldDominantFraction": 0.33007813,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.93164063,
-          "minAmp": 0.00190486,
-          "meanAmp": 0.42347287,
-          "fieldP1": 0.0814352,
-          "memoryP1": 0.00004998
+          "memoryDominantFraction": 1,
+          "minAmp": 0.0074573,
+          "meanAmp": 0.76710693,
+          "fieldP1": 0.00109774,
+          "memoryP1": 0
         },
         {
           "step": 190,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.42089844,
+          "fieldDominantFraction": 0.30175781,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.92871094,
-          "minAmp": 0.00327278,
-          "meanAmp": 0.45166611,
-          "fieldP1": 0.08213989,
-          "memoryP1": 0.00005695
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00484254,
+          "meanAmp": 0.72050273,
+          "fieldP1": 0.00626499,
+          "memoryP1": 0
         },
         {
           "step": 200,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.43261719,
+          "fieldDominantFraction": 0.26464844,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.921875,
-          "minAmp": 0.00125216,
-          "meanAmp": 0.48373719,
-          "fieldP1": 0.08389697,
-          "memoryP1": 0.000067
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00530084,
+          "meanAmp": 0.70170814,
+          "fieldP1": 0.03815632,
+          "memoryP1": 0
         },
         {
           "step": 250,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.52734375,
+          "fieldDominantFraction": 0.6484375,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.85058594,
-          "minAmp": 0.00255809,
-          "meanAmp": 0.74804204,
-          "fieldP1": 0.09783195,
-          "memoryP1": 0.00022861
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00287627,
+          "meanAmp": 1.00695449,
+          "fieldP1": 0.00053828,
+          "memoryP1": 0
         },
         {
           "step": 300,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.57519531,
+          "fieldDominantFraction": 0.44140625,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.73339844,
-          "minAmp": 0.01379145,
-          "meanAmp": 0.90906088,
-          "fieldP1": 0.10987471,
-          "memoryP1": 0.00084191
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00444888,
+          "meanAmp": 0.85740502,
+          "fieldP1": 0.00053289,
+          "memoryP1": 0
         },
         {
           "step": 350,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.61621094,
+          "fieldDominantFraction": 0.28808594,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.65136719,
-          "minAmp": 0.00994639,
-          "meanAmp": 0.84510206,
-          "fieldP1": 0.13166537,
-          "memoryP1": 0.00224294
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00238802,
+          "meanAmp": 0.7546174,
+          "fieldP1": 0.00562005,
+          "memoryP1": 0
         },
         {
           "step": 400,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.64746094,
+          "fieldDominantFraction": 0.71777344,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.55566406,
-          "minAmp": 0.01627251,
-          "meanAmp": 0.87503696,
-          "fieldP1": 0.16270243,
-          "memoryP1": 0.00528163
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00483297,
+          "meanAmp": 1.02645577,
+          "fieldP1": 0.00097777,
+          "memoryP1": 0
         },
         {
           "step": 450,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.69042969,
+          "fieldDominantFraction": 0.32617188,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.49023438,
-          "minAmp": 0.01795394,
-          "meanAmp": 0.93425301,
-          "fieldP1": 0.19003565,
-          "memoryP1": 0.01213564
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00328817,
+          "meanAmp": 0.78288992,
+          "fieldP1": 0.00125578,
+          "memoryP1": 0
         },
         {
           "step": 500,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.72460938,
+          "fieldDominantFraction": 0.34960938,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.47460938,
-          "minAmp": 0.01680233,
-          "meanAmp": 0.91641801,
-          "fieldP1": 0.21158013,
-          "memoryP1": 0.02592925
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00876967,
+          "meanAmp": 0.81085889,
+          "fieldP1": 0.00620138,
+          "memoryP1": 0
         },
         {
           "step": 550,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.75683594,
+          "fieldDominantFraction": 0.66210938,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.47753906,
-          "minAmp": 0.01659279,
-          "meanAmp": 0.9227202,
-          "fieldP1": 0.22441099,
-          "memoryP1": 0.05336026
+          "memoryDominantFraction": 1,
+          "minAmp": 0.01053854,
+          "meanAmp": 0.99767674,
+          "fieldP1": 0.00127251,
+          "memoryP1": 0
         },
         {
           "step": 600,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.79101563,
+          "fieldDominantFraction": 0.30078125,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.53417969,
-          "minAmp": 0.01105504,
-          "meanAmp": 0.94711491,
-          "fieldP1": 0.22662826,
-          "memoryP1": 0.11133643
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00357485,
+          "meanAmp": 0.76086041,
+          "fieldP1": 0.00112876,
+          "memoryP1": 0
         },
         {
           "step": 650,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.82128906,
+          "fieldDominantFraction": 0.41699219,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.58496094,
-          "minAmp": 0.03569067,
-          "meanAmp": 0.94123833,
-          "fieldP1": 0.21727376,
-          "memoryP1": 0.22926237
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00309274,
+          "meanAmp": 0.83558625,
+          "fieldP1": 0.00805949,
+          "memoryP1": 0
         },
         {
           "step": 700,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.84375,
+          "fieldDominantFraction": 0.62207031,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.66113281,
-          "minAmp": 0.01550406,
-          "meanAmp": 0.9451608,
-          "fieldP1": 0.20277497,
-          "memoryP1": 0.43899734
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00375555,
+          "meanAmp": 0.95910755,
+          "fieldP1": 0.00173541,
+          "memoryP1": 0
         },
         {
           "step": 750,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.86035156,
+          "fieldDominantFraction": 0.33886719,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.70214844,
-          "minAmp": 0.07036332,
-          "meanAmp": 0.95943478,
-          "fieldP1": 0.18683118,
-          "memoryP1": 0.68319275
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00577449,
+          "meanAmp": 0.77599943,
+          "fieldP1": 0.00176809,
+          "memoryP1": 0
         },
         {
           "step": 800,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.87207031,
+          "fieldDominantFraction": 0.40917969,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.74707031,
-          "minAmp": 0.02826365,
-          "meanAmp": 0.96043671,
-          "fieldP1": 0.16806289,
-          "memoryP1": 0.75236435
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00847711,
+          "meanAmp": 0.81945571,
+          "fieldP1": 0.02116489,
+          "memoryP1": 0
         },
         {
           "step": 850,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.86914063,
+          "fieldDominantFraction": 0.62597656,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.77929688,
-          "minAmp": 0.04439805,
-          "meanAmp": 0.96248566,
-          "fieldP1": 0.1467239,
-          "memoryP1": 0.64288861
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00196185,
+          "meanAmp": 0.9376897,
+          "fieldP1": 0.00481486,
+          "memoryP1": 0
         },
         {
           "step": 900,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.88085938,
+          "fieldDominantFraction": 0.36425781,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.80078125,
-          "minAmp": 0.02121146,
-          "meanAmp": 0.96896814,
-          "fieldP1": 0.12617277,
-          "memoryP1": 0.50320243
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00153121,
+          "meanAmp": 0.80795243,
+          "fieldP1": 0.00059544,
+          "memoryP1": 0
         },
         {
           "step": 950,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.88671875,
+          "fieldDominantFraction": 0.33691406,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.82714844,
-          "minAmp": 0.02160754,
-          "meanAmp": 0.97138025,
-          "fieldP1": 0.10743121,
-          "memoryP1": 0.39144213
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00793107,
+          "meanAmp": 0.78784601,
+          "fieldP1": 0.06843487,
+          "memoryP1": 0
         },
         {
           "step": 1000,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.890625,
+          "fieldDominantFraction": 0.57421875,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.83984375,
-          "minAmp": 0.00601305,
-          "meanAmp": 0.9745081,
-          "fieldP1": 0.0893952,
-          "memoryP1": 0.30958035
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00403924,
+          "meanAmp": 0.90761393,
+          "fieldP1": 0.00922511,
+          "memoryP1": 0
         },
         {
           "step": 1050,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.90429688,
+          "fieldDominantFraction": 0.46679688,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.85351563,
-          "minAmp": 0.05858116,
-          "meanAmp": 0.97922822,
-          "fieldP1": 0.07275833,
-          "memoryP1": 0.24901052
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00344795,
+          "meanAmp": 0.84796954,
+          "fieldP1": 0.00036291,
+          "memoryP1": 0
         },
         {
           "step": 1100,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.92480469,
+          "fieldDominantFraction": 0.33984375,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.85839844,
-          "minAmp": 0.09027829,
-          "meanAmp": 0.98217624,
-          "fieldP1": 0.0578555,
-          "memoryP1": 0.20287101
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00604816,
+          "meanAmp": 0.76229696,
+          "fieldP1": 0.36199127,
+          "memoryP1": 0
         },
         {
           "step": 1150,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.94238281,
+          "fieldDominantFraction": 0.46777344,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.86230469,
-          "minAmp": 0.05733107,
-          "meanAmp": 0.98556448,
-          "fieldP1": 0.04441713,
-          "memoryP1": 0.16655328
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00404802,
+          "meanAmp": 0.85281775,
+          "fieldP1": 0.01332746,
+          "memoryP1": 0
         },
         {
           "step": 1200,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.96191406,
+          "fieldDominantFraction": 0.546875,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.87109375,
-          "minAmp": 0.01795376,
-          "meanAmp": 0.98955966,
-          "fieldP1": 0.03284781,
-          "memoryP1": 0.13709797
+          "memoryDominantFraction": 1,
+          "minAmp": 0.0060686,
+          "meanAmp": 0.8937509,
+          "fieldP1": 0.00135913,
+          "memoryP1": 0
         },
         {
           "step": 1250,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 0.984375,
+          "fieldDominantFraction": 0.359375,
           "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.87792969,
-          "minAmp": 0.09390261,
-          "meanAmp": 0.99281073,
-          "fieldP1": 0.02330152,
-          "memoryP1": 0.11274803
+          "memoryDominantFraction": 1,
+          "minAmp": 0.01121374,
+          "meanAmp": 0.76857236,
+          "fieldP1": 0.01301473,
+          "memoryP1": 0
         },
         {
           "step": 1300,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 1,
-          "fieldAllLinesTargetW": true,
+          "fieldDominantFraction": 0.37011719,
+          "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.89941406,
-          "minAmp": 0.27086146,
-          "meanAmp": 0.99658246,
-          "fieldP1": 0.01580208,
-          "memoryP1": 0.09239475
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00718074,
+          "meanAmp": 0.78160405,
+          "fieldP1": 0.0411279,
+          "memoryP1": 0
         },
         {
           "step": 1350,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 1,
-          "fieldAllLinesTargetW": true,
+          "fieldDominantFraction": 0.58105469,
+          "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.91308594,
-          "minAmp": 0.7008739,
-          "meanAmp": 0.9984302,
-          "fieldP1": 0.01083967,
-          "memoryP1": 0.07545048
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00421395,
+          "meanAmp": 0.89294951,
+          "fieldP1": 0.00854707,
+          "memoryP1": 0
         },
         {
           "step": 1400,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 1,
-          "fieldAllLinesTargetW": true,
+          "fieldDominantFraction": 0.45703125,
+          "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.9296875,
-          "minAmp": 0.59377298,
-          "meanAmp": 0.99695034,
-          "fieldP1": 0.00788763,
-          "memoryP1": 0.06170403
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00341389,
+          "meanAmp": 0.821586,
+          "fieldP1": 0.0001819,
+          "memoryP1": 0
         },
         {
           "step": 1450,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 1,
-          "fieldAllLinesTargetW": true,
+          "fieldDominantFraction": 0.31738281,
+          "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.95214844,
-          "minAmp": 0.85055136,
-          "meanAmp": 0.99757725,
-          "fieldP1": 0.00546287,
-          "memoryP1": 0.05055076
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00173108,
+          "meanAmp": 0.74767163,
+          "fieldP1": 0.21787934,
+          "memoryP1": 0
         },
         {
           "step": 1500,
           "fieldDominantW": 0,
-          "fieldDominantFraction": 1,
-          "fieldAllLinesTargetW": true,
+          "fieldDominantFraction": 0.45996094,
+          "fieldAllLinesTargetW": false,
           "memoryDominantW": 0,
-          "memoryDominantFraction": 0.97070313,
-          "minAmp": 0.93011924,
-          "meanAmp": 0.99866009,
-          "fieldP1": 0.00373484,
-          "memoryP1": 0.04137781
+          "memoryDominantFraction": 1,
+          "minAmp": 0.00910496,
+          "meanAmp": 0.82466075,
+          "fieldP1": 0.03255614,
+          "memoryP1": 0
         }
       ],
       "fieldWindingHistogram": {
         "axis": "x",
         "source": "field",
+        "lineCount": 1024,
+        "histogram": {
+          "0": 471,
+          "1": 230,
+          "2": 59,
+          "3": 6,
+          "4": 1,
+          "-1": 210,
+          "-2": 45,
+          "-3": 2
+        },
+        "dominantW": 0,
+        "dominantFraction": 0.45996094,
+        "allLinesTargetW": null,
+        "lineWindingSum": 64
+      },
+      "memoryWindingHistogram": {
+        "axis": "x",
+        "source": "memory",
         "lineCount": 1024,
         "histogram": {
           "0": 1024
@@ -17840,55 +18009,42 @@
         "allLinesTargetW": null,
         "lineWindingSum": 0
       },
-      "memoryWindingHistogram": {
-        "axis": "x",
-        "source": "memory",
-        "lineCount": 1024,
-        "histogram": {
-          "0": 994,
-          "1": 30
-        },
-        "dominantW": 0,
-        "dominantFraction": 0.97070313,
-        "allLinesTargetW": null,
-        "lineWindingSum": 30
-      },
       "fieldModePowers": {
         "source": "field",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.97786382,
-        "P1": 0.00366601,
-        "P2": 0.00003976,
-        "normalizedP0": 0.99622465,
-        "normalizedP1": 0.00373484,
-        "normalizedP2": 0.00004051,
-        "P1OverP0": 0.003749,
-        "P2OverP0": 0.00004066
+        "P0": 0.15452695,
+        "P1": 0.00523668,
+        "P2": 0.00108722,
+        "normalizedP0": 0.96068466,
+        "normalizedP1": 0.03255614,
+        "normalizedP2": 0.00675921,
+        "P1OverP0": 0.03388847,
+        "P2OverP0": 0.00703582
       },
       "memoryModePowers": {
         "source": "memory",
         "axis": "x",
         "normalization": "P_m = |mean(phi * exp(-i2πmx/N))|^2; normalized over P0+P1+P2",
-        "P0": 0.45516868,
-        "P1": 0.01965998,
-        "P2": 0.00030465,
-        "normalizedP0": 0.957981,
-        "normalizedP1": 0.04137781,
-        "normalizedP2": 0.00064118,
-        "P1OverP0": 0.04319273,
-        "P2OverP0": 0.00066931
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "normalizedP0": 1,
+        "normalizedP1": 0,
+        "normalizedP2": 0,
+        "P1OverP0": 0,
+        "P2OverP0": 0
       },
       "amplitudeStats": {
-        "minAmp": 0.93011924,
-        "meanAmp": 0.99866009,
-        "maxAmp": 1.16064579,
+        "minAmp": 0.00910496,
+        "meanAmp": 0.82466075,
+        "maxAmp": 2.1946208,
         "finiteCount": 32768,
         "nonFiniteCount": 0
       },
       "kineticEnergyProxy": {
-        "meanKineticEnergyProxy": 0.00685734,
-        "totalKineticEnergyProxy": 224.7012482,
+        "meanKineticEnergyProxy": 1.51307575,
+        "totalKineticEnergyProxy": 49580.46623249,
         "nonFiniteCount": 0
       },
       "classification": "no_stable_W1_created",
@@ -17897,7 +18053,7 @@
       ],
       "limitations": [],
       "finalDominantW": 0,
-      "finalDominantFraction": 1
+      "finalDominantFraction": 0.45996094
     }
   ]
 }
