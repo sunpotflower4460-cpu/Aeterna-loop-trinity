@@ -14,6 +14,11 @@ const DOC_PATH = path.join(ROOT, 'docs/v2.2-observer-v2-calibration.md');
 const HISTORICAL = [
   'experiments/v2.1.2-winding-memory-phase-slip-audit-results.json',
   'experiments/v2.1.2-winding-memory-phase-slip-audit-summary.json',
+  // After the Observer V2 calibration merge (2026-06), these artifacts are
+  // finalized historical records. Follow-up Observer V2 work must write new
+  // artifact names. Disclosed supersession PRs are the only sanctioned exception.
+  'experiments/v2.2-observer-v2-calibration-results.json',
+  'experiments/v2.2-observer-v2-calibration-summary.json',
 ];
 const PACKAGE_FILES = ['package.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
 const ALLOWED_LINEAGE = new Set(['synthetic-calibration', 'exp023-real']);
@@ -127,6 +132,10 @@ function validateTier2Summary(summary) {
   assert((directional.result === 'hit') === expectedHit, 'memory-on/off directional hit/miss is incorrect');
 }
 function main() {
+  assert(!changedAgainstHead(HISTORICAL), 'historical protected JSON artifacts changed in worktree');
+  assert(!changedAgainstBase(HISTORICAL), 'historical protected JSON artifacts changed in merge-base diff');
+  assert(!changedAgainstHead(PACKAGE_FILES), 'package files or lockfiles changed in worktree');
+  assert(!changedAgainstBase(PACKAGE_FILES), 'package files or lockfiles changed in merge-base diff');
   exists(RESULTS_PATH); exists(SUMMARY_PATH); exists(DOC_PATH);
   let mismatchRejected = false;
   try { computeFieldDistance({ phiRe: new Float64Array(2), phiIm: new Float64Array(2) }, { phiRe: new Float64Array(1), phiIm: new Float64Array(1) }, { gridSize: 1 }); } catch (_) { mismatchRejected = true; }
@@ -151,10 +160,6 @@ function main() {
   assert(!/swap did not occur/i.test(JSON.stringify(g005)), 'g=0.05 record uses prohibited swap wording');
   const allText = [fs.readFileSync(RESULTS_PATH, 'utf8'), fs.readFileSync(SUMMARY_PATH, 'utf8'), fs.readFileSync(DOC_PATH, 'utf8')].join('\n');
   for (const pattern of PROHIBITED) assert(!pattern.test(allText), `prohibited language found: ${pattern}`);
-  assert(!changedAgainstHead(HISTORICAL), 'historical v2.1.2 JSON artifacts changed in worktree');
-  assert(!changedAgainstBase(HISTORICAL), 'historical v2.1.2 JSON artifacts changed in merge-base diff');
-  assert(!changedAgainstHead(PACKAGE_FILES), 'package files or lockfiles changed in worktree');
-  assert(!changedAgainstBase(PACKAGE_FILES), 'package files or lockfiles changed in merge-base diff');
   console.log('Observer V2 calibration validation passed.');
 }
 
