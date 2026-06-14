@@ -215,6 +215,8 @@ These gates define future work without implementing it in this PR.
 
 ### G6. Full 3D vortex-core/topology observer
 
+Topological Ledger smoke adds an XY plaquette integer ledger per z-slice as a G6-adjacent observer and G8 preparation step. It is intentionally narrower than full 3D vortex-core topology.
+
 - **Goal:** Check whether x-line winding observations correspond to fuller 3D topology/vortex-core structure.
 - **Required metrics:** 3D vortex-core or plaquette/circulation observer if feasible, comparison to x-line winding, low-amplitude core locations.
 - **What would count as support:** 3D observer supports the x-line winding interpretation or reveals consistent topological structures.
