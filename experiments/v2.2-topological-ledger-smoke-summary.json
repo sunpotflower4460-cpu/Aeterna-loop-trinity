@@ -1,0 +1,44 @@
+{
+  "audit": "v2.2-topological-ledger-smoke",
+  "runMode": "lightweight",
+  "generatorGitHash": "72fd507",
+  "artifactGeneratedFromReachableCommit": true,
+  "artifactCommittedIn": "pending merge commit containing v2.2 Topological Ledger smoke artifacts",
+  "observerPurpose": "Topological Ledger smoke observer only",
+  "claimLevel": "finite-horizon observer smoke",
+  "ledgerContext": {
+    "observerVersion": "topological-ledger-v0.1",
+    "orientation": "xy",
+    "supportedOrientations": [
+      "xy"
+    ],
+    "sliceAxis": "z",
+    "boundaryCondition": "periodic",
+    "periodicAxes": [
+      "x",
+      "y",
+      "z"
+    ],
+    "strictIntegerGateAppliesBecause": "xy plaquette ledger is computed on periodic x/y slices",
+    "strictGatePolicy": "strict integer gates apply only to all-valid synthetic periodic cases; runtime/noisy cases require reliability context",
+    "invalidPlaquettePolicy": "plaquette is invalid if any of its four corner amplitudes are below validityAmpThreshold; invalid counts are reported separately and must not support strict topology claims",
+    "edgeSharingPolicy": "shared periodic x/y edge phase differences are computed once per z-slice and reused with opposite signs for adjacent plaquettes",
+    "phaseDeltaConvention": "principal-value (-π, π]",
+    "plaquetteIntegerPolicy": "round(sumWrappedEdgeDeltas / 2π)",
+    "closedPlaquetteFloatResidualPolicy": "floating-point sanity check only, not the main phenomenon metric",
+    "validityAmpThreshold": 0.1,
+    "nearPiMargin": 0.3
+  },
+  "resultCount": 7,
+  "allStrictSyntheticIntegerGatesPass": true,
+  "c1GlobalPhaseShiftInvariancePass": true,
+  "randomPeriodicPass": true,
+  "knownPairedVortexLayoutPass": true,
+  "invalidPlaquettePass": true,
+  "computeVortexCountCompatibilityPass": true,
+  "computeWindingHistogramDistinctionPass": true,
+  "u1EquivarianceRegressionPass": true,
+  "runtimeSmokeIncluded": true,
+  "runtimeSmokePass": true,
+  "prohibitedClaimPolicy": "observer-only; no biological life, consciousness, agency, permanent survival, or exact full 3D topology claims"
+}

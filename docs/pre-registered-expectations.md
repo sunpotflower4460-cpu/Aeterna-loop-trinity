@@ -101,3 +101,21 @@ Tier 2 reruns representative v2.1.2-style scenarios with Observer V2 attached. T
 - Coupling `g=0.02`: distance traces collapse after single-slip merge.
 - Coupling `g=0.05`: traces show a transient swap window followed by final merge.
 - Optional `L3_clean_W2` at `MEMORY_WEIGHT=0.03`: work-proxy traces should make uphill `W=2` memory-writing more interpretable.
+
+## v2.2 Topological Ledger Smoke
+
+This section pre-registers the Topological Ledger smoke observer before interpreting the generated smoke artifacts. The smoke adds Observer-layer XY plaquette accounting per z-slice only. It does not change runtime physics, implement G8, or reinterpret historical artifacts.
+
+### Pre-registered expectations
+
+- C-1 global phase shift invariance: `plaquetteWinding` maps are exactly identical after a global phase shift, with unchanged `totalWinding` and `netCharge`.
+- Random periodic field: in all-valid synthetic periodic cases, `totalWinding` and `netCharge` are zero per slice and globally.
+- Known paired vortex layout: the branch-cut-safe local fixture should report the pre-registered paired count criteria, with equal positive and negative counts and net zero. The fixture is a count/net-charge test, not an exact full torus vortex-core location proof.
+- Legacy fieldA/fieldB equivariance: identical layout plus global phase offset should have identical `plaquetteWinding` maps.
+- Uniform x-winding distinction: an x-axis winding histogram can report `W=1` while the XY plaquette ledger remains free of vortex plaquette winding.
+- Runtime/noisy smoke: `invalidPlaquetteCount` and `nearPiEdgeCount` are diagnostic reliability context, not strict topology claims.
+- `ledgerDelta`: event diagnostic only; not a strict invariant.
+
+### Measured results
+
+The generated v2.2 Topological Ledger smoke artifacts record the measured C-1, random periodic, known paired fixture, invalid plaquette, metric relationship, U(1) equivariance, and limited runtime-smoke outcomes in `experiments/v2.2-topological-ledger-smoke-results.json` and summarize pass/fail status in `experiments/v2.2-topological-ledger-smoke-summary.json`.
