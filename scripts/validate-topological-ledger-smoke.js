@@ -24,7 +24,7 @@ function assert(condition, message) { if (!condition) throw new Error(message); 
 function readJson(file) { return JSON.parse(fs.readFileSync(file, 'utf8')); }
 function git(args) { return execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }); }
 function changed(files, range) { try { git(['diff', '--exit-code', ...(range ? [range] : []), '--', ...files]); return false; } catch (_) { return true; } }
-function baseRef() { for (const ref of ['origin/main', 'main', 'master']) { try { git(['rev-parse', '--verify', ref]); return ref; } catch (_) {} } return null; }
+function baseRef() { for (const ref of ['origin/main', 'main', 'master']) { try { git(['rev-parse', '--verify', ref]); return ref; } catch (_) {} } console.warn('Warning: no origin/main, main, or master ref found; merge-base diff validation is weaker and only worktree checks are active.'); return null; }
 function validateContext(ctx) {
   assert(ctx, 'ledger context missing');
   assert(ctx.boundaryCondition === 'periodic', 'boundaryCondition must be periodic');
