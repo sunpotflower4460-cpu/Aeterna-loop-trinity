@@ -156,11 +156,11 @@ Family P maintenance judgments must report an energy-balance proxy alongside dis
 
 This is a reporting requirement only. It does not add runtime code or new energy metrics in this PR.
 
-Coupling may change amplitude or energy-like quantities. A finite-horizon persistence candidate should not be upgraded without checking whether the effect is separable from energy-injection or non-conservative coupling confounds.
+Coupling may change amplitude or energy-like quantities. A finite-horizon persistence candidate should not be upgraded without checking whether the effect is separable from energy-balance or non-conservative coupling confounds.
 
-Future G8 records must support the limitation flag `energy_injection_confound_possible`. Use this flag when a coupled Family P run appears persistent but also shows energy growth or `energyDelta` behavior not matched by the `g=0` control.
+Future G8 records must support the limitation flag `energy_balance_confound_possible`. Use this flag when a coupled Family P run appears persistent but also shows energy growth or `energyDelta` behavior not matched by the `g=0` control.
 
-If persistence under coupling accompanies energy injection relative to control, keep the interpretation cautious and do not upgrade beyond finite-horizon interpretive candidate.
+If persistence under coupling accompanies energy-balance evidence relative to control, keep the interpretation cautious and do not upgrade beyond finite-horizon interpretive candidate.
 
 ## P2/P3 boundary bracket
 
@@ -335,7 +335,7 @@ A Family T run supports a transient interaction candidate when A and B enter the
 
 A Family P run supports a persistent distinct interaction candidate only if A and B remain distinguishable and relation-band evidence persists over the pre-registered finite horizon, with Observer V2 and Topological Ledger diagnostics both reported, and energy-balance context recorded.
 
-If Family P persistence accompanies energy growth or `energyDelta` behavior not present in the matched `g=0` control, record `energy_injection_confound_possible` and keep the interpretation cautious.
+If Family P persistence accompanies energy growth or `energyDelta` behavior not present in the matched `g=0` control, record `energy_balance_confound_possible` and keep the interpretation cautious.
 
 ## Failure criteria
 
@@ -358,7 +358,7 @@ Failure categories are diagnostic outcomes and will guide future boundary bracke
 - If ledger maps converge but Observer V2 distance remains distinguishable, classify as boundary rather than success.
 - If reliability metrics cross invalid thresholds before relation-band interpretation is possible, classify as reliability-limited / indeterminate.
 - If the coupled run differs from `g=0` only after reliability has degraded, classify as indeterminate or reliability-limited rather than success.
-- If Family P looks persistent but energy-balance proxy suggests coupling-related energy injection relative to control, classify cautiously and record `energy_injection_confound_possible`.
+- If Family P looks persistent but energy-balance proxy suggests an energy-balance or non-conservative coupling confound relative to control, classify cautiously and record `energy_balance_confound_possible`.
 
 ## Initializer provenance and seam-artifact caution
 
