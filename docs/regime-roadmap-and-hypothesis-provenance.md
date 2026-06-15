@@ -251,6 +251,8 @@ Topological Ledger smoke adds an XY plaquette integer ledger per z-slice as a G6
 
 Once an audit JSON is added to `HISTORICAL_JSON`, follow-up work must not modify that file. New evidence should use a new artifact name.
 
+The v2.2 Topological Ledger smoke artifacts are finalized historical artifacts. Follow-up ledger or G8 work must use new artifact names. Disclosed supersession PRs are the only sanctioned exception.
+
 Concrete future artifact examples:
 
 - `experiments/v2.2-observer-v2-calibration-results.json`

@@ -16,6 +16,11 @@ const HISTORICAL = [
   'experiments/v2.1.2-winding-memory-phase-slip-audit-summary.json',
   'experiments/v2.2-observer-v2-calibration-results.json',
   'experiments/v2.2-observer-v2-calibration-summary.json',
+  // After the Topological Ledger smoke merge (2026-06), these artifacts are
+  // finalized historical records. Follow-up ledger work must write new artifact
+  // names. Disclosed supersession PRs are the only sanctioned exception.
+  'experiments/v2.2-topological-ledger-smoke-results.json',
+  'experiments/v2.2-topological-ledger-smoke-summary.json',
 ];
 const PACKAGE_FILES = ['package.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
 const PROHIBITED = [/life appeared/i, /\beternal\b/i, /perfect proof/i, /proven permanent/i, /consciousness emerged/i, /biological life appeared/i, /proves? biological life/i, /permanent survival is proven/i, /\bsoul\b/i, /particle-being/i];
