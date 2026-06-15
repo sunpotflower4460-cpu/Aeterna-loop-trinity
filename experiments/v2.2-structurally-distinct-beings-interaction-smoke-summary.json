@@ -1,0 +1,44 @@
+{
+  "audit": "v2.2-structurally-distinct-beings-interaction-smoke",
+  "runMode": "lightweight",
+  "claimLevel": "finite-horizon operational smoke",
+  "resultCount": 7,
+  "familyTConditionCount": 3,
+  "familyPConditionCount": 4,
+  "controlCount": 2,
+  "coupledCount": 5,
+  "allControlsMatched": true,
+  "observerV2AxisReported": true,
+  "topologicalLedgerAxisReported": true,
+  "energyBalanceForFamilyPReported": true,
+  "detuningPolicyPass": true,
+  "classificationLabelsPass": true,
+  "classificationRecomputePass": true,
+  "noForbiddenLabelsPass": true,
+  "noOverclaimLanguagePass": true,
+  "historicalArtifactsUntouched": true,
+  "packageFilesUntouched": true,
+  "overallSmokePass": true,
+  "overallSmokePassMeaning": "artifact/schema/control/validator pass only; not evidence of relation, maintenance, persistence, life-like behavior, consciousness, agency, subjectivity, soul, or permanent survival",
+  "immediateFusionOrIdentityCollapseCount": 0,
+  "noRelationOrUnrelatedDriftCount": 2,
+  "transientInteractionCandidateCount": 0,
+  "persistentDistinctInteractionCandidateCount": 0,
+  "boundaryOutcomeCount": 4,
+  "reliabilityLimitedOrIndeterminateCount": 1,
+  "omittedConditions": [
+    {
+      "conditionId": "T-coupled-detuning-inside-provisional",
+      "reason": "detuningReference not calibrated for structurally distinct layouts"
+    },
+    {
+      "conditionId": "P-coupled-g-provisional-W2xW0",
+      "reason": "deferred to keep lightweight smoke small"
+    }
+  ],
+  "plannedFollowup": [
+    "PR #43 should protect generated G8 artifacts",
+    "calibrate structurally distinct detuning boundaries"
+  ],
+  "nextRecommendedGate": "protect G8 artifacts in PR #43"
+}

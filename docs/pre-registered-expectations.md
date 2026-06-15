@@ -125,4 +125,4 @@ The generated v2.2 Topological Ledger smoke artifacts record the measured C-1, r
 See `docs/g8-structurally-distinct-interaction-preregistration.md`.
 This pre-registration fixes outcome categories before the G8 runner exists. It separates transient meeting from persistent maintenance candidates, declares that “beings” is an operational project label only, records the ledger-mismatch-is-not-failure rule, requires artifact-first provenance for any future numeric threshold, and requires energy-balance context for Family P.
 
-Do not add measured results in this PR.
+Measured G8 smoke results have now been generated in `experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json` and summarized in `experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json`. These are finite-horizon operational smoke artifacts only, with matched controls, randomized layout provenance, Observer V2, Topological Ledger, and Family P energy-balance context; they do not prove: biological life, consciousness, agency, subjectivity, s-o-u-l, or permanent survival.
