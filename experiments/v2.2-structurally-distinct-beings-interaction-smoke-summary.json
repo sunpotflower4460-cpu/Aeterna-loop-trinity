@@ -11,6 +11,9 @@
   "observerV2AxisReported": true,
   "topologicalLedgerAxisReported": true,
   "energyBalanceForFamilyPReported": true,
+  "couplingEffectivenessPass": true,
+  "allCoupledRunsUseImplementedCoupling": true,
+  "allCoupledRunsHaveEffectiveMemoryCoupling": true,
   "detuningPolicyPass": true,
   "classificationLabelsPass": true,
   "classificationRecomputePass": true,
@@ -21,11 +24,11 @@
   "overallSmokePass": true,
   "overallSmokePassMeaning": "artifact/schema/control/validator pass only; not evidence of relation, maintenance, persistence, life-like behavior, consciousness, agency, subjectivity, soul, or permanent survival",
   "immediateFusionOrIdentityCollapseCount": 0,
-  "noRelationOrUnrelatedDriftCount": 2,
+  "noRelationOrUnrelatedDriftCount": 0,
   "transientInteractionCandidateCount": 0,
   "persistentDistinctInteractionCandidateCount": 0,
   "boundaryOutcomeCount": 4,
-  "reliabilityLimitedOrIndeterminateCount": 1,
+  "reliabilityLimitedOrIndeterminateCount": 3,
   "omittedConditions": [
     {
       "conditionId": "T-coupled-detuning-inside-provisional",
@@ -38,7 +41,7 @@
   ],
   "plannedFollowup": [
     "PR #43 should protect generated G8 artifacts",
-    "calibrate structurally distinct detuning boundaries"
+    "calibrate structurally distinct detuning and coupling relation bands"
   ],
   "nextRecommendedGate": "protect G8 artifacts in PR #43"
 }
