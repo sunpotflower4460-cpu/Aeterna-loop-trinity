@@ -119,3 +119,10 @@ This section pre-registers the Topological Ledger smoke observer before interpre
 ### Measured results
 
 The generated v2.2 Topological Ledger smoke artifacts record the measured C-1, random periodic, known paired fixture, invalid plaquette, metric relationship, U(1) equivariance, and limited runtime-smoke outcomes in `experiments/v2.2-topological-ledger-smoke-results.json` and summarize pass/fail status in `experiments/v2.2-topological-ledger-smoke-summary.json`.
+
+## G8 Structurally Distinct Interaction Pre-registration
+
+See `docs/g8-structurally-distinct-interaction-preregistration.md`.
+This pre-registration fixes outcome categories before the G8 runner exists. It separates transient meeting from persistent maintenance candidates, declares that “beings” is an operational project label only, records the ledger-mismatch-is-not-failure rule, requires artifact-first provenance for any future numeric threshold, and requires energy-balance context for Family P.
+
+Do not add measured results in this PR.
