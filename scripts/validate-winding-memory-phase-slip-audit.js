@@ -26,6 +26,11 @@ const HISTORICAL_JSON = Object.freeze([
   // names. Disclosed supersession PRs are the only sanctioned exception.
   'experiments/v2.2-topological-ledger-smoke-results.json',
   'experiments/v2.2-topological-ledger-smoke-summary.json',
+  // After the G8 structurally distinct interaction smoke merge (2026-06), these
+  // artifacts are finalized historical records. Follow-up G8 work must write new
+  // artifact names. Disclosed supersession PRs are the only sanctioned exception.
+  'experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json',
+  'experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json',
 ]);
 const NEW_OUTPUTS = Object.freeze([DOC_REL]);
 const PROHIBITED = [/life appeared/i, /\beternal\b/i, /perfect ledger/i, /proven permanent/i, /heart was created/i, /consciousness emerged/i];
