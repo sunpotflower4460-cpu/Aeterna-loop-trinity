@@ -19,6 +19,11 @@ const HISTORICAL = [
   // artifact names. Disclosed supersession PRs are the only sanctioned exception.
   'experiments/v2.2-observer-v2-calibration-results.json',
   'experiments/v2.2-observer-v2-calibration-summary.json',
+  // After the Topological Ledger smoke merge (2026-06), these artifacts are
+  // finalized historical records. Follow-up ledger work must write new artifact
+  // names. Disclosed supersession PRs are the only sanctioned exception.
+  'experiments/v2.2-topological-ledger-smoke-results.json',
+  'experiments/v2.2-topological-ledger-smoke-summary.json',
 ];
 const PACKAGE_FILES = ['package.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
 const ALLOWED_LINEAGE = new Set(['synthetic-calibration', 'exp023-real']);

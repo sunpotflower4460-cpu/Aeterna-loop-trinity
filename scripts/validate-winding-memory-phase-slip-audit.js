@@ -21,6 +21,11 @@ const HISTORICAL_JSON = Object.freeze([
   // clearly named follow-up audit rather than silently rewriting these files.
   RESULTS_REL,
   SUMMARY_REL,
+  // After the Topological Ledger smoke merge (2026-06), these artifacts are
+  // finalized historical records. Follow-up ledger work must write new artifact
+  // names. Disclosed supersession PRs are the only sanctioned exception.
+  'experiments/v2.2-topological-ledger-smoke-results.json',
+  'experiments/v2.2-topological-ledger-smoke-summary.json',
 ]);
 const NEW_OUTPUTS = Object.freeze([DOC_REL]);
 const PROHIBITED = [/life appeared/i, /\beternal\b/i, /perfect ledger/i, /proven permanent/i, /heart was created/i, /consciousness emerged/i];
