@@ -239,7 +239,7 @@ Topological Ledger smoke adds an XY plaquette integer ledger per z-slice as a G6
 - **What would count as a miss/revision:** Outcomes collapse to ordinary transient relaxation or cannot be distinguished from initialization artifacts.
 - **Artifact naming rule:** `experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json` and `experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json`.
 
-G8 will be implemented only after the design-only pre-registration in `docs/g8-structurally-distinct-interaction-preregistration.md`. The pre-registration separates Family T transient meeting from Family P persistent finite-horizon maintenance candidates, defines Δω reference policy without hardcoding unverified thresholds, requires energy-balance context for Family P, and forbids treating ledger equality as a universal success gate.
+G8 has now been run as a lightweight finite-horizon operational smoke after the design-only pre-registration in `docs/g8-structurally-distinct-interaction-preregistration.md`. The generated artifacts use the roadmap names and record Family T transient meeting diagnostics, Family P finite-horizon maintenance-candidate diagnostics, randomized layout provenance, matched controls, Observer V2, Topological Ledger, and Family P energy-balance context without treating ledger equality as a universal success gate. PR #43 should protect the generated G8 artifacts.
 
 ### G9. Rotation-Number Curve
 
