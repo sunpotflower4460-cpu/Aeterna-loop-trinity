@@ -241,6 +241,18 @@ Topological Ledger smoke adds an XY plaquette integer ledger per z-slice as a G6
 
 G8 has now been run as a lightweight finite-horizon operational smoke after the design-only pre-registration in `docs/g8-structurally-distinct-interaction-preregistration.md`. The generated artifacts use the roadmap names and record Family T transient meeting diagnostics, Family P finite-horizon maintenance-candidate diagnostics, randomized layout provenance, matched controls, Observer V2, Topological Ledger, and Family P energy-balance context without treating ledger equality as a universal success gate. PR #43 protects the generated v2.2 G8 smoke artifacts as finalized historical artifacts. Follow-up G8 work must write new artifact names. Disclosed supersession PRs are the only sanctioned exception. The protected G8 artifacts remain finite-horizon operational smoke artifacts. They do not establish relation, maintenance, persistence, biological life, consciousness, agency, subjectivity, s-o-u-l, or permanent survival.
 
+### RMT. Relation Maintenance Trace
+
+- **Goal:** Trace when structurally distinct A/B meet, leave the provisional relation band, or hit the first guardrail.
+- **Current gate:** design-only pre-registration.
+- **Required future ingredients:** time-resolved Observer V2 distances, memory relation metrics, field-memory distance, Topological Ledger context, winding validity, amplitude / energy health, pheromone locality when enabled, and first-guardrail event reporting.
+- **What would count as support:** A future implementation produces finite-horizon traces identifying whether meeting, identity collapse, memory copy collapse, memory detachment, field flattening, ledger reliability limit, winding reliability limit, energy instability, or another guardrail occurs first.
+- **What would count as a miss/revision:** The trace cannot distinguish meeting from maintenance, or it promotes short-horizon meeting into long-horizon maintenance.
+- **Artifact naming rule:** `experiments/v2.2-relation-maintenance-trace-results.json` and `experiments/v2.2-relation-maintenance-trace-summary.json`.
+- **Non-goal:** This gate does not implement the runner or generate artifacts.
+
+Planning references may call this the PR #44 candidate, but PR numbers are repository-state dependent. Gate names are authoritative.
+
 ### G9. Rotation-Number Curve
 
 - **Goal:** Redesign dense detuning analysis around rotation-number / locking behavior.
