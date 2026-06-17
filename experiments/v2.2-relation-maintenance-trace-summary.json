@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "v2.2-rmt-1",
+  "artifactType": "relation-maintenance-trace-summary",
+  "claimLevel": "finite-horizon operational trace",
+  "overallRmtPass": true,
+  "overallRmtPassMeaning": "schema/runner/validator completeness only; not evidence of relation, maintenance, persistence, biological life, consciousness, agency, subjectivity, s-o-u-l, permanent survival, origin of time, or origin of memory",
+  "runCount": 6,
+  "controlCount": 2,
+  "nonControlCount": 4,
+  "matchedControlCoveragePass": true,
+  "allRunsFiniteHorizon": true,
+  "allTerminalOutcomesAllowed": true,
+  "allGuardrailThresholdsHeuristic": true,
+  "forbiddenClaimLanguageAbsent": true,
+  "conditionSelectionStrategy": "minimal-first",
+  "includedConditionIds": [
+    "T-control-g0",
+    "T-coupled-g-provisional",
+    "P-control-g0-W1xW0",
+    "P-boundary-low-g-provisional-W1xW0",
+    "P-coupled-g-provisional-W1xW0",
+    "P-boundary-high-g-provisional-W1xW0"
+  ],
+  "excludedConditionIds": [
+    "T-coupled-detuning-outside-provisional"
+  ],
+  "outcomeCounts": {
+    "no_meeting_observed": 2,
+    "control_separated_but_reliability_limited": 4
+  },
+  "firstFailedGuardrailCounts": {
+    "memoryCopyCollapse": 6
+  },
+  "sourceArtifactCoverage": {
+    "experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json": 6,
+    "experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json": "condition selection context"
+  },
+  "guardrailThresholds": {
+    "identityCollapseGuardrail": {
+      "fieldABDistanceAlignedLessThan": 0.005,
+      "status": "heuristic band, not yet calibrated"
+    },
+    "nearIdentityCollapseGuardrail": {
+      "fieldABDistanceAlignedLessThan": 0.01,
+      "status": "heuristic band, not yet calibrated"
+    },
+    "provisionalMeetingBand": {
+      "fieldABDistanceAlignedMinInclusive": 0.01,
+      "fieldABDistanceAlignedMaxInclusive": 0.15,
+      "status": "heuristic band, not yet calibrated"
+    },
+    "memoryCopyCollapseGuardrail": {
+      "memoryFieldDifferenceLessThan": 0.05,
+      "status": "heuristic band, not yet calibrated"
+    },
+    "memoryDetachedGuardrail": {
+      "memoryFieldDifferenceGreaterThan": 0.35,
+      "status": "heuristic band, not yet calibrated"
+    },
+    "fieldFlatteningGuardrail": {
+      "amplitudeStdLessThan": 0.000001,
+      "status": "heuristic band, not yet calibrated"
+    },
+    "energyInstabilityGuardrail": {
+      "absoluteEnergyDeltaGreaterThan": 2,
+      "status": "heuristic band, not yet calibrated; follows G8 Family P boundary context"
+    },
+    "controlSeparation": {
+      "value": 0.000001,
+      "sourceStatus": "heuristic band, not yet calibrated",
+      "reason": "reused from G8 smoke no-op guard"
+    }
+  },
+  "couplingEffectivenessSummary": {
+    "coupledRunCount": 4,
+    "coupledRunsWithAppliedMemoryCoupling": 4,
+    "couplingNotAppliedRunIds": []
+  },
+  "primaryMetricSource": "collectAeternaMetrics",
+  "limitations": [
+    "minimal-first subset of G8-derived conditions",
+    "sampled finite horizon only",
+    "guardrail thresholds heuristic and not yet calibrated",
+    "RMT artifacts are not protected historical artifacts until a later gate"
+  ],
+  "recommendedNextGate": "RMT artifact protection after review"
+}

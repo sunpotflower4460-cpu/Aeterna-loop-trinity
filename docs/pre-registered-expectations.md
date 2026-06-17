@@ -130,3 +130,19 @@ Measured G8 smoke results have now been generated in `experiments/v2.2-structura
 ### v2.2 Relation Maintenance Trace pre-registration
 
 See `docs/v2.2-relation-maintenance-trace-preregistration.md`. This design-only pre-registration fixes the minimal trace schema, first-guardrail event taxonomy, terminal outcomes, and claim discipline before any Relation Maintenance Trace runner generates measured artifacts. It separates meeting from maintenance and treats all numeric bands as heuristic / not yet calibrated. This PR does not implement a runner, generate artifacts, add drive, wire gentle-pulse, or change runtime physics.
+
+## v2.2 Relation Maintenance Trace
+
+This section records the first RMT runner / artifact generation gate after the design-only RMT pre-registration. The generated artifacts are `experiments/v2.2-relation-maintenance-trace-results.json` and `experiments/v2.2-relation-maintenance-trace-summary.json`.
+
+### Measured result
+
+- The runner used a `minimal-first` G8-derived subset and kept the first trace finite-horizon and operational.
+- The primary metric source was `collectAeternaMetrics`, including `memoryFieldDifferenceA/B` from existing metrics.
+- Pheromone remained disabled.
+- Coupled runs used implemented memory coupling only; no coupled run was promoted through a silent no-op coupling path.
+- The summary outcomes were `no_meeting_observed` and `control_separated_but_reliability_limited` under heuristic guardrails.
+
+### Claim discipline
+
+The RMT artifacts do not prove relation, maintenance, persistence, biological life, consciousness, agency, subjectivity, s-o-u-l, permanent survival, origin of time, or origin of memory. The next gate is artifact protection after review.
