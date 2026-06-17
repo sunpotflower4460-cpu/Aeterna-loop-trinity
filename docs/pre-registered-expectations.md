@@ -126,3 +126,7 @@ See `docs/g8-structurally-distinct-interaction-preregistration.md`.
 This pre-registration fixes outcome categories before the G8 runner exists. It separates transient meeting from persistent maintenance candidates, declares that “beings” is an operational project label only, records the ledger-mismatch-is-not-failure rule, requires artifact-first provenance for any future numeric threshold, and requires energy-balance context for Family P.
 
 Measured G8 smoke results have now been generated in `experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json` and summarized in `experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json`. These are finite-horizon operational smoke artifacts only, with matched controls, randomized layout provenance, Observer V2, Topological Ledger, and Family P energy-balance context; they do not prove: biological life, consciousness, agency, subjectivity, s-o-u-l, or permanent survival.
+
+### v2.2 Relation Maintenance Trace pre-registration
+
+See `docs/v2.2-relation-maintenance-trace-preregistration.md`. This design-only pre-registration fixes the minimal trace schema, first-guardrail event taxonomy, terminal outcomes, and claim discipline before any Relation Maintenance Trace runner generates measured artifacts. It separates meeting from maintenance and treats all numeric bands as heuristic / not yet calibrated. This PR does not implement a runner, generate artifacts, add drive, wire gentle-pulse, or change runtime physics.
