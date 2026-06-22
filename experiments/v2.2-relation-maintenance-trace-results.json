@@ -7,7 +7,7 @@
     "experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json",
     "experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json"
   ],
-  "generatorGitHash": "db2cbb1",
+  "generatorGitHash": "9b11fe1",
   "runMode": "lightweight",
   "rmtScope": "minimal",
   "conditionSelectionStrategy": "minimal-first",

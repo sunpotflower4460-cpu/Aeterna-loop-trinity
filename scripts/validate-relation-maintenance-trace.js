@@ -28,8 +28,44 @@ function couplingHasMeasuredDelta(sample) {
     || coupling.memoryCouplingDeltaB > 0
   );
 }
+function finiteNumber(value) { return typeof value === 'number' && Number.isFinite(value); }
+function computeGuardrails(sample) {
+  const observer = sample.observerV2 || {};
+  const fieldHealth = sample.fieldHealth || {};
+  const energy = sample.energy || {};
+  const ledger = sample.topologicalLedger || {};
+  const topology = sample.topology || {};
+  const validityA = topology.windingValidityA || {};
+  const validityB = topology.windingValidityB || {};
+  const pheromone = sample.pheromone || {};
+  const fieldABDistanceAligned = observer.fieldABDistanceAligned;
+  const memoryFieldDifferenceA = observer.memoryFieldDifferenceA;
+  const memoryFieldDifferenceB = observer.memoryFieldDifferenceB;
+  const ledgerReliabilityLimited = (ledger.invalidPlaquetteCountA || 0) > 0
+    || (ledger.invalidPlaquetteCountB || 0) > 0
+    || (ledger.nearPiEdgeCountA || 0) > 0
+    || (ledger.nearPiEdgeCountB || 0) > 0
+    || ledger.ledgerReliabilityLimited === true;
+  const windingReliabilityLimited = (validityA.invalidLineCount || 0) > 0
+    || (validityB.invalidLineCount || 0) > 0
+    || (validityA.nearPiStepCount || 0) > 0
+    || (validityB.nearPiStepCount || 0) > 0
+    || topology.windingReliabilityLimited === true;
+  return {
+    identityCollapse: finiteNumber(fieldABDistanceAligned) && fieldABDistanceAligned < 0.005,
+    nearIdentityCollapse: finiteNumber(fieldABDistanceAligned) && fieldABDistanceAligned < 0.01,
+    memoryCopyCollapse: (finiteNumber(memoryFieldDifferenceA) && memoryFieldDifferenceA < 0.05) || (finiteNumber(memoryFieldDifferenceB) && memoryFieldDifferenceB < 0.05),
+    memoryDetached: (finiteNumber(memoryFieldDifferenceA) && memoryFieldDifferenceA > 0.35) || (finiteNumber(memoryFieldDifferenceB) && memoryFieldDifferenceB > 0.35),
+    fieldFlattened: (finiteNumber(fieldHealth.amplitudeStdA) && fieldHealth.amplitudeStdA < 0.000001) || (finiteNumber(fieldHealth.amplitudeStdB) && fieldHealth.amplitudeStdB < 0.000001),
+    energyUnstable: Math.abs(energy.energyDeltaFromPreviousSample || 0) > 2,
+    ledgerReliabilityLimited,
+    windingReliabilityLimited,
+    pheromoneFog: pheromone.enabled === true && pheromone.fogGuardrail === true,
+  };
+}
 function guardrailState(sample) {
-  return Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, sample?.guardrails?.[name] === true]));
+  const guardrails = computeGuardrails(sample);
+  return Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, guardrails[name] === true]));
 }
 function firstControlSeparatedStep(run, controlRun) {
   if (!controlRun) return null;
@@ -51,14 +87,14 @@ function computeExpectedEvent(run, controlRun) {
   const relationRelevantScanStartStep = relationStartCandidates.length > 0 ? Math.min(...relationStartCandidates) : null;
   const baselineGuardrailState = guardrailState(samples[0]);
   const preRelationSamples = relationRelevantScanStartStep === null ? samples.filter((s) => s.step > 0) : samples.filter((s) => s.step > 0 && s.step < relationRelevantScanStartStep);
-  const preRelationGuardrailState = Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, preRelationSamples.some((s) => s.guardrails[name] === true)]));
+  const preRelationGuardrailState = Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, preRelationSamples.some((s) => computeGuardrails(s)[name] === true)]));
   const relationSamples = relationRelevantScanStartStep === null ? [] : samples.filter((s) => s.step >= relationRelevantScanStartStep);
-  const guardrailFirst = Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, firstStep(relationSamples, (s) => s.guardrails[name] === true)]));
+  const guardrailFirst = Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, firstStep(relationSamples, (s) => computeGuardrails(s)[name] === true)]));
   const firstGuardrailStep = Math.min(...Object.values(guardrailFirst).filter((value) => value !== null));
   const normalizedFirstGuardrailStep = Number.isFinite(firstGuardrailStep) ? firstGuardrailStep : null;
   const firstFailedGuardrailsAtStep = normalizedFirstGuardrailStep === null ? [] : GUARDRAIL_PRECEDENCE.filter((name) => guardrailFirst[name] === normalizedFirstGuardrailStep);
   const firstFailedGuardrail = firstFailedGuardrailsAtStep[0] || null;
-  const firstMaintenanceExit = firstMeeting === null ? null : firstStep(samples, (s) => s.step >= firstMeeting && (!(s.observerV2.fieldABDistanceAligned >= 0.01 && s.observerV2.fieldABDistanceAligned <= 0.15) || GUARDRAIL_PRECEDENCE.some((name) => s.guardrails[name])));
+  const firstMaintenanceExit = firstMeeting === null ? null : firstStep(samples, (s) => s.step >= firstMeeting && (!(s.observerV2.fieldABDistanceAligned >= 0.01 && s.observerV2.fieldABDistanceAligned <= 0.15) || GUARDRAIL_PRECEDENCE.some((name) => computeGuardrails(s)[name])));
   const coupled = samples.some((s) => s.coupling.couplingG > 0);
   const couplingNotApplied = coupled && !samples.some((s) => s.step > 0 && couplingHasMeasuredDelta(s));
   let terminalOutcome = 'boundary';
@@ -119,17 +155,23 @@ function gitClean(files) {
 function textHasForbiddenPositiveClaim(text) {
   const stripped = text.replace(/no [^\n.]*?(relation|maintenance|persistence|biological life|consciousness|agency|subjectivity|s-o-u-l|permanent survival|origin of time|origin of memory) claim/gi, '')
     .replace(/not evidence of [^\n.]*/gi, '')
-    .replace(/do not prove [^\n.]*/gi, '')
-    .replace(/does not prove [^\n.]*/gi, '')
+    .replace(/do not prove:? [^\n.]*/gi, '')
+    .replace(/does not prove:? [^\n.]*/gi, '')
+    .replace(/must not establish [^\n.]*/gi, '')
+    .replace(/do not establish [^\n.]*/gi, '')
     .replace(/no relation proof|no maintenance proof|no biological life claim|no consciousness claim|no agency claim|no permanent survival claim/gi, '');
   return [/life appeared/i, /consciousness emerged/i, /agency emerged/i, /\bs-o-u-l\b/i, /permanent survival proven/i, /\beternal\b/i, /proof of maintenance/i, /relation success/i, /maintenance success/i, /true being/i, /biological life appeared/i, /Mori-Zwanzig realized/i, /fluctuation-dissipation theorem confirmed/i, /origin of time/i, /origin of memory/i].some((pattern) => pattern.test(stripped));
 }
 function validateSample(run, sample) {
   for (const section of ['observerV2', 'topology', 'topologicalLedger', 'fieldHealth', 'energy', 'pheromone', 'coupling', 'guardrails']) assert(sample[section], `${run.runId} sample ${sample.step} missing ${section}`);
   for (const key of ['fieldABDistanceRaw', 'fieldABDistanceAligned', 'D_inv', 'thetaStarFieldAB', 'gaugeOverlap', 'memoryABDistanceRaw', 'memoryABDistanceAligned', 'D_inv_memory', 'thetaStarMemoryAB', 'memoryFieldDifferenceA', 'memoryFieldDifferenceB']) assert(key in sample.observerV2, `${run.runId} sample ${sample.step} observer missing ${key}`);
+  for (const key of ['fieldABDistanceRaw', 'fieldABDistanceAligned', 'memoryABDistanceRaw', 'memoryABDistanceAligned', 'D_inv', 'D_inv_memory']) assert(finiteNumber(sample.observerV2[key]), `${run.runId} sample ${sample.step} observer ${key} must be finite`);
   assert(sample.pheromone.enabled === false && sample.pheromone.fogGuardrail === false, `${run.runId} pheromone must remain disabled`);
   assert(!('fieldMemoryDistanceA' in sample) && !('fieldMemoryDistanceB' in sample), `${run.runId} must not emit fieldMemoryDistanceA/B`);
+  const expectedGuardrails = computeGuardrails(sample);
+  assert(sameJson(sample.guardrails, expectedGuardrails), `${run.runId} sample ${sample.step} guardrails do not match metric recomputation`);
 }
+
 function validateEvents(run, controlRun) {
   const e = run.eventSummary; for (const key of ['runId', 'conditionId', 'sourceArtifact', 'sourceConditionId', 'conditionSelectionStrategy', 'traceHorizon', 'sampleInterval', 'controlRunId', 'relationRelevantScanStartStep', 'baselineGuardrailState', 'preRelationGuardrailState', 'couplingNotApplied', 'firstFailedGuardrail', 'firstFailedGuardrailsAtStep', 'terminalOutcome', 'terminalOutcomeReason', 'limitations', 'claimLevel']) assert(key in e, `${run.runId} eventSummary missing ${key}`); for (const key of FIRST_FIELDS) assert(key in e, `${run.runId} eventSummary missing ${key}`);
   assert(e.claimLevel === CLAIM_LEVEL, `${run.runId} claim level mismatch`); assert(ALLOWED_OUTCOMES.has(e.terminalOutcome), `${run.runId} invalid terminal outcome`);
@@ -166,11 +208,12 @@ function main() {
   assert(results.schemaVersion === 'v2.2-rmt-1' && summary.schemaVersion === 'v2.2-rmt-1', 'schemaVersion mismatch'); assert(results.claimLevel === CLAIM_LEVEL && summary.claimLevel === CLAIM_LEVEL, 'claimLevel mismatch'); assert(results.preregistrationPath === PREREG_PATH, 'preregistrationPath mismatch');
   walk(results, assertFiniteOrNull); walk(summary, assertFiniteOrNull);
   const runs = new Map(results.runs.map((run) => [run.runId, run])); assert(runs.size === results.runs.length, 'duplicate runId');
-  for (const run of results.runs) { for (const key of ['runId', 'conditionId', 'samples', 'eventSummary']) assert(key in run, `run missing ${key}`); assert(Array.isArray(run.samples) && run.samples.length > 1, `${run.runId} missing samples`); assert(run.samples[0].step === 0, `${run.runId} missing step 0`); assert(run.samples[run.samples.length - 1].step === run.eventSummary.traceHorizon, `${run.runId} missing final step`); run.samples.forEach((sample) => validateSample(run, sample)); validateEvents(run, run.controlRunId ? runs.get(run.controlRunId) : null); }
+  for (const run of results.runs) { for (const key of ['runId', 'conditionId', 'samples', 'eventSummary']) assert(key in run, `run missing ${key}`); assert(Array.isArray(run.samples) && run.samples.length > 1, `${run.runId} missing samples`); assert(run.samples[0].step === 0, `${run.runId} missing step 0`); assert(run.samples[run.samples.length - 1].step === run.eventSummary.traceHorizon, `${run.runId} missing final step`); if (run.controlRunId !== null) assert(runs.has(run.controlRunId), `${run.runId} controlRunId does not resolve to an existing run`); run.samples.forEach((sample) => validateSample(run, sample)); validateEvents(run, run.controlRunId ? runs.get(run.controlRunId) : null); }
   const recomputed = recomputeSummary(results);
   for (const key of ['runCount', 'controlCount', 'nonControlCount', 'outcomeCounts', 'firstFailedGuardrailCounts', 'couplingEffectivenessSummary']) assert(sameJson(summary[key], recomputed[key]), `summary ${key} does not match results recomputation`);
   assert(summary.overallRmtPassMeaning.includes('schema/runner/validator completeness only'), 'overall pass meaning must be operational only'); assert(summary.primaryMetricSource === 'collectAeternaMetrics', 'primary metric source mismatch'); assert(summary.allTerminalOutcomesAllowed === true, 'terminal outcome summary flag false'); assert(summary.allGuardrailThresholdsHeuristic === true, 'guardrail heuristic flag false'); assert(summary.matchedControlCoveragePass === true, 'matched control coverage failed');
-  const text = [JSON.stringify(results), JSON.stringify(summary), fs.readFileSync(path.join(ROOT, DOC_PATH), 'utf8')].join('\n'); assert(!textHasForbiddenPositiveClaim(text), 'forbidden positive claim language found');
+  const claimDocs = [DOC_PATH, 'docs/pre-registered-expectations.md', 'docs/regime-roadmap-and-hypothesis-provenance.md'];
+  const text = [JSON.stringify(results), JSON.stringify(summary), ...claimDocs.map((docPath) => fs.readFileSync(path.join(ROOT, docPath), 'utf8'))].join('\n'); assert(!textHasForbiddenPositiveClaim(text), 'forbidden positive claim language found');
   assert(gitClean(PROTECTED_FILES), 'protected historical artifacts changed'); assert(gitClean(PACKAGE_FILES), 'package or lockfile changed');
   console.log('RMT validation passed.');
 }
