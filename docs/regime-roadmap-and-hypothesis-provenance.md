@@ -292,3 +292,9 @@ Do not use broken placeholder names such as:
 - PR G: v2.2 gate validator / CI smoke
 
 Observer V2 may come first because L2 distances and line reliability confidence will improve the quality of phenomenon-facing measurements. But the roadmap must keep the phenomenon-facing destination visible: structurally distinct interactions and rotation-number behavior are not optional side notes.
+
+## RMT runner / artifact generation update
+
+The v2.2 Relation Maintenance Trace runner generated `experiments/v2.2-relation-maintenance-trace-results.json` and `experiments/v2.2-relation-maintenance-trace-summary.json` as finite-horizon operational trace artifacts. The first scope is `minimal-first`: a compact G8-derived subset used to validate sampled meeting-band, maintenance-exit, matched-control, guardrail, and no-op coupling instrumentation before broader sweeps.
+
+The summary records `no_meeting_observed` and `control_separated_but_reliability_limited` outcomes only. First-failed guardrail counts exclude step `0` initialization state. No short-horizon maintenance candidate appears in the first minimal artifact. This update does not change the regime taxonomy or add new physics. It does not prove relation, maintenance, persistence, biological life, consciousness, agency, subjectivity, s-o-u-l, permanent survival, origin of time, or origin of memory. The next recommended gate is RMT artifact protection after review.
