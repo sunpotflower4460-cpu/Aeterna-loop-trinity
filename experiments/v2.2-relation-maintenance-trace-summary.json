@@ -29,7 +29,9 @@
     "control_separated_but_reliability_limited": 4
   },
   "firstFailedGuardrailCounts": {
-    "memoryCopyCollapse": 6
+    "none": 2,
+    "energyUnstable": 2,
+    "memoryDetached": 2
   },
   "sourceArtifactCoverage": {
     "experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json": 6,
@@ -74,7 +76,8 @@
   "couplingEffectivenessSummary": {
     "coupledRunCount": 4,
     "coupledRunsWithAppliedMemoryCoupling": 4,
-    "couplingNotAppliedRunIds": []
+    "couplingNotAppliedRunIds": [],
+    "appliedCouplingRequiresMeasuredDelta": true
   },
   "primaryMetricSource": "collectAeternaMetrics",
   "limitations": [

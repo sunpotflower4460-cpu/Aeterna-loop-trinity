@@ -11,11 +11,37 @@ const SUMMARY_PATH = 'experiments/v2.2-relation-maintenance-trace-summary.json';
 const DOC_PATH = 'docs/v2.2-relation-maintenance-trace.md';
 const PREREG_PATH = 'docs/v2.2-relation-maintenance-trace-preregistration.md';
 const CLAIM_LEVEL = 'finite-horizon operational trace';
+const MEASURABLE_EFFECT_EPSILON = { value: 0.000001, sourceStatus: 'heuristic band, not yet calibrated', reason: 'reused from G8 smoke no-op guard' };
 const ALLOWED_OUTCOMES = new Set(['no_meeting_observed', 'meeting_without_maintenance', 'meeting_then_identity_collapse', 'meeting_then_memory_copy_collapse', 'meeting_then_memory_detachment', 'meeting_then_field_flattening', 'meeting_then_energy_instability', 'meeting_then_ledger_reliability_limit', 'meeting_then_winding_reliability_limit', 'meeting_then_pheromone_fog', 'control_separated_but_reliability_limited', 'short_horizon_maintenance_candidate', 'boundary', 'indeterminate']);
 const PROTECTED_FILES = ['experiments/v2.2-structurally-distinct-beings-interaction-smoke-results.json', 'experiments/v2.2-structurally-distinct-beings-interaction-smoke-summary.json', 'experiments/v2.2-topological-ledger-smoke-results.json', 'experiments/v2.2-topological-ledger-smoke-summary.json', 'experiments/v2.2-observer-v2-calibration-results.json', 'experiments/v2.2-observer-v2-calibration-summary.json', 'experiments/v2.1.2-winding-memory-phase-slip-audit-results.json', 'experiments/v2.1.2-winding-memory-phase-slip-audit-summary.json'];
 const PACKAGE_FILES = ['package.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
 const FIRST_FIELDS = ['firstMeetingBandEntryStep', 'firstControlSeparatedStep', 'firstMaintenanceExitStep', 'firstIdentityCollapseGuardrailStep', 'firstNearIdentityCollapseGuardrailStep', 'firstMemoryCopyCollapseGuardrailStep', 'firstMemoryDetachedGuardrailStep', 'firstFieldFlatteningGuardrailStep', 'firstEnergyInstabilityGuardrailStep', 'firstLedgerReliabilityLimitedStep', 'firstWindingReliabilityLimitedStep', 'firstPheromoneFogGuardrailStep'];
 const GUARDRAIL_PRECEDENCE = ['identityCollapse', 'nearIdentityCollapse', 'memoryCopyCollapse', 'memoryDetached', 'fieldFlattened', 'energyUnstable', 'ledgerReliabilityLimited', 'windingReliabilityLimited', 'pheromoneFog'];
+
+function couplingHasMeasuredDelta(sample) {
+  const coupling = sample.coupling || {};
+  return coupling.memoryCouplingApplied === true && (
+    coupling.memoryCouplingAppliedCells > 0
+    || coupling.memoryCouplingAverageDeltaA > 0
+    || coupling.memoryCouplingAverageDeltaB > 0
+    || coupling.memoryCouplingDeltaA > 0
+    || coupling.memoryCouplingDeltaB > 0
+  );
+}
+function guardrailState(sample) {
+  return Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, sample?.guardrails?.[name] === true]));
+}
+function firstControlSeparatedStep(run, controlRun) {
+  if (!controlRun) return null;
+  for (const sample of run.samples) {
+    const control = controlRun.samples.find((candidate) => candidate.step === sample.step);
+    if (!control) continue;
+    const fieldDelta = Math.abs(sample.observerV2.fieldABDistanceAligned - control.observerV2.fieldABDistanceAligned);
+    const memoryDelta = Math.abs(sample.observerV2.memoryABDistanceAligned - control.observerV2.memoryABDistanceAligned);
+    if (fieldDelta > MEASURABLE_EFFECT_EPSILON.value || memoryDelta > MEASURABLE_EFFECT_EPSILON.value) return sample.step;
+  }
+  return null;
+}
 
 function assert(condition, message) { if (!condition) throw new Error(message); }
 function readJson(relativePath) { const absolutePath = path.join(ROOT, relativePath); assert(fs.existsSync(absolutePath), `${relativePath} missing`); return JSON.parse(fs.readFileSync(absolutePath, 'utf8')); }
@@ -38,20 +64,31 @@ function validateSample(run, sample) {
   assert(!('fieldMemoryDistanceA' in sample) && !('fieldMemoryDistanceB' in sample), `${run.runId} must not emit fieldMemoryDistanceA/B`);
 }
 function validateEvents(run, controlRun) {
-  const e = run.eventSummary; for (const key of ['runId', 'conditionId', 'sourceArtifact', 'sourceConditionId', 'conditionSelectionStrategy', 'traceHorizon', 'sampleInterval', 'controlRunId', 'couplingNotApplied', 'firstFailedGuardrail', 'firstFailedGuardrailsAtStep', 'terminalOutcome', 'terminalOutcomeReason', 'limitations', 'claimLevel']) assert(key in e, `${run.runId} eventSummary missing ${key}`); for (const key of FIRST_FIELDS) assert(key in e, `${run.runId} eventSummary missing ${key}`);
+  const e = run.eventSummary; for (const key of ['runId', 'conditionId', 'sourceArtifact', 'sourceConditionId', 'conditionSelectionStrategy', 'traceHorizon', 'sampleInterval', 'controlRunId', 'relationRelevantScanStartStep', 'baselineGuardrailState', 'preRelationGuardrailState', 'couplingNotApplied', 'firstFailedGuardrail', 'firstFailedGuardrailsAtStep', 'terminalOutcome', 'terminalOutcomeReason', 'limitations', 'claimLevel']) assert(key in e, `${run.runId} eventSummary missing ${key}`); for (const key of FIRST_FIELDS) assert(key in e, `${run.runId} eventSummary missing ${key}`);
   assert(e.claimLevel === CLAIM_LEVEL, `${run.runId} claim level mismatch`); assert(ALLOWED_OUTCOMES.has(e.terminalOutcome), `${run.runId} invalid terminal outcome`);
   const steps = new Set(run.samples.map((s) => s.step)); for (const key of FIRST_FIELDS) assert(e[key] === null || steps.has(e[key]), `${run.runId} ${key} is not a sampled step`);
-  assert(e.firstMeetingBandEntryStep === firstStep(run.samples, (s) => s.observerV2.fieldABDistanceAligned >= 0.01 && s.observerV2.fieldABDistanceAligned <= 0.15), `${run.runId} meeting-band first step mismatch`);
-  assert(e.firstIdentityCollapseGuardrailStep === firstStep(run.samples, (s) => s.guardrails.identityCollapse), `${run.runId} identity guardrail mismatch`);
-  assert(e.firstNearIdentityCollapseGuardrailStep === firstStep(run.samples, (s) => s.guardrails.nearIdentityCollapse), `${run.runId} near-identity guardrail mismatch`);
-  assert(e.firstMemoryCopyCollapseGuardrailStep === firstStep(run.samples, (s) => s.guardrails.memoryCopyCollapse), `${run.runId} memory copy guardrail mismatch`);
-  assert(e.firstMemoryDetachedGuardrailStep === firstStep(run.samples, (s) => s.guardrails.memoryDetached), `${run.runId} memory detached guardrail mismatch`);
-  assert(e.firstLedgerReliabilityLimitedStep === firstStep(run.samples, (s) => s.guardrails.ledgerReliabilityLimited), `${run.runId} ledger guardrail mismatch`);
-  assert(e.firstWindingReliabilityLimitedStep === firstStep(run.samples, (s) => s.guardrails.windingReliabilityLimited), `${run.runId} winding guardrail mismatch`);
+  const expectedMeeting = firstStep(run.samples, (s) => s.observerV2.fieldABDistanceAligned >= 0.01 && s.observerV2.fieldABDistanceAligned <= 0.15);
+  const expectedControlSeparated = firstControlSeparatedStep(run, controlRun);
+  assert(e.firstMeetingBandEntryStep === expectedMeeting, `${run.runId} meeting-band first step mismatch`);
+  assert(e.firstControlSeparatedStep === expectedControlSeparated, `${run.runId} control separation recompute mismatch`);
+  const relationStartCandidates = [expectedMeeting, expectedControlSeparated].filter((value) => value !== null);
+  const expectedRelationStart = relationStartCandidates.length > 0 ? Math.min(...relationStartCandidates) : null;
+  assert(e.relationRelevantScanStartStep === expectedRelationStart, `${run.runId} relationRelevantScanStartStep mismatch`);
+  assert(JSON.stringify(e.baselineGuardrailState) === JSON.stringify(guardrailState(run.samples[0])), `${run.runId} baselineGuardrailState mismatch`);
+  const preRelationSamples = expectedRelationStart === null ? run.samples.filter((s) => s.step > 0) : run.samples.filter((s) => s.step > 0 && s.step < expectedRelationStart);
+  const expectedPreRelationState = Object.fromEntries(GUARDRAIL_PRECEDENCE.map((name) => [name, preRelationSamples.some((s) => s.guardrails[name] === true)]));
+  assert(JSON.stringify(e.preRelationGuardrailState) === JSON.stringify(expectedPreRelationState), `${run.runId} preRelationGuardrailState mismatch`);
+  const relationSamples = expectedRelationStart === null ? [] : run.samples.filter((s) => s.step >= expectedRelationStart);
+  assert(e.firstIdentityCollapseGuardrailStep === firstStep(relationSamples, (s) => s.guardrails.identityCollapse), `${run.runId} identity guardrail mismatch`);
+  assert(e.firstNearIdentityCollapseGuardrailStep === firstStep(relationSamples, (s) => s.guardrails.nearIdentityCollapse), `${run.runId} near-identity guardrail mismatch`);
+  assert(e.firstMemoryCopyCollapseGuardrailStep === firstStep(relationSamples, (s) => s.guardrails.memoryCopyCollapse), `${run.runId} memory copy guardrail mismatch`);
+  assert(e.firstMemoryDetachedGuardrailStep === firstStep(relationSamples, (s) => s.guardrails.memoryDetached), `${run.runId} memory detached guardrail mismatch`);
+  assert(e.firstLedgerReliabilityLimitedStep === firstStep(relationSamples, (s) => s.guardrails.ledgerReliabilityLimited), `${run.runId} ledger guardrail mismatch`);
+  assert(e.firstWindingReliabilityLimitedStep === firstStep(relationSamples, (s) => s.guardrails.windingReliabilityLimited), `${run.runId} winding guardrail mismatch`);
   const firsts = { identityCollapse: e.firstIdentityCollapseGuardrailStep, nearIdentityCollapse: e.firstNearIdentityCollapseGuardrailStep, memoryCopyCollapse: e.firstMemoryCopyCollapseGuardrailStep, memoryDetached: e.firstMemoryDetachedGuardrailStep, fieldFlattened: e.firstFieldFlatteningGuardrailStep, energyUnstable: e.firstEnergyInstabilityGuardrailStep, ledgerReliabilityLimited: e.firstLedgerReliabilityLimitedStep, windingReliabilityLimited: e.firstWindingReliabilityLimitedStep, pheromoneFog: e.firstPheromoneFogGuardrailStep };
   const firstStepValue = Math.min(...Object.values(firsts).filter((v) => v !== null)); const expectedAtStep = Number.isFinite(firstStepValue) ? GUARDRAIL_PRECEDENCE.filter((name) => firsts[name] === firstStepValue) : [];
   assert(JSON.stringify(e.firstFailedGuardrailsAtStep) === JSON.stringify(expectedAtStep), `${run.runId} firstFailedGuardrailsAtStep mismatch`); assert(e.firstFailedGuardrail === (expectedAtStep[0] || null), `${run.runId} firstFailedGuardrail mismatch`);
-  const coupled = run.samples.some((s) => s.coupling.couplingG > 0); const applied = run.samples.some((s) => s.step > 0 && s.coupling.memoryCouplingApplied === true && s.coupling.effectiveMemoryCoupling > 0);
+  const coupled = run.samples.some((s) => s.coupling.couplingG > 0); const applied = run.samples.some((s) => s.step > 0 && couplingHasMeasuredDelta(s));
   assert(e.couplingNotApplied === (coupled && !applied), `${run.runId} couplingNotApplied mismatch`);
   if (coupled) { assert(run.samples.every((s) => s.coupling.couplingType === 'memory' && s.coupling.memoryCouplingEnabled === true), `${run.runId} coupled run did not use memory coupling`); assert(applied || (e.couplingNotApplied && e.terminalOutcome === 'indeterminate'), `${run.runId} silently accepted no-op coupling`); }
   else { assert(e.controlRunId === null, `${run.runId} control must not have controlRunId`); assert(e.couplingNotApplied === false, `${run.runId} control couplingNotApplied must be false`); }

@@ -141,7 +141,7 @@ This section records the first RMT runner / artifact generation gate after the d
 - The primary metric source was `collectAeternaMetrics`, including `memoryFieldDifferenceA/B` from existing metrics.
 - Pheromone remained disabled.
 - Coupled runs used implemented memory coupling only; no coupled run was promoted through a silent no-op coupling path.
-- The summary outcomes were `no_meeting_observed` and `control_separated_but_reliability_limited` under heuristic guardrails.
+- The summary outcomes were `no_meeting_observed` and `control_separated_but_reliability_limited` under heuristic guardrails; first-failed guardrail counts exclude step `0` initialization state and use the relation-relevant scan.
 
 ### Claim discipline
 
